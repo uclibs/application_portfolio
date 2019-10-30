@@ -1,0 +1,57 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/mallepvl/git-repo/application_portfolio/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/controllers/front_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/jobs/application_job.rb": [
+        0,
+        0
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/channels/application_cable/connection.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/mallepvl/git-repo/application_portfolio/app/channels/application_cable/channel.rb": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "timestamp": 1572468687
+  }
+}
