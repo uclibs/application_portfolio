@@ -38,7 +38,7 @@ gem 'rubocop'
 gem 'simplecov', require: false
 # Use bootstrap css, jquery-rails gem for styling the components
 gem 'bootstrap', '~> 4.3.1'
-gem 'jquery-rails' 
+gem 'jquery-rails'
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
 # Use Redis adapter to run Action Cable in production
@@ -49,14 +49,15 @@ gem 'dotenv-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
-# Use Capistrano for deployment
+# Use Capisrtrano for deployment
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop
+  # execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails', '~>3.8'
 end
