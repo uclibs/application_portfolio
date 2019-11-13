@@ -36,7 +36,13 @@
       "/Users/mallepvl/git-repo/application_portfolio/app/controllers/application_controller.rb": [
         null,
         null,
+        null,
         1,
+        null,
+        1,
+        null,
+        0,
+        null,
         null
       ],
       "/Users/mallepvl/git-repo/application_portfolio/app/mailers/application_mailer.rb": [
@@ -70,6 +76,6 @@
         0
       ]
     },
-    "timestamp": 1573062279
+    "timestamp": 1573679243
   }
 }

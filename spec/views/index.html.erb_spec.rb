@@ -13,7 +13,7 @@ end
 
 describe 'front/index' do
   context 'when user is created' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       sign_in user
