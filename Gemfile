@@ -41,6 +41,8 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
+# Use petergate gem for authorization
+gem 'petergate'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
