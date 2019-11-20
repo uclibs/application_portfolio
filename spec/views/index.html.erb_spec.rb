@@ -13,14 +13,17 @@ end
 
 describe 'front/index' do
   context 'when user is created' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       sign_in user
     end
+
     it 'displays who is logged in' do
       render
       expect(rendered).to have_text('Logged in as random@gmail.com')
+      expect(controller.request.path_parameters[:controller]).to eq('front')
+      print(response.body)
     end
 
     it 'displays a logout link' do
