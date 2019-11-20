@@ -4,10 +4,45 @@
 
 a{
 	&:hover{
-}
+	}
 }
 
-.logout{
-	width: 5%;
+.action-btn{
+	width: auto;
 	color: #FFFFF;
+		&:hover{
+	 		cursor: pointer;
+	 		background: red;
+	 	}
+}
+
+.welcome-block {
+	opacity : 0.8;
+	background-color: black;
+	width: 50%;
+	margin: auto;
+	padding: 40px;
+	border-radius: 5px;
+}
+
+.opacity-block {
+	opacity : 0.8;
+	background-color: black;
+	width: 30%;
+	margin: auto;
+	padding: 40px;
+	border-radius: 5px;
+	color: white
+}
+
+input[type=email], input[type=password] {
+	margin-left: 5px;
+	border-radius: 2px;
+	border: 0;
+}
+
+.navigation-links {
+	font-size: 15px;
+	padding-left: 35px;
+	padding-top: 10px;
 }

@@ -9,7 +9,22 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="background-color: #E00122">
+    <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: black; ">
+      <div class="container-fluid">
+        <a class="navbar-brand float-left" href="https://www.uc.edu/" target="_blank"><%= image_tag("UC_Logo.svg", top:'0', width:'133px', height: '59px')%></a>
+          <ul class="navbar-nav ml-auto float-right">
+              <li class="nav-item">
+                  <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Contact-us</a>
+              </li>
+          </ul>
+        </div>
+    </nav>
+
     <%= yield %>
   </body>
+  
 </html>

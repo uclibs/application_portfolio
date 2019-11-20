@@ -1,34 +1,22 @@
 <html>
-<nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: black; ">
-<div class="container-fluid">
-    <a class="navbar-brand float-left" href="https://www.uc.edu/" target="_blank"><%= image_tag("UC_Logo.svg", top:'0', width:'133px', height: '59px')%></a>
-
-    <ul class="navbar-nav ml-auto float-right">
-		<li class="nav-item">
-			<a class="nav-link" href="#">About</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="#">Contact-us</a>
-		</li>
-	</ul>
-</div>
-</nav>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 p-0">
-            <div class="min-vh-100 text-center m-0 bg-danger d-flex flex-column justify-content-center">
-                <h1 class="display-4">Welcome to Application Portfolio !</h1>
-                <p class="lead">A Portfolio that displays the draft, on-going projects in UC Libraries</p>
+            <div class="min-vh-100 text-center m-0 d-flex flex-column justify-content-center">
+                <div class="welcome-block">
+                <h1 class="display-4" style="color: white">Welcome to Application Portfolio !</h1>
+                <p class="lead" style="color: white">A Portfolio that displays the draft, on-going projects in UC Libraries</p>
                 <p class="lead">
                     <% if current_user %>
-                        <p>Logged in as <%= current_user.email %></p>
-                        <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-dark btn-lg logout mx-auto"%>
+                        <p style="color: white">Logged in as <%= current_user.email %></p>
+                        <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-dark btn-lg action-btn mx-auto"%>
                     <% else %>
-                        <%= link_to "Login", new_user_session_path, {:style=>'color:#FFFFFF;', :class => "btn btn-dark btn-lg"} %>
-                        <%=link_to "Sign up", new_user_registration_path, {:style=>'color:#FFFFFF;', :class => "btn btn-dark btn-lg"} %>
+                     <%= link_to "Login", new_user_session_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
+                        <%=link_to "Sign up", new_user_registration_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
                     <% end %>
                 </p>
+            </div>
             </div>
         </div>
     </div>
