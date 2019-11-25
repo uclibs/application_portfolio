@@ -1,0 +1,39 @@
+
+<div class="container" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: 100%;"><br/>
+    <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Software Record<% else %>Edit Software Record<% end %></h1>
+    <div class = "card-body">
+        <%= form_with(model: software_record, local: true) do |form| %>
+          <% if software_record.errors.any? %>
+            <div id="error_explanation">
+              <% software_record.errors.full_messages.each do |message| %>
+                <%= alert_generator message, "error" %>
+              <% end %>
+            </div>
+          <% end %>
+        <div class="form-group">
+          <%= form.label :title %>
+          <%= form.text_field :title, :class => "form-control" %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :status %>
+          <%= form.select(:status, SoftwareRecord::STATUSES, {} , {:class => "form-control"})%>
+        </div>
+        <br/>
+        <div class="form-group <%= component %>" style= "text-align: center;">
+          <%= form.submit nil, class: "btn btn-primary" %>
+          <% if component.eql?("new") %>
+             <%= link_to 'Back', software_records_path, :class => "btn btn-info" %>
+          <% else %>
+            <%= link_to 'View', @software_record, :class => "btn btn-success" %>  <%= link_to 'Back', software_records_path, :class => "btn btn-warning" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

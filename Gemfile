@@ -41,6 +41,8 @@ gem 'jquery-rails'
 gem 'dotenv-rails'
 # Use petergate for authorization
 gem 'petergate'
+# Use gritter for flash message
+gem 'gritter'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

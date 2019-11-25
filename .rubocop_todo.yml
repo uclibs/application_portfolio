@@ -25,6 +25,10 @@ Style/IfUnlessModifier:
   Exclude:
     - 'spec/rails_helper.rb'
 
+Metrics/AbcSize:
+  Exclude:
+    - 'app/helpers/application_helper.rb'
+
 # Offense count: 2
 Style/MixinUsage:
   Exclude:
@@ -35,6 +39,8 @@ Style/MixinUsage:
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
+Metrics/MethodLength:
+  Max: 154
 
 Metrics/BlockLength:
   Max: 154
