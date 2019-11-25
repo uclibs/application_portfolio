@@ -1,0 +1,29 @@
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: white; font-family: Courier New, Lucida, Console">Vendor Records</h1>
+    <em style="font-size: 14px;">Contains all information of vendors available till date</em><br/><br/>
+    <p>
+      <%= link_to 'Create a new vendor record', new_vendor_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
+    </p>
+  </div>
+</section>
+<hr style = "background-color: white; width: 54%;">
+
+<div class="album text-muted">
+  <div class="container">
+    <div class="row">
+      <% @vendor_records.each do |vendor_record| %>
+      <div class = "card text-center" style = "background-color: black; opacity: 0.9">
+        <div class = "card-body">
+          <h3 class = "card-title" style="color: white"><%= vendor_record.title %></h3>
+          <em class = "card-text" style="color: white"><%= vendor_record.description %></em><br/><br/>
+          <%= link_to 'View', vendor_record , { :class => "btn btn-success" }%>
+          <%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %>
+          <%= link_to 'Destroy', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' }  %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
