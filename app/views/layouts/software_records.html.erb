@@ -11,10 +11,34 @@
   </head>
   
   <body>
+  <div id="mySidenav" class="sidenav" style="background-color: black; visibility: hidden">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <br/>
+    <a href="<%= software_records_path %>">Software Records <%= image_tag "software_records.png", height:"25" %></a>
+    <a href="<%= vendor_records_path %>">Vendors <%= image_tag "vendor_records.png", height:"25" %></a>
+    <a href="#">Software Types</a>
+  </div>
+  <div id="main">
     <%= render 'shared/dashboard_header' %>
+    <% if current_user %><div id="pillSideNav"><span id="dashboard-open" onclick="openNav()">Menu &#9776;</span></div><% end %>
     <%= yield %>
     <%= alerts %>
     <%= render 'shared/dashboard_footer' %>
+  </div>
   </body>
+
+  <script>
+  function openNav() {
+    document.getElementById("mySidenav").style.visibility = "visible";
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.visibility = "hidden";
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+</script>
   
 </html>

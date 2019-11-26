@@ -256,14 +256,16 @@ input[type=email], input[type=password] {
   padding: 15px;
   width: 150px;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 19px;
   color: black;
+  text-align: right;
   border-radius: 0 5px 5px 0;
 }
 
 #pillSideNav span:hover {
   left: 0;
   cursor: pointer;
+  text-align: center;
 }
 
 #pillSideNav #dashboard-open {

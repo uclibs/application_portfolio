@@ -4,7 +4,7 @@
 class CreateVendorRecords < ActiveRecord::Migration[5.2]
   def change
     create_table :vendor_records do |t|
-      t.string :name
+      t.string :title
       t.text :description
       t.date :date_started
 
