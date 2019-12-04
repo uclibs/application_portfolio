@@ -9,6 +9,7 @@ class SoftwareRecordsController < ApplicationController
   # GET /software_records
   $page_title = 'Application Portfolio | Software Records'
   def index
+    @softwarerecords_count = SoftwareRecord.count
     @software_records = SoftwareRecord.all
   end
 

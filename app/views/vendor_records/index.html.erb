@@ -10,20 +10,24 @@
 </section>
 <hr style = "background-color: white; width: 54%;">
 
-<div class="album text-muted">
-  <div class="container">
-    <div class="row">
-      <% @vendor_records.each do |vendor_record| %>
-      <div class = "card text-center" style = "background-color: black; opacity: 0.9">
-        <div class = "card-body">
-          <h3 class = "card-title" style="color: white"><%= vendor_record.title %></h3>
-          <em class = "card-text" style="color: white"><%= vendor_record.description %></em><br/><br/>
-          <%= link_to 'View', vendor_record , { :class => "btn btn-success" }%>
-          <%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %>
-          <%= link_to 'Destroy', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' }  %>
+<% if @vendorrecords_count != 0 %>
+  <div class="album text-muted">
+    <div class="container">
+      <div class="row">
+        <% @vendor_records.each do |vendor_record| %>
+        <div class = "card text-center" style = "background-color: black; opacity: 0.9">
+          <div class = "card-body">
+            <h3 class = "card-title" style="color: white"><%= vendor_record.title %></h3>
+            <em class = "card-text" style="color: white"><%= vendor_record.description %></em><br/><br/>
+            <%= link_to 'View', vendor_record , { :class => "btn btn-success" }%>
+            <%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %>
+            <%= link_to 'Destroy', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' }  %>
+          </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
-</div>
+<% else %>
+  <h3 class="text-center">No records found</h3>
+<% end %>

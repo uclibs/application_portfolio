@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :software_types
   resources :vendor_records
   resources :software_records
   devise_for :users

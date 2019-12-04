@@ -12,11 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_125_213_227) do
+ActiveRecord::Schema.define(version: 20_191_204_004_749) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
     t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'software_types', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

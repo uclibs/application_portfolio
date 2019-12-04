@@ -10,6 +10,7 @@ class VendorRecordsController < ApplicationController
   $page_title = 'Application Portfolio | Vendor Records'
   # GET /vendor_records
   def index
+    @vendorrecords_count = VendorRecord.count
     @vendor_records = VendorRecord.all
   end
 

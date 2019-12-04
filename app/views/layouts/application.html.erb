@@ -11,13 +11,7 @@
   </head>
 
 <body style="background-color: #E00122">
-  <div id="mySidenav" class="sidenav" style="background-color: black; visibility: hidden">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <br/>
-    <a href="<%= software_records_path %>">Software Records <%= image_tag "software_records.png", height:"25" %></a>
-    <a href="<%= vendor_records_path %>">Vendors <%= image_tag "vendor_records.png", height:"25" %></a>
-    <a href="#">Software Types</a>
-  </div>
+  <%= render 'shared/dashboard_menu' %>
   <div class="site-wrapper" id="main">
     <div class="site-wrapper-inner">
       <% if current_user %><div id="pillSideNav"><span id="dashboard-open" onclick="openNav()">Menu &#9776;</span></div><% end %>

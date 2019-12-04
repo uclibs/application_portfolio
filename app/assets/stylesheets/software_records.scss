@@ -188,3 +188,28 @@ option {
 #pillSideNav #dashboard-open {
   background-color: #FFFAFA;
 }
+
+.table {
+  margin: auto;
+  color: white;
+  width: 50% !important;
+  background-color: black;
+}
+.table td, .table th {
+  vertical-align: middle !important;
+  border-top: none;
+}
+
+.table tr {
+  &:hover {
+    background-color: #202020;
+  }
+}
+
+.th-link {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,45 @@
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: white; font-family: Courier New, Lucida, Console">Software Types</h1>
+    <em style="font-size: 14px;">Contains list of all software types available</em><br/><br/>
+    <p>
+      <%= link_to 'Create a new software type', new_software_type_path, {:class => "mx-auto new-record btn btn-dark"} %>
+    </p>
+  </div>
+</section>
+<hr style = "background-color: white; width: 54%;">
+
+<% if @softwaretypes_count != 0 %>
+  <div class="container">
+    <div class="row">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th><%= sortable "title", "Software Type" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %>
+            </th>
+            <th colspan="3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @software_types.each do |software_type| %>
+            <tr>
+              <td><%= software_type.title %></td>
+              <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
+              <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary" } %></td>
+              <td><%= link_to 'Delete', software_type, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <h3 class="text-center">No records found</h3>
+<% end %>
