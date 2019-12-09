@@ -1,17 +1,21 @@
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="opacity-block">
-  	<h2>Forgot your password?</h2><hr style="background: white">
-	  <div class="field">
-	    <%= f.label :email %>
-	    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-	  </div>
-	  <br/>
-	<div class="actions">
-	  <%= f.submit "Send me reset password instructions", {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
-  	</div> 
-  	<br/>
- 	   <%= render "devise/shared/links" %>
+<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: 36%;"><br/>
+    <h2 class= "text-center" style="color: white;">Forgot your password?</h2><hr style="background: white">
+    <div class = "card-body">
+		<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+		  <%= render "devise/shared/error_messages", resource: resource %>
+			  <div class="field">
+			    <%= f.label "Enter email" %><br/>
+			    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control d-inline" %>
+			  </div>
+			  <br/>
+			<div class="actions">
+			  <%= f.submit "Send me reset password instructions", {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
+		  	</div> 
+		  	<br/>
+		 	   <%= render "devise/shared/links" %>
+			</div>
+		<% end %>
 	</div>
-<% end %>
+   </div>
+</div>

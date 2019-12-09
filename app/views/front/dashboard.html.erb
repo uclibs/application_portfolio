@@ -1,14 +1,44 @@
-<div class="welcome-block">
-    <h1 style="color: white">Welcome to Application Portfolio !</h1>
-    <em style="color: white font-size: 14px">A Portfolio that displays the draft, on-going projects in UC Libraries</em><br/><br/>
-    <hr style="background-color: white">
-    <p class="lead">
-        <% if current_user %>
-            <p style="color: white">Logged in as <%= current_user.email %></p>
-            <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-dark btn-lg action-btn mx-auto"%>
-        <% else %>
-            <%= link_to "Login", new_user_session_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
-            <%=link_to "Sign up", new_user_registration_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
-        <% end %>
-    </p>
+<div class = "container-block mt-5" style="margin-left: 150px; margin-right: 150px">
+  <div class="card-deck mb-3 text-center" style="color: black">
+    <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto">
+      <div class="card-header">
+        <h3 class="my-0 font-weight-normal text-uppercase">Users</h3>
+      </div>
+      <div class="card-body">
+        <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", "#E8DE0D"], legend: "bottom"%><br/>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto">
+      <div class="card-header">
+        <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
+      </div>
+      <div class="card-body">
+        <%= pie_chart SoftwareRecord.group(:status).count, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom", refresh: 60%><br/>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto">
+      <div class="card-header">
+        <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
+      </div>
+      <div class="card-body">
+        <%= pie_chart VendorRecord.group(:title).count, messages: {empty: "No data"}, download: {filename: "VendorRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom"%><br/>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="card-deck mb-3 text-center" style="color: black">
+    <div class="card mb-4 box-shadow animated fadeInDown" style="width: 50.33%; height: auto">
+      <div class="card-header">
+        <h3 class="my-0 font-weight-normal text-uppercase">Software Types</h3>
+      </div>
+      <div class="card-body">
+        <%= column_chart SoftwareType.group_by_month(:created_at, format: "%b %Y").count, messages: {empty: "No data"}, download: {filename: "SoftwareTypes"}, dataset: {borderWidth: 3, borderColor: "transparent"} %><br/>
+        <!--<%= line_chart SoftwareType.group_by_day(:created_at).count %><br/> -->
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+      </div>
+    </div>
+  </div>
 </div>
