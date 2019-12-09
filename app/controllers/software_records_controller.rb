@@ -6,9 +6,10 @@ class SoftwareRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_software_record, only: %i[show edit update destroy]
   access all: %i[index show new edit create update destroy], user: :all
-
   # GET /software_records
+  $page_title = 'Application Portfolio | Software Records'
   def index
+    @softwarerecords_count = SoftwareRecord.count
     @software_records = SoftwareRecord.all
   end
 

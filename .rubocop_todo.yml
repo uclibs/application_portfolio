@@ -29,6 +29,10 @@ Metrics/AbcSize:
   Exclude:
     - 'app/helpers/application_helper.rb'
 
+Style/GlobalVars:
+  Exclude:
+    - 'app/controllers/*'
+
 # Offense count: 2
 Style/MixinUsage:
   Exclude:

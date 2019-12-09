@@ -1,0 +1,16 @@
+
+<div class="container" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: 40%">
+    <div class = "card-body">
+        <blockquote class="blockquote text-center">
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @software_type.title %></h2>
+            <div class="blockquote-footer"><cite title="Source Title"><%= @software_type.description %></cite></div>
+        </blockquote>
+		<br/>
+      <div class="text-center">
+        <%= link_to 'Edit', edit_software_type_path(@software_type), :class => "btn btn-warning nav-links" %>
+        <%= link_to 'Back', software_types_path, :class => "btn btn-primary nav-links"%>
+      </div>
+    </div>
+  </div>
+</div>

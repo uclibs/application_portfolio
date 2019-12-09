@@ -12,11 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_125_173_903) do
+ActiveRecord::Schema.define(version: 20_191_204_004_749) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
     t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'software_types', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
@@ -32,5 +39,13 @@ ActiveRecord::Schema.define(version: 20_191_125_173_903) do
     t.string 'roles'
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+  end
+
+  create_table 'vendor_records', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
+    t.date 'date_started'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 end
