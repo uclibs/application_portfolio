@@ -45,6 +45,10 @@ gem 'petergate'
 gem 'gritter'
 # Use bootstrap-datepicker-rails for datepicker
 gem 'bootstrap-datepicker-rails'
+# Use chartkick for data-visualization
+gem 'chartkick'
+# Use groupdate to group by dates
+gem 'groupdate'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

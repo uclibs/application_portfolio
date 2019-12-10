@@ -1,24 +1,36 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="opacity-block">
-    <h2>Login</h2> <hr style="background: white">
-      <div class="field">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
-      <div class="field">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: "current-password" %>
-      </div>
-
-      <% if devise_mapping.rememberable? %>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: 36%;"><br/>
+    <h2 class= "text-center" style="color: white;">Login</h2><hr style="background: white">
+      <div class = "card-body">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <%= image_tag("login.png", width:'18px', height: '19px') %> </span>
+            </div>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control w-75 email-input", style: 'margin: auto; width: 90%', placeholder: "Email" %><br/>
+          </div>
         </div>
-      <% end %>
-      <div class="actions">
-        <%= f.submit "Login", {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
-      </div> <br/>
-    <%= render "devise/shared/links" %>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <%= image_tag("password.png", width:'18px', height: '19px') %> </span>
+            </div>
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control w-75 password-input", style: 'margin: auto; width: 90%', placeholder: "Password"%><br/>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field" style="text-align: center">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %><br/>
+        <div class="actions" style="text-align: center">
+          <%= f.submit "Login", {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
+        </div> <br/>
+        <%= render "devise/shared/links" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

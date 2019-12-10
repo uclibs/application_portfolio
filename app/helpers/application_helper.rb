@@ -24,4 +24,20 @@ module ApplicationHelper
       js add_gritter(flash[:warning], title: 'Application Portfolio', image: :warning, time: 3000, class_name: 'gritter')
     end
   end
+
+  def nav_helper(style)
+    if current_user
+      (link_to 'Home', dashboard_path, class: "#{style} #{active? dashboard_path}") + ' '.html_safe +
+        (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
+        (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
+    else
+      (link_to 'Login', new_user_session_path, class: "#{style} #{active? new_user_session_path}") + ' '.html_safe +
+        (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
+        (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
+    end
+  end
+
+  def active?(path)
+    'active' if current_page? path
+  end
 end

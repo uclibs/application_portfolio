@@ -1,6 +1,7 @@
-<div class="welcome-block">
-    <h1 style="color: white">Welcome to Application Portfolio !</h1>
-    <em style="color: white font-size: 14px">A Portfolio that displays the draft, on-going projects in UC Libraries</em><br/><br/>
+<div class="container animated pulse" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card p-5" style = "background-color: black; width: 80%; text-align: center;"><br/>
+    <h1 style="color: white;">Welcome to Application Portfolio !</h1><br/>
+    <em style="color: white font-size: 14px">A Portfolio that displays the draft, on-going projects in UC Libraries</em><br/>
     <hr style="background-color: white">
     <p class="lead">
         <% if current_user %>
@@ -11,4 +12,5 @@
             <%=link_to "Sign up", new_user_registration_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
         <% end %>
     </p>
+</div>
 </div>

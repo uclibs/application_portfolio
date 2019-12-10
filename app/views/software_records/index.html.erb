@@ -7,11 +7,11 @@
       <%= link_to 'Create a new software record', new_software_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
     </p>
   </div>
+  <hr style = "background-color: white; width: 54%;">
 </section>
-<hr style = "background-color: white; width: 54%;">
 
 <% if @softwarerecords_count != 0 %>
-  <div class="album text-muted">
+  <div class="album text-muted animated fadeInRight">
     <div class="container">
       <div class="row">
         <% @software_records.each do |software_record| %>
