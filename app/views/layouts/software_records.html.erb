@@ -16,7 +16,7 @@
   <%= render 'shared/dashboard_menu' %>
   <div id="main">
     <%= render 'shared/dashboard_header' %>
-    <% if current_user %><div id="pillSideNav"><span id="dashboard-open" onclick="openNav()">Menu &#9776;</span></div><% end %>
+    <% if current_user %><div id="pillSideNav"><span id="dashboard-open" onclick="openNav()" style="background-color: #E00122; color: white;">Menu &#9776;</span></div><% end %>
     <%= yield %>
     <%= alerts %>
     <%= render 'shared/dashboard_footer' %>

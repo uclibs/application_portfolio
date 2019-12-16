@@ -32,11 +32,27 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   include Devise::Test::ControllerHelpers
   render_views
 
+  before do
+    user = FactoryBot.create(:user)
+    sign_in_user(user)
+
+    VendorRecord.create!(
+      title: 'Vendor 1',
+      description: 'test vendor'
+    )
+    SoftwareType.create!(
+      title: 'Web app',
+      description: 'test software type'
+    )
+  end
+
   let(:valid_attributes) do
     {
       title: 'A Good Software',
       description: 'A Good description about the software',
-      status: 'In Development'
+      status: 'In Development',
+      software_type_id: SoftwareType.first.id,
+      vendor_record_id: VendorRecord.first.id
     }
   end
 
@@ -44,7 +60,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     {
       title: '',
       description: '',
-      status: ''
+      status: '',
+      software_type_id: '',
+      vendor_record_id: ''
     }
   end
 
@@ -57,11 +75,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     sign_in user
   end
 
-  before do
-    user = FactoryBot.create(:user)
-    sign_in_user(user)
-  end
-
   describe 'GET #index' do
     it 'returns a success response' do
       SoftwareRecord.create! valid_attributes
@@ -72,8 +85,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     it 'has the correct content' do
       SoftwareRecord.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response.body).to have_content('A Good Software')
-      expect(response.body).to have_content('A Good description about the software')
+      expect(response.body).to match('\b(A.Good.Software)\b')
       expect(response.body).to_not have_content('In Development')
     end
   end

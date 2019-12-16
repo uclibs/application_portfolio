@@ -3,4 +3,5 @@
 # SoftwareType Model
 class SoftwareType < ApplicationRecord
   validates_presence_of :title, :description
+  has_many :software_records
 end

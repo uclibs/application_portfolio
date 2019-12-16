@@ -1,31 +1,43 @@
 
 <section class="jumbotron text-center">
   <div class="container">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: white; font-family: Courier New, Lucida, Console">Software Records</h1>
-    <em style="font-size: 14px;">Collection of all the software applications that are maintained by UC Libraries.</em><br/><br/>
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Software Records</h1>
+    <em style="font-size: 14px; color: black">Collection of all the software applications that are maintained by UC Libraries.</em><br/><br/>
     <p>
       <%= link_to 'Create a new software record', new_software_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
     </p>
   </div>
-  <hr style = "background-color: white; width: 54%;">
+  <hr style = "background-color: black; width: 54%;">
 </section>
 
 <% if @softwarerecords_count != 0 %>
-  <div class="album text-muted animated fadeInRight">
-    <div class="container">
-      <div class="row">
-        <% @software_records.each do |software_record| %>
-        <div class = "card text-center" style = "background-color: black; opacity: 0.9">
-          <div class = "card-body">
-            <h3 class = "card-title" style="color: white"><%= software_record.title %></h3>
-            <em class = "card-text" style="color: white"><%= software_record.description %></em><br/><br/>
-            <%= link_to 'View', software_record , { :class => "btn btn-success" }%>
-            <%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %>
-            <%= link_to 'Destroy', software_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' }  %>
-          </div>
-        </div>
-        <% end %>
-      </div>
+  <div class="container animated fadeInLeft">
+    <div class="row">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th><%= sortable "title", "Software Records" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %>
+            </th>
+            <th colspan="3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @software_records.each do |software_record| %>
+            <tr>
+              <td><%= software_record.title %></td>
+              <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
+              <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %></td>
+              <td><%= link_to 'Delete', software_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 <% else %>

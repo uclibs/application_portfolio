@@ -13,7 +13,7 @@ RSpec.describe 'SoftwareRecords', type: :request do
   end
 
   describe 'GET /software_records' do
-    it 'works! (now write some real specs)' do
+    it 'requests /software_records' do
       get software_records_path
       expect(response).to have_http_status(200)
     end

@@ -20,10 +20,6 @@
           <%= form.label :description %>
           <%= form.text_area :description, :class => "form-control" %>
         </div>
-        <div class="form-group">
-          <%= form.label :date_started %>
-          <%= form.date_field :date_started, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-        </div>
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit nil, class: "btn btn-primary" %>

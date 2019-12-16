@@ -3,7 +3,18 @@
     <a class="masthead-brand" href="https://www.uc.edu/" target="_blank"><%= image_tag("UC_Logo.svg", top:'0', width:'113px', height: '49px')%></a>
     <nav class="nav nav-masthead">
        <%= nav_helper 'nav-link' %>
-       <% if current_user %><%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "nav-link"%><% end %>
+       <% if current_user %>
+       <div class="dropdown show">
+  			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    			<%= current_user.first_name.to_s+" "+current_user.last_name.to_s %>
+  			</a>
+  			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "nav-link dropdown-item"%>
+			    <a class="dropdown-item" href="#">Another action</a>
+			    <a class="dropdown-item" href="#">Something else here</a>
+			</div>
+		</div>
+		<% end %>
     </nav>
   </div>
 </div>

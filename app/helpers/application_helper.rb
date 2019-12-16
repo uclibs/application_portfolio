@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def nav_helper(style)
     if current_user
-      (link_to 'Home', dashboard_path, class: "#{style} #{active? dashboard_path}") + ' '.html_safe +
+      (link_to 'Dashboard', dashboard_path, class: "#{style} #{active? dashboard_path}") + ' '.html_safe +
         (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
         (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
     else

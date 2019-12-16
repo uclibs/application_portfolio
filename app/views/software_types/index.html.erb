@@ -1,14 +1,14 @@
 
 <section class="jumbotron text-center">
   <div class="container">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: white; font-family: Courier New, Lucida, Console">Software Types</h1>
-    <em style="font-size: 14px;">Contains list of all software types available</em><br/><br/>
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Software Types</h1>
+    <em style="font-size: 14px; color: black">Contains list of all software types available</em><br/><br/>
     <p>
       <%= link_to 'Create a new software type', new_software_type_path, {:class => "mx-auto new-record btn btn-dark"} %>
     </p>
   </div>
 </section>
-<hr style = "background-color: white; width: 54%;">
+<hr style = "background-color: black; width: 54%;">
 
 <% if @softwaretypes_count != 0 %>
   <div class="container animated fadeInUp">
@@ -16,7 +16,7 @@
       <table class="table text-center">
         <thead>
           <tr>
-            <th><%= sortable "title", "Software Type" %> 
+            <th><%= sortable "title", "Software Types" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>

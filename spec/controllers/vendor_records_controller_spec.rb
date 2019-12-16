@@ -34,16 +34,14 @@ RSpec.describe VendorRecordsController, type: :controller do
   let(:valid_attributes) do
     {
       title: 'A Test Vendor',
-      description: 'A Good testing vendor record',
-      date_started: '07/11/1996'
+      description: 'A Good testing vendor record'
     }
   end
 
   let(:invalid_attributes) do
     {
       title: '',
-      description: '',
-      date_started: ''
+      description: ''
     }
   end
 
@@ -72,8 +70,6 @@ RSpec.describe VendorRecordsController, type: :controller do
       VendorRecord.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response.body).to have_content('A Test Vendor')
-      expect(response.body).to have_content('A Good testing vendor record')
-      expect(response.body).to_not have_content('07/11/1996')
     end
   end
 
@@ -83,7 +79,6 @@ RSpec.describe VendorRecordsController, type: :controller do
       get :show, params: { id: vendor_record.to_param }, session: valid_session
       expect(response).to be_successful
       expect(response.body).to have_content('A Test Vendor')
-      expect(response.body).to have_content('1996-11-07')
     end
   end
 
@@ -130,7 +125,7 @@ RSpec.describe VendorRecordsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { title: 'A Test Vendor v2.0', description: 'Another testing vendor record', date_started: '02/01/1992' }
+        { title: 'A Test Vendor v2.0', description: 'Another testing vendor record' }
       end
 
       it 'updates the requested vendor_record' do
@@ -139,7 +134,6 @@ RSpec.describe VendorRecordsController, type: :controller do
         vendor_record.reload
         expect(vendor_record.title).to eq('A Test Vendor v2.0')
         expect(vendor_record.description).to eq('Another testing vendor record')
-        expect(vendor_record.date_started.to_s).to eq('1992-01-02')
       end
 
       it 'redirects to the vendor_record' do

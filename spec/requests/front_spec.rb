@@ -19,13 +19,6 @@ RSpec.describe 'FrontController', type: :request do
     end
   end
 
-  describe 'GET /welcome' do
-    it 'works! (now write some real specs)' do
-      get welcome_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
   describe 'GET /contact' do
     it 'works! (now write some real specs)' do
       get contact_path

@@ -7,7 +7,7 @@ class SoftwareTypesController < ApplicationController
   include SoftwareTypesHelper
   before_action :set_software_type, only: %i[show edit update destroy]
   access all: %i[index show new edit create update destroy], user: :all
-  $page_title = 'Application Portfolio | Software Types'
+  $page_title = 'Software Types | Application Portfolio'
   # GET /software_types
   def index
     @softwaretypes_count = SoftwareType.count
