@@ -2,7 +2,12 @@
 
 require 'rails_helper'
 
-describe 'front/dashboard' do
+RSpec.describe 'front/dashboard', type: :view do
+  before(:each) do
+    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard
+    @softwarerecords_production = SoftwareRecordsController.production_dashboard
+  end
+
   it 'displays an dashboard page' do
     render
     expect(rendered).to have_text('Users')

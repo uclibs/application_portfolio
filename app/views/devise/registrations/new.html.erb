@@ -29,7 +29,7 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "Sign up", {class: "btn btn-dark btn-lg mx-auto float-left action-btn"} %>
+          <button type="submit" name="commit" value="Sign up" class="btn btn-dark btn-lg mx-auto float-left action-btn" data-disable-with="Sign up">Sign up <i class="fas fa-angle-double-right"></i></button>
         </div>
         <a class="navigation-links mt-1 float-right" href="/users/sign_in">Existing User ?</a>
       <% end %>

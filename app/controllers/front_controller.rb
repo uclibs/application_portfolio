@@ -10,6 +10,10 @@ class FrontController < ApplicationController
 
   def dashboard
     $page_title = 'Dashboard | Application Portfolio'
+    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard
+    @indesign_count = @softwarerecords_indesign.count
+    @softwarerecords_production = SoftwareRecordsController.production_dashboard
+    @production_count = @softwarerecords_production.count
     render 'dashboard'
   end
 

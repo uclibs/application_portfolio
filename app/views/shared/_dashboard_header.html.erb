@@ -4,10 +4,12 @@
     <nav class="nav nav-masthead">
        <%= nav_helper 'nav-link' %>
        <div class="drop" style="position: relative; display: inline-block; margin-left: 20px;">
-       		<% if current_user %><a class="nav-link drop-btn" style="margin-top:-4px;"> <%= current_user.first_name.to_s+" "+current_user.last_name.to_s %><i class="fa fa-caret-down" style="margin: 8px 0px 0px 5px;"></i></a><% end %>
+       		<% if current_user %><a class="nav-link drop-btn"> <%= current_user.first_name.to_s+" "+current_user.last_name.to_s %><i class="fa fa-caret-down" style="margin: 5px 0px 0px 8px;"></i></a><% end %>
        		<div class="dropdown-content">
-       			<a href="#">Edit Profile</a>
-    			<% if current_user %> <%= link_to "Logout", destroy_user_session_path, :method => :delete %><%end%>
+       			<a href="#">Edit Profile <i class="fa fa-user float-right"></i></a>
+    			  <% if current_user %>
+              <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+            <%end%>
        		</div>
        </div>
     </nav>

@@ -27,7 +27,7 @@
           </div>
         <% end %><br/>
         <div class="actions" style="text-align: center">
-          <%= f.submit "Login", {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
+          <button type="submit" name="commit" class="btn btn-dark btn-lg mx-auto action-btn" data-disable-with="Login">Login <i class="fas fa-sign-in-alt"></i></button>
         </div> <br/>
         <%= render "devise/shared/links" %>
       </div>
