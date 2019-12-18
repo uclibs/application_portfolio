@@ -13,90 +13,90 @@
       <dl>
         <dt class="inline-block">Created on: <span style="color: white; font-weight: normal"><%= @software_record.created_at.to_date %></span></dt>
 
-        <% if !@software_record.date_implemented.nil? %>
+        <% if !@software_record.date_implemented.nil? && !@software_record.date_implemented.to_s.empty? %>
           <dt class="inline-block">Date Implemented: <span style="color: white; font-weight: normal"><%= @software_record.date_implemented.to_date %></span></dt>
         <% end %>
         
-        <% if !@software_record.date_of_upgrade.nil? %>
+        <% if !@software_record.date_of_upgrade.nil? && !@software_record.date_of_upgrade.to_s.empty? %>
           <dt class="inline-block">Date of Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
         <% end %>
         
-        <% if !@software_record.developers.nil? %>
+        <% if !@software_record.developers.nil? && !@software_record.developers.to_s.empty? %>
           <dt>Developers</dt>
           <dd>
             <ul><%= @software_record.developers %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.tech_leads.nil? %>
+        <% if !@software_record.tech_leads.nil? && !@software_record.tech_leads.to_s.empty? %>
           <dt>Tech Leads</dt>
           <dd>
             <ul><%= @software_record.tech_leads %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.product_owners.nil? %>
+        <% if !@software_record.product_owners.nil? && !@software_record.product_owners.to_s.empty? %>
           <dt>Product Owners</dt>
           <dd>
             <ul><%= @software_record.product_owners %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.languages_used.nil? %>
+        <% if !@software_record.languages_used.nil? && !@software_record.languages_used.to_s.empty? %>
           <dt>Languages Used</dt>
           <dd>
             <ul><%= @software_record.languages_used %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.url.nil? %>
+        <% if !@software_record.url.nil? && !@software_record.url.to_s.empty? %>
           <dt>URL</dt>
           <dd>
             <ul><%= @software_record.url %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.user_seats.nil? %>
+        <% if !@software_record.user_seats.nil? && !@software_record.user_seats.to_s.empty? %>
           <dt>User Seats</dt>
           <dd>
             <ul><%= @software_record.user_seats %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.annual_fees.nil? %>
+        <% if !@software_record.annual_fees.nil? && !@software_record.annual_fees.to_s.empty? %>
           <dt>Annual Fees</dt>
           <dd>
             <ul><%= @software_record.annual_fees %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.support_contract.nil? %>
+        <% if !@software_record.support_contract.nil? && !@software_record.support_contract.to_s.empty? %>
           <dt class="inline-block">Support Contract: <span style="color: white; font-weight: normal"><%= @software_record.support_contract %></span></dt>
         <% end %>
 
-        <% if !@software_record.hosting_environment.nil? %>
+        <% if !@software_record.hosting_environment.nil? && !@software_record.hosting_environment.to_s.empty?%>
           <dt>Hosting Environment</dt>
           <dd>
             <ul><%= @software_record.hosting_environment %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.current_version.nil? %>
+        <% if !@software_record.current_version.nil? && !@software_record.current_version.to_s.empty? %>
           <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.current_version %></span></dt>
         <% end %>
 
-        <% if !@software_record.notes.nil? %>
+        <% if !@software_record.notes.nil? && !@software_record.notes.to_s.empty? %>
           <dt>Notes</dt>
           <dd>
             <ul><%= @software_record.notes %></ul>
           </dd>
         <% end %>
 
-        <% if !@software_record.business_value.nil? %>
+        <% if !@software_record.business_value.nil? && !@software_record.business_value.to_s.empty? %>
           <dt class="inline-block">Business Value: <span style="color: white; font-weight: normal"><%= @software_record.business_value %></span></dt>
         <% end %>
 
-        <% if !@software_record.it_quality.nil? %>
+        <% if !@software_record.it_quality.nil? && !@software_record.it_quality.to_s.empty? %>
           <dt class="inline-block">IT Quality: <span style="color: white; font-weight: normal"><%= @software_record.it_quality %></span></dt>
         <% end %>
       </dl>

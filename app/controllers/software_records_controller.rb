@@ -15,6 +15,14 @@ class SoftwareRecordsController < ApplicationController
     @software_records = SoftwareRecord.order(sort_column + ' ' + sort_direction)
   end
 
+  def self.indesign_dashboard
+    SoftwareRecord.where(status: 'In Design').or(SoftwareRecord.where(status: 'In Development'))
+  end
+
+  def self.production_dashboard
+    SoftwareRecord.where(status: 'Production')
+  end
+
   # GET /software_records/1
   def show; end
 

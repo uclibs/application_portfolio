@@ -142,3 +142,65 @@ a:hover {
   width: 50px;
   border-radius: 50%;
 }
+
+.table {
+  margin: auto;
+  color: white;
+  width: 100% !important;
+  background-color: black;
+}
+
+.table td, .table th {
+  vertical-align: middle !important;
+  border-top: none;
+}
+
+.table tr {
+  &:hover {
+    background-color: #202020;
+  }
+}
+
+.dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+.dropdown-container a{
+  font-size: 15px;
+  text-align: right;
+}
+
+.dropdown-container{
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.active {
+  background-color: #E00122;
+  color: white;
+}
