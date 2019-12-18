@@ -1,7 +1,9 @@
-<div class="container animated pulse" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
-  <div class = "card p-5" style = "background-color: black; width: 80%; text-align: center;"><br/>
+<div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: repeat; background-size: cover; background-position: center center;">
+    <!-- https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg -->
+<div class="container animated pulse" style="display:flex; justify-content: center; align-items: center; height: 92vh; opacity: 0.9;">
+  <div class = "card p-5" style = "background-color: black; width: 80%; text-align: center; background-color: transparent"><br/>
     <h1 style="color: white;">Welcome to Application Portfolio !</h1><br/>
-    <em style="color: white font-size: 14px">A Portfolio that displays the draft, on-going projects in UC Libraries</em><br/>
+    <em style="color: white; font-size: 17px">A Portfolio that displays the draft, on-going projects in UC Libraries</em><br/>
     <hr style="background-color: white">
     <p class="lead">
         <% if current_user %>
@@ -12,5 +14,11 @@
             <%=link_to "Sign up", new_user_registration_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
         <% end %>
     </p>
+</div>
+</div>
+<div class="footer" style="background-color: transparent; color: #BDBDBD; padding-bottom: 10px;">
+  <div class="container">
+    <p style="font-size: 13px; text-align: center">All Rights Reserved &reg; 2019 | <a href="https://www.uc.edu" target="_blank">University of Cincinnati</a> &copy;.</p>
+  </div>
 </div>
 </div>

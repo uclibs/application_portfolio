@@ -5,7 +5,7 @@
 html,
 body {
   height: 100%;
-  background-color: #E00122;
+  background-color: #D3D3D3;
 }
 
 body {
@@ -30,7 +30,8 @@ a:hover {
 	color: #FFFFF;
 		&:hover{
 	 		cursor: pointer;
-	 		background: red;
+	 		background: #fff;
+      color: black;
 	 	}
 }
 

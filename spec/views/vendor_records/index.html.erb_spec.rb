@@ -7,21 +7,17 @@ RSpec.describe 'vendor_records/index', type: :view do
     assign(:vendor_records, [
              VendorRecord.create!(
                title: 'Name',
-               description: 'MyText',
-               date_started: '07/11/1996'
+               description: 'MyText'
              ),
              VendorRecord.create!(
                title: 'Name',
-               description: 'MyText',
-               date_started: '07/11/1996'
+               description: 'MyText'
              )
            ])
   end
 
   it 'renders a list of vendor_records' do
     render
-    assert_select 'div>h3', text: 'Name'.to_s, count: 2
-    assert_select 'div>em', text: 'MyText'.to_s, count: 2
-    expect(rendered).to_not have_text('Date Started')
+    assert_select 'td:nth-child(1)', text: 'Name'.to_s, count: 2
   end
 end

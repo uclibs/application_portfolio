@@ -9,6 +9,5 @@ Rails.application.routes.draw do
   root 'front#index'
   get '/about', to: 'front#about'
   get '/contact', to: 'front#contact'
-  get '/welcome', to: 'front#welcome'
   get '/dashboard', to: 'front#dashboard'
 end

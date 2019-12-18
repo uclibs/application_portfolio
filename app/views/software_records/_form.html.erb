@@ -1,5 +1,5 @@
-<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
-  <div class = "card" style = "background-color: black; width: 100%;"><br/>
+<div class="container animated fadeIn" style="opacity: 0.8">
+  <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
     <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Software Record<% else %>Edit Software Record<% end %></h1>
     <div class = "card-body">
         <%= form_with(model: software_record, local: true) do |form| %>
@@ -19,10 +19,105 @@
           <%= form.label :description %>
           <%= form.text_area :description, :class => "form-control" %>
         </div>
+        
         <div class="form-group">
           <%= form.label :status %>
           <%= form.select(:status, SoftwareRecord::STATUSES, {} , {:class => "form-control"})%>
         </div>
+        
+        <div class="form-group">
+          <%= form.label :date_implemented %>
+          <%= form.date_field :date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :date_of_upgrade %>
+          <%= form.date_field :date_of_upgrade, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label "Software Type" %>
+          <%= form.collection_select(:software_type_id, SoftwareType.all, :id, :title, {}, {:class => "form-control"}) %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label "Vendor" %>
+          <%= form.collection_select(:vendor_record_id, VendorRecord.all, :id, :title, {}, {:class => "form-control"}) %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :departments %>
+          <%= form.text_field :departments, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :developers %>
+          <%= form.text_field :developers, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :tech_leads %>
+          <%= form.text_field :tech_leads, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :product_owners %>
+          <%= form.text_field :product_owners, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :languages_used %>
+          <%= form.text_field :languages_used, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :url %>
+          <%= form.text_field :url, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :user_seats %>
+          <%= number_field_tag :user_seats, nil, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :annual_fees %>
+          <%= form.text_field :annual_fees, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :support_contract %><br/>
+          <%= form.label :support_contract, "Yes", :value => "Yes"  %>
+          <%= form.radio_button :support_contract, "Yes" %>
+          <%= form.label :support_contract, "No", :value => "No" %>
+          <%= form.radio_button :support_contract, "No", :checked => true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :hosting_environment %>
+          <%= form.text_field :hosting_environment, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :current_version %>
+          <%= number_field_tag :current_version, nil, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :notes %>
+          <%= form.text_field :notes, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :business_value %>
+          <%= number_field_tag :business_value, nil, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :it_quality %>
+          <%= number_field_tag :it_quality, nil, :class => "form-control" %>
+        </div>
+
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit nil, class: "btn btn-primary" %>
@@ -35,4 +130,7 @@
       <% end %>
     </div>
   </div>
+  <br/>
+  <br/>
+  <br/>
 </div>

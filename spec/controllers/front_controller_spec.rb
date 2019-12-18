@@ -30,22 +30,6 @@ describe FrontController do
     end
   end
 
-  describe '#welcome' do
-    def sign_in_user(user)
-      sign_in user
-    end
-
-    before do
-      user = FactoryBot.create(:user)
-      sign_in_user(user)
-    end
-    it 'renders the welcome page' do
-      get :welcome
-      expect(response.status).to eq(200)
-      expect(response).to render_template('welcome')
-    end
-  end
-
   describe '#dashboard' do
     def sign_in_user(user)
       sign_in user

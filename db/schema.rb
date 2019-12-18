@@ -12,13 +12,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_205_213_713) do
+ActiveRecord::Schema.define(version: 20_191_216_191_819) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
     t.string 'status'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'software_type_id'
+    t.integer 'vendor_record_id'
+    t.string 'departments'
+    t.date 'date_implemented'
+    t.date 'date_of_upgrade'
+    t.string 'developers'
+    t.string 'tech_leads'
+    t.string 'product_owners'
+    t.string 'languages_used'
+    t.text 'url'
+    t.integer 'user_seats'
+    t.string 'annual_fees'
+    t.string 'support_contract'
+    t.string 'hosting_environment'
+    t.integer 'current_version'
+    t.string 'notes'
+    t.integer 'business_value'
+    t.integer 'it_quality'
+    t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
+    t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'
   end
 
   create_table 'software_types', force: :cascade do |t|
@@ -46,7 +66,6 @@ ActiveRecord::Schema.define(version: 20_191_205_213_713) do
   create_table 'vendor_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
-    t.date 'date_started'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

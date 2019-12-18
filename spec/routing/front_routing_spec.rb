@@ -10,9 +10,6 @@ RSpec.describe ApplicationController, type: :routing do
     it 'routes to /contact' do
       expect(get: '/contact').to route_to('front#contact')
     end
-    it 'routes to /welcome' do
-      expect(get: '/welcome').to route_to('front#welcome')
-    end
     it 'routes to /dashboard' do
       expect(get: '/dashboard').to route_to('front#dashboard')
     end

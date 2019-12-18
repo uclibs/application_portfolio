@@ -3,14 +3,16 @@
 # SoftwareRecords Controller
 class SoftwareRecordsController < ApplicationController
   layout 'software_records'
+  include SoftwareRecordsHelper
   before_action :authenticate_user!
   before_action :set_software_record, only: %i[show edit update destroy]
   access all: %i[index show new edit create update destroy], user: :all
   # GET /software_records
-  $page_title = 'Application Portfolio | Software Records'
+
+  $page_title = 'Software Records | Application Portfolio'
   def index
     @softwarerecords_count = SoftwareRecord.count
-    @software_records = SoftwareRecord.all
+    @software_records = SoftwareRecord.order(sort_column + ' ' + sort_direction)
   end
 
   # GET /software_records/1
@@ -59,6 +61,28 @@ class SoftwareRecordsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def software_record_params
-    params.require(:software_record).permit(:title, :description, :status)
+    params.require(:software_record).permit(
+      :title,
+      :description,
+      :status,
+      :software_type_id,
+      :vendor_record_id,
+      :date_implemented,
+      :date_of_upgrade,
+      :departments,
+      :developers,
+      :tech_leads,
+      :product_owners,
+      :languages_used,
+      :url,
+      :user_seats,
+      :annual_fees,
+      :support_contract,
+      :hosting_environment,
+      :current_version,
+      :notes,
+      :business_value,
+      :it_quality
+    )
   end
 end

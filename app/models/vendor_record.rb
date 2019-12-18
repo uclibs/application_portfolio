@@ -2,5 +2,6 @@
 
 # VendorRecord Model
 class VendorRecord < ApplicationRecord
-  validates_presence_of :title, :description, :date_started
+  validates_presence_of :title, :description
+  has_many :software_records
 end

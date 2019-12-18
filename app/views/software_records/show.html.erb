@@ -1,17 +1,109 @@
+<div class="container animated bounceIn" style="opacity: 0.9;">
+  <div class="card" style="width: 90%; margin-top: 40px; height: auto; background-color: black; color: white; margin-bottom: 10rem">
+    <div class="card-header text-center">
+      <h1 style="color: white; font-family: Courier New, Lucida, Console"><%= @software_record.title %></h1>
+      <blockquote class="blockquote text-center">
+        <div class="blockquote-footer"><cite title="Source Title"><%= @software_record.description %></cite></div>
+      </blockquote>
+      <hr style="background-color: white">
+    </div>
+    <div class="card-body" style="padding-top: 1px; ">
+      <p class="text-center"><%= pills @software_record.status %></p>
+      <br/>
+      <dl>
+        <dt class="inline-block">Created on: <span style="color: white; font-weight: normal"><%= @software_record.created_at.to_date %></span></dt>
 
-<div class="container animated bounceIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
-  <div class = "card" style = "background-color: black; width: 40%">
-    <div class = "card-body">
-        <blockquote class="blockquote text-center">
-            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @software_record.title %></h2>
-            <div class="blockquote-footer"><cite title="Source Title"><%= @software_record.description %></cite></div>
-        </blockquote>
-      <p class = "card-text lead" style="color: white">  </p>
-      <p class="text-center">Status: <%= pills @software_record.status %></p><br/>
+        <% if !@software_record.date_implemented.nil? %>
+          <dt class="inline-block">Date Implemented: <span style="color: white; font-weight: normal"><%= @software_record.date_implemented.to_date %></span></dt>
+        <% end %>
+        
+        <% if !@software_record.date_of_upgrade.nil? %>
+          <dt class="inline-block">Date of Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
+        <% end %>
+        
+        <% if !@software_record.developers.nil? %>
+          <dt>Developers</dt>
+          <dd>
+            <ul><%= @software_record.developers %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.tech_leads.nil? %>
+          <dt>Tech Leads</dt>
+          <dd>
+            <ul><%= @software_record.tech_leads %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.product_owners.nil? %>
+          <dt>Product Owners</dt>
+          <dd>
+            <ul><%= @software_record.product_owners %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.languages_used.nil? %>
+          <dt>Languages Used</dt>
+          <dd>
+            <ul><%= @software_record.languages_used %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.url.nil? %>
+          <dt>URL</dt>
+          <dd>
+            <ul><%= @software_record.url %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.user_seats.nil? %>
+          <dt>User Seats</dt>
+          <dd>
+            <ul><%= @software_record.user_seats %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.annual_fees.nil? %>
+          <dt>Annual Fees</dt>
+          <dd>
+            <ul><%= @software_record.annual_fees %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.support_contract.nil? %>
+          <dt class="inline-block">Support Contract: <span style="color: white; font-weight: normal"><%= @software_record.support_contract %></span></dt>
+        <% end %>
+
+        <% if !@software_record.hosting_environment.nil? %>
+          <dt>Hosting Environment</dt>
+          <dd>
+            <ul><%= @software_record.hosting_environment %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.current_version.nil? %>
+          <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.current_version %></span></dt>
+        <% end %>
+
+        <% if !@software_record.notes.nil? %>
+          <dt>Notes</dt>
+          <dd>
+            <ul><%= @software_record.notes %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.business_value.nil? %>
+          <dt class="inline-block">Business Value: <span style="color: white; font-weight: normal"><%= @software_record.business_value %></span></dt>
+        <% end %>
+
+        <% if !@software_record.it_quality.nil? %>
+          <dt class="inline-block">IT Quality: <span style="color: white; font-weight: normal"><%= @software_record.it_quality %></span></dt>
+        <% end %>
+      </dl>
       <div class="text-center">
-        <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
-        <%= link_to 'Back', software_records_path, :class => "btn btn-primary nav-links"%>
-      </div>
+      <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
+      <%= link_to 'Back', software_records_path, :class => "btn btn-primary nav-links"%>
+    </div>
     </div>
   </div>
 </div>

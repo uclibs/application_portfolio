@@ -3,15 +3,16 @@
 # VendorRecords Controller
 class VendorRecordsController < ApplicationController
   layout 'software_records'
+  include VendorRecordsHelper
   before_action :authenticate_user!
   before_action :set_vendor_record, only: %i[show edit update destroy]
   access all: %i[index show new edit create update destroy], user: :all
 
-  $page_title = 'Application Portfolio | Vendor Records'
+  $page_title = 'Vendor Records | Application Portfolio'
   # GET /vendor_records
   def index
     @vendorrecords_count = VendorRecord.count
-    @vendor_records = VendorRecord.all
+    @vendor_records = VendorRecord.order(sort_column + ' ' + sort_direction)
   end
 
   # GET /vendor_records/1
@@ -60,6 +61,6 @@ class VendorRecordsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def vendor_record_params
-    params.require(:vendor_record).permit(:title, :description, :date_started)
+    params.require(:vendor_record).permit(:title, :description)
   end
 end

@@ -4,10 +4,20 @@ require 'rails_helper'
 
 RSpec.describe 'software_records/show', type: :view do
   before(:each) do
+    VendorRecord.create!(
+      title: 'Vendor 1',
+      description: 'test vendor'
+    )
+    SoftwareType.create!(
+      title: 'Web app',
+      description: 'test software type'
+    )
     @software_record = assign(:software_record, SoftwareRecord.create!(
-                                                  title: 'Title',
+                                                  title: 'MyString',
                                                   description: 'MyText',
-                                                  status: 'Status'
+                                                  status: 'MyString',
+                                                  software_type_id: SoftwareType.first.id,
+                                                  vendor_record_id: VendorRecord.first.id
                                                 ))
   end
 
@@ -15,6 +25,6 @@ RSpec.describe 'software_records/show', type: :view do
     render
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/Status/)
+    expect(rendered).to match(/MyString/)
   end
 end
