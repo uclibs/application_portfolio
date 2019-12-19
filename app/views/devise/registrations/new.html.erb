@@ -1,38 +1,53 @@
-<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 90vh; opacity: 0.9">
-  <div class = "card" style = "background-color: black; width: 56%;"><br/>
+<div class="container animated fadeIn mt-5">
+  <div class = "card-detail" style = "background-color: black; width: auto; height: auto;"><br/>
     <h2 class= "text-center" style="color: white;">Signup</h2><hr style="background: white">
     <div class = "card-body">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <div class="field">
-          <%= f.label "Name" %><br/>
-          <%= f.text_field :first_name, autofocus: true, autocomplete: "email", class: "form-control d-inline", style: 'width: 50%',  placeholder: "Enter Firstname" %>
-          <%= f.text_field :last_name, autocomplete: "email", class: "form-control d-inline", style: 'width: 49%', placeholder: "Enter Lastname" %>
-        </div>
-        <br/>
-        <div class="field">
-          <%= f.label :email %>
-          <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "name@example.com" %><br/>
-        </div>
+      <div class = "row">
+        <div class = "col-12">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="field">
+            <%= f.label "Name" %><br/>
+            <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control d-inline", style: 'width: 50%',  placeholder: "Enter Firstname" %>
+            <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control d-inline", style: 'width: 49%', placeholder: "Enter Lastname" %>
+          </div>
+          <br/>
 
-        <div class="field">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password" , class: "form-control"%><br/>
-        </div>
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "name@example.com" %><br/>
+          </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%><br/>
-        </div>
+          <div class="field">
+            <%= f.label :department %>
+            <%= f.text_field :department, autocomplete: "department", class: "form-control", placeholder: "Libraries" %><br/>
+          </div>
 
-        <div class="actions">
-          <button type="submit" name="commit" value="Sign up" class="btn btn-dark btn-lg mx-auto float-left action-btn" data-disable-with="Sign up">Sign up <i class="fas fa-angle-double-right"></i></button>
+          <div class="field">
+            <%= f.label "Job Title" %>
+            <%= f.text_field :title, autocomplete: "title", class: "form-control", placeholder: "Student" %><br/>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password" , class: "form-control"%><br/>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%><br/>
+          </div>
+
+          <div class="actions">
+            <button type="submit" name="commit" value="Sign up" class="btn btn-dark btn-lg mx-auto float-left action-btn" data-disable-with="Sign up">Sign up <i class="fas fa-angle-double-right"></i></button>
+            <a class="navigation-links mt-1 float-right" href="/users/sign_in">Existing User ?</a>
+          </div>
+        <% end %>
         </div>
-        <a class="navigation-links mt-1 float-right" href="/users/sign_in">Existing User ?</a>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

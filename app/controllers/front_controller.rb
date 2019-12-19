@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class FrontController < ApplicationController
-  before_action :authenticate_user!, only: [:dashboard]
+  layout 'application'
+  before_action :authenticate_user!, only: %i[dashboard profile]
   def index
     $page_title = 'Welcome | Application Portfolio'
     @controller = params[:controller]
@@ -25,5 +26,10 @@ class FrontController < ApplicationController
   def contact
     $page_title = 'Contact Us | Application Portfolio'
     render 'contact'
+  end
+
+  def profile
+    $page_title = 'My Profile | Application Portfolio'
+    render 'profile'
   end
 end

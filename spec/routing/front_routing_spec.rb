@@ -13,5 +13,8 @@ RSpec.describe ApplicationController, type: :routing do
     it 'routes to /dashboard' do
       expect(get: '/dashboard').to route_to('front#dashboard')
     end
+    it 'routes to /myprofile' do
+      expect(get: '/myprofile').to route_to('front#profile')
+    end
   end
 end

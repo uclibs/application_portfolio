@@ -13,21 +13,28 @@ RSpec.describe 'FrontController', type: :request do
   end
 
   describe 'GET /about' do
-    it 'works! (now write some real specs)' do
+    it 'requests about page' do
       get about_path
       expect(response).to have_http_status(200)
     end
   end
 
   describe 'GET /contact' do
-    it 'works! (now write some real specs)' do
+    it 'requests contact page' do
       get contact_path
       expect(response).to have_http_status(200)
     end
   end
 
   describe 'GET /dashboard' do
-    it 'works! (now write some real specs)' do
+    it 'requests dashboard page' do
+      get dashboard_path
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe 'GET /profile' do
+    it 'requests profile page' do
       get dashboard_path
       expect(response).to have_http_status(200)
     end
