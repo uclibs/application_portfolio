@@ -8,7 +8,7 @@ class User < ApplicationRecord
   ## The multiple option can be set to true if you need users to have multiple roles.       ##
   petergate(roles: %i[admin editor], multiple: false) ##
   ############################################################################################
-  validates_presence_of :first_name, :last_name, :email, :password
+  validates_presence_of :first_name, :last_name, :email
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   get '/about', to: 'front#about'
   get '/contact', to: 'front#contact'
   get '/dashboard', to: 'front#dashboard'
+  get '/myprofile', to: 'front#profile'
 end

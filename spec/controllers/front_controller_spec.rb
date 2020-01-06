@@ -46,4 +46,21 @@ describe FrontController do
       expect(response).to render_template('dashboard')
     end
   end
+
+  describe '#profile' do
+    def sign_in_user(user)
+      sign_in user
+    end
+
+    before do
+      user = FactoryBot.create(:user)
+      sign_in_user(user)
+    end
+
+    it 'renders the profile page' do
+      get :profile
+      expect(response.status).to eq(200)
+      expect(response).to render_template('profile')
+    end
+  end
 end

@@ -23,6 +23,7 @@ a:hover {
 .navbar {
   background-color: black;
   margin-bottom: 0;
+  position: sticky;
 }
 
 .action-btn{
@@ -148,6 +149,7 @@ a:hover {
   color: white;
   width: 100% !important;
   background-color: black;
+  table-layout: fixed !important;
 }
 
 .table td, .table th {
@@ -203,4 +205,27 @@ a:hover {
 .active {
   background-color: #E00122;
   color: white;
+}
+
+ .nav-tabs .nav-link:hover {
+  background-color: #E00122;
+  color: white;
+}
+
+.nav-tabs .nav-link {
+  color: black;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: white;
+    background-color: #E00122;
+    border: 0;
+}
+
+.tab-content {
+  padding: 40px;
+}
+
+.labels {
+  font-size: 14px
 }

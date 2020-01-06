@@ -6,7 +6,7 @@
       </div>
       <div class="card-body">
         <% if @indesign_count != 0 %>
-          <table class="table text-center">
+          <table class="table text-center w-25">
             <thead>
               <tr>
                 <th>Software Records</th>
@@ -20,7 +20,7 @@
                 <tr>
                   <td><%= record_indesign.title %></td>
                   <td><%= record_indesign.created_at.to_date %></td>
-                  <td><%= pills record_indesign.status %></td>
+                  <td style="font-size: 12px"><%= pills record_indesign.status %></td>
                   <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
                 </tr>
               <% end %>
