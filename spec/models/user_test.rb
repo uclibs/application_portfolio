@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 class UserTest < ActiveSupport::TestCase
-  RSpec.describe SoftwareType, type: :model do
+  RSpec.describe User, type: :model do
     it 'is valid user if all required fields are provided' do
       user = User.new(first_name: 'Random', last_name: 'User', email: 'random@example.com', password: 'random@123', password_confirmation: 'random@123')
       expect(user).to be_valid

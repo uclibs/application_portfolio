@@ -49,6 +49,27 @@
     }
     });
   }
+
+  var createdbyfield = document.getElementsByClassName('regex-createdby')[0];
+        createdbyfield.onkeyup = function() {
+            createdbyfield.value = createdbyfield.value.replace(/[^a-zA-Z0-9 ]/, '');
+        }
+  var developerfield = document.getElementsByClassName('regex-developers')[0];
+        developerfield.onkeyup = function() {
+            developerfield.value = developerfield.value.replace(/[^a-zA-Z0-9 ]/, '');
+        }
+  var departmentfield = document.getElementsByClassName('regex-departments')[0];
+        departmentfield.onkeyup = function() {
+            departmentfield.value = departmentfield.value.replace(/[^a-zA-Z0-9 ]/, '');
+        }
+  var leadsfield = document.getElementsByClassName('regex-leads')[0];
+        leadsfield.onkeyup = function() {
+            leadsfield.value = leadsfield.value.replace(/[^a-zA-Z0-9 ]/, '');
+        }
+  var ownersfield = document.getElementsByClassName('regex-owners')[0];
+        ownersfield.onkeyup = function() {
+            ownersfield.value = ownersfield.value.replace(/[^a-zA-Z0-9 ]/, '');
+        }
 </script>
   
 </html>

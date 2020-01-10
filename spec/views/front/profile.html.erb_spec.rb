@@ -3,10 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'front/profile', type: :view do
-  let(:user) { FactoryBot.create(:user) }
-
-  before do
-    sign_in user
+  before(:each) do
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
   end
 
   it 'displays an profile page' do

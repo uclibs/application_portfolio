@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get '/contact', to: 'front#contact'
   get '/dashboard', to: 'front#dashboard'
   get '/myprofile', to: 'front#profile'
+  get '/request/new', to: 'front#new'
+  post '/request', to: 'front#create'
 end

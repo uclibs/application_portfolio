@@ -33,8 +33,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   render_views
 
   before do
-    user = FactoryBot.create(:user)
-    sign_in_user(user)
+    admin = FactoryBot.create(:admin)
+    sign_in_user(admin)
 
     VendorRecord.create!(
       title: 'Vendor 1',
@@ -52,7 +52,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       description: 'A Good description about the software',
       status: 'In Development',
       software_type_id: SoftwareType.first.id,
-      vendor_record_id: VendorRecord.first.id
+      vendor_record_id: VendorRecord.first.id,
+      created_by: 'Test Admin'
     }
   end
 
@@ -71,8 +72,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   # SoftwareRecordsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  def sign_in_user(user)
-    sign_in user
+  def sign_in_user(admin)
+    sign_in admin
   end
 
   describe 'GET #index' do
@@ -97,6 +98,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
+      expect(response.body).to have_content('Test Admin')
     end
   end
 
@@ -153,6 +155,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
+        expect(software_record.created_by).to eq('Test Admin')
       end
 
       it 'redirects to the software_record' do
@@ -186,6 +189,515 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       software_record = SoftwareRecord.create! valid_attributes
       delete :destroy, params: { id: software_record.to_param }, session: valid_session
       expect(response).to redirect_to(software_records_url)
+    end
+  end
+end
+
+# viewer specs
+
+RSpec.describe SoftwareRecordsController, type: :controller do
+  # This should return the minimal set of attributes required to create a valid
+  # SoftwareRecord. As you add validations to SoftwareRecord, be sure to
+  # adjust the attributes here as well.
+  include Devise::Test::ControllerHelpers
+  render_views
+
+  before do
+    viewer = FactoryBot.create(:viewer)
+    sign_in_user(viewer)
+
+    VendorRecord.create!(
+      title: 'Vendor 1',
+      description: 'test vendor'
+    )
+    SoftwareType.create!(
+      title: 'Web app',
+      description: 'test software type'
+    )
+  end
+
+  let(:valid_attributes) do
+    {
+      title: 'A Good Software',
+      description: 'A Good description about the software',
+      status: 'In Development',
+      software_type_id: SoftwareType.first.id,
+      vendor_record_id: VendorRecord.first.id,
+      created_by: 'Test Viewer'
+    }
+  end
+
+  let(:invalid_attributes) do
+    {
+      title: '',
+      description: '',
+      status: '',
+      software_type_id: '',
+      vendor_record_id: ''
+    }
+  end
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # SoftwareRecordsController. Be sure to keep this updated too.
+  let(:valid_session) { {} }
+
+  def sign_in_user(viewer)
+    sign_in viewer
+  end
+
+  describe 'GET #index' do
+    it 'returns a success response' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response).to be_successful
+    end
+
+    it 'has the correct content' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response.body).to match('\b(A.Good.Software)\b')
+      expect(response.body).to_not have_content('In Development')
+    end
+  end
+
+  describe 'GET #show' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :show, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to be_successful
+      expect(response.body).to have_content('A Good Software')
+      expect(response.body).to have_content('In Development')
+      expect(response.body).to have_content('Test Viewer')
+    end
+  end
+
+  describe 'GET #new' do
+    it 'returns a success response' do
+      get :new, params: {}, session: valid_session
+      expect(response).to_not be_successful
+      expect(response).to_not render_template(:new)
+    end
+  end
+
+  describe 'GET #edit' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to_not be_successful
+      expect(response).to_not render_template(:edit)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new SoftwareRecord' do
+        expect do
+          post :create, params: { software_record: valid_attributes }, session: valid_session
+        end.to change(SoftwareRecord, :count).by(1)
+      end
+
+      it 'redirects to the created software_record' do
+        post :create, params: { software_record: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(SoftwareRecord.last)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'new' template)" do
+        post :create, params: { software_record: invalid_attributes }, session: valid_session
+        expect(response).to be_successful
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+      end
+
+      it 'updates the requested software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
+        software_record.reload
+        expect(software_record.title).to_not eq('A Great Software v2.0')
+        expect(software_record.description).to_not eq('An Updated good description of the software')
+        expect(software_record.status).to_not eq('To be decomissioned')
+      end
+
+      it 'redirects to the software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: valid_attributes }, session: valid_session
+        expect(response).to_not redirect_to(software_record)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'edit' template)" do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: invalid_attributes }, session: valid_session
+        expect(response).to_not be_successful
+        expect(response).to_not render_template(:edit)
+        expect(response.body).to_not have_content("Title can\\'t be blank")
+        expect(response.body).to_not have_content("Description can\\'t be blank")
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'destroys the requested software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      expect do
+        delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      end.to change(SoftwareRecord, :count).by(0)
+    end
+
+    it 'redirects to the software_records list' do
+      software_record = SoftwareRecord.create! valid_attributes
+      delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to_not redirect_to(software_records_url)
+    end
+  end
+end
+
+# manager specs
+
+RSpec.describe SoftwareRecordsController, type: :controller do
+  # This should return the minimal set of attributes required to create a valid
+  # SoftwareRecord. As you add validations to SoftwareRecord, be sure to
+  # adjust the attributes here as well.
+  include Devise::Test::ControllerHelpers
+  render_views
+
+  before do
+    manager = FactoryBot.create(:manager)
+    sign_in_user(manager)
+
+    VendorRecord.create!(
+      title: 'Vendor 1',
+      description: 'test vendor'
+    )
+    SoftwareType.create!(
+      title: 'Web app',
+      description: 'test software type'
+    )
+  end
+
+  let(:valid_attributes) do
+    {
+      title: 'A Good Software',
+      description: 'A Good description about the software',
+      status: 'In Development',
+      software_type_id: SoftwareType.first.id,
+      vendor_record_id: VendorRecord.first.id,
+      created_by: 'Test Manager'
+    }
+  end
+
+  let(:invalid_attributes) do
+    {
+      title: '',
+      description: '',
+      status: '',
+      software_type_id: '',
+      vendor_record_id: ''
+    }
+  end
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # SoftwareRecordsController. Be sure to keep this updated too.
+  let(:valid_session) { {} }
+
+  def sign_in_user(manager)
+    sign_in manager
+  end
+
+  describe 'GET #index' do
+    it 'returns a success response' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response).to be_successful
+    end
+
+    it 'has the correct content' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response.body).to match('\b(A.Good.Software)\b')
+      expect(response.body).to_not have_content('In Development')
+    end
+  end
+
+  describe 'GET #show' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :show, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to be_successful
+      expect(response.body).to have_content('A Good Software')
+      expect(response.body).to have_content('In Development')
+      expect(response.body).to have_content('Test Manager')
+    end
+  end
+
+  describe 'GET #new' do
+    it 'returns a success response' do
+      get :new, params: {}, session: valid_session
+      expect(response).to be_successful
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'GET #edit' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to be_successful
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new SoftwareRecord' do
+        expect do
+          post :create, params: { software_record: valid_attributes }, session: valid_session
+        end.to change(SoftwareRecord, :count).by(1)
+      end
+
+      it 'redirects to the created software_record' do
+        post :create, params: { software_record: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(SoftwareRecord.last)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'new' template)" do
+        post :create, params: { software_record: invalid_attributes }, session: valid_session
+        expect(response).to be_successful
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+      end
+
+      it 'updates the requested software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
+        software_record.reload
+        expect(software_record.title).to eq('A Great Software v2.0')
+        expect(software_record.description).to eq('An Updated good description of the software')
+        expect(software_record.status).to eq('To be decomissioned')
+        expect(software_record.created_by).to eq('Test Manager')
+      end
+
+      it 'redirects to the software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(software_record)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'edit' template)" do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: invalid_attributes }, session: valid_session
+        expect(response).to be_successful
+        expect(response).to render_template(:edit)
+        expect(response.body).to have_content("Title can\\'t be blank")
+        expect(response.body).to have_content("Description can\\'t be blank")
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'destroys the requested software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      expect do
+        delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      end.to change(SoftwareRecord, :count).by(-1)
+    end
+
+    it 'redirects to the software_records list' do
+      software_record = SoftwareRecord.create! valid_attributes
+      delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to redirect_to(software_records_url)
+    end
+  end
+end
+
+# owner specs
+
+RSpec.describe SoftwareRecordsController, type: :controller do
+  # This should return the minimal set of attributes required to create a valid
+  # SoftwareRecord. As you add validations to SoftwareRecord, be sure to
+  # adjust the attributes here as well.
+  include Devise::Test::ControllerHelpers
+  render_views
+
+  before do
+    owner = FactoryBot.create(:owner)
+    sign_in_user(owner)
+
+    VendorRecord.create!(
+      title: 'Vendor 1',
+      description: 'test vendor'
+    )
+    SoftwareType.create!(
+      title: 'Web app',
+      description: 'test software type'
+    )
+  end
+
+  let(:valid_attributes) do
+    {
+      title: 'A Good Software',
+      description: 'A Good description about the software',
+      status: 'In Development',
+      software_type_id: SoftwareType.first.id,
+      vendor_record_id: VendorRecord.first.id,
+      created_by: 'Test Owner'
+    }
+  end
+
+  let(:invalid_attributes) do
+    {
+      title: '',
+      description: '',
+      status: '',
+      software_type_id: '',
+      vendor_record_id: ''
+    }
+  end
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # SoftwareRecordsController. Be sure to keep this updated too.
+  let(:valid_session) { {} }
+
+  def sign_in_user(owner)
+    sign_in owner
+  end
+
+  describe 'GET #index' do
+    it 'returns a success response' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response).to be_successful
+    end
+
+    it 'has the correct content' do
+      SoftwareRecord.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response.body).to match('\b(A.Good.Software)\b')
+      expect(response.body).to_not have_content('In Development')
+    end
+  end
+
+  describe 'GET #show' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :show, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to be_successful
+      expect(response.body).to have_content('A Good Software')
+      expect(response.body).to have_content('In Development')
+      expect(response.body).to have_content('Test Owner')
+    end
+  end
+
+  describe 'GET #new' do
+    it 'returns a success response' do
+      get :new, params: {}, session: valid_session
+      expect(response).to_not be_successful
+      expect(response).to_not render_template(:new)
+    end
+  end
+
+  describe 'GET #edit' do
+    it 'returns a success response' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to be_successful
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new SoftwareRecord' do
+        expect do
+          post :create, params: { software_record: valid_attributes }, session: valid_session
+        end.to change(SoftwareRecord, :count).by(1)
+      end
+
+      it 'redirects to the created software_record' do
+        post :create, params: { software_record: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(SoftwareRecord.last)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'new' template)" do
+        post :create, params: { software_record: invalid_attributes }, session: valid_session
+        expect(response).to be_successful
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+      end
+
+      it 'updates the requested software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
+        software_record.reload
+        expect(software_record.title).to eq('A Great Software v2.0')
+        expect(software_record.description).to eq('An Updated good description of the software')
+        expect(software_record.status).to eq('To be decomissioned')
+        expect(software_record.created_by).to eq('Test Owner')
+      end
+
+      it 'redirects to the software_record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(software_record)
+      end
+    end
+
+    context 'with invalid params' do
+      it "returns a success response (i.e. to display the 'edit' template)" do
+        software_record = SoftwareRecord.create! valid_attributes
+        put :update, params: { id: software_record.to_param, software_record: invalid_attributes }, session: valid_session
+        expect(response).to be_successful
+        expect(response).to render_template(:edit)
+        expect(response.body).to have_content("Title can\\'t be blank")
+        expect(response.body).to have_content("Description can\\'t be blank")
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'destroys the requested software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      expect do
+        delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      end.to change(SoftwareRecord, :count).by(0)
+    end
+
+    it 'redirects to the software_records list' do
+      software_record = SoftwareRecord.create! valid_attributes
+      delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      expect(response).to_not redirect_to(software_records_url)
     end
   end
 end

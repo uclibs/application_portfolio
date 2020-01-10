@@ -12,12 +12,14 @@ RSpec.describe 'software_records/new', type: :view do
       title: 'Web app',
       description: 'test software type'
     )
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
     @software_record = assign(:software_record, SoftwareRecord.new(
                                                   title: 'MyString',
                                                   description: 'MyText',
                                                   status: 'MyString',
                                                   software_type_id: SoftwareType.first.id,
-                                                  vendor_record_id: VendorRecord.first.id
+                                                  vendor_record_id: VendorRecord.first.id,
+                                                  created_by: 'Test User'
                                                 ))
   end
 

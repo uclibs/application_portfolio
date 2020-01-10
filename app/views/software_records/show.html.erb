@@ -13,6 +13,10 @@
       <dl>
         <dt class="inline-block">Created on: <span style="color: white; font-weight: normal"><%= @software_record.created_at.to_date %></span></dt>
 
+        <% if !@software_record.created_by.nil? && !@software_record.created_by.to_s.empty? %>
+          <dt class="inline-block">Created by: <span style="color: white; font-weight: normal"><%= @software_record.created_by.to_s %></span></dt>
+        <% end %>
+
         <% if !@software_record.date_implemented.nil? && !@software_record.date_implemented.to_s.empty? %>
           <dt class="inline-block">Date Implemented: <span style="color: white; font-weight: normal"><%= @software_record.date_implemented.to_date %></span></dt>
         <% end %>
@@ -20,7 +24,27 @@
         <% if !@software_record.date_of_upgrade.nil? && !@software_record.date_of_upgrade.to_s.empty? %>
           <dt class="inline-block">Date of Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
         <% end %>
+
+        <% if !@software_record.tentative_date_implemented.nil? && !@software_record.tentative_date_implemented.to_s.empty? %>
+          <dt class="inline-block">Tentative Date of Implementation: <span style="color: white; font-weight: normal"><%= @software_record.tentative_date_implemented.to_date %></span></dt>
+        <% end %>
         
+        <% if !@software_record.software_type_id.nil? && !@software_record.software_type_id.to_s.empty? %>
+          <dt>Software Type</dt>
+          <dd>
+            <ul><%= SoftwareType.find(@software_record.software_type_id).title %>
+            </ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.vendor_record_id.nil? && !@software_record.vendor_record_id.to_s.empty? %>
+          <dt>Vendor</dt>
+          <dd>
+            <ul><%= VendorRecord.find(@software_record.vendor_record_id).title %>
+            </ul>
+          </dd>
+        <% end %>
+
         <% if !@software_record.developers.nil? && !@software_record.developers.to_s.empty? %>
           <dt>Developers</dt>
           <dd>
@@ -32,6 +56,13 @@
           <dt>Tech Leads</dt>
           <dd>
             <ul><%= @software_record.tech_leads %></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.departments.nil? && !@software_record.departments.to_s.empty? %>
+          <dt>Departments</dt>
+          <dd>
+            <ul><%= @software_record.departments %></ul>
           </dd>
         <% end %>
 
@@ -95,13 +126,17 @@
         <% if !@software_record.business_value.nil? && !@software_record.business_value.to_s.empty? %>
           <dt class="inline-block">Business Value: <span style="color: white; font-weight: normal"><%= @software_record.business_value %></span></dt>
         <% end %>
-
+        
         <% if !@software_record.it_quality.nil? && !@software_record.it_quality.to_s.empty? %>
           <dt class="inline-block">IT Quality: <span style="color: white; font-weight: normal"><%= @software_record.it_quality %></span></dt>
         <% end %>
       </dl>
       <div class="text-center">
-      <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
+        <% if user_signed_in? %>
+          <% if current_user.role.to_s == "owner" or current_user.role.to_s == "admin" or current_user.role.to_s == "manager" %>
+            <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
+          <% end %>
+        <% end %>
       <%= link_to 'Back', software_records_path, :class => "btn btn-primary nav-links"%>
     </div>
     </div>
