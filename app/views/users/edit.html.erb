@@ -1,0 +1,46 @@
+<div class="container animated fadeIn" style="opacity: 0.8">
+  <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
+    <h1 class= "text-center" style="color: white;">Edit User</h1>
+    <div class = "card-body">
+    	<%= form_with do |form| %>
+	    	<div class="form-group">
+	    	  <%= form.label "Name" %><br/>
+	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline", style: 'width: 49%' %>
+              <%= form.text_field :last_name, :value => @user.last_name, class: "form-control d-inline", style: 'width: 50%' %>
+	    	</div>
+	    	<div class="form-group">
+	    	  <%= form.label :email %>
+	    	  <%= form.text_field :email, :class => "form-control", :value => @user.email %>
+	    	</div>
+	    	<div class="form-group">
+	    	  <%= form.label :roles %>
+	    	  <select class="form-control" name="roles" id="roles" <%= :roles %>>
+	    	  	<option value="admin" <% if @user.role.to_s == "admin" %>selected="selected"<% end %> >Admin</option>
+	    	  	<option value="manager" <% if @user.role.to_s == "manager" %>selected="selected"<% end %> >Manager</option>
+	    	  	<option value="owner" <% if @user.role.to_s == "owner" %>selected="selected"<% end %> >Owner</option>
+	    	  	<option value="viewer" <% if @user.role.to_s == "viewer" %>selected="selected"<% end %> >Viewer</option>
+	    	  </select>
+	    	</div>
+	    	<div class="form-group">
+	    	  <%= form.label "Status" %>
+	    	  <select class="form-control" name="active" id="active" <%= :active %>>
+	    	  	<option value="true" <% if @user.active.to_s == "true" %>selected="selected"<% end %> >Active</option>
+	    	  	<option value="false" <% if @user.active.to_s == "false" %>selected="selected"<% end %> >In-Active</option>
+	    	  </select>
+	    	</div>
+	    	<div class="form-group">
+	    	  <%= form.label :title %>
+	    	  <%= form.text_field :title, :class => "form-control", :value => @user.title %>
+	    	</div>
+	    	<div class="form-group">
+	    	  <%= form.label :department %>
+	    	  <%= form.text_field :department, :class => "form-control", :value => @user.department %>
+	    	</div>
+	    	<div class="text-center">
+    			<%= form.submit "Save", class: "btn btn-primary" %>
+    			<%= link_to 'Back', users_path, :class => "btn btn-warning" %>
+    		</div>
+    	<%end%>
+    </div>
+  </div>
+</div>

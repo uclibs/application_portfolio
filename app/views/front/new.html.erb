@@ -1,57 +1,61 @@
 <div class="container animated fadeIn" style="opacity: 0.8">
   <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
     <h1 class= "text-center" style="color: white;">Request Software Record</h1>
+    <p style="font-size: 12px; float: right; margin-right: 30px;"><b style="color: red; font-size: 20px">*</b> indicates a required field</p><br>
+    <hr style="background-color: white">
     <div class = "card-body">
         <%= form_for(SoftwareRecord.new) do |form| %>
           
           <div class="form-group">
-            <%= form.label :title %>
+            <%= form.label :title %><b style="color: red; font-size: 20px"> *</b>
             <%= form.text_field :title, :class => "form-control" %>
           </div>
           
           <div class="form-group">
-            <%= form.label :description %>
-            <%= form.text_area :description, :class => "form-control" %>
+            <%= form.label :description %><b style="color: red; font-size: 20px"> *</b>
+            <%= form.text_area :description, :cols => 30, :rows => 7, :class => "form-control" %>
           </div>
           
           <div class="form-group">
-            <%= form.label :status %>
+            <%= form.label :status %><b style="color: red; font-size: 20px"> *</b>
             <%= form.select :status, options_for_select(['Requested'], :selected=>"Requested"), {}, {:class => "form-control"} %>
           </div>
 
           <div class="form-group">
-              <%= form.label :tentative_date_implemented %>
+              <%= form.label :tentative_date_implemented %><b style="color: red; font-size: 20px"> *</b>
               <%= form.date_field :tentative_date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control', required: true %>
           </div>
 
           <div class="form-group">
-            <%= form.label "Request By" %>
+            <%= form.label "Request By" %><b style="color: red; font-size: 20px"> *</b>
             <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "John Doe (FirstName LastName)" %>
           </div>
 
           <div class="form-group">
-            <%= form.label "Software Type" %>
+            <%= form.label "Software Type" %><b style="color: red; font-size: 20px"> *</b>
             <%= form.collection_select(:software_type_id, SoftwareType.all, :id, :title, {}, {:class => "form-control"}) %>
           </div>
           
-          <div class="form-group">
-            <%= form.label "Vendor" %>
-            <%= form.collection_select(:vendor_record_id, VendorRecord.all, :id, :title, {}, {:class => "form-control"}) %>
+          <div class="form-group" style="display: none">
+            <%= form.label "Vendor" %><b style="color: red; font-size: 20px"> *</b>
+            <select class="form-control" name="software_record[vendor_record_id]" id="software_record_vendor_record_id">
+              <option value=1>University of Cincinnati</option>
+            </select>
           </div>
 
           <div class="form-group">
-            <%= form.label :departments %>
+            <%= form.label "Department" %>
             <%= form.text_field :departments, :class => "form-control regex-departments" %>
           </div>
 
           <div class="form-group">
-            <%= form.label :product_owners %>
+            <%= form.label "Primary Contact" %>
             <%= form.text_field :product_owners, :class => "form-control regex-owners" %>
           </div>
 
           <div class="form-group">
             <%= form.label :notes %>
-            <%= form.text_field :notes, :class => "form-control" %>
+            <%= form.text_area :notes, :cols => 30, :rows => 7, :class => "form-control" %>
           </div>
         
         <br/>

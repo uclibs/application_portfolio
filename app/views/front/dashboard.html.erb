@@ -104,7 +104,7 @@
       </div>
       <div class="card-body">
         <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", "#E8DE0D"], legend: "bottom"%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/users'">View</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto">

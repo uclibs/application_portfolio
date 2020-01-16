@@ -39,6 +39,7 @@ class FrontController < ApplicationController
 
   def profile
     $page_title = 'My Profile | Application Portfolio'
+    @users = User.all
     render 'profile'
   end
 
@@ -50,9 +51,10 @@ class FrontController < ApplicationController
   def create
     @requestsoftwaress = SoftwareRecord.new(params.require(:software_record).permit(:title, :description, :status, :created_by, :tentative_date_of_implementation, :notes, :departments, :product_owners, :software_type_id, :vendor_recor_id))
     if @requestsoftwaress.save
+      AdminMailer.send_email(params[:id], params[:created_by])
       redirect_to @request_softwares, notice: 'Software record was successfully requested.'
     else
-      render :new
+      redirect_to request_new_path
     end
   end
 end

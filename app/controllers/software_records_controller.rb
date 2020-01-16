@@ -6,11 +6,11 @@ class SoftwareRecordsController < ApplicationController
   include SoftwareRecordsHelper
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], admin: :all
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_records
-  $page_title = 'Software Records | Application Portfolio'
 
   def index
+    $page_title = 'Software Records | Application Portfolio'
     @softwarerecords_count = SoftwareRecord.count
     @software_records = SoftwareRecord.order(sort_column + ' ' + sort_direction)
   end
@@ -38,15 +38,20 @@ class SoftwareRecordsController < ApplicationController
   end
 
   # GET /software_records/1
-  def show; end
+  def show
+    $page_title = @software_record.title.to_s.upcase + ' | Application Portfolio'
+  end
 
   # GET /software_records/new
   def new
+    $page_title = 'New Software Record | Application Portfolio'
     @software_record = SoftwareRecord.new
   end
 
   # GET /software_records/1/edit
-  def edit; end
+  def edit
+    $page_title = 'Edit Software Record | Application Portfolio'
+  end
 
   # POST /software_records
   def create

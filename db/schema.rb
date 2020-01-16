@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_109_221_915) do
+ActiveRecord::Schema.define(version: 20_200_111_182_442) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 20_200_109_221_915) do
     t.string 'last_name'
     t.string 'department'
     t.string 'title'
+    t.boolean 'active', default: true
+    t.index ['active'], name: 'index_users_on_active'
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
