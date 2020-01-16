@@ -10,7 +10,7 @@
               <% end %>
             </div>
           <% end %>
-          <% if user_signed_in? and current_user.roles != "viewer" %>
+          <% if user_signed_in? and current_user.role.to_s != "viewer" and current_user.role.to_s != "owner" %>
             <div class="form-group">
               <%= form.label :title %>
               <%= form.text_field :title, :class => "form-control" %>
@@ -137,7 +137,7 @@
             <p style="font-size: 12px; float: right; margin-right: 30px;"><b style="color: red; font-size: 20px">*</b> indicates a required field</p><br>
             <hr style="background-color: white">
             <div class="form-group">
-              <%= form.label :title %><b style="color: red; font-size: 20px"> *</b>
+              <%= form.label :title %><b style="color: red; font-size: 20px">*</b>
               <%= form.text_field :title, :class => "form-control" %>
             </div>
             
