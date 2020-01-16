@@ -18,16 +18,19 @@ RSpec.describe 'software_records/index', type: :view do
                description: 'MyText',
                status: 'Status',
                vendor_record_id: VendorRecord.first.id,
-               software_type_id: SoftwareType.first.id
+               software_type_id: SoftwareType.first.id,
+               created_by: 'Test User'
              ),
              SoftwareRecord.create!(
                title: 'Title',
                description: 'MyText',
                status: 'Status',
                vendor_record_id: VendorRecord.first.id,
-               software_type_id: SoftwareType.first.id
+               software_type_id: SoftwareType.first.id,
+               created_by: 'Test User'
              )
            ])
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
   end
 
   it 'renders a list of software_records' do

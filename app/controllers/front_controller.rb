@@ -3,18 +3,27 @@
 class FrontController < ApplicationController
   layout 'application'
   before_action :authenticate_user!, only: %i[dashboard profile]
+
   def index
     $page_title = 'Welcome | Application Portfolio'
     @controller = params[:controller]
-    render 'index'
   end
 
   def dashboard
     $page_title = 'Dashboard | Application Portfolio'
-    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard
-    @indesign_count = @softwarerecords_indesign.count
-    @softwarerecords_production = SoftwareRecordsController.production_dashboard
-    @production_count = @softwarerecords_production.count
+    @user = current_user.first_name + ' ' + current_user.last_name
+    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user)
+    begin
+      @indesign_count = @softwarerecords_indesign.count
+    rescue StandardError
+      @indesign_count = 0
+    end
+    @softwarerecords_production = SoftwareRecordsController.production_dashboard(@user)
+    begin
+      @production_count = @softwarerecords_production.count
+    rescue StandardError
+      @production_count = 0
+    end
     render 'dashboard'
   end
 
@@ -30,6 +39,22 @@ class FrontController < ApplicationController
 
   def profile
     $page_title = 'My Profile | Application Portfolio'
+    @users = User.all
     render 'profile'
+  end
+
+  def new
+    $page_title = 'Request Software | Application Portfolio'
+    @requestsoftwaress = SoftwareRecord.new
+  end
+
+  def create
+    @requestsoftwaress = SoftwareRecord.new(params.require(:software_record).permit(:title, :description, :status, :created_by, :tentative_date_of_implementation, :notes, :departments, :product_owners, :software_type_id, :vendor_recor_id))
+    if @requestsoftwaress.save
+      AdminMailer.send_email(params[:id], params[:created_by])
+      redirect_to @request_softwares, notice: 'Software record was successfully requested.'
+    else
+      redirect_to request_new_path
+    end
   end
 end

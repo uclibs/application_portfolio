@@ -8,6 +8,7 @@ RSpec.describe 'software_types/show', type: :view do
                                               title: 'Title',
                                               description: 'MyText'
                                             ))
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
   end
 
   it 'renders attributes in <p>' do

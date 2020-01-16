@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_219_144_051) do
+ActiveRecord::Schema.define(version: 20_200_111_182_442) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20_191_219_144_051) do
     t.string 'notes'
     t.integer 'business_value'
     t.integer 'it_quality'
+    t.date 'tentative_date_implemented'
+    t.string 'created_by'
     t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
     t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'
   end
@@ -56,11 +58,13 @@ ActiveRecord::Schema.define(version: 20_191_219_144_051) do
     t.datetime 'remember_created_at'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.string 'roles'
+    t.string 'roles', default: 'viewer'
     t.string 'first_name'
     t.string 'last_name'
     t.string 'department'
     t.string 'title'
+    t.boolean 'active', default: true
+    t.index ['active'], name: 'index_users_on_active'
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end

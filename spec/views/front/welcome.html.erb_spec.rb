@@ -3,11 +3,10 @@
 require 'rails_helper'
 
 describe 'front/welcome' do
-  let(:user) { FactoryBot.create(:user) }
-
-  before do
-    sign_in user
+  before(:each) do
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
   end
+
   it 'displays an welcome page' do
     render
     expect(rendered).to have_text('Logged in as')

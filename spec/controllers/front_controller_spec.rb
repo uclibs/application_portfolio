@@ -31,13 +31,13 @@ describe FrontController do
   end
 
   describe '#dashboard' do
-    def sign_in_user(user)
-      sign_in user
+    def sign_in_user(admin)
+      sign_in admin
     end
 
     before do
-      user = FactoryBot.create(:user)
-      sign_in_user(user)
+      admin = FactoryBot.create(:admin)
+      sign_in_user(admin)
     end
 
     it 'renders the dashboard page' do
@@ -48,13 +48,13 @@ describe FrontController do
   end
 
   describe '#profile' do
-    def sign_in_user(user)
-      sign_in user
+    def sign_in_user(admin)
+      sign_in admin
     end
 
     before do
-      user = FactoryBot.create(:user)
-      sign_in_user(user)
+      admin = FactoryBot.create(:admin)
+      sign_in_user(admin)
     end
 
     it 'renders the profile page' do

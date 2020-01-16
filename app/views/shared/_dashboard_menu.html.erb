@@ -1,39 +1,66 @@
 <div id="mySidenav" class="sidenav" style="background-color: black; visibility: hidden">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <br/>
-	<button class="dropdown-btn"><i class="fa fa-user-secret"></i> Admin
-	    <i class="fa fa-caret-down" style="float: right"></i>
-	</button>
-	<div class="dropdown-container animated fadeIn">
-    	<a href="<%= new_software_record_path %>"><i class="fas fa-book"></i> Create Software Record</a>
-    	<a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends"></i> Create Vendor Record</a>
-    	<a href="<%= new_software_type_path %>"><i class="fas fa-file-alt"></i> Create Software Type</a>
-        <hr style="background-color: white">
-    	<a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-    	<a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-    	<a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
-  	</div>
-	<br/>
-	<button class="dropdown-btn"><i class="fas fa-user-cog"></i> Editor
-		<i class="fa fa-caret-down" style="float: right"></i>
-	</button>
-	<div class="dropdown-container animated fadeIn">
-    	<a href="<%= new_software_record_path %>"><i class="fas fa-book"></i> Create Software Record</a>
-    	<a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends"></i> Create Vendor Record</a>
-    	<a href="<%= new_software_type_path %>"><i class="fas fa-file-alt"></i> Create Software Type</a>
-        <hr style="background-color: white">
-    	<a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-    	<a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-    	<a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
-  	</div>
-	<br/>
-	<button class="dropdown-btn"><i class="fas fa-user-tie"></i> Viewer
-		<i class="fa fa-caret-down" style="float: right"></i>
-	</button>
-	<div class="dropdown-container animated fadeIn">
-    	<a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-    	<a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-    	<a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
-  	</div>
-	<br/>
+    <% if user_signed_in? %>
+        <% if current_user.role.to_s == "admin" %>
+            <button class="dropdown-btn"><i class="fa fa-user-secret"></i> Admin
+                <i class="fa fa-caret-down" style="float: right"></i>
+            </button>
+            <div class="dropdown-container animated fadeIn">
+                <a href="<%= new_software_record_path %>"><i class="fas fa-book"></i> Create Software Record</a>
+                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends"></i> Create Vendor Record</a>
+                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt"></i> Create Software Type</a>
+                <hr style="background-color: white">
+                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+                <hr style="background-color: white">
+                <a href="<%= users_path %>"><i class="fas fa-users"></i> Manage all Users</a>
+            </div>
+            <br/>
+            <% end %>
+            <% if current_user.role.to_s == "manager" %>
+            <button class="dropdown-btn"><i class="fas fa-user-cog"></i> Manager
+                <i class="fa fa-caret-down" style="float: right"></i>
+            </button>
+            <div class="dropdown-container animated fadeIn">
+                <a href="<%= new_software_record_path %>"><i class="fas fa-book"></i> Create Software Record</a>
+                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends"></i> Create Vendor Record</a>
+                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt"></i> Create Software Type</a>
+                <hr style="background-color: white">
+                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+            </div>
+            <br/>
+            <% end %>
+            <% if current_user.role.to_s == "owner" %>
+            <button class="dropdown-btn"><i class="fas fa-user-tie"></i> Owner
+                <i class="fa fa-caret-down" style="float: right"></i>
+            </button>
+            <div class="dropdown-container animated fadeIn">
+                <a href="<%= request_new_path %>"><i class="fas fa-book"></i> Request Software Record</a>
+                <hr style="background-color: white">
+                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+            </div>
+            <br/>
+            <% end %>
+            <% if current_user.role.to_s == "viewer" %>
+            <button class="dropdown-btn"><i class="fas fa-user-graduate"></i> Viewer
+                <i class="fa fa-caret-down" style="float: right"></i>
+            </button>
+            <div class="dropdown-container animated fadeIn">
+                <a href="<%= request_new_path %>"><i class="fas fa-book"></i> Request Software Record</a>
+                <hr style="background-color: white">
+                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+            </div>
+            <br/>      
+        <% end %>
+    <% else %>
+        <p> Please sign-in to access this content !</p>
+    <% end %>
  </div>

@@ -6,24 +6,30 @@ class SoftwareTypesController < ApplicationController
   before_action :authenticate_user!
   include SoftwareTypesHelper
   before_action :set_software_type, only: %i[show edit update destroy]
-  access all: %i[index show new edit create update destroy], user: :all
-  $page_title = 'Software Types | Application Portfolio'
+  # access all: %i[index show new edit create update destroy], user: :all
+  access viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_types
   def index
+    $page_title = 'Software Types | Application Portfolio'
     @softwaretypes_count = SoftwareType.count
     @software_types = SoftwareType.order(sort_column + ' ' + sort_direction)
   end
 
   # GET /software_types/1
-  def show; end
+  def show
+    $page_title = @software_type.title.to_s.upcase + ' | Application Portfolio'
+  end
 
   # GET /software_types/new
   def new
+    $page_title = 'New Software Type | Application Portfolio'
     @software_type = SoftwareType.new
   end
 
   # GET /software_types/1/edit
-  def edit; end
+  def edit
+    $page_title = 'Edit Software Type | Application Portfolio'
+  end
 
   # POST /software_types
   def create

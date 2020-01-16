@@ -229,3 +229,15 @@ a:hover {
 .labels {
   font-size: 14px
 }
+
+.dashboard-actions {
+  padding: 12px
+}
+
+.th-link {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
+}

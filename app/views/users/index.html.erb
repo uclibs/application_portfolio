@@ -1,0 +1,34 @@
+<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: auto;"><br/>
+    <h2 class= "text-center" style="color: white;">Users</h2>
+      <div class = "card-body">
+      	<% if current_user.role.to_s == "admin" %>
+            <table class="table text-center w-25">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th colspan="4">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                    <% if user.active.to_s == "true"%><% @status = "De-Activate" %><% @class = "btn btn-warning" %><% else %><% @status = "Activate"%><% @class = "btn btn-primary" %><% end %>
+                    <td><%= user.first_name.to_s + " " + user.last_name.to_s %></td>
+                    <td><%= user.role %></td>
+                    <td><%= link_to 'View', users_show_path(user.id) , { :class => "btn btn-success" }%></td>
+                    <td><%= link_to 'Edit', user_edit_path(user.id) , { :class => "btn btn-info" }%></td>
+                    <td><%= link_to @status, user_status_path(user.id) , { :class => @class }%></td>
+                    <td><%= link_to 'Delete', user_destroy_path(user.id), method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p style="font-weight: bold; margin: 0; color: red; text-align: center;">You don't have sufficient privileges to view this content !<br/>Please contact the administrator for more details.
+            </p>
+          <% end %>
+      </div>
+  </div>
+</div>

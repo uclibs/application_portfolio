@@ -1,11 +1,12 @@
-
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Vendor Records</h1>
     <em style="font-size: 14px; color: black">Contains all information of vendors available till date</em><br/><br/>
-    <p>
-      <%= link_to 'Create a new vendor record', new_vendor_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
-    </p>
+    <% if current_user.role.to_s == "admin" or current_user.role.to_s == "manager" %>
+      <p>
+        <%= link_to 'Create a new vendor record', new_vendor_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
+      </p>
+    <% end %>
   </div>
 </section>
 <hr style = "background-color: black; width: 54%;">
@@ -23,7 +24,13 @@
                 <i class="fa fa-caret-down"></i>
               <% end %>
             </th>
-            <th colspan="3">Actions</th>
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
           </tr>
         </thead>
 
@@ -31,9 +38,16 @@
           <% @vendor_records.each do |vendor_record| %>
             <tr>
               <td><%= vendor_record.title %></td>
-              <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
-              <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
-              <td><%= link_to 'Delete', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

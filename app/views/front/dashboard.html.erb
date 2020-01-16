@@ -2,7 +2,7 @@
   <div class="card-deck mb-3 text-center" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase" style="font-size: 21px;">Software Records In-Design/Development</h3>
+        <h3 class="my-0 font-weight-normal text-uppercase" style="font-size: 21px;">My Software Records In-Design/Development</h3>
       </div>
       <div class="card-body">
         <% if @indesign_count != 0 %>
@@ -12,7 +12,13 @@
                 <th>Software Records</th>
                 <th>Created on</th>
                 <th>Status</th>
-                <th>Action</th>
+                <% if current_user.role.to_s == "viewer" %>
+                  <th>Action</th>
+                <% elsif current_user.role.to_s == "owner" %>
+                  <th colspan="2">Actions</th>
+                <% else %>
+                  <th colspan="3">Actions</th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
@@ -21,7 +27,16 @@
                   <td><%= record_indesign.title %></td>
                   <td><%= record_indesign.created_at.to_date %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
+                  <% if current_user.role.to_s == "viewer" %>
+                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
+                  <% elsif current_user.role.to_s == "owner" %>
+                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                  <% else %>
+                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger", :style => "font-size: 15px", data: { confirm: 'Are you sure?' } %></td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>
@@ -32,9 +47,11 @@
         <br/>
       </div>
     </div>
+  </div>
+  <div class="card-deck mb-3 text-center" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase" style="font-size: 25px">Software Records in Production</h3>
+        <h3 class="my-0 font-weight-normal text-uppercase" style="font-size: 25px">My Software Records In Production</h3>
       </div>
       <div class="card-body">
         <% if @production_count != 0 %>
@@ -43,7 +60,13 @@
             <tr>
               <th>Software Records</th>
               <th>Created on</th>
-              <th>Action</th>
+              <% if current_user.role.to_s == "viewer" %>
+                  <th>Action</th>
+                <% elsif current_user.role.to_s == "owner" %>
+                  <th colspan="2">Actions</th>
+                <% else %>
+                  <th colspan="3">Actions</th>
+                <% end %>
             </tr>
           </thead>
 
@@ -52,7 +75,16 @@
               <tr>
                 <td><%= record_production.title %></td>
                 <td><%= record_production.created_at.to_date %></td>
-                <td><%= link_to 'View', record_production , { :class => "btn btn-success" }%></td>
+                <% if current_user.role.to_s == "viewer" %>
+                    <td><%= link_to 'View', record_production , { :class => "btn btn-success" }%></td>
+                  <% elsif current_user.role.to_s == "owner" %>
+                    <td><%= link_to 'View', record_production , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                  <% else %>
+                    <td><%= link_to 'View', record_production , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger", :style => "font-size: 15px", data: { confirm: 'Are you sure?' } %></td>
+                  <% end %>
               </tr>
             <% end %>
           </tbody>
@@ -72,7 +104,7 @@
       </div>
       <div class="card-body">
         <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", "#E8DE0D"], legend: "bottom"%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/users'">View</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto">
@@ -81,7 +113,7 @@
       </div>
       <div class="card-body">
         <%= pie_chart SoftwareRecord.group(:status).count, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom", refresh: 60%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/software_records'">View</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto">
@@ -90,7 +122,7 @@
       </div>
       <div class="card-body">
         <%= pie_chart VendorRecord.group(:title).count, messages: {empty: "No data"}, download: {filename: "VendorRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom"%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/vendor_records'">View</button>
       </div>
     </div>
   </div>
@@ -98,12 +130,13 @@
   <div class="card-deck mb-3 text-center" style="color: black">
     <div class="card mb-4 box-shadow animated fadeInDown" style="width: 50.33%; height: auto">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">Software Types</h3>
+        <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= column_chart SoftwareType.group_by_month(:created_at, format: "%b %Y").count, messages: {empty: "No data"}, download: {filename: "SoftwareTypes"}, dataset: {borderWidth: 3, borderColor: "transparent"} %><br/>
+        <%= line_chart SoftwareRecord.group(:status).group_by_week(:created_at).count, legend: "bottom" %> <br/>
+        <!-- <%= column_chart SoftwareType.group_by_month(:created_at, format: "%b %Y").count, messages: {empty: "No data"}, download: {filename: "SoftwareTypes"}, dataset: {borderWidth: 3, borderColor: "transparent"} %><br/> -->
         <!--<%= line_chart SoftwareType.group_by_day(:created_at).count %><br/> -->
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/software_records'">View</button>
       </div>
     </div>
   </div>

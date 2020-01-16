@@ -4,7 +4,7 @@
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist" style="background-color: white; border-radius: 3px">
           <a class="nav-item nav-link menu-options active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fa fa-user"></i> Profile</a>
-          <a class="nav-item nav-link menu-options" id="nav-requests-tab" data-toggle="tab" href="#nav-requests" role="tab" aria-controls="nav-requests" aria-selected="false"><i class="fas fa-users-cog"></i> User Management</a>
+          <a class="nav-item nav-link menu-options" id="nav-usermanagement-tab" data-toggle="tab" href="#nav-usermanagement" role="tab" aria-controls="nav-usermanagement" aria-selected="false"><i class="fas fa-users-cog"></i> User Management</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent" style="background-color: white;">
@@ -35,7 +35,34 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-requests" role="tabpanel" aria-labelledby="nav-requests-tab" style="background-color: white; color: white">
+        <div class="tab-pane fade" id="nav-usermanagement" role="tabpanel" aria-labelledby="nav-usermanagement-tab" style="background-color: white; color: white">
+          <% if current_user.role.to_s == "admin" %>
+            <table class="table text-center w-25">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th colspan="4">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                    <% if user.active.to_s == "true"%><% @status = "De-Activate" %><% @class = "btn btn-warning" %><% else %><% @status = "Activate"%><% @class = "btn btn-primary" %><% end %>
+                    <td><%= user.first_name.to_s + " " + user.last_name.to_s %></td>
+                    <td><%= user.role %></td>
+                    <td><%= link_to 'View', users_show_path(user.id) , { :class => "btn btn-success" }%></td>
+                    <td><%= link_to 'Edit', user_edit_path(user.id) , { :class => "btn btn-info" }%></td>
+                    <td><%= link_to @status, user_status_path(user.id) , { :class => @class }%></td>
+                    <td><%= link_to 'Delete', user_destroy_path(user.id), method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p style="font-weight: bold; margin: 0; color: red; text-align: center;">You don't have sufficient privileges to view this content !<br/>Please contact the administrator for more details.
+            </p>
+          <% end %>
         </div>
       </div>
     </div>

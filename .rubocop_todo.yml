@@ -29,6 +29,7 @@ Metrics/AbcSize:
   Exclude:
     - 'app/helpers/application_helper.rb'
     - 'db/migrate/20191216183602_add_fieldsto_software_records.rb'
+    - 'app/controllers/users_controller.rb'
 
 Style/GlobalVars:
   Exclude:
@@ -51,4 +52,4 @@ Metrics/BlockLength:
   Max: 154
 
 Metrics/LineLength:
-  Max: 230
+  Max: 260

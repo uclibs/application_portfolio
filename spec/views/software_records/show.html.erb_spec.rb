@@ -17,7 +17,8 @@ RSpec.describe 'software_records/show', type: :view do
                                                   description: 'MyText',
                                                   status: 'MyString',
                                                   software_type_id: SoftwareType.first.id,
-                                                  vendor_record_id: VendorRecord.first.id
+                                                  vendor_record_id: VendorRecord.first.id,
+                                                  created_by: 'Test User'
                                                 ))
   end
 

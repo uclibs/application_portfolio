@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'FrontController', type: :request do
-  def sign_in_user(user)
-    sign_in user
+  def sign_in_user(admin)
+    sign_in admin
   end
 
   before do
-    user = FactoryBot.create(:user)
-    sign_in_user(user)
+    admin = FactoryBot.create(:admin)
+    sign_in_user(admin)
   end
 
   describe 'GET /about' do

@@ -31,7 +31,8 @@ module ApplicationHelper
         (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
         (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
     else
-      (link_to 'Login', new_user_session_path, class: "#{style} #{active? new_user_session_path}") + ' '.html_safe +
+      (link_to 'Request Software', request_new_path, class: "#{style} #{active? request_new_path}") + ' '.html_safe +
+        (link_to 'Login', new_user_session_path, class: "#{style} #{active? new_user_session_path}") + ' '.html_safe +
         (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
         (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
     end

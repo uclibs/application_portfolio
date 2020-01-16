@@ -14,6 +14,7 @@ RSpec.describe 'software_types/index', type: :view do
                description: 'MyText'
              )
            ])
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
   end
   it 'renders a list of software_types' do
     render
