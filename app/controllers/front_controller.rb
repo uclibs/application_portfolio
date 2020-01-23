@@ -8,7 +8,7 @@ class FrontController < ApplicationController
     $page_title = 'Welcome | Application Portfolio'
     @controller = params[:controller]
   end
-  
+
   def dashboard
     @vendor_piechart_hash = {}
     VendorRecord.all.each do |vendor|

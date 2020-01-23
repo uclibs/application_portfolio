@@ -16,7 +16,7 @@ FactoryBot.define do
     email { 'admin@test.com' }
     password { 'random123' }
     password_confirmation { 'random123' }
-    roles { 'admin' }
+    roles { 'root_admin' }
   end
 
   factory :manager, class: 'User' do
