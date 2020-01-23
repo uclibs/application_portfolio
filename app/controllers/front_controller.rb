@@ -8,8 +8,12 @@ class FrontController < ApplicationController
     $page_title = 'Welcome | Application Portfolio'
     @controller = params[:controller]
   end
-
+  
   def dashboard
+    @vendor_piechart_hash = {}
+    VendorRecord.all.each do |vendor|
+      @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
+    end
     $page_title = 'Dashboard | Application Portfolio'
     @user = current_user.first_name + ' ' + current_user.last_name
     @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user)

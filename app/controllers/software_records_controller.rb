@@ -6,7 +6,7 @@ class SoftwareRecordsController < ApplicationController
   include SoftwareRecordsHelper
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_records
 
   def index
@@ -114,7 +114,8 @@ class SoftwareRecordsController < ApplicationController
       :business_value,
       :it_quality,
       :created_by,
-      :tentative_date_implemented
+      :tentative_date_implemented,
+      :sensitive_information
     )
   end
 end
