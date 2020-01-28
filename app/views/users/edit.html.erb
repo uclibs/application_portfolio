@@ -15,7 +15,7 @@
 	    	<div class="form-group">
 	    	  <%= form.label :roles %>
 	    	  <select class="form-control" name="roles" id="roles" <%= :roles %>>
-	    	  	<option value="admin" <% if @user.role.to_s == "admin" %>selected="selected"<% end %> >Admin</option>
+	    	  	<option value="root_admin" <% if @user.role.to_s == "root_admin" %>selected="selected"<% end %> >Admin</option>
 	    	  	<option value="manager" <% if @user.role.to_s == "manager" %>selected="selected"<% end %> >Manager</option>
 	    	  	<option value="owner" <% if @user.role.to_s == "owner" %>selected="selected"<% end %> >Owner</option>
 	    	  	<option value="viewer" <% if @user.role.to_s == "viewer" %>selected="selected"<% end %> >Viewer</option>

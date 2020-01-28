@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Vendor Records</h1>
     <em style="font-size: 14px; color: black">Contains all information of vendors available till date</em><br/><br/>
-    <% if current_user.role.to_s == "admin" or current_user.role.to_s == "manager" %>
+    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
       <p>
         <%= link_to 'Create a new vendor record', new_vendor_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
       </p>

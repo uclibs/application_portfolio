@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="nav-usermanagement" role="tabpanel" aria-labelledby="nav-usermanagement-tab" style="background-color: white; color: white">
-          <% if current_user.role.to_s == "admin" %>
+          <% if current_user.role.to_s == "root_admin" %>
             <table class="table text-center w-25">
               <thead>
                 <tr>

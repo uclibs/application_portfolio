@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_111_182_442) do
+ActiveRecord::Schema.define(version: 20_200_121_184_332) do
   create_table 'software_records', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20_200_111_182_442) do
     t.integer 'it_quality'
     t.date 'tentative_date_implemented'
     t.string 'created_by'
+    t.text 'sensitive_information'
     t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
     t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'
   end

@@ -118,6 +118,13 @@
               <%= form.text_field :current_version, :class => "form-control" %>
             </div>
 
+            <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+              <div class="form-group">
+                <%= form.label "Sensitive Information (Software keys/Passwords)" %>
+                <%= form.text_area :sensitive_information, :cols => 30, :rows => 7, :class => "form-control" %>
+              </div>
+            <% end %>
+
             <div class="form-group">
               <%= form.label :notes %>
               <%= form.text_field :notes, :class => "form-control" %>
