@@ -121,7 +121,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart VendorRecord.group(:title).count, messages: {empty: "No data"}, download: {filename: "VendorRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom"%><br/>
+        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom"%><br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/vendor_records'">View</button>
       </div>
     </div>
@@ -133,9 +133,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= line_chart SoftwareRecord.group(:status).group_by_week(:created_at).count, legend: "bottom" %> <br/>
-        <!-- <%= column_chart SoftwareType.group_by_month(:created_at, format: "%b %Y").count, messages: {empty: "No data"}, download: {filename: "SoftwareTypes"}, dataset: {borderWidth: 3, borderColor: "transparent"} %><br/> -->
-        <!--<%= line_chart SoftwareType.group_by_day(:created_at).count %><br/> -->
+        <%= line_chart SoftwareRecord.group(:status).group_by_week(:created_at).sum(SoftwareRecord.all.count), legend: "bottom" %> <br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/software_records'">View</button>
       </div>
     </div>

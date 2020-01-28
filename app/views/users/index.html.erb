@@ -2,7 +2,7 @@
   <div class = "card" style = "background-color: black; width: auto;"><br/>
     <h2 class= "text-center" style="color: white;">Users</h2>
       <div class = "card-body">
-      	<% if current_user.role.to_s == "admin" %>
+      	<% if current_user.role.to_s == "root_admin" %>
             <table class="table text-center w-25">
               <thead>
                 <tr>
@@ -16,7 +16,7 @@
                   <tr>
                     <% if user.active.to_s == "true"%><% @status = "De-Activate" %><% @class = "btn btn-warning" %><% else %><% @status = "Activate"%><% @class = "btn btn-primary" %><% end %>
                     <td><%= user.first_name.to_s + " " + user.last_name.to_s %></td>
-                    <td><%= user.role %></td>
+                    <td><% if user.role.to_s == "root_admin" %>admin<% else %> <%= user.role %> <% end %></td>
                     <td><%= link_to 'View', users_show_path(user.id) , { :class => "btn btn-success" }%></td>
                     <td><%= link_to 'Edit', user_edit_path(user.id) , { :class => "btn btn-info" }%></td>
                     <td><%= link_to @status, user_status_path(user.id) , { :class => @class }%></td>

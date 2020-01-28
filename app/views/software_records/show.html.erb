@@ -116,6 +116,15 @@
           <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.current_version %></span></dt>
         <% end %>
 
+        <% if !@software_record.sensitive_information.nil? && !@software_record.sensitive_information.to_s.empty? %>
+          <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+            <dt>Sensitive Information</dt>
+            <dd>
+              <ul><%= @software_record.sensitive_information %></ul>
+            </dd>
+          <% end %>
+        <% end %>
+
         <% if !@software_record.notes.nil? && !@software_record.notes.to_s.empty? %>
           <dt>Notes</dt>
           <dd>
@@ -133,7 +142,7 @@
       </dl>
       <div class="text-center">
         <% if user_signed_in? %>
-          <% if current_user.role.to_s == "owner" or current_user.role.to_s == "admin" or current_user.role.to_s == "manager" %>
+          <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
             <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
           <% end %>
         <% end %>
