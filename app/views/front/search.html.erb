@@ -1,0 +1,125 @@
+<br/><br/>
+<h2 style="color: red; text-align: center">Search Results for query - '<%= params[:search] %>'</h2>
+<% if @softwarerecords_results.count != 0 %>
+  <div class="container animated fadeInLeft" style="margin-bottom: 10rem; margin-top: 30px">
+    <div class="row" style="overflow: scroll; height: 10%">
+      <table class="table text-center" style="border-radius: 10px">
+        <thead>
+          <tr>
+            <th>Software Records</th>
+            <th>Created by</th>
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% @softwarerecords_results.each do |software_record| %>
+            <tr>
+              <td><%= software_record.title %></td>
+              <td><%= software_record.created_by %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', software_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<% if @softwaretypes_results.count != 0 %>
+  <div class="container animated fadeInUp" style="margin-bottom: 10rem; margin-top: 30px">
+    <div class="row" style="overflow: scroll; height: 10%">
+      <table class="table text-center" style="border-radius: 10px">
+        <thead>
+          <tr>
+            <th>Software Types</th>
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @softwaretypes_results.each do |software_type| %>
+            <tr>
+              <td><%= software_type.title %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', software_type, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<% if @vendorrecords_results.count != 0 %>
+  <div class="container animated fadeInRight" style="margin-bottom: 10rem;">
+    <div class="row" style="overflow: scroll; height: 10%">
+      <table class="table text-center" style="border-radius: 10px">
+        <thead>
+          <tr>
+            <th>Vendors</th>
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @vendorrecords_results.each do |vendor_record| %>
+            <tr>
+              <td><%= vendor_record.title %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+  <% if @softwarerecords_results.count == 0 && @softwaretypes_results.count == 0 && @vendorrecords_results.count == 0 %>
+    <div style="text-align: center">
+      <%= image_tag("no_results_found.png", style: "text-align: center; width: 900px") %>
+    </div>
+  <% end %>

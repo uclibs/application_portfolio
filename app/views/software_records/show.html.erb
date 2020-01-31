@@ -5,10 +5,18 @@
       <blockquote class="blockquote text-center">
         <div class="blockquote-footer"><cite title="Source Title"><%= @software_record.description %></cite></div>
       </blockquote>
+      <p class="text-center"><%= pills @software_record.status %></p>
       <hr style="background-color: white">
     </div>
     <div class="card-body" style="padding-top: 1px; ">
-      <p class="text-center"><%= pills @software_record.status %></p>
+      <div class="text-center">
+          <% if user_signed_in? %>
+            <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+              <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
+            <% end %>
+          <% end %>
+        <%= link_to 'Back', software_records_path, :class => "btn btn-primary nav-links ml-4"%>
+      </div>
       <br/>
       <dl>
         <dt class="inline-block">Created on: <span style="color: white; font-weight: normal"><%= @software_record.created_at.to_date %></span></dt>
@@ -45,31 +53,46 @@
           </dd>
         <% end %>
 
-        <% if !@software_record.developers.nil? && !@software_record.developers.to_s.empty? %>
+        <% if @software_record.developers.length != 0 && @software_record.developers[0] != "" %>
           <dt>Developers</dt>
           <dd>
-            <ul><%= @software_record.developers %></ul>
+            <% @software_record.developers.each do |developer| %>
+              <ul>
+                <li><%= developer %></li>
+              </ul>
+            <% end %>
           </dd>
         <% end %>
-
-        <% if !@software_record.tech_leads.nil? && !@software_record.tech_leads.to_s.empty? %>
+        <% if @software_record.tech_leads.length != 0 && @software_record.tech_leads[0] != "" %>
           <dt>Tech Leads</dt>
           <dd>
-            <ul><%= @software_record.tech_leads %></ul>
+            <% @software_record.tech_leads.each do |tech_lead| %>
+              <ul>
+                <li><%= tech_lead %></li>
+              </ul>
+            <% end %>
           </dd>
         <% end %>
 
-        <% if !@software_record.departments.nil? && !@software_record.departments.to_s.empty? %>
+        <% if @software_record.departments.length != 0 && @software_record.departments[0] != "" %>
           <dt>Departments</dt>
           <dd>
-            <ul><%= @software_record.departments %></ul>
+            <% @software_record.departments.each do |department| %>
+              <ul>
+                <li><%= department %></li>
+              </ul>
+            <% end %>
           </dd>
         <% end %>
 
-        <% if !@software_record.product_owners.nil? && !@software_record.product_owners.to_s.empty? %>
+        <% if @software_record.product_owners.length != 0 && @software_record.product_owners[0] != "" %>
           <dt>Product Owners</dt>
           <dd>
-            <ul><%= @software_record.product_owners %></ul>
+            <% @software_record.product_owners.each do |product_owner| %>
+              <ul>
+                <li><%= product_owner %></li>
+              </ul>
+            <% end %>
           </dd>
         <% end %>
 
@@ -140,14 +163,7 @@
           <dt class="inline-block">IT Quality: <span style="color: white; font-weight: normal"><%= @software_record.it_quality %></span></dt>
         <% end %>
       </dl>
-      <div class="text-center">
-        <% if user_signed_in? %>
-          <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
-            <%= link_to 'Edit', edit_software_record_path(@software_record), :class => "btn btn-warning nav-links" %>
-          <% end %>
-        <% end %>
-      <%= link_to 'Back', software_records_path, :class => "btn btn-primary nav-links"%>
-    </div>
+      
     </div>
   </div>
 </div>

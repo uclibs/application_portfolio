@@ -50,25 +50,93 @@
     });
   }
 
+  window.onload = function() {
+    window.count_developers = 2;
+    window.count_tech_leads = 2;
+    window.count_departments = 2;
+    window.count_product_owners = 2;
+  }
+
+  function add(name, value) {
+    var element = document.createElement("div");
+    var inputelement = document.createElement("input");
+    var inputgroupappend = document.createElement("div");
+    var spanelement = document.createElement("span");
+    var removebutton = document.createElement("i");
+    element.className = "input-group mt-2";
+    if(name == "developers") {
+      element.id = name + window.count_developers;
+    }
+
+    else if(name == "tech_leads") {
+      element.id = name + window.count_tech_leads; 
+    }
+
+    else if(name == "product_owners") {
+      element.id = name + window.count_product_owners; 
+    }
+
+    else {
+      element.id = name + window.count_departments; 
+    }
+
+    inputelement.type = "text";
+    inputelement.required = true;
+    if(value != "") {
+      inputelement.innerHTML = value;
+    }
+    inputelement.name = "software_record[" + name + "][]";
+    inputelement.id = "software_record_"+ name + "_" ;
+    inputelement.className = "form-control";
+
+    element.appendChild(inputelement);
+
+    inputgroupappend.className = "input-group-append btnRemove";
+    element.appendChild(inputgroupappend);
+
+    spanelement.className = "input-group-text";
+    inputgroupappend.appendChild(spanelement);
+
+    removebutton.className = "fas fa-minus remove";
+    removebutton.innerHTML = "  Delete";
+    spanelement.appendChild(removebutton);
+
+    inputgroupappend.onclick = function() {
+      document.getElementById(element.id).remove();
+  };
+
+  var valued = "multiple_"+name;
+  var multi_valued = document.getElementById(valued);
+  multi_valued.appendChild(element);
+  }
+
+  document.getElementById("btnAddDevelopers").onclick = function() {
+    add("developers", "");
+    window.count_developers++;
+  };
+
+  document.getElementById("btnAddTechLeads").onclick = function() {
+    add("tech_leads", "");
+    window.count_tech_leads++;
+  };
+
+  document.getElementById("btnAddProductOwners").onclick = function() {
+    add("product_owners", "");
+    window.count_product_owners++;
+  };
+
+  document.getElementById("btnAddDepartments").onclick = function() {
+    add("departments", "");
+    window.count_departments++;
+  };
+
+  function remove(id){
+    document.getElementById(id).remove();
+  }
+
   var createdbyfield = document.getElementsByClassName('regex-createdby')[0];
         createdbyfield.onkeyup = function() {
             createdbyfield.value = createdbyfield.value.replace(/[^a-zA-Z0-9 ]/, '');
-        }
-  var developerfield = document.getElementsByClassName('regex-developers')[0];
-        developerfield.onkeyup = function() {
-            developerfield.value = developerfield.value.replace(/[^a-zA-Z0-9 ]/, '');
-        }
-  var departmentfield = document.getElementsByClassName('regex-departments')[0];
-        departmentfield.onkeyup = function() {
-            departmentfield.value = departmentfield.value.replace(/[^a-zA-Z0-9 ]/, '');
-        }
-  var leadsfield = document.getElementsByClassName('regex-leads')[0];
-        leadsfield.onkeyup = function() {
-            leadsfield.value = leadsfield.value.replace(/[^a-zA-Z0-9 ]/, '');
-        }
-  var ownersfield = document.getElementsByClassName('regex-owners')[0];
-        ownersfield.onkeyup = function() {
-            ownersfield.value = ownersfield.value.replace(/[^a-zA-Z0-9 ]/, '');
         }
 </script>
   
