@@ -310,3 +310,36 @@ dt{
   background-color: #E00122;
   color: white;
 }
+
+#btnAddDepartments:hover {
+  cursor: pointer;
+  .fa-plus {
+    color: red;
+  }
+}
+
+#btnAddProductOwners:hover {
+  cursor: pointer;
+  .fa-plus {
+    color: red;
+  }
+}
+
+#btnAddTechLeads:hover {
+  cursor: pointer;
+  .fa-plus {
+    color: red;
+  }
+}
+
+#btnAddDevelopers:hover {
+  cursor: pointer;
+  .fa-plus {
+    color: red;
+  }
+}
+
+.remove:hover {
+  cursor: pointer;
+  color: red;
+}

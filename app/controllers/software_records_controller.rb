@@ -51,6 +51,10 @@ class SoftwareRecordsController < ApplicationController
   # GET /software_records/1/edit
   def edit
     $page_title = 'Edit Software Record | Application Portfolio'
+    @count_developers = 2
+    @count_tech_leads = 2
+    @count_product_owners = 2
+    @count_departments = 2
   end
 
   # POST /software_records
@@ -62,6 +66,8 @@ class SoftwareRecordsController < ApplicationController
     elsif !user_signed_in? && @software_record.save
       redirect_to @software_record, notice: 'Software record was successfully requested.'
       RequestSoftwareMailerController.send_mail
+    elsif !user_signed_in? && !@software_record.save
+      redirect_to request_new_path, error: 'All mandatory fields are required.'
     else
       render :new
     end
@@ -99,10 +105,6 @@ class SoftwareRecordsController < ApplicationController
       :vendor_record_id,
       :date_implemented,
       :date_of_upgrade,
-      :departments,
-      :developers,
-      :tech_leads,
-      :product_owners,
       :languages_used,
       :url,
       :user_seats,
@@ -115,7 +117,11 @@ class SoftwareRecordsController < ApplicationController
       :it_quality,
       :created_by,
       :tentative_date_implemented,
-      :sensitive_information
+      :sensitive_information,
+      tech_leads: [],
+      developers: [],
+      product_owners: [],
+      departments: []
     )
   end
 end

@@ -60,25 +60,209 @@
               <%= form.collection_select(:vendor_record_id, VendorRecord.all, :id, :title, {}, {:class => "form-control"}) %>
             </div>
 
-            <div class="form-group">
-              <%= form.label :departments %>
-              <%= form.text_field :departments, :class => "form-control regex-departments" %>
-            </div>
+            <!-- Multiple Departments -->
 
-            <div class="form-group">
-              <%= form.label :developers %>
-              <%= form.text_field :developers, :class => "form-control regex-developers" %>
+            <% if component.to_s == "new" %>
+              <div class="form-group" id="multiple_departments">
+                <%= form.label :departments %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[departments][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddDepartments">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
             </div>
+            <% else %>
+            <% if @software_record.departments.count != 0 %>
+              <div class="form-group" id="multiple_departments">
+                <%= form.label :departments %>
+                <% @software_record.departments.each do |department| %>
+                    <% if @count_departments == 2 %>
+                      <div class="input-group">
+                        <%= text_field_tag "software_record[departments][]", department, class: "form-control" %>
+                        <div class="input-group-append" id="btnAddDepartments">
+                          <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                        </div>
+                      </div>
+                        <% @count_departments += 1 %>
+                    <% else %>
+                      <% @id = "software_record_departments_" + @count_departments.to_s %>
+                      <div class="input-group mt-2" id = "<%= @id %>" >
+                        <%= text_field_tag "software_record[departments][]", department, id: "software_record_departments_", required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                    <% end %>
+                <% end %>
+                </div>
+              <% else %>
+                <div class="form-group" id="multiple_departments">
+                  <%= form.label :departments %>
+                  <div class="input-group">
+                    <%= text_field_tag "software_record[departments][]", nil, class: "form-control" %>
+                    <div class="input-group-append" id="btnAddDepartments">
+                      <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
 
-            <div class="form-group">
-              <%= form.label :tech_leads %>
-              <%= form.text_field :tech_leads, :class => "form-control regex-leads" %>
-            </div>
+            <!-- Multiple Departments ends -->
 
-            <div class="form-group">
-              <%= form.label :product_owners %>
-              <%= form.text_field :product_owners, :class => "form-control regex-owners" %>
+            <!-- Multiple Developers -->
+
+            <% if component.to_s == "new" %>
+              <div class="form-group" id="multiple_developers">
+                <%= form.label :developers %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[developers][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddDevelopers">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
             </div>
+            <% else %>
+            <% if @software_record.developers.count != 0 %>
+              <div class="form-group" id="multiple_developers">
+                <%= form.label :developers %>
+                <% @software_record.developers.each do |developer| %>
+                    <% if @count_developers == 2 %>
+                      <div class="input-group">
+                        <%= text_field_tag "software_record[developers][]", developer, class: "form-control" %>
+                        <div class="input-group-append" id="btnAddDevelopers">
+                          <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                        </div>
+                      </div>
+                        <% @count_developers += 1 %>
+                    <% else %>
+                      <% @id = "software_record_developers_" + @count_developers.to_s %>
+                      <div class="input-group mt-2" id = "<%= @id %>" >
+                        <%= text_field_tag "software_record[developers][]", developer, id: "software_record_developers_", required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                    <% end %>
+                <% end %>
+                </div>
+              <% else %>
+               <div class="form-group" id="multiple_developers">
+                <%= form.label :developers %>
+                <div class="input-group">
+                  <%= text_field_tag "software_record[developers][]", nil, class: "form-control" %>
+                  <div class="input-group-append" id="btnAddDevelopers">
+                    <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+
+            <!-- Multiple Developers ends -->
+
+            <!-- Multiple Tech Leads -->
+
+            <% if component.to_s == "new" %>
+              <div class="form-group" id="multiple_tech_leads">
+                <%= form.label :tech_leads %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[tech_leads][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddTechLeads">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
+            </div>
+            <% else %>
+            <% if @software_record.tech_leads.count != 0 %>
+              <div class="form-group" id="multiple_tech_leads">
+                <%= form.label :tech_leads %>
+                <% @software_record.tech_leads.each do |tech_lead| %>
+                    <% if @count_tech_leads == 2 %>
+                      <div class="input-group">
+                        <%= text_field_tag "software_record[tech_leads][]", tech_lead, class: "form-control" %>
+                        <div class="input-group-append" id="btnAddTechLeads">
+                          <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                        </div>
+                      </div>
+                        <% @count_tech_leads += 1 %>
+                    <% else %>
+                      <% @id = "software_record_tech_leads_" + @count_tech_leads.to_s %>
+                      <div class="input-group mt-2" id = "<%= @id %>" >
+                        <%= text_field_tag "software_record[tech_leads][]", tech_lead, id: "software_record_tech_leads_", required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                    <% end %>
+                <% end %>
+                </div>
+              <% else %>
+              <div class="form-group" id="multiple_tech_leads">
+                <%= form.label :tech_leads %>
+                <div class="input-group">
+                  <%= text_field_tag "software_record[tech_leads][]", nil, class: "form-control" %>
+                  <div class="input-group-append" id="btnAddTechLeads">
+                    <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+
+            <!-- Multiple Tech Leads ends -->
+
+            <!-- Multiple Product Owners -->
+
+            <% if component.to_s == "new" %>
+              <div class="form-group" id="multiple_product_owners">
+                <%= form.label :product_owners %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddProductOwners">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
+            </div>
+            <% else %>
+            <% if @software_record.product_owners.count != 0 %>
+              <div class="form-group" id="multiple_product_owners">
+                <%= form.label :product_owners %>
+                <% @software_record.product_owners.each do |product_owner| %>
+                    <% if @count_product_owners == 2 %>
+                      <div class="input-group">
+                        <%= text_field_tag "software_record[product_owners][]", product_owner, class: "form-control" %>
+                        <div class="input-group-append" id="btnAddProductOwners">
+                          <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                        </div>
+                      </div>
+                        <% @count_product_owners += 1 %>
+                    <% else %>
+                      <% @id = "software_record_tech_leads_" + @count_product_owners.to_s %>
+                      <div class="input-group mt-2" id = "<%= @id %>" >
+                        <%= text_field_tag "software_record[product_owners][]", product_owner, id: "software_record_product_owners_", required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                    <% end %>
+                <% end %>
+                </div>
+              <% else %>
+              <div class="form-group" id="multiple_product_owners">
+                <%= form.label :product_owners %>
+                <div class="input-group">
+                  <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
+                  <div class="input-group-append" id="btnAddProductOwners">
+                    <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+
+            <!-- Multiple Product Owners ends -->
 
             <div class="form-group">
               <%= form.label :languages_used %>
@@ -165,7 +349,7 @@
 
             <div class="form-group">
               <%= form.label "Request By" %><b style="color: red; font-size: 20px"> *</b>
-              <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "John Doe (FirstName LastName)" %>
+              <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "FirstName LastName" %>
             </div>
 
             <div class="form-group">
@@ -180,14 +364,24 @@
             </select>
             </div>
 
-            <div class="form-group">
-              <%= form.label "Department" %>
-              <%= form.text_field :departments, :class => "form-control regex-departments" %>
+            <div class="form-group" id="multiple_departments">
+              <%= form.label :departments %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[departments][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddDepartments">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group">
-              <%= form.label "Primary Contact" %>
-              <%= form.text_field :product_owners, :class => "form-control regex-owners" %>
+            <div class="form-group" id="multiple_product_owners">
+              <%= form.label :product_owners %>
+              <div class="input-group">
+                <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
+                <div class="input-group-append" id="btnAddProductOwners">
+                  <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+                </div>
+              </div>
             </div>
 
             <div class="form-group">

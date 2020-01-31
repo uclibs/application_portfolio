@@ -2,6 +2,19 @@
   <div class="container" style="max-width: 4000px">
     <a class="masthead-brand" href="https://www.uc.edu/" target="_blank"><%= image_tag("UC_Logo.svg", top:'0', width:'113px', height: '49px')%></a>
     <nav class="nav nav-masthead">
+      <% if user_signed_in? %>
+        <%= form_tag(search_path, :method => "get", class: "mt-1") do %>  
+          <div class="input-group">  
+            <%= search_field_tag :search, params[:search], placeholder: "Search..", class: "form-control", style: "height: 27px;" %>  
+            <div class="input-group-btn input-group-append" style="height: 27px; ">
+              <button type="submit" class="btn btn-info" style="height: 27px;">
+                <i class="fa fa-search fa-xs" style="height: 27px; font-size: 14px; vertical-align: middle;"></i>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <p class="ml-3"></p>
        <%= nav_helper 'nav-link' %>
        <div class="drop" style="position: relative; display: inline-block; margin-left: 20px;">
        		<% if current_user %><a class="nav-link drop-btn"> <%= current_user.first_name.to_s+" "+current_user.last_name.to_s %><i class="fa fa-caret-down" style="margin: 5px 0px 0px 8px;"></i></a><% end %>
