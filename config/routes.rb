@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post 'request', to: 'front#create'
   get 'myprofile', to: 'front#profile'
   get 'dashboard', to: 'front#dashboard'
+  get '/search' => 'front#search'
   get 'users', to: 'users#index', as: 'users'
   get 'users/:id', to: 'users#show', as: 'users_show'
   get 'users/:id/edit', to: 'users#edit', as: 'user_edit'

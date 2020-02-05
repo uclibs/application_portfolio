@@ -28,7 +28,7 @@
 
           <div class="form-group">
             <%= form.label "Request By" %><b style="color: red; font-size: 20px"> *</b>
-            <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "John Doe (FirstName LastName)" %>
+            <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "FirstName LastName" %>
           </div>
 
           <div class="form-group">
@@ -43,14 +43,24 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <%= form.label "Department" %>
-            <%= form.text_field :departments, :class => "form-control regex-departments" %>
+          <div class="form-group" id="multiple_departments">
+            <%= form.label :departments %>
+            <div class="input-group">
+              <%= text_field_tag "software_record[departments][]", nil, class: "form-control" %>
+              <div class="input-group-append" id="btnAddDepartments">
+                <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+              </div>
+            </div>
           </div>
 
-          <div class="form-group">
-            <%= form.label "Primary Contact" %>
-            <%= form.text_field :product_owners, :class => "form-control regex-owners" %>
+          <div class="form-group" id="multiple_product_owners">
+            <%= form.label :product_owners %>
+            <div class="input-group">
+              <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
+              <div class="input-group-append" id="btnAddProductOwners">
+                <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+              </div>
+            </div>
           </div>
 
           <div class="form-group">

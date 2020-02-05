@@ -53,7 +53,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status: 'In Development',
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
-      created_by: 'Test Admin'
+      created_by: 'Test Admin',
+      developers: %w[Tester Random],
+      tech_leads: ['Lead 1'],
+      product_owners: %w[Owner1 Owner2]
     }
   end
 
@@ -99,6 +102,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
       expect(response.body).to have_content('Test Admin')
+      expect(response.body).to have_content('Tester')
+      expect(response.body).to have_content('Random')
+      expect(response.body).to have_content('Lead 1')
+      expect(response.body).to have_content('Owner1')
+      expect(response.body).to have_content('Owner2')
     end
   end
 
@@ -156,6 +164,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Admin')
+        expect(software_record.developers).to eq(%w[Tester Random])
+        expect(software_record.tech_leads).to eq(['Lead 1'])
+        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
       end
 
       it 'redirects to the software_record' do
@@ -223,7 +234,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status: 'In Development',
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
-      created_by: 'Test Viewer'
+      created_by: 'Test Viewer',
+      developers: %w[Tester Random],
+      tech_leads: ['Lead 1'],
+      product_owners: %w[Owner1 Owner2]
     }
   end
 
@@ -269,6 +283,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
       expect(response.body).to have_content('Test Viewer')
+      expect(response.body).to have_content('Tester')
+      expect(response.body).to have_content('Random')
+      expect(response.body).to have_content('Lead 1')
+      expect(response.body).to have_content('Owner1')
+      expect(response.body).to have_content('Owner2')
     end
   end
 
@@ -325,6 +344,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.title).to_not eq('A Great Software v2.0')
         expect(software_record.description).to_not eq('An Updated good description of the software')
         expect(software_record.status).to_not eq('To be decomissioned')
+        expect(software_record.developers).to eq(%w[Tester Random])
+        expect(software_record.tech_leads).to eq(['Lead 1'])
+        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
       end
 
       it 'redirects to the software_record' do
@@ -392,7 +414,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status: 'In Development',
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
-      created_by: 'Test Manager'
+      created_by: 'Test Manager',
+      developers: %w[Tester Random],
+      tech_leads: ['Lead 1'],
+      product_owners: %w[Owner1 Owner2]
     }
   end
 
@@ -438,6 +463,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
       expect(response.body).to have_content('Test Manager')
+      expect(response.body).to have_content('Tester')
+      expect(response.body).to have_content('Random')
+      expect(response.body).to have_content('Lead 1')
+      expect(response.body).to have_content('Owner1')
+      expect(response.body).to have_content('Owner2')
     end
   end
 
@@ -495,6 +525,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Manager')
+        expect(software_record.developers).to eq(%w[Tester Random])
+        expect(software_record.tech_leads).to eq(['Lead 1'])
+        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
       end
 
       it 'redirects to the software_record' do
@@ -562,7 +595,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status: 'In Development',
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
-      created_by: 'Test Owner'
+      created_by: 'Test Owner',
+      developers: %w[Tester Random],
+      tech_leads: ['Lead 1'],
+      product_owners: %w[Owner1 Owner2]
     }
   end
 
@@ -608,6 +644,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
       expect(response.body).to have_content('Test Owner')
+      expect(response.body).to have_content('Tester')
+      expect(response.body).to have_content('Random')
+      expect(response.body).to have_content('Lead 1')
+      expect(response.body).to have_content('Owner1')
+      expect(response.body).to have_content('Owner2')
     end
   end
 
@@ -665,6 +706,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Owner')
+        expect(software_record.developers).to eq(%w[Tester Random])
+        expect(software_record.tech_leads).to eq(['Lead 1'])
+        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
       end
 
       it 'redirects to the software_record' do
