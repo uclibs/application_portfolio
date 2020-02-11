@@ -144,12 +144,38 @@ a:hover {
   border-radius: 50%;
 }
 
+.software-records-table {
+  font-size: 13px;
+}
+
+.srecords-table {
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (min-width: 1480px) {
+  .software-records-table {
+    font-size: 16px;
+    width: 100%;
+    table-layout: auto;
+    box-sizing: initial;
+    white-space: nowrap;
+  }
+  .table th {
+    font-size: 16px;
+  }
+}
+
+.table th {
+  font-size: 14px;
+}
+
 .table {
   margin: auto;
   color: white;
   width: 100% !important;
   background-color: black;
-  table-layout: fixed !important;
+  border-radius: 5px;
 }
 
 .table td, .table th {
@@ -157,9 +183,17 @@ a:hover {
   border-top: none;
 }
 
-.table tr {
+.software-record-table tr {
   &:hover {
     background-color: #202020;
+  }
+}
+
+.th-link {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -239,6 +273,7 @@ a:hover {
   color: white;
   &:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 }
 

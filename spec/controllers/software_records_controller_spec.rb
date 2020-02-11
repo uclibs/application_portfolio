@@ -325,8 +325,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: { software_record: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
-        expect(response).to render_template(:new)
+        expect(response).to_not be_successful
+        expect(response).to redirect_to '/request/new'
       end
     end
   end
@@ -686,8 +686,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: { software_record: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
-        expect(response).to render_template(:new)
+        expect(response).to_not be_successful
+        expect(response).to redirect_to('/request/new')
       end
     end
   end

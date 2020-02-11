@@ -3,6 +3,8 @@
 class FrontController < ApplicationController
   layout 'application'
   before_action :authenticate_user!, only: %i[dashboard profile search]
+  helper_method :sort_column, :sort_direction
+  include SoftwareRecordsHelper
 
   def index
     $page_title = 'Welcome | Application Portfolio'
@@ -16,13 +18,13 @@ class FrontController < ApplicationController
     end
     $page_title = 'Dashboard | Application Portfolio'
     @user = current_user.first_name + ' ' + current_user.last_name
-    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user)
+    @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user).order(sort_column + ' ' + sort_direction)
     begin
       @indesign_count = @softwarerecords_indesign.count
     rescue StandardError
       @indesign_count = 0
     end
-    @softwarerecords_production = SoftwareRecordsController.production_dashboard(@user)
+    @softwarerecords_production = SoftwareRecordsController.production_dashboard(@user).order(sort_column + ' ' + sort_direction)
     begin
       @production_count = @softwarerecords_production.count
     rescue StandardError
@@ -106,5 +108,15 @@ class FrontController < ApplicationController
     else
       redirect_to request_new_path
     end
+  end
+
+  private
+
+  def sort_column
+    SoftwareRecord.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

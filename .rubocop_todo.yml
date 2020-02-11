@@ -33,6 +33,11 @@ Metrics/AbcSize:
     - 'app/controllers/front_controller.rb'
     - 'app/controllers/software_records_controller.rb'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'app/controllers/front_controller.rb'
+    - 'app/controllers/software_records_controller.rb'
+
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'

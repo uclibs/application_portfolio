@@ -13,17 +13,40 @@
 
 <% if @softwarerecords_count != 0 %>
   <div class="container animated fadeInLeft" style="margin-bottom: 10rem">
-    <div class="row">
-      <table class="table text-center">
+    <div class="row" style="margin-left: -50px">
+      <table class="table text-center software-records-table">
         <thead>
           <tr>
-            <th><%= sortable "title", "Software Records" %> 
+            <th><%= sortable "title", "Software Record" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
-                <i class="fa fa-caret-down" style="float: none"></i>
-              <% end %>
-            </th>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+            <th><%= sortable "vendor_record_id", "Vendor" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+            <th><%= sortable "software_type_id", "Software Type" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+            <th><%= sortable "date_implemented", "Date Implemented" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+            <th><%= sortable "url", "URL" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
             <% if current_user.role.to_s == "viewer" %>
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
@@ -38,15 +61,19 @@
           <% @software_records.each do |software_record| %>
             <tr>
               <td><%= software_record.title %></td>
+              <td><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
+              <td><%= SoftwareType.find(software_record.software_type_id).title %></td>
+              <td><%= software_record.date_implemented %></td>
+              <td><% if software_record.url.to_s.empty? %>No URL<% else %><a href="<%= software_record.url %>" target="_blank"><%= software_record.url %></a><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
-                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
-                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
               <% else %>
-                <td><%= link_to 'View', software_record , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary" } %></td>
-                <td><%= link_to 'Delete', software_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+                <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+                <td><%= link_to 'Delete', software_record, method: :delete, :class => "btn btn-danger action-btn", data: { confirm: 'Are you sure?' } %></td>
               <% end %>
             </tr>
           <% end %>
