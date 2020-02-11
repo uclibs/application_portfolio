@@ -5,9 +5,11 @@ class UsersController < ApplicationController
   before_action :retrieve_user, only: %i[show edit update destroy user_status]
   before_action :authenticate_user!
   access root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  include SoftwareRecordsHelper
+  helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.all
+    @users = User.order(sort_column + ' ' + sort_direction)
     @active = 'users'
     $page_title = 'Manage Users | Application Portfolio'
   end
@@ -63,5 +65,15 @@ class UsersController < ApplicationController
     else
       render :index
     end
+  end
+
+  private
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'first_name'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

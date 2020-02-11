@@ -4,9 +4,9 @@
 module SoftwareRecordsHelper
   def pills(status)
     if status == 'In Design'
-      content_tag(:span, status, class: 'badge badge-pill badge-info')
-    elsif status == 'In Development'
       content_tag(:span, status, class: 'badge badge-pill badge-light')
+    elsif status == 'In Development'
+      content_tag(:span, status, class: 'badge badge-pill badge-info')
     elsif status == 'Production'
       content_tag(:span, status, class: 'badge badge-pill badge-primary')
     elsif status == 'Available'
@@ -20,8 +20,8 @@ module SoftwareRecordsHelper
 
   def sortable(column, title = nil)
     title ||= column.titleize
-    direction = (column == sort_column) && (sort_direction == 'asc' ? 'desc' : 'asc')
-    link_to title, sort: column, direction: direction, class: 'th-link'
+    direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
+    link_to title, { sort: column, direction: direction }, class: css_class if column == 'vendor_record_id'
   end
 
   def sort_column

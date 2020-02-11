@@ -190,12 +190,41 @@ option {
   background-color: #FFFAFA;
 }
 
+.software-records-table {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 1480px) {
+  .software-records-table {
+    font-size: 16px;
+    width: 100%;
+    table-layout: auto;
+    box-sizing: initial;
+    white-space: nowrap;
+  }
+  .table th {
+    font-size: 16px;
+  }
+
+  a.action-btn {
+    font-size: 16px;
+  }
+
+}
+
+.table th {
+  font-size: 14px;
+}
+
 .table {
   margin: auto;
   color: white;
-  width: 50% !important;
+  width: 100% !important;
   background-color: black;
+  border-radius: 5px;
 }
+
 .table td, .table th {
   vertical-align: middle !important;
   border-top: none;
@@ -212,6 +241,7 @@ option {
   color: white;
   &:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 }
 
@@ -342,4 +372,8 @@ dt{
 .remove:hover {
   cursor: pointer;
   color: red;
+}
+
+.action-btn {
+  font-size: 12px;
 }
