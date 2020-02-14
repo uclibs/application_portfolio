@@ -3,6 +3,7 @@
 # SoftwareRecords Controller
 class SoftwareRecordsController < ApplicationController
   layout 'software_records'
+  helper_method :sort_column, :sort_direction
   include SoftwareRecordsHelper
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
@@ -60,13 +61,14 @@ class SoftwareRecordsController < ApplicationController
   # POST /software_records
   def create
     @software_record = SoftwareRecord.new(software_record_params)
-
     if @software_record.save && user_signed_in?
       redirect_to @software_record, notice: 'Software record was successfully created.'
     elsif !user_signed_in? && @software_record.save
       redirect_to @software_record, notice: 'Software record was successfully requested.'
       RequestSoftwareMailerController.send_mail
     elsif !user_signed_in? && !@software_record.save
+      redirect_to request_new_path, error: 'All mandatory fields are required.'
+    elsif user_signed_in? && (current_user.role.to_s == 'owner' || current_user.role.to_s == 'viewer')
       redirect_to request_new_path, error: 'All mandatory fields are required.'
     else
       render :new
@@ -93,6 +95,14 @@ class SoftwareRecordsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_software_record
     @software_record = SoftwareRecord.find(params[:id])
+  end
+
+  def sort_column
+    SoftwareRecord.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
   # Only allow a trusted parameter "white list" through.

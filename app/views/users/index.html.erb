@@ -6,7 +6,12 @@
             <table class="table text-center w-25">
               <thead>
                 <tr>
-                  <th>User</th>
+                  <th><%= sortable "first_name", "User" %> 
+                  <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                    <i class="fa fa-caret-up"></i>
+                  <% else %>
+                    <i class="fa fa-caret-down float-none"></i>
+                  <% end %></th>
                   <th>Role</th>
                   <th colspan="4">Actions</th>
                 </tr>
