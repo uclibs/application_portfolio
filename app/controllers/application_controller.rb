@@ -3,6 +3,7 @@
 # Application Controller
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  $deployed_at = Time.new.strftime('%Y-%m-%d %H:%M:%S')
   # Redirect to dashboard on user login
   def after_sign_in_path_for(_resource)
     # return the path based on resource

@@ -33,5 +33,8 @@
 # Ignore coverage folder
 coverage/
 
+# Ignore yarn.lock auto-generated file
+yarn.lock
+
 # Ignore .DS_Store files generated in MAC OS
 .DS_Store

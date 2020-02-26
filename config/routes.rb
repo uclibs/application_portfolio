@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true*
-
 Rails.application.routes.draw do
+  get 'seed/new', to: 'file_uploads#new', as: 'file_uploads_new'
+  get 'seed/create', to: 'file_uploads#create', as: 'file_uploads_create'
   devise_for :users
   resources :vendor_records
   resources :software_types
@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#destroy', as: 'user_destroy'
   post 'users/:id/edit', to: 'users#update', as: 'user_update'
   get 'users/:id/status', to: 'users#user_status', as: 'user_status'
+  resources :file_uploads, only: %i[new create]
 end
