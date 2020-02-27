@@ -1,0 +1,36 @@
+<div class="container animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6" style="background-color:transparent;">
+      <div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9; width: auto">  
+      <div class = "card" style = "background-color: black; width: auto; text-align: center;"><br/>
+          <h2 class= "text-center" style="color: white; margin-top: 30px;">Seed Import</h2>
+          <hr style="background-color: white">
+            <div class = "card-body">
+               <%= form_for @file, :html => { multipart: true } do |f| %>
+                  <label>Please select the type of import..</label><br/>
+                  <div class="text-left">
+                     <label><%= radio_button_tag 'seed', "srecords", checked = true %> Software Records</label><br/>
+                     <label><%= radio_button_tag 'seed', "vrecords"%> Vendor Records</label><br/>
+                     <label><%= radio_button_tag 'seed', "stypes"%> Software Types</label><br/><br/>
+                  </div>
+                  <div class="text-left">
+                    <%= f.label :attachment, class: "text-left" %>
+                    <i style="font-size: 11px; color: #E00122">(only `.csv` files)</i><br/>
+                  </div>
+                  <div class="clearfix"></div>
+                  <%= f.file_field :attachment, :accept => 'text/csv', class: "btn btn-light" %><br/><br/>
+                  <%= f.submit "Import Seeds", class: "btn btn-success text-center" %>
+               <% end %>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="col-sm-6" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9; width: auto">
+      <div class = "card mt-5" style = "background-color: black; text-align: center; width: auto; margin-left: 0px !important"><br/>
+        <h1>Import Result(s)</h1>
+        <hr style="background-color: white">
+        <%= text_area "output", "body", "cols" => 53, "rows" => 20, :value=>$output, style: 'font-size: 14px'%>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class = "container-block mt-5" style="margin-left: 150px; margin-right: 150px;">
   <div class="card-deck mb-3 text-center" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
+    <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px;">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-uppercase">My Software Records In-Design/Development</h3>
       </div>
@@ -50,7 +50,7 @@
                   <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
                   <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.current_tentative_date_implemented %><% end %></td>
+                  <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.tentative_date_implemented %><% end %></td>
                   <% if current_user.role.to_s == "viewer" %>
                     <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
@@ -73,7 +73,7 @@
     </div>
   </div>
   <div class="card-deck mb-3 text-center" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto;">
+    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-uppercase">My Software Records In Production</h3>
       </div>
@@ -162,7 +162,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom"%><br/>
+        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, library: {legend: {position: "none"}} %><br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/vendor_records'">View</button>
       </div>
     </div>
