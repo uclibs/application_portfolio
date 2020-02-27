@@ -19,16 +19,16 @@ class FileUploadsController < ApplicationController
     end
     filename = params[:file_upload][:attachment].original_filename
     option = params[:seed].to_s
-
+    user = current_user.first_name.to_s + ' ' + current_user.last_name.to_s
     if option == 'srecords'
       system('cd../..')
-      $output = `ruby load_records.rb software "#{filename}"`
+      $output = `ruby load_records.rb software "#{filename}" "#{user}"`
     elsif option == 'vrecords'
       system('cd../..')
-      $output = `ruby load_records.rb vendor "#{filename}"`
+      $output = `ruby load_records.rb vendor "#{filename}" "#{user}"`
     elsif option == 'stypes'
       system('cd../..')
-      $output = `ruby load_records.rb type "#{filename}"`
+      $output = `ruby load_records.rb type "#{filename}" "#{user}"`
     end
     File.delete(Rails.root.join('public', 'uploads', uploaded_io.original_filename))
     redirect_to file_uploads_new_path, notice: "The file `#{uploaded_io.original_filename}` has been loaded successfully."

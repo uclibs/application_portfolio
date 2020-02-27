@@ -50,7 +50,7 @@
                   <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
                   <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.current_tentative_date_implemented %><% end %></td>
+                  <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.tentative_date_implemented %><% end %></td>
                   <% if current_user.role.to_s == "viewer" %>
                     <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>

@@ -5,7 +5,6 @@ require 'date'
 # !/bin/env ruby
 ENV['RAILS_ENV'] = 'development'
 require Dir.pwd + '/config/environment.rb'
-
 # Script for importing seeds data
 class LoadRecords < ActiveRecord::Base
   def software_records
@@ -13,7 +12,6 @@ class LoadRecords < ActiveRecord::Base
     csv = CSV.read(file, headers: true)
     webapp_type = csv['Type']
     vendor_records = csv['Vendor']
-
     valid_types = []
     valid_vendors = []
     invalid_vendors = []
@@ -124,7 +122,7 @@ class LoadRecords < ActiveRecord::Base
         bvalue = row['Business value'].to_s.strip
         itquality = row['IT quality'].to_s.strip
         tentative = row['Date submitted to portfolio']
-        created_by = 'Sherlock Holmes'
+        created_by = $user
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of Upgrade'].to_s.strip
 
@@ -209,6 +207,7 @@ end
 
 args = ARGV[0]
 $filename = ARGV[1]
+$user = ARGV[2]
 
 if args == 'vendor'
   LoadRecords.table_name = 'vendor_records'
