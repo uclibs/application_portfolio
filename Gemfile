@@ -48,6 +48,7 @@ gem 'bootstrap-datepicker-rails'
 # Use chartkick for data-visualization
 gem 'chartkick'
 # Use groupdate to group by dates
+gem 'csv'
 gem 'groupdate'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

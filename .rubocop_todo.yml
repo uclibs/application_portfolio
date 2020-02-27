@@ -32,8 +32,11 @@ Metrics/AbcSize:
     - 'app/controllers/users_controller.rb'
     - 'app/controllers/front_controller.rb'
     - 'app/controllers/software_records_controller.rb'
+    - 'app/controllers/file_uploads_controller.rb'
+    - 'load_records.rb'
 
 Metrics/ClassLength:
+  Max: 260
   Exclude:
     - 'app/controllers/front_controller.rb'
     - 'app/controllers/software_records_controller.rb'
@@ -42,15 +45,17 @@ Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'
     - 'app/controllers/front_controller.rb'
+    - 'load_records.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'
+    - 'load_records.rb'
 
 Style/GlobalVars:
   Exclude:
     - 'app/controllers/*'
-
+    - 'load_records.rb'
 # Offense count: 2
 Style/MixinUsage:
   Exclude:

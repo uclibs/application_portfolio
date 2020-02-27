@@ -52,8 +52,8 @@
             </ul>
           </dd>
         <% end %>
-
-        <% if @software_record.developers.length != 0 && @software_record.developers[0] != "" %>
+        <%= @software_record.developers[0].to_s %>
+        <% if @software_record.developers.length != 0 && @software_record.developers[0].to_s != "" %>
           <dt>Developers</dt>
           <dd>
             <% @software_record.developers.each do |developer| %>
@@ -63,7 +63,7 @@
             <% end %>
           </dd>
         <% end %>
-        <% if @software_record.tech_leads.length != 0 && @software_record.tech_leads[0] != "" %>
+        <% if @software_record.tech_leads.length != 0 && @software_record.tech_leads[0].to_s != "" %>
           <dt>Tech Leads</dt>
           <dd>
             <% @software_record.tech_leads.each do |tech_lead| %>
@@ -74,7 +74,7 @@
           </dd>
         <% end %>
 
-        <% if @software_record.departments.length != 0 && @software_record.departments[0] != "" %>
+        <% if @software_record.departments.length != 0 && @software_record.departments[0].to_s != "" %>
           <dt>Departments</dt>
           <dd>
             <% @software_record.departments.each do |department| %>
@@ -85,7 +85,7 @@
           </dd>
         <% end %>
 
-        <% if @software_record.product_owners.length != 0 && @software_record.product_owners[0] != "" %>
+        <% if @software_record.product_owners.length != 0 && @software_record.product_owners[0].to_s != "" %>
           <dt>Product Owners</dt>
           <dd>
             <% @software_record.product_owners.each do |product_owner| %>
@@ -106,7 +106,7 @@
         <% if !@software_record.url.nil? && !@software_record.url.to_s.empty? %>
           <dt>URL</dt>
           <dd>
-            <ul><%= @software_record.url %></ul>
+            <ul><a href="<%= @software_record.url %>" target='_blank'><%= @software_record.url %></a></ul>
           </dd>
         <% end %>
 
