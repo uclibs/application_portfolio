@@ -5,5 +5,9 @@ FactoryBot.define do
     title { 'MyString' }
     description { 'MyText' }
     status { 'MyString' }
+    date_implemented { '2020-12-12' }
+    vendor_record_id { VendorRecord.second.id }
+    software_type_id { SoftwareType.second.id }
+    created_by { 'Test User' }
   end
 end

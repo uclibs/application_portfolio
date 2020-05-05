@@ -17,6 +17,10 @@
 !/log/.keep
 !/tmp/.keep
 
+/tmp/puma/*
+!/tmp/puma/
+!/tmp/puma/.keep
+
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
@@ -31,7 +35,7 @@
 /config/master.key
 
 # Ignore coverage folder
-coverage/
+/coverage
 
 # Ignore yarn.lock auto-generated file
 yarn.lock

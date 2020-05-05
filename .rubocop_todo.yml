@@ -62,6 +62,11 @@ Style/MixinUsage:
     - 'bin/setup'
     - 'bin/update'
 
+Style/GuardClause:
+  Exclude:
+    - 'app/controllers/front_controller.rb'
+
+
 # Offense count: 64
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
@@ -72,5 +77,5 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Max: 154
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 260
