@@ -3,10 +3,14 @@
 # Admin Mailer on Software Record request
 class AdminMailer < ApplicationMailer
   default from: 'uclappdev@uc.edu'
-  def send_mail(_id, _name)
-    mail(
-      to: 'mallepvl@mail.uc.edu',
-      subject: 'New Software Request'
-    )
+
+  def new_software_request_mail(id, name)
+    @id = id
+    @name = name
+    @template = 'new_software_request_mail.html.erb'
+    @users = User.where(roles: 'root_admin')
+    @users.each do |admin|
+      mail(to: admin.email, subject: 'Software Requested for Application Portfolio', template_name: @template).deliver
+    end
   end
 end

@@ -4,22 +4,44 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
-default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+<%
+  socket = [
+  ENV["BOXEN_MYSQL_SOCKET"],
+  "/var/run/mysql5/mysqld.sock",
+  "/tmp/mysql.sock"
+  ].detect { |f| f && File.exist?(f) }
+  port = ENV["APP_PORTFOLIO_DATABASE_PORT"]
+%>
+
+mysql_connection: &mysql_connection
+<% if socket %>
+  host: <%= ENV["APP_PORTFOLIO_DATABASE_HOST"] %>
+  socket: <%= socket %>
+<% else %>
+  host: 127.0.0.1
+  port: <%= port %>
+<% end %>
+
+database_settings: &database_settings
+  <<: *mysql_connection
+  adapter:   <%= ENV["APP_PORTFOLIO_DATABASE_ADAPTER"] %>
+  pool:      <%= ENV["APP_PORTFOLIO_DATABASE_POOL"] %>
+  username:  <%= ENV["APP_PORTFOLIO_DATABASE_USERNAME"] %>
+  password:  <%= ENV["APP_PORTFOLIO_DATABASE_PASSWORD"] %>
+  database:  <%= ENV["APP_PORTFOLIO_DATABASE_NAME"] %>
+  host:      <%= ENV["APP_PORTFOLIO_DATABASE_HOST"] %>
+  timeout:   <%= ENV["APP_PORTFOLIO_DATABASE_TIMEOUT"] %>
+  encoding:  utf8
+  RECONNECT: FALSE
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+  <<: *database_settings
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: db/test.sqlite3
+  <<: *database_settings
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  <<: *database_settings
