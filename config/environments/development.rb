@@ -27,7 +27,15 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
+  config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_options = { from: 'no-reply@example.com' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
   config.require_master_key = false
@@ -35,7 +43,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
