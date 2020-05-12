@@ -31,6 +31,9 @@
 /public/assets
 .byebug_history
 
+# Add vendor/bundle to ignore tracking history of gems
+/vendor/bundle
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
