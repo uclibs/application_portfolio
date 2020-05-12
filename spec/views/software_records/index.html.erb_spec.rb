@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe 'software_records/index', type: :view do
   before(:each) do
     VendorRecord.create!(
-      id: 311,
-      title: 'Vendor 122',
+      id: 1,
+      title: 'Vendor 1',
       description: 'test vendor'
     )
     SoftwareType.create!(
-      id: 111,
+      id: 1,
       title: 'Web app',
       description: 'test software type'
     )

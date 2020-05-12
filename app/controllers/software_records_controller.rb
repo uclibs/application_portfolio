@@ -64,8 +64,8 @@ class SoftwareRecordsController < ApplicationController
     if @software_record.save && user_signed_in?
       redirect_to @software_record, notice: 'Software record was successfully created.'
     elsif !user_signed_in? && @software_record.save
-      AdminMailer.new_software_request_mail(@software_record.id, @software_record.created_by).deliver_now
       redirect_to @software_record, notice: 'Software record was successfully requested.'
+      RequestSoftwareMailerController.send_mail
     elsif !user_signed_in? && !@software_record.save
       redirect_to request_new_path, error: 'All mandatory fields are required.'
     elsif user_signed_in? && (current_user.role.to_s == 'owner' || current_user.role.to_s == 'viewer')
