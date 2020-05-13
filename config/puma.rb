@@ -25,6 +25,9 @@ if ENV.fetch('RAILS_ENV') == 'production'
   stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
 
   # Set the working directory
+  directory '/opt/webapps/application_portfolio/current'
+
+  # Set the working directory
   # directory '/opt/webapps/application_portfolio'
 else
   # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
