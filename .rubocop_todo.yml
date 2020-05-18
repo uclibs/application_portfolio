@@ -52,6 +52,10 @@ Metrics/CyclomaticComplexity:
     - 'app/controllers/software_records_controller.rb'
     - 'load_records.rb'
 
+Style/GuardClause:
+  Exclude:
+    - 'app/controllers/front_controller.rb'
+
 Style/GlobalVars:
   Exclude:
     - 'app/controllers/*'
