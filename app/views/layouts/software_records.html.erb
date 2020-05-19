@@ -36,6 +36,24 @@
     document.getElementById("main").style.marginLeft= "0";
   }
 
+  function clearFilters() {
+    document.getElementById("vendor-record-filter").style.display = "none";
+    document.getElementById("software-type-filter").style.display = "none";
+    var loaded = window.location.host;
+    window.location = "software_records";
+  }
+
+  function handleRadio(myRadio) {
+    if(myRadio.value === "vendor_records") {
+      document.getElementById("vendor-record-filter").style.display = "block";
+      document.getElementById("software-type-filter").style.display = "none";
+    }
+    else{
+      document.getElementById("vendor-record-filter").style.display = "none";
+      document.getElementById("software-type-filter").style.display = "block";
+    }
+  }
+
   var dropdown = document.getElementsByClassName("dropdown-btn");
   var i;
   for (i = 0; i < dropdown.length; i++) {

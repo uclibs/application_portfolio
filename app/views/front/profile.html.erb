@@ -13,7 +13,7 @@
             <div class="col-6">
               <%= image_tag("UC Libraries.jpg")%>
             </div>
-            <div class="col-6" style="color: black">
+            <div class="col-6" style="color: black;">
               <dl>
                 <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-user-tag"></i> Name</p></dt>
                 <dd style="color: red"><ul><%= current_user.first_name.to_s+" "+current_user.last_name.to_s %></ul></dd>
@@ -28,9 +28,9 @@
                 <dd style="color: red"><ul><%= current_user.department.to_s %></ul></dd>
               </dl>
               <br/>
-              <div class="text-center">
-                <a class="btn btn-dark pull-right" href="<%= edit_user_registration_path %>"><i class="fas fa-edit"></i> Edit Profile</a>
-                <a class="btn btn-dark pull-right" href="<%= dashboard_path %>" style="margin: 40px"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
+              <div style="margin-left: -20px;">
+                <a class="btn btn-dark" href="<%= edit_user_registration_path %>"><i class="fas fa-edit"></i> Edit Profile/Change Password</a>
+                <a class="btn btn-dark" href="<%= dashboard_path %>" style="margin: 20px"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
               </div>
             </div>
           </div>

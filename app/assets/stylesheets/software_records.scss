@@ -374,3 +374,11 @@ dt{
 .action-btn {
   font-size: 12px;
 }
+
+.clear-filters:hover {
+  background-color: #E00122;
+}
+
+input[type="radio"]:checked+label {
+  color: #E00122;
+}

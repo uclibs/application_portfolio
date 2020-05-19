@@ -34,8 +34,9 @@ Rails.application.configure do
   #   arguments: '-i'
   # }
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_options = { from: 'no-reply@example.com' }
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
+  # Store the base url from where request is received.
+  config.action_mailer.default_url_options = { host: 'request.base_url' }
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
   config.require_master_key = false

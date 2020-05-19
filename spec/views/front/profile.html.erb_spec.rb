@@ -10,8 +10,8 @@ RSpec.describe 'front/profile', type: :view do
                first_name: 'Admin',
                last_name: 'Test',
                email: 'admin12@example.com',
-               password: 'admintest',
-               password_confirmation: 'admintest',
+               password: 'admintest123',
+               password_confirmation: 'admintest123',
                roles: 'admin'
              )
            ])
