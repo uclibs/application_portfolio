@@ -5,8 +5,8 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Viewer' }
     email { 'viewer@test.com' }
-    password { 'random123' }
-    password_confirmation { 'random123' }
+    password { 'random1234' }
+    password_confirmation { 'random1234' }
     roles { 'viewer' }
   end
 
@@ -14,8 +14,8 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Admin' }
     email { 'admin@test.com' }
-    password { 'random123' }
-    password_confirmation { 'random123' }
+    password { 'random1234' }
+    password_confirmation { 'random1234' }
     roles { 'root_admin' }
   end
 
@@ -23,8 +23,8 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Manager' }
     email { 'manager@test.com' }
-    password { 'random123' }
-    password_confirmation { 'random123' }
+    password { 'random1234' }
+    password_confirmation { 'random1234' }
     roles { 'manager' }
   end
 
@@ -32,8 +32,8 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Owner' }
     email { 'owner@test.com' }
-    password { 'random123' }
-    password_confirmation { 'random123' }
+    password { 'random1234' }
+    password_confirmation { 'random1234' }
     roles { 'owner' }
   end
 end
