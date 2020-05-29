@@ -3,7 +3,6 @@
 require 'csv'
 require 'date'
 # !/bin/env ruby
-ENV['RAILS_ENV'] = 'development'
 require Dir.pwd + '/config/environment.rb'
 # Script for importing seeds data
 class LoadRecords < ActiveRecord::Base
