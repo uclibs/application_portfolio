@@ -7,7 +7,7 @@
     <p>Hi Admin<br><br>
 
 	A New Software Record has been requested by <%= @name %>. Please find the link to the request below.
-
-	<a href="https://localhost:3000/software_record/<%= @id %>">https://localhost:3000/software_record/<%= @id %></a></p><br><br>
+	<% @host_url = ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] %>
+	<a href="https://<%= @host_url %>/software_records/<%= @id %>">https://<%= @host_url %>/software_records/<%= @id %></a></p><br><br>
   </body>
 </html> 

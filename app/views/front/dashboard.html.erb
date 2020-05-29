@@ -145,7 +145,7 @@
       </div>
       <div class="card-body">
         <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", "#E8DE0D"], legend: "bottom"%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/users'">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='users'">View</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto">
@@ -153,8 +153,8 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart SoftwareRecord.group(:status).count, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom", refresh: 60%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/software_records'">View</button>
+        <%= pie_chart SoftwareRecord.group(:status).count, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" %><br/>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto">
@@ -162,8 +162,8 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, library: {legend: {position: "none"}} %><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/vendor_records'">View</button>
+        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: {position: "none"} %><br/>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='vendor_records'">View</button>
       </div>
     </div>
   </div>
@@ -175,7 +175,7 @@
       </div>
       <div class="card-body">
         <%= line_chart SoftwareRecord.group(:status).group_by_week(:created_at).sum(SoftwareRecord.all.count), legend: "bottom" %> <br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='/software_records'">View</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
   </div>
