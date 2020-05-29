@@ -70,7 +70,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
   # Store the base url from where request is received.
-  config.action_mailer.default_url_options = { host: request.base_url }
+  config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
