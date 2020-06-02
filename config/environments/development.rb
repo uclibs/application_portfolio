@@ -36,7 +36,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
   # Store the base url from where request is received.
-  config.action_mailer.default_url_options = { host: 'request.base_url' }
+  config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] }
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
   config.require_master_key = false
