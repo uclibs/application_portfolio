@@ -11,16 +11,16 @@ class UsersController < ApplicationController
   def index
     @users = User.order(sort_column + ' ' + sort_direction)
     @active = 'users'
-    $page_title = 'Manage Users | Application Portfolio'
+    $page_title = 'Manage Users | UCL Application Portfolio'
   end
 
   def edit
-    $page_title = 'Edit Users | Application Portfolio'
+    $page_title = 'Edit Users | UCL Application Portfolio'
     render :edit
   end
 
   def update
-    $page_title = 'Edit Users | Application Portfolio'
+    $page_title = 'Edit Users | UCL Application Portfolio'
     @user.first_name = params[:first_name]
     @user.last_name = params[:last_name]
     @user.title = params[:title]
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    $page_title = @user.first_name.to_s + ' ' + @user.last_name.to_s + ' | Application Portfolio'
+    $page_title = @user.first_name.to_s + ' ' + @user.last_name.to_s + ' | UCL Application Portfolio'
     render :show
   end
 

@@ -6,6 +6,14 @@ describe FrontController do
   include Devise::Test::ControllerHelpers
   render_views
 
+  describe 'GET #new' do
+    it 'returns a success response' do
+      get :new, params: {}
+      expect(response).to be_successful
+      expect(response).to render_template(:new)
+    end
+  end
+
   describe '#index' do
     it 'renders the index page' do
       get :index

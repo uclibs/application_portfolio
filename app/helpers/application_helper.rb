@@ -15,13 +15,13 @@ module ApplicationHelper
 
   def alert_generator(msg, type)
     if type == 'alert'
-      js add_gritter(msg, title: 'Application Portfolio', image: :notice, time: 3000, class_name: 'gritter')
+      js add_gritter(msg, title: 'UCL Application Portfolio', image: :notice, time: 3000, class_name: 'gritter')
     elsif type == 'notice'
-      js add_gritter(msg, title: 'Application Portfolio', image: :progress, time: 3000, class_name: 'gritter')
+      js add_gritter(msg, title: 'UCL Application Portfolio', image: :progress, time: 3000, class_name: 'gritter')
     elsif type == 'error'
-      js add_gritter(msg, title: 'Application Portfolio', image: :error, time: 3000, class_name: 'gritter')
+      js add_gritter(msg, title: 'UCL Application Portfolio', image: :error, time: 3000, class_name: 'gritter')
     else
-      js add_gritter(flash[:warning], title: 'Application Portfolio', image: :warning, time: 3000, class_name: 'gritter')
+      js add_gritter(flash[:warning], title: 'UCL Application Portfolio', image: :warning, time: 3000, class_name: 'gritter')
     end
   end
 

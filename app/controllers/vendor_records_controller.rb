@@ -10,25 +10,25 @@ class VendorRecordsController < ApplicationController
   access viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /vendor_records
   def index
-    $page_title = 'Vendor Records | Application Portfolio'
+    $page_title = 'Vendor Records | UCL Application Portfolio'
     @vendorrecords_count = VendorRecord.count
     @vendor_records = VendorRecord.order(sort_column + ' ' + sort_direction)
   end
 
   # GET /vendor_records/1
   def show
-    $page_title = @vendor_record.title.to_s.upcase + ' | Application Portfolio'
+    $page_title = @vendor_record.title.to_s.upcase + ' | UCL Application Portfolio'
   end
 
   # GET /vendor_records/new
   def new
-    $page_title = 'New Vendor Record | Application Portfolio'
+    $page_title = 'New Vendor Record | UCL Application Portfolio'
     @vendor_record = VendorRecord.new
   end
 
   # GET /vendor_records/1/edit
   def edit
-    $page_title = 'Edit Vendor Record | Application Portfolio'
+    $page_title = 'Edit Vendor Record | UCL Application Portfolio'
   end
 
   # POST /vendor_records

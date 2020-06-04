@@ -21,7 +21,7 @@ describe 'front/index' do
 
     it 'displays who is logged in' do
       render
-      expect(rendered).to have_text('Logged in as admin@test.com')
+      expect(rendered).to have_text('Logged in as admin@ucmail.uc.edu')
       expect(controller.request.path_parameters[:controller]).to eq('front')
     end
 

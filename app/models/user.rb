@@ -9,10 +9,16 @@ class User < ApplicationRecord
   petergate(roles: %i[root_admin owner viewer manager], multiple: false) ##
   ############################################################################################
   validates_presence_of :first_name, :last_name, :email
+  validate :allow_uc_domains
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, password_length: 10..128
+
+  def allow_uc_domains
+    allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
+    errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? { |domain| email.end_with?(domain) }
+  end
 
   def active_for_authentication?
     super && active?
