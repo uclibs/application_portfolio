@@ -9,7 +9,7 @@ RSpec.describe 'front/profile', type: :view do
              User.create!(
                first_name: 'Admin',
                last_name: 'Test',
-               email: 'admin12@example.com',
+               email: 'admin12@uc.edu',
                password: 'admintest123',
                password_confirmation: 'admintest123',
                roles: 'admin'
@@ -25,7 +25,7 @@ RSpec.describe 'front/profile', type: :view do
     render
     expect(rendered).to have_text('Profile')
     expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('admin@test.com')
+    expect(rendered).to have_text('admin@ucmail.uc.edu')
   end
 
   it 'displays an user management tab' do
@@ -42,7 +42,7 @@ RSpec.describe 'front/profile', type: :view do
              User.create!(
                first_name: 'Viewer',
                last_name: 'Test',
-               email: 'viewer@example.com',
+               email: 'viewer@uc.edu',
                password: 'viewertest',
                password_confirmation: 'viewertest',
                roles: 'viewer'
@@ -58,7 +58,7 @@ RSpec.describe 'front/profile', type: :view do
     render
     expect(rendered).to have_text('Profile')
     expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('viewer@test.com')
+    expect(rendered).to have_text('viewer@uc.edu')
   end
 
   it 'displays an user management tab' do
@@ -75,7 +75,7 @@ RSpec.describe 'front/profile', type: :view do
              User.create!(
                first_name: 'Manager',
                last_name: 'Test',
-               email: 'manager@example.com',
+               email: 'manager@mail.uc.edu',
                password: 'managertest',
                password_confirmation: 'managertest',
                roles: 'manager'
@@ -91,7 +91,7 @@ RSpec.describe 'front/profile', type: :view do
     render
     expect(rendered).to have_text('Profile')
     expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('manager@test.com')
+    expect(rendered).to have_text('manager@mail.uc.edu')
   end
 
   it 'displays an user management tab' do

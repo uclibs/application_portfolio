@@ -11,7 +11,7 @@ class SoftwareRecordsController < ApplicationController
   # GET /software_records
 
   def index
-    $page_title = 'Software Records | Application Portfolio'
+    $page_title = 'Software Records | UCL Application Portfolio'
     @params = request.query_parameters
 
     @software_records = if !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
@@ -55,13 +55,13 @@ class SoftwareRecordsController < ApplicationController
 
   # GET /software_records/new
   def new
-    $page_title = 'New Software Record | Application Portfolio'
+    $page_title = 'New Software Record | UCL Application Portfolio'
     @software_record = SoftwareRecord.new
   end
 
   # GET /software_records/1/edit
   def edit
-    $page_title = 'Edit Software Record | Application Portfolio'
+    $page_title = 'Edit Software Record | UCL Application Portfolio'
     @count_developers = 2
     @count_tech_leads = 2
     @count_product_owners = 2
@@ -74,12 +74,19 @@ class SoftwareRecordsController < ApplicationController
     if @software_record.save && user_signed_in?
       redirect_to @software_record, notice: 'Software record was successfully created.'
     elsif !user_signed_in? && @software_record.save
-      AdminMailer.new_software_request_mail(@software_record.id, @software_record.created_by).deliver_now
-      redirect_to @software_record, notice: 'Software record was successfully requested.'
+      if !verify_recaptcha(model: @software_record)
+        flash[:error] = 'reCaptcha not verified. Please try again and verify reCaptcha.'
+        redirect_to request_new_path
+      else
+        AdminMailer.new_software_request_mail(@software_record.id, @software_record.created_by).deliver_now
+        redirect_to @software_record, notice: 'Software record was successfully requested.'
+      end
     elsif !user_signed_in? && !@software_record.save
-      redirect_to request_new_path, error: 'All mandatory fields are required.'
+      flash[:error] = 'All mandatory fields are required.'
+      redirect_to request_new_path
     elsif user_signed_in? && (current_user.role.to_s == 'owner' || current_user.role.to_s == 'viewer')
-      redirect_to request_new_path, error: 'All mandatory fields are required.'
+      flash[:error] = 'All mandatory fields are required.'
+      redirect_to request_new_path
     else
       render :new
     end

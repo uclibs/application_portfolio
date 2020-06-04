@@ -17,7 +17,7 @@ RSpec.describe UsersController, type: :controller do
     {
       first_name: 'Admin',
       last_name: 'Test',
-      email: 'admin13@example.com',
+      email: 'admin13@uc.edu',
       password: 'admintest123',
       password_confirmation: 'admintest123',
       roles: 'admin'

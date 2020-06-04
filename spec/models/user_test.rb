@@ -24,5 +24,21 @@ class UserTest < ActiveSupport::TestCase
       user = User.new(first_name: 'Random', last_name: 'User', email: 'random@example.com', password_confirmation: 'random@123')
       expect(user).to_not be_valid
     end
+    it 'is not valid without allowed domains' do
+      user = User.new(first_name: 'Random', last_name: 'User', email: 'random@example.com', password_confirmation: 'random@123')
+      expect(user).to_not be_valid
+    end
+    it 'is valid with allowed domains' do
+      user = User.new(first_name: 'Test', last_name: 'Admin', email: 'testadmin@uc.edu', password_confirmation: 'random@123')
+      expect(user).to be_valid
+    end
+    it 'is valid with allowed domains' do
+      user = User.new(first_name: 'Test', last_name: 'Admin2', email: 'testadmin2@mail.uc.edu', password_confirmation: 'random@123')
+      expect(user).to be_valid
+    end
+    it 'is valid with allowed domains' do
+      user = User.new(first_name: 'Test', last_name: 'Admin3', email: 'testadmin3@ucmail.uc.edu', password_confirmation: 'random@123')
+      expect(user).to be_valid
+    end
   end
 end

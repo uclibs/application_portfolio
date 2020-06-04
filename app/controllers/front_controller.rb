@@ -7,7 +7,7 @@ class FrontController < ApplicationController
   include SoftwareRecordsHelper
 
   def index
-    $page_title = 'Welcome | Application Portfolio'
+    $page_title = 'Welcome | UCL Application Portfolio'
     @controller = params[:controller]
   end
 
@@ -16,7 +16,7 @@ class FrontController < ApplicationController
     VendorRecord.all.each do |vendor|
       @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
     end
-    $page_title = 'Dashboard | Application Portfolio'
+    $page_title = 'Dashboard | UCL Application Portfolio'
     @user = current_user.first_name + ' ' + current_user.last_name
     @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user).order(sort_column + ' ' + sort_direction)
     begin
@@ -34,23 +34,23 @@ class FrontController < ApplicationController
   end
 
   def about
-    $page_title = 'About Us | Application Portfolio'
+    $page_title = 'About Us | UCL Application Portfolio'
     render 'about'
   end
 
   def contact
-    $page_title = 'Contact Us | Application Portfolio'
+    $page_title = 'Contact Us | UCL Application Portfolio'
     render 'contact'
   end
 
   def profile
-    $page_title = 'My Profile | Application Portfolio'
+    $page_title = 'My Profile | UCL Application Portfolio'
     @users = User.all
     render 'profile'
   end
 
   def new
-    $page_title = 'Request Software | Application Portfolio'
+    $page_title = 'Request Software | UCL Application Portfolio'
     @requestnewsoftwares = SoftwareRecord.new
   end
 

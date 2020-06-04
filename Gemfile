@@ -50,6 +50,8 @@ gem 'chartkick', '3.3.0'
 # Use groupdate to group by dates
 gem 'csv'
 gem 'groupdate'
+# Use recaptcha for bot protection
+gem 'recaptcha'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

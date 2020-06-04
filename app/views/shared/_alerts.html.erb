@@ -1,9 +1,11 @@
-<!-- Just a backup file -->
-
-<% if flash[:alert] %>
-	<%= js add_gritter(flash[:alert], :title => "Application Portfolio", :image => :notice, :time => 3000, :class_name => "gritter") %>
+<% if flash[:success] %>
+	<%= js add_gritter(flash[:success], :title => "UCL Application Portfolio", :image => :success, :time => 3000, :class_name => "gritter") %>
+<% elsif flash[:warning] %>
+	<%= js add_gritter(flash[:warning], :title => "UCL Application Portfolio", :image => :warning, :time => 3000, :class_name => "gritter") %>
+<% elsif flash[:alert] %>
+	<%= js add_gritter(flash[:alert], :title => "UCL Application Portfolio", :image => :notice, :time => 3000, :class_name => "gritter") %>
 <% elsif flash[:error] %>
-	<%= js add_gritter(flash[:error], :title => "Application Portfolio", :image => :error, :time => 3000, :class_name => "gritter") %>
+	<%= js add_gritter(flash[:error], :title => "UCL Application Portfolio", :image => :error, :time => 3000, :class_name => "gritter") %>
 <% else flash[:notice] %>
-	<%= js add_gritter(flash[:notice], :title => "Application Portfolio", :image => :progress, :time => 3000, :class_name => "gritter") %>
+	<%= js add_gritter(flash[:notice], :title => "UCL Application Portfolio", :image => :progress, :time => 3000, :class_name => "gritter") %>
 <% end %>

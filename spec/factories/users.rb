@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :viewer, class: 'User' do
     first_name { 'Random' }
     last_name { 'Viewer' }
-    email { 'viewer@test.com' }
+    email { 'viewer@uc.edu' }
     password { 'random1234' }
     password_confirmation { 'random1234' }
     roles { 'viewer' }
@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :admin, class: 'User' do
     first_name { 'Random' }
     last_name { 'Admin' }
-    email { 'admin@test.com' }
+    email { 'admin@ucmail.uc.edu' }
     password { 'random1234' }
     password_confirmation { 'random1234' }
     roles { 'root_admin' }
@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :manager, class: 'User' do
     first_name { 'Random' }
     last_name { 'Manager' }
-    email { 'manager@test.com' }
+    email { 'manager@mail.uc.edu' }
     password { 'random1234' }
     password_confirmation { 'random1234' }
     roles { 'manager' }
@@ -31,7 +31,7 @@ FactoryBot.define do
   factory :owner, class: 'User' do
     first_name { 'Random' }
     last_name { 'Owner' }
-    email { 'owner@test.com' }
+    email { 'owner@uc.edu' }
     password { 'random1234' }
     password_confirmation { 'random1234' }
     roles { 'owner' }

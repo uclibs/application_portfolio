@@ -6,12 +6,12 @@ class FileUploadsController < ApplicationController
   before_action :authenticate_user!
   access root_admin: %i[new create]
   def new
-    $page_title = 'Import Seed Data | Application Portfolio'
+    $page_title = 'Import Seed Data | UCL Application Portfolio'
     @file = FileUpload.new
   end
 
   def create
-    $page_title = 'Import Seed Data | Application Portfolio'
+    $page_title = 'Import Seed Data | UCL Application Portfolio'
     @file = FileUpload.new(file_upload_params)
     uploaded_io = params[:file_upload][:attachment]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|

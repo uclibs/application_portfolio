@@ -30,7 +30,7 @@ RSpec.describe AdminMailer, type: :mailer do
     it 'sends an email on new software request' do
       admin = FactoryBot.create(:admin)
       mail = described_class.new_software_request_mail(software_records.id, software_records.created_by).deliver_now
-      expect(mail.subject).to eq('Software Requested for Application Portfolio')
+      expect(mail.subject).to eq('Software Requested for UCL Application Portfolio')
       expect(mail.from).to eq(['uclappdev@uc.edu'])
       expect(mail.body.encoded).to match(admin.first_name + ' ' + admin.last_name)
       expect(mail.body.encoded).to match('Please find the link to the request below.')

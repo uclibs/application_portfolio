@@ -10,25 +10,25 @@ class SoftwareTypesController < ApplicationController
   access viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_types
   def index
-    $page_title = 'Software Types | Application Portfolio'
+    $page_title = 'Software Types | UCL Application Portfolio'
     @softwaretypes_count = SoftwareType.count
     @software_types = SoftwareType.order(sort_column + ' ' + sort_direction)
   end
 
   # GET /software_types/1
   def show
-    $page_title = @software_type.title.to_s.upcase + ' | Application Portfolio'
+    $page_title = @software_type.title.to_s.upcase + ' | UCL Application Portfolio'
   end
 
   # GET /software_types/new
   def new
-    $page_title = 'New Software Type | Application Portfolio'
+    $page_title = 'New Software Type | UCL Application Portfolio'
     @software_type = SoftwareType.new
   end
 
   # GET /software_types/1/edit
   def edit
-    $page_title = 'Edit Software Type | Application Portfolio'
+    $page_title = 'Edit Software Type | UCL Application Portfolio'
   end
 
   # POST /software_types
