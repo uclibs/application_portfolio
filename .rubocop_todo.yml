@@ -45,11 +45,13 @@ Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'
     - 'app/controllers/front_controller.rb'
+    - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'
+    - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
 
 Style/GuardClause:

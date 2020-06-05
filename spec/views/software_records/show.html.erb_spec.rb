@@ -20,6 +20,7 @@ RSpec.describe 'software_records/show', type: :view do
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
                                                 ))
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
   end
 
   it 'renders attributes in <p>' do

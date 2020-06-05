@@ -7,6 +7,8 @@ module SoftwareRecordsHelper
       content_tag(:span, status, class: 'badge badge-pill badge-light')
     elsif status == 'In Development'
       content_tag(:span, status, class: 'badge badge-pill badge-info')
+    elsif status == 'In Upgrade'
+      content_tag(:span, status, class: 'badge badge-pill badge-warning')
     elsif status == 'Production'
       content_tag(:span, status, class: 'badge badge-pill badge-primary')
     elsif status == 'Available'

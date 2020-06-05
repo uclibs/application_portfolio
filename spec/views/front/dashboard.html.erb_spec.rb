@@ -13,8 +13,8 @@ RSpec.describe 'front/dashboard', type: :view do
   it 'displays an dashboard page' do
     render
     expect(rendered).to have_text('Users')
-    expect(rendered).to have_text('My Software Records In-Design/Development')
-    expect(rendered).to have_text('My Software Records In Production')
+    expect(rendered).to have_text('My Apps In-Design/Development/Upgrade')
+    expect(rendered).to have_text('My Apps In Production')
     expect(rendered).to have_text('Software Records')
     expect(rendered).to have_text('Vendor Records')
   end

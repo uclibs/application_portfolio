@@ -29,12 +29,13 @@ class SoftwareRecordsController < ApplicationController
   def self.indesign_dashboard(user)
     indesign_filter = SoftwareRecord.where(status: 'In Design')
     indev_filter = SoftwareRecord.where(status: 'In Development')
+    inup_filter = SoftwareRecord.where(status: 'In Upgrade')
     user_filter = SoftwareRecord.where("created_by like '%#{user}%'")
     developer_filter = SoftwareRecord.where("developers like '%#{user}%'")
     tech_leads_filter = SoftwareRecord.where("tech_leads like '%#{user}%'")
     product_owners_filter = SoftwareRecord.where("product_owners like '%#{user}%'")
     currentuser_filter = user_filter.or(developer_filter).or(tech_leads_filter).or(product_owners_filter)
-    dashboard_filter = indesign_filter.or(indev_filter)
+    dashboard_filter = indesign_filter.or(indev_filter).or(inup_filter)
     dashboard_filter.merge(currentuser_filter)
   end
 

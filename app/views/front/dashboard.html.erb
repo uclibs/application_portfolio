@@ -2,7 +2,7 @@
   <div class="card-deck mb-3 text-center" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">My Software Records In-Design/Development</h3>
+        <h3 class="my-0 font-weight-normal text-capitalize">My Apps In-Design/Development/Upgrade <i class="fa fa-wrench"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%">
         <% if @indesign_count != 0 %>
@@ -66,7 +66,7 @@
             </tbody>
           </table>
         <% else %>
-          <p>No Records found under 'In-Design & Development'</p>
+          <p>No Apps found 'In-Design/Development/Upgrade'.</p>
         <% end %>
         <br/>
       </div>
@@ -75,7 +75,7 @@
   <div class="card-deck mb-3 text-center" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">My Software Records In Production</h3>
+        <h3 class="my-0 font-weight-normal text-camelcase">My Apps In Production <i class="fa fa-bolt"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%">
         <% if @production_count != 0 %>
@@ -131,7 +131,7 @@
           </tbody>
         </table>
         <% else %>
-          <p>No Records found under 'Production'</p>
+          <p>No Apps found In 'Production'.</p>
         <% end %>
         <br/>
       </div>

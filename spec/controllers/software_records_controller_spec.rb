@@ -282,7 +282,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
-      expect(response.body).to have_content('Test Viewer')
+      expect(response.body).not_to have_content('Test Viewer')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
       expect(response.body).to have_content('Lead 1')
@@ -462,7 +462,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
-      expect(response.body).to have_content('Test Manager')
+      expect(response.body).not_to have_content('Test Manager')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
       expect(response.body).to have_content('Lead 1')
@@ -643,7 +643,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content('In Development')
-      expect(response.body).to have_content('Test Owner')
+      expect(response.body).not_to have_content('Test Owner')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
       expect(response.body).to have_content('Lead 1')
