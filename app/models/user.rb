@@ -21,9 +21,9 @@ class User < ApplicationRecord
     allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
     errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? { |domain| email.end_with?(domain) }
   end
-  
+
   def send_admin_mail
-    NewUserSignupMailer.new_user_signup_mail(self.id, self.email, self.first_name, self.last_name).deliver_now
+    NewUserSignupMailer.new_user_signup_mail(id, email, first_name, last_name).deliver_now
   end
 
   def active_for_authentication?
