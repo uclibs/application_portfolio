@@ -17,6 +17,7 @@ RSpec.describe NewUserSignupMailer, type: :mailer do
       )
     end
     it 'sends an email on new software request' do
+      FactoryBot.create(:admin)
       mail = described_class.new_user_signup_mail(user.id, user.email, user.first_name, user.last_name).deliver_now
       expect(mail.subject).to eq('New User registered in UCL Application Portfolio')
       expect(mail.from).to eq(['uclappdev@uc.edu'])
