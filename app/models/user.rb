@@ -15,9 +15,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, password_length: 10..128
 
+  after_create :send_admin_mail
+
   def allow_uc_domains
     allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
     errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? { |domain| email.end_with?(domain) }
+  end
+  
+  def send_admin_mail
+    NewUserSignupMailer.new_user_signup_mail(self.id, self.email, self.first_name, self.last_name).deliver_now
   end
 
   def active_for_authentication?

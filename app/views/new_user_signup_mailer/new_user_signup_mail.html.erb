@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi Admin<br><br>
+
+	A New User is registered in the UCL Application Portfolio. Please find the details of the new user below.
+
+	Name: <%= @name %>
+	Email: <a href="<%= @email %>"><%= @email %></a>
+
+	<% @host_url = ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] %>
+	<a href="https://<%= @host_url %>/users/<%= @id %>">https://<%= @host_url %>/users/<%= @id %></a></p><br><br>
+  </body>
+</html> 
