@@ -1,0 +1,9 @@
+Hi Admin
+
+A New User is registered in the UCL Application Portfolio. Please find the details of the new user below.
+
+Name: <%= @name %>
+Email: <%= @email %>
+
+<% @host_url = ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] %>
+https://<%= @host_url %>/users/<%= @id %>">
