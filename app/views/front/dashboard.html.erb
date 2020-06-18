@@ -1,8 +1,8 @@
 <div class = "container-block mt-5" style="margin-left: 150px; margin-right: 150px;">
-  <div class="card-deck mb-3 text-center" style="color: black;">
+  <div class="card-deck mb-3 text-center design-data" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-capitalize">My Apps In-Design/Development/Upgrade <i class="fa fa-wrench"></i></h3>
+        <h3 class="my-0 font-weight-normal text-capitalize design-title">My Apps In-Design/Development/Upgrade <i class="fa fa-wrench"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%">
         <% if @indesign_count != 0 %>
@@ -46,20 +46,26 @@
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td><%= record_indesign.title %></td>
+                  <td>
+                    <% if record_indesign.url.empty? %>
+                      <%= record_indesign.title %>
+                    <% else %>
+                      <a href=<%= generate_path(record_indesign.url) %> target="_blank"><%= record_indesign.title %></a>
+                    <% end %>
+                  </td>
                   <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
                   <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
                   <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.tentative_date_implemented %><% end %></td>
                   <% if current_user.role.to_s == "viewer" %>
-                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success" }%></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_indesign) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td><%= link_to 'View', record_indesign , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger", :style => "font-size: 15px", data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_indesign) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, record_indesign, method: :delete, :class => "text-danger btn-icons", data: { confirm: 'Are you sure?' }, title: "Delete" %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -72,10 +78,10 @@
       </div>
     </div>
   </div>
-  <div class="card-deck mb-3 text-center" style="color: black;">
+  <div class="card-deck mb-3 text-center prod-data" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-camelcase">My Apps In Production <i class="fa fa-bolt"></i></h3>
+        <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Production <i class="fa fa-bolt"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%">
         <% if @production_count != 0 %>
@@ -113,18 +119,24 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td><%= record_production.title %></td>
+                <td>
+                  <% if record_production.url.empty? %>
+                    <%= record_production.title %>
+                  <% else %>
+                    <a href=<%= generate_path(record_production.url) %> target="_blank"><%= record_production.title %></a>
+                  <% end %>
+                </td>
                 <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
                 <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
                 <% if current_user.role.to_s == "viewer" %>
-                    <td><%= link_to 'View', record_production , { :class => "btn btn-success" }%></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td><%= link_to 'View', record_production , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td><%= link_to 'View', record_production , { :class => "btn btn-success", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary", :style => "font-size: 15px" }%></td>
-                    <td><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger", :style => "font-size: 15px", data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, record_production, method: :delete, :class => "text-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>
