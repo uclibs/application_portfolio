@@ -51,7 +51,7 @@
 
           <div class="form-group">
             <%= form.label "Software Type" %><b style="color: red; font-size: 20px"> *</b>
-            <%= form.collection_select(:software_type_id, SoftwareType.all, :id, :title, {}, {:class => "form-control"}) %>
+            <%= form.collection_select(:software_type_id, SoftwareType.order(:title), :id, :title, {}, {:class => "form-control"}) %>
           </div>
           
           <div class="form-group" style="display: none">

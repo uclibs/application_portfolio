@@ -53,12 +53,12 @@
 
             <div class="form-group">
               <%= form.label "Software Type" %><b style="color: red; font-size: 20px"> *</b>
-              <%= form.collection_select(:software_type_id, SoftwareType.all, :id, :title, {}, {:class => "form-control"}) %>
+              <%= form.collection_select(:software_type_id, SoftwareType.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
             
             <div class="form-group">
               <%= form.label "Vendor" %><b style="color: red; font-size: 20px"> *</b>
-              <%= form.collection_select(:vendor_record_id, VendorRecord.all, :id, :title, {}, {:class => "form-control"}) %>
+              <%= form.collection_select(:vendor_record_id, VendorRecord.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
 
             <!-- Multiple Departments -->
@@ -324,14 +324,14 @@
             <% if current_user.role.to_s == "root_admin" %>
               <div class="form-group">
                 <%= form.label :business_value %>
-                <%= number_field_tag :business_value, nil, :class => "form-control" %>
+                <%= form.number_field :business_value, :class => "form-control" %>
               </div>
             <% end %>
 
             <% if current_user.role.to_s != "owner" %>
               <div class="form-group">
                 <%= form.label :it_quality %>
-                <%= number_field_tag :it_quality, nil, :class => "form-control" %>
+                <%= form.number_field :it_quality, :class => "form-control" %>
               </div>
             <% end %>
         <br/>

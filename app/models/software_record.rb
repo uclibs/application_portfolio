@@ -2,7 +2,7 @@
 
 # SoftwareRecord Model
 class SoftwareRecord < ApplicationRecord
-  STATUSES = ['None', 'In Design', 'In Development', 'Production', 'Available', 'To be decomissioned', 'Requested'].freeze
+  STATUSES = ['None', 'In Design', 'In Development', 'In Upgrade', 'Production', 'Available', 'To be decomissioned', 'Requested'].freeze
   belongs_to :software_type
   belongs_to :vendor_record
   validates_presence_of :title, :description, :status, :created_by
