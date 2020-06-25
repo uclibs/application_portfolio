@@ -2,7 +2,7 @@
   <div class="card-deck mb-3 text-center design-data" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-capitalize design-title">My Apps In-Design/Development/Upgrade <i class="fa fa-wrench"></i></h3>
+        <h3 class="my-0 font-weight-normal text-capitalize design-title">My Apps In Development <i class="fa fa-wrench"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%">
         <% if @indesign_count != 0 %>
@@ -28,7 +28,7 @@
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <th>Status</th>
-                <th><%= sortable "tentative_date_implemented", "Tentative Date Implemented" %> 
+                <th><%= sortable "url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
@@ -46,17 +46,17 @@
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td>
-                    <% if record_indesign.url.empty? %>
-                      <%= record_indesign.title %>
-                    <% else %>
-                      <a href=<%= generate_path(record_indesign.url) %> target="_blank"><%= record_indesign.title %></a>
-                    <% end %>
-                  </td>
+                  <td><%= record_indesign.title %></td>
                   <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
                   <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td><% if record_indesign.tentative_date_implemented.to_s.empty? %>N/A<% else %><%= record_indesign.tentative_date_implemented %><% end %></td>
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                    <% if record_indesign.url.to_s.empty? %>
+                      No URL
+                    <% else %>
+                      <a href=<%= generate_path(record_indesign.url) %> target="_blank"><%= record_indesign.url %></a>
+                    <% end %>
+                  </td>
                   <% if current_user.role.to_s == "viewer" %>
                     <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
@@ -72,7 +72,7 @@
             </tbody>
           </table>
         <% else %>
-          <p>No Apps found 'In-Design/Development/Upgrade'.</p>
+          <p>No Apps found 'Development'.</p>
         <% end %>
         <br/>
       </div>
@@ -106,6 +106,12 @@
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
+              <th><%= sortable "url", "URL" %> 
+                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                  <i class="fa fa-caret-up"></i>
+                <% else %>
+                  <i class="fa fa-caret-down float-none"></i>
+                <% end %></th>
               <% if current_user.role.to_s == "viewer" %>
                   <th>Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
@@ -119,15 +125,16 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td>
-                  <% if record_production.url.empty? %>
-                    <%= record_production.title %>
-                  <% else %>
-                    <a href=<%= generate_path(record_production.url) %> target="_blank"><%= record_production.title %></a>
-                  <% end %>
-                </td>
+                <td><%= record_production.title %></td>
                 <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
                 <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                    <% if record_production.url.to_s.empty? %>
+                      No URL
+                    <% else %>
+                      <a href=<%= generate_path(record_production.url) %> target="_blank" ><%= record_production.url %></a>
+                    <% end %>
+                  </td>
                 <% if current_user.role.to_s == "viewer" %>
                     <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
