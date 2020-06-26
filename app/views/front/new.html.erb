@@ -36,11 +36,6 @@
           <% end %>
 
           <div class="form-group">
-            <%= form.label :tentative_date_implemented %><b style="color: red; font-size: 20px"> *</b>
-            <%= form.date_field :tentative_date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control', required: true %>
-          </div>
-
-          <div class="form-group">
             <%= form.label "Request By" %><b style="color: red; font-size: 20px"> *</b>
             <% if user_signed_in? %>
               <%= form.text_field :created_by, :class => "form-control regex-createdby", value: current_user.first_name+" "+current_user.last_name %>

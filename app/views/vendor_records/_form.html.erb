@@ -23,11 +23,7 @@
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit nil, class: "btn btn-primary" %>
-          <% if component.eql?("new") %>
-             <%= link_to 'Back', vendor_records_path, :class => "btn btn-info" %>
-          <% else %>
-            <%= link_to 'View', @vendor_record, :class => "btn btn-success" %>  <%= link_to 'Back', vendor_records_path, :class => "btn btn-warning" %>
-          <% end %>
+          <%= link_to 'Cancel', vendor_records_path, :class => "btn btn-warning" %>
         </div>
       <% end %>
     </div>

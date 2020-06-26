@@ -30,11 +30,7 @@
         <% end %>
         
         <% if !@software_record.date_of_upgrade.nil? && !@software_record.date_of_upgrade.to_s.empty? %>
-          <dt class="inline-block">Date of Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
-        <% end %>
-
-        <% if !@software_record.tentative_date_implemented.nil? && !@software_record.tentative_date_implemented.to_s.empty? %>
-          <dt class="inline-block">Tentative Date of Implementation: <span style="color: white; font-weight: normal"><%= @software_record.tentative_date_implemented.to_date %></span></dt>
+          <dt class="inline-block">Date of Last Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
         <% end %>
         
         <% if !@software_record.software_type_id.nil? && !@software_record.software_type_id.to_s.empty? %>
@@ -102,10 +98,17 @@
           </dd>
         <% end %>
 
-        <% if !@software_record.url.nil? && !@software_record.url.to_s.empty? %>
-          <dt>URL</dt>
+        <% if !@software_record.production_url.nil? && !@software_record.production_url.to_s.empty? %>
+          <dt>Production URL</dt>
           <dd>
-            <ul><a href="<%= @software_record.url %>" target='_blank'><%= @software_record.url %></a></ul>
+            <ul><a href=<%= generate_path(@software_record.production_url) %> target="_blank" ><%= @software_record.production_url %></a></ul>
+          </dd>
+        <% end %>
+
+        <% if !@software_record.source_code_url.nil? && !@software_record.source_code_url.to_s.empty? %>
+          <dt>Source-Code URL</dt>
+          <dd>
+            <ul><a href=<%= generate_path(@software_record.source_code_url) %> target="_blank" ><%= @software_record.source_code_url %></a></ul>
           </dd>
         <% end %>
 

@@ -56,7 +56,7 @@
 
 <% if @softwarerecords_count != 0 %>
   <div class="container animated fadeInLeft" style="margin-bottom: 10rem">
-    <div class="row" style="margin-left: -50px">
+    <div class="row">
       <table class="table text-center software-records-table" style="word-break: initial;">
         <thead>
           <tr>
@@ -78,13 +78,7 @@
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "date_implemented", "Date Implemented" %> 
-              <% if params[:direction] == "asc" || params[:direction] == nil %> 
-                <i class="fa fa-caret-up"></i>
-              <% else %>
-                <i class="fa fa-caret-down"></i>
-              <% end %></th>
-            <th><%= sortable "url", "URL" %> 
+            <th><%= sortable "production_url", "Production URL" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -106,8 +100,7 @@
               <td><%= software_record.title %></td>
               <td><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
               <td><%= SoftwareType.find(software_record.software_type_id).title %></td>
-              <td><%= software_record.date_implemented %></td>
-              <td><% if software_record.url.to_s.empty? %>No URL<% else %><a href="<%= software_record.url %>" target="_blank"><%= software_record.url %></a><% end %></td>
+              <td style="table-layout:fixed; width: 300px; word-break:break-all;"><% if software_record.production_url.to_s.empty? %>No URL<% else %><a href=<%= generate_path(software_record.production_url) %> target="_blank" ><%= software_record.production_url %></a><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
