@@ -194,6 +194,16 @@ option {
   font-size: 13px;
 }
 
+.card-deck{
+  font-size: 13px;
+}
+
+@media screen and (min-width: 1440px) {
+  .btn-icons {
+    font-size: 19px;
+  }
+}
+
 @media screen and (min-width: 1480px) {
   .software-records-table {
     font-size: 16px;
@@ -208,6 +218,9 @@ option {
     font-size: 16px;
   }
 
+  .btn-icons {
+    font-size: 23px;
+  }
 }
 
 .table th {
@@ -381,4 +394,16 @@ dt{
 
 input[type="radio"]:checked+label {
   color: #E00122;
+}
+
+.design-data:hover {
+  .design-title {
+    color: #04446c;
+  }
+}
+
+.prod-data:hover {
+  .prod-title {
+    color: #04446c; 
+  }
 }
