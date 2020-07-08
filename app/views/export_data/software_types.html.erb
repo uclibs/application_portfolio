@@ -1,0 +1,24 @@
+<div>
+<br/><br/>
+<h3 style="color: black; text-align: center">Software Types is exported successfully!<br/>You can also export these files..</h3>
+</div>
+<div class="container animated fadeIn" style="max-width: fit-content">
+  <br/>
+  <div class="card" style="width: 18rem; background-color: black; opacity: 0.9">
+    <%= image_tag("software_records.png", width:'auto', height: 'auto', class: 'card-img-top') %>
+    <div class="card-body">
+      <h5 class="card-title">Software Records</h5>
+      <p class="card-text">Contains a list of software records.</p>
+      <a href=<%= export_software_records_path %> class="btn btn-primary">Export Software Records</a>
+    </div>
+  </div>
+
+  <div class="card" style="width: 18rem; background-color: black; opacity: 0.9">
+    <%= image_tag("vendor_records.png", width:'auto', height: 'auto', class: 'card-img-top') %>
+    <div class="card-body">
+      <h5 class="card-title">Vendor Records</h5>
+      <p class="card-text">Contains a list of vendors that are used by software records.</p>
+      <a href=<%= export_vendor_records_path %> class="btn btn-primary">Export Vendor Records</a>
+    </div>
+  </div>
+</div>

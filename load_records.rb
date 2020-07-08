@@ -120,7 +120,6 @@ class LoadRecords < ActiveRecord::Base
         notes = row['Notes'].to_s.strip
         bvalue = row['Business value'].to_s.strip
         itquality = row['IT quality'].to_s.strip
-        tentative = row['Date submitted to portfolio']
         created_by = $user
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of Upgrade'].to_s.strip
@@ -128,9 +127,9 @@ class LoadRecords < ActiveRecord::Base
         SoftwareRecord.new(title: title, description: desc, status: status, software_type_id: software_type_id,
                            vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
                            developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
-                           url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
+                           production_url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
                            hosting_environment: hosting, current_version: version, notes: notes, business_value: bvalue,
-                           it_quality: itquality, tentative_date_implemented: tentative, created_by: created_by, sensitive_information: sensitive_information,
+                           it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
                            date_of_upgrade: date_of_upgrade).save
         count += 1
         puts("Created Software Record '" + row['Title'] + "'...")

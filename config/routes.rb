@@ -22,5 +22,9 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#destroy', as: 'user_destroy'
   post 'users/:id/edit', to: 'users#update', as: 'user_update'
   get 'users/:id/status', to: 'users#user_status', as: 'user_status'
+  get 'export/software_records', to: 'export_data#software_records', as: 'export_software_records'
+  get 'export/vendor_records', to: 'export_data#vendor_records', as: 'export_vendor_records'
+  get 'export/software_types', to: 'export_data#software_types', as: 'export_software_types'
+
   resources :file_uploads, only: %i[new create]
 end
