@@ -19,7 +19,7 @@
             
             <div class="form-group">
               <%= form.label :description %><b style="color: red; font-size: 20px"> *</b>
-              <%= form.text_area :description, :class => "form-control" %>
+              <%= form.text_area :description, :cols => 30, :rows => 4, :class => "form-control" %>
             </div>
 
             <div class="form-group">
@@ -33,13 +33,8 @@
             </div>
 
             <div class="form-group">
-              <%= form.label :date_of_upgrade %>
+              <%= form.label :date_of_upgrade, "Date of last upgrade" %>
               <%= form.date_field :date_of_upgrade, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-
-            <div class="form-group">
-                <%= form.label :tentative_date_implemented %>
-                <%= form.date_field :tentative_date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
             
             <div class="form-group">
@@ -275,8 +270,13 @@
             <% end %>
 
             <div class="form-group">
-              <%= form.label :url %>
-              <%= form.text_field :url, :class => "form-control" %>
+              <%= form.label :production_url, "Production URL" %>
+              <%= form.text_field :production_url, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :source_code_url, "Source Code URL" %>
+              <%= form.text_field :source_code_url, :class => "form-control" %>
             </div>
 
             <div class="form-group">
@@ -312,13 +312,13 @@
             <% if current_user.role.to_s == "root_admin" %>
               <div class="form-group">
                 <%= form.label "Sensitive Information (Software keys/Passwords)" %>
-                <%= form.text_area :sensitive_information, :cols => 30, :rows => 7, :class => "form-control" %>
+                <%= form.text_area :sensitive_information, :cols => 30, :rows => 3, :class => "form-control" %>
               </div>
             <% end %>
 
             <div class="form-group">
               <%= form.label :notes %>
-              <%= form.text_area :notes, :cols => 30, :rows => 2, :class => "form-control" %>
+              <%= form.text_area :notes, :cols => 30, :rows => 3, :class => "form-control" %>
             </div>
 
             <% if current_user.role.to_s == "root_admin" %>
@@ -330,19 +330,14 @@
 
             <% if current_user.role.to_s != "owner" %>
               <div class="form-group">
-                <%= form.label :it_quality %>
+                <%= form.label :it_quality, 'IT Quality' %>
                 <%= form.number_field :it_quality, :class => "form-control" %>
               </div>
             <% end %>
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit nil, class: "btn btn-primary" %>
-          <% if component.eql?("new") %>
-             <%= link_to 'Back', software_records_path, :class => "btn btn-info" %>
-          <% else %>
-            <%= link_to 'View', @software_record, :class => "btn btn-success" %>  
-            <%= link_to 'Back', software_records_path, :class => "btn btn-warning" %>
-          <% end %>
+          <%= link_to 'Cancel', software_records_path, :class => "btn btn-danger" %>
         </div>
       <% end %>
     </div>

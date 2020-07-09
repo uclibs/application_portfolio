@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_226_003_151) do
+ActiveRecord::Schema.define(version: 20_200_626_173_348) do
   create_table 'file_uploads', force: :cascade do |t|
     t.string 'attachment'
     t.datetime 'created_at', null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20_200_226_003_151) do
     t.string 'tech_leads'
     t.string 'product_owners'
     t.string 'languages_used'
-    t.text 'url'
+    t.text 'production_url'
     t.string 'user_seats'
     t.string 'annual_fees'
     t.string 'support_contract'
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20_200_226_003_151) do
     t.string 'notes'
     t.integer 'business_value'
     t.integer 'it_quality'
-    t.date 'tentative_date_implemented'
     t.string 'created_by'
     t.text 'sensitive_information'
+    t.text 'source_code_url'
     t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
     t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'
   end

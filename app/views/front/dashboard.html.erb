@@ -28,7 +28,7 @@
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <th>Status</th>
-                <th><%= sortable "url", "URL" %> 
+                <th><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
@@ -51,10 +51,10 @@
                   <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
                   <td style="table-layout:fixed; width: 300px; word-break:break-all;">
-                    <% if record_indesign.url.to_s.empty? %>
+                    <% if record_indesign.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a href=<%= generate_path(record_indesign.url) %> target="_blank"><%= record_indesign.url %></a>
+                      <a href=<%= generate_path(record_indesign.production_url) %> target="_blank"><%= record_indesign.production_url %></a>
                     <% end %>
                   </td>
                   <% if current_user.role.to_s == "viewer" %>
@@ -106,7 +106,7 @@
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "url", "URL" %> 
+              <th><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
@@ -129,10 +129,10 @@
                 <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
                 <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
                 <td style="table-layout:fixed; width: 300px; word-break:break-all;">
-                    <% if record_production.url.to_s.empty? %>
+                    <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a href=<%= generate_path(record_production.url) %> target="_blank" ><%= record_production.url %></a>
+                      <a href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>

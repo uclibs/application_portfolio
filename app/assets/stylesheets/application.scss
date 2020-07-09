@@ -75,10 +75,11 @@ a:hover {
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 16px;
   color: #818181;
   transition: 0.3s;
   display: block;
+  text-align: left;
 }
 
 .sidenav a:hover {
@@ -88,9 +89,9 @@ a:hover {
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 15px;
   font-size: 36px;
-  margin-left: 50px;
+  margin-left: 20px;
 }
 
 #main {
@@ -279,4 +280,17 @@ a:hover {
 
 input[type=text]::placeholder {
   opacity: 0.6;
+}
+
+.auth-role {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #f1f1f1;
+  display: block;
+  border: none;
+  background-color: #E00122;
+  width: 100%;
+  text-align: left;
+  outline: none;
 }
