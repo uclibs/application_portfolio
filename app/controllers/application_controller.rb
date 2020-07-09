@@ -2,6 +2,7 @@
 
 # Application Controller
 class ApplicationController < ActionController::Base
+  helper_method :navigation
   before_action :configure_permitted_parameters, if: :devise_controller?
   $deployed_at = Time.new.strftime('%Y-%m-%d %H:%M:%S')
   # Redirect to dashboard on user login

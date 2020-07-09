@@ -3,9 +3,11 @@
 # VendorRecords Controller
 class VendorRecordsController < ApplicationController
   layout 'software_records'
+  include ApplicationHelper
   include VendorRecordsHelper
   before_action :authenticate_user!
   before_action :set_vendor_record, only: %i[show edit update destroy]
+  before_action :navigation
   # access all: %i[index show new edit create update destroy], user: :all
   access viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /vendor_records

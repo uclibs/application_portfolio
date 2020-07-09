@@ -2,9 +2,11 @@
 
 class FrontController < ApplicationController
   layout 'application'
-  before_action :authenticate_user!, only: %i[dashboard profile search]
-  helper_method :sort_column, :sort_direction
+  include ApplicationHelper
   include SoftwareRecordsHelper
+  before_action :authenticate_user!, only: %i[dashboard profile search]
+  before_action :navigation
+  helper_method :sort_column, :sort_direction
 
   def index
     $page_title = 'Welcome | UCL Application Portfolio'

@@ -9,7 +9,7 @@
         <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
           <%= link_to 'Edit', edit_vendor_record_path(@vendor_record), :class => "btn btn-warning nav-links" %>
         <% end %>
-        <%= link_to 'Back', vendor_records_path, :class => "btn btn-primary nav-links"%>
+        <%= link_to 'Back', session[:previous], :class => "btn btn-primary nav-links"%>
       </div>
     </div>
   </div>

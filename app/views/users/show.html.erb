@@ -20,7 +20,7 @@
         <br/>
         <div class="text-center">
          <%= link_to 'Edit', user_edit_path(@user.id), :class => "btn btn-primary" %>
-         <%= link_to 'Back', users_path, :class => "btn btn-warning" %>
+         <%= link_to 'Back', session[:previous], :class => "btn btn-warning" %>
         </div>
     </div>
   </div>

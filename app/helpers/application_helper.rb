@@ -51,4 +51,15 @@ module ApplicationHelper
           end
     url
   end
+
+  def navigation
+    if session[:previous].nil?
+      session[:previous] = request.original_url.to_s
+      session[:current] = request.original_url.to_s
+    elsif session[:current] != request.original_url.to_s
+      prev = session[:current].to_s
+      session[:previous] = prev
+      session[:current] = request.original_url.to_s
+    end
+  end
 end

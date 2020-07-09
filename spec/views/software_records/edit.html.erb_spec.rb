@@ -21,6 +21,7 @@ RSpec.describe 'software_records/edit', type: :view do
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
                                                 ))
+    session[:previous] = dashboard_path
   end
 
   it 'renders the edit software_record form' do

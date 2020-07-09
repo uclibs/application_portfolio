@@ -3,6 +3,8 @@
 # File Upload Controller
 class FileUploadsController < ApplicationController
   layout 'software_records'
+  include ApplicationHelper
+  before_action :navigation
   before_action :authenticate_user!
   access root_admin: %i[new create]
   def new
