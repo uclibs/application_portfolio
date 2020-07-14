@@ -25,35 +25,39 @@
             <% if current_user.role.to_s == "manager" %>
             <div class="auth-role"><i class="fas fa-user-cog"></i> Manager</div>
             <div class="sidenav-menu">
-                <a href="<%= new_software_record_path %>"><i class="fas fa-book"></i> Create Software Record</a>
-                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends"></i> Create Vendor Record</a>
-                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt"></i> Create Software Type</a>
+                <a href="<%= new_software_record_path %>"><i class="fas fa-book float-right"></i> Create Software Record</a>
+                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends float-right"></i> Create Vendor Record</a>
+                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt float-right"></i> Create Software Type</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
             </div>
             <br/>
             <% end %>
             <% if current_user.role.to_s == "owner" %>
             <div class="auth-role"><i class="fas fa-user-tie"></i> Owner</div>
             <div class="sidenav-menu">
-                <a href="<%= request_new_path %>"><i class="fas fa-book"></i> Request Software Record</a>
+                <a href="<%= request_new_path %>"><i class="fas fa-book float-right"></i> Request Software Record</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
+                <hr style="background-color: white">
+                <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-right"></i> Export Software Records</a>
+                <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-right"></i> Export Software Types</a>
+                <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-right"></i> Export Vendor Records</a>
             </div>
             <br/>
             <% end %>
             <% if current_user.role.to_s == "viewer" %>
             <div class="auth-role"><i class="fas fa-user-graduate"></i> Viewer</div>
             <div class="sidenav-menu">
-                <a href="<%= request_new_path %>"><i class="fas fa-book"></i> Request Software Record</a>
+                <a href="<%= request_new_path %>"><i class="fas fa-book float-right"></i> Request Software Record</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt"></i> View all Software Types</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
             </div>
             <br/>      
         <% end %>

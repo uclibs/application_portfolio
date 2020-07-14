@@ -4,7 +4,7 @@
 class ExportDataController < ApplicationController
   layout 'software_records'
   before_action :authenticate_user!
-  access root_admin: %i[software_records]
+  access root_admin: :all, owner: :all
 
   def software_records
     system('cd../..')
