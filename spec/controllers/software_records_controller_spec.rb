@@ -197,9 +197,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     end
 
     it 'redirects to the software_records list' do
+      session[:previous] = software_records_url
       software_record = SoftwareRecord.create! valid_attributes
       delete :destroy, params: { id: software_record.to_param }, session: valid_session
-      expect(response).to redirect_to(software_records_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end
@@ -558,9 +559,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     end
 
     it 'redirects to the software_records list' do
+      session[:previous] = software_records_url
       software_record = SoftwareRecord.create! valid_attributes
       delete :destroy, params: { id: software_record.to_param }, session: valid_session
-      expect(response).to redirect_to(software_records_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end

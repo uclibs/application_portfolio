@@ -168,9 +168,10 @@ RSpec.describe SoftwareTypesController, type: :controller do
     end
 
     it 'redirects to the software_types list' do
+      session[:previous] = software_types_url
       software_type = SoftwareType.create! valid_attributes
       delete :destroy, params: { id: software_type.to_param }, session: valid_session
-      expect(response).to redirect_to(software_types_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end
@@ -318,9 +319,10 @@ RSpec.describe SoftwareTypesController, type: :controller do
     end
 
     it 'redirects to the software_types list' do
+      session[:previous] = software_types_url
       software_type = SoftwareType.create! valid_attributes
       delete :destroy, params: { id: software_type.to_param }, session: valid_session
-      expect(response).to redirect_to(software_types_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end
@@ -468,9 +470,10 @@ RSpec.describe SoftwareTypesController, type: :controller do
     end
 
     it 'redirects to the software_types list' do
+      session[:previous] = software_types_url
       software_type = SoftwareType.create! valid_attributes
       delete :destroy, params: { id: software_type.to_param }, session: valid_session
-      expect(response).to_not redirect_to(software_types_url)
+      expect(response).to_not redirect_to(session[:previous])
     end
   end
 end
@@ -618,9 +621,10 @@ RSpec.describe SoftwareTypesController, type: :controller do
     end
 
     it 'redirects to the software_types list' do
+      session[:previous] = software_types_url
       software_type = SoftwareType.create! valid_attributes
       delete :destroy, params: { id: software_type.to_param }, session: valid_session
-      expect(response).to_not redirect_to(software_types_url)
+      expect(response).to_not redirect_to(session[:previous])
     end
   end
 end
