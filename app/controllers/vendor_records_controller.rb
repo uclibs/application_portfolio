@@ -56,7 +56,7 @@ class VendorRecordsController < ApplicationController
   # DELETE /vendor_records/1
   def destroy
     @vendor_record.destroy
-    redirect_to vendor_records_url, notice: 'Vendor record was successfully destroyed.'
+    redirect_to session[:previous], notice: 'Vendor record was successfully destroyed.'
   end
 
   private

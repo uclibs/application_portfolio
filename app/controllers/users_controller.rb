@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      redirect_to users_path, notice: 'User was successfully deleted.'
+      redirect_to session[:previous], notice: 'User was successfully deleted.'
     else
       render :index
     end

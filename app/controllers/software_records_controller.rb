@@ -107,7 +107,7 @@ class SoftwareRecordsController < ApplicationController
   # DELETE /software_records/1
   def destroy
     @software_record.destroy
-    redirect_to software_records_url, notice: 'Software record was successfully destroyed.'
+    redirect_to session[:previous], notice: 'Software record was successfully destroyed.'
   end
 
   private

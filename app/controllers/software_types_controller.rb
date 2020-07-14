@@ -56,7 +56,7 @@ class SoftwareTypesController < ApplicationController
   # DELETE /software_types/1
   def destroy
     @software_type.destroy
-    redirect_to software_types_url, notice: 'Software type was successfully destroyed.'
+    redirect_to session[:previous], notice: 'Software type was successfully destroyed.'
   end
 
   private
