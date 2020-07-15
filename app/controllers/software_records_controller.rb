@@ -4,9 +4,11 @@
 class SoftwareRecordsController < ApplicationController
   layout 'software_records'
   helper_method :sort_column, :sort_direction
+  include ApplicationHelper
   include SoftwareRecordsHelper
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
+  before_action :navigation
   access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_records
 
@@ -105,7 +107,7 @@ class SoftwareRecordsController < ApplicationController
   # DELETE /software_records/1
   def destroy
     @software_record.destroy
-    redirect_to software_records_url, notice: 'Software record was successfully destroyed.'
+    redirect_to session[:previous], notice: 'Software record was successfully destroyed.'
   end
 
   private

@@ -4,7 +4,9 @@
 class SoftwareTypesController < ApplicationController
   layout 'software_records'
   before_action :authenticate_user!
+  include ApplicationHelper
   include SoftwareTypesHelper
+  before_action :navigation
   before_action :set_software_type, only: %i[show edit update destroy]
   # access all: %i[index show new edit create update destroy], user: :all
   access viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
@@ -54,7 +56,7 @@ class SoftwareTypesController < ApplicationController
   # DELETE /software_types/1
   def destroy
     @software_type.destroy
-    redirect_to software_types_url, notice: 'Software type was successfully destroyed.'
+    redirect_to session[:previous], notice: 'Software type was successfully destroyed.'
   end
 
   private

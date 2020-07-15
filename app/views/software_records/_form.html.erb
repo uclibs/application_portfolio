@@ -337,7 +337,7 @@
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit nil, class: "btn btn-primary" %>
-          <%= link_to 'Cancel', software_records_path, :class => "btn btn-danger" %>
+          <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
         </div>
       <% end %>
     </div>

@@ -21,6 +21,7 @@ RSpec.describe 'software_records/show', type: :view do
                                                   created_by: 'Test User'
                                                 ))
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
+    session[:previous] = dashboard_path
   end
 
   it 'renders attributes in <p>' do

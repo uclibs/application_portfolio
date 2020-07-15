@@ -166,9 +166,10 @@ RSpec.describe VendorRecordsController, type: :controller do
     end
 
     it 'redirects to the vendor_records list' do
+      session[:previous] = vendor_records_url
       vendor_record = VendorRecord.create! valid_attributes
       delete :destroy, params: { id: vendor_record.to_param }, session: valid_session
-      expect(response).to redirect_to(vendor_records_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end
@@ -314,9 +315,10 @@ RSpec.describe VendorRecordsController, type: :controller do
     end
 
     it 'redirects to the vendor_records list' do
+      session[:previous] = vendor_records_url
       vendor_record = VendorRecord.create! valid_attributes
       delete :destroy, params: { id: vendor_record.to_param }, session: valid_session
-      expect(response).to redirect_to(vendor_records_url)
+      expect(response).to redirect_to(session[:previous])
     end
   end
 end
@@ -462,9 +464,10 @@ RSpec.describe VendorRecordsController, type: :controller do
     end
 
     it 'redirects to the vendor_records list' do
+      session[:previous] = vendor_records_url
       vendor_record = VendorRecord.create! valid_attributes
       delete :destroy, params: { id: vendor_record.to_param }, session: valid_session
-      expect(response).to_not redirect_to(vendor_records_url)
+      expect(response).to_not redirect_to(session[:previous])
     end
   end
 end
@@ -610,9 +613,10 @@ RSpec.describe VendorRecordsController, type: :controller do
     end
 
     it 'redirects to the vendor_records list' do
+      session[:previous] = vendor_records_url
       vendor_record = VendorRecord.create! valid_attributes
       delete :destroy, params: { id: vendor_record.to_param }, session: valid_session
-      expect(response).to_not redirect_to(vendor_records_url)
+      expect(response).to_not redirect_to(session[:previous])
     end
   end
 end

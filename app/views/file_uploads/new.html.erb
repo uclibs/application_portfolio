@@ -20,6 +20,7 @@
                   <div class="clearfix"></div>
                   <%= f.file_field :attachment, :accept => 'text/csv', class: "btn btn-light" %><br/><br/>
                   <%= f.submit "Import Data", class: "btn btn-success text-center" %>
+                  <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
                <% end %>
             </div>
          </div>

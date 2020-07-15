@@ -8,6 +8,7 @@ RSpec.describe 'software_types/edit', type: :view do
                                               title: 'MyString',
                                               description: 'MyText'
                                             ))
+    session[:previous] = dashboard_path
   end
 
   it 'renders the edit software_type form' do
