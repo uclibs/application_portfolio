@@ -108,47 +108,5 @@ class SoftwareRecords < ActiveRecord::Base
   end
 end
 
-# Export SoftwareType Data
-class SoftwareType < ActiveRecord::Base
-  def exportdata
-    file = Dir.pwd + '/public/software_types.csv'
-    software_types = SoftwareType.all
-
-    headers = ['SoftwareType ID', 'Created On', 'Software Type', 'Description']
-
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
-      software_types.each do |software_type|
-        writer << [software_type.id, software_type.created_at, software_type.title, software_type.description]
-      end
-    end
-  end
-end
-
-# Export VendorRecords Data
-class VendorRecord < ActiveRecord::Base
-  def exportdata
-    file = Dir.pwd + '/public/vendor_records.csv'
-    vendor_records = VendorRecord.all
-
-    headers = ['VendorRecord ID', 'Created On', 'Vendor Record', 'Description']
-
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
-      vendor_records.each do |vendor_record|
-        writer << [vendor_record.id, vendor_record.created_at, vendor_record.title, vendor_record.description]
-      end
-    end
-  end
-end
-
-args = ARGV[0]
-
-if args == 'srecords'
-  e = SoftwareRecords.new
-  e.exportdata
-elsif args == 'stypes'
-  e = SoftwareType.new
-  e.exportdata
-else
-  e = VendorRecord.new
-  e.exportdata
-end
+e = SoftwareRecords.new
+e.exportdata
