@@ -34,7 +34,7 @@ Metrics/AbcSize:
     - 'app/controllers/software_records_controller.rb'
     - 'app/controllers/file_uploads_controller.rb'
     - 'load_records.rb'
-    - 'export_data.rb'
+    - 'exports/software_records.rb'
 
 Metrics/ClassLength:
   Max: 260
@@ -48,14 +48,14 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/front_controller.rb'
     - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
-    - 'export_data.rb'
+    - 'exports/software_records.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/controllers/software_records_controller.rb'
     - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
-    - 'export_data.rb'
+    - 'exports/software_records.rb'
 
 Style/GuardClause:
   Exclude:
@@ -73,7 +73,7 @@ Style/MixinUsage:
 
 Style/IdenticalConditionalBranches:
   Exclude:
-    - 'export_data.rb'
+    - 'exports/software_records.rb'
 
 # Offense count: 64
 # Cop supports --auto-correct.
