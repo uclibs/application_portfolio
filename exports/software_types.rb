@@ -5,8 +5,8 @@ require 'csv'
 require Dir.pwd + '/config/environment.rb'
 
 # Export SoftwareType Data
-class SoftwareType < ActiveRecord::Base
-  def exportdata
+class SoftwareTypes < ActiveRecord::Base
+  def software_types
     file = Dir.pwd + '/public/software_types.csv'
     software_types = SoftwareType.all
 
@@ -20,5 +20,5 @@ class SoftwareType < ActiveRecord::Base
   end
 end
 
-e = SoftwareType.new
-e.exportdata
+type = SoftwareTypes.new
+type.software_types

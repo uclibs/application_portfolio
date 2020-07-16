@@ -5,8 +5,8 @@ require 'csv'
 require Dir.pwd + '/config/environment.rb'
 
 # Export VendorRecords Data
-class VendorRecord < ActiveRecord::Base
-  def exportdata
+class VendorRecords < ActiveRecord::Base
+  def vendor_records
     file = Dir.pwd + '/public/vendor_records.csv'
     vendor_records = VendorRecord.all
 
@@ -20,5 +20,5 @@ class VendorRecord < ActiveRecord::Base
   end
 end
 
-e = VendorRecord.new
-e.exportdata
+vendor = VendorRecords.new
+vendor.vendor_records

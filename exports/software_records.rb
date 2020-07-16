@@ -6,10 +6,9 @@ require Dir.pwd + '/config/environment.rb'
 
 # Export SoftwareRecords Data
 class SoftwareRecords < ActiveRecord::Base
-  def exportdata
+  def software_records
     file = Dir.pwd + '/public/software_records.csv'
     software_records = SoftwareRecords.all
-
     headers = ['Software Record', 'Description', 'Status', 'Created on', 'Software Type', 'Vendor Record', 'Departments', 'Date Implemented', 'Date of upgrade', 'Developers', 'Tech Leads', 'Product Owners', 'Languages Used', 'Production URL', 'Source Code URL', 'User Seats', 'Annual Fees', 'Support Contract', 'Hosting Environment', 'Current Version', 'Notes', 'Business Value', 'IT Quality', 'Created By']
 
     CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
@@ -108,5 +107,5 @@ class SoftwareRecords < ActiveRecord::Base
   end
 end
 
-e = SoftwareRecords.new
-e.exportdata
+records = SoftwareRecords.new
+records.software_records
