@@ -39,10 +39,10 @@
             
             <div class="form-group">
               <%= form.label :created_by %><b style="color: red; font-size: 20px"> *</b>
-              <% if component.eql?("new") and user_signed_in? %>
-                <%= form.text_field :created_by, value: current_user.first_name + " " +current_user.last_name, :class => "form-control regex-createdby" %>
+              <% if component.eql?("new") and user_signed_in? and (current_user.role.to_s == "root_admin" or current_user.role.to_s == "owner") %>
+                <%= form.text_field :created_by, value: current_user.first_name + " " +current_user.last_name, :class => "form-control regex-createdby", :disabled=>true%>
               <% else %>
-                <%= form.text_field :created_by, :class => "form-control regex-createdby" %>
+                <%= form.text_field :created_by, :class => "form-control regex-createdby", :disabled=>true%>
               <% end %>
             </div>
 
