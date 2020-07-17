@@ -21,7 +21,7 @@
       <dl>
         <dt class="inline-block">Created on: <span style="color: white; font-weight: normal"><%= @software_record.created_at.to_date %></span></dt>
 
-        <% if current_user.role.to_s == "root_admin" && !@software_record.created_by.nil? && !@software_record.created_by.to_s.empty? %>
+        <% if user_signed_in? && current_user.role.to_s == "root_admin" && !@software_record.created_by.nil? && !@software_record.created_by.to_s.empty? %>
           <dt class="inline-block">Created by: <span style="color: white; font-weight: normal"><%= @software_record.created_by.to_s %></span></dt>
         <% end %>
 

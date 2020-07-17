@@ -29,7 +29,7 @@
               <td><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
               <td><%= SoftwareType.find(software_record.software_type_id).title %></td>
               <td><%= software_record.date_implemented %></td>
-              <td><% if software_record.url.to_s.empty? %>No URL<% else %><a href="<%= software_record.url %>" target="_blank"><%= software_record.url %></a><% end %></td>
+              <td><% if software_record.production_url.to_s.empty? %>No URL<% else %><a href="<%= software_record.production_url %>" target="_blank"><%= software_record.production_url %></a><% end %></td>
               <td><% if software_record.product_owners[0] == "" %>N/A<% else %><%= software_record.product_owners[0].to_s %><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', software_record , { :class => "btn btn-success actions" }%></td>
