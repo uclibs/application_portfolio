@@ -13,7 +13,19 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
+    environment:
+      BUNDLE_PATH: vendor/bundle
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+      RAILS_ENV: test
+      RACK_ENV: test
+      SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
+      WORKING_PATH: /tmp
+      UPLOAD_PATH: /tmp
+      CACHE_PATH: /tmp/cache
+      COVERALLS_PARALLEL: true
 
+    parallelism: 4
     working_directory: ~/application_portfolio
 
     steps:
@@ -59,13 +71,15 @@ jobs:
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
               circleci tests split --split-by=timings)"
             bundle exec rspec \
-              --format progress \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
               $TEST_FILES
       # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          path: coverage
+      # Update coveralls
+      - deploy:
+          name: Update Coveralls
+          command: |
+            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
+      

@@ -73,6 +73,7 @@ group :development, :test do
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~>3.8'
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
