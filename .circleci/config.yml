@@ -80,8 +80,8 @@ jobs:
           destination: test-results
       - store_artifacts:
           path: coverage
-      # Update coveralls
-      - update_coveralls:
+  # Update coveralls
+  update_coveralls:
           docker:
             - image: circleci/ruby:2.6.5-node-browsers
           steps:
