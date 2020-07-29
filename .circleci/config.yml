@@ -64,7 +64,7 @@ jobs:
             gem install rubocop
             bundle exec rubocop
 
-			- run:
+      - run:
           name: Run rspec in parallel
           command: |
             mkdir /tmp/test-results
@@ -75,10 +75,10 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-      
-			- store_artifacts:
+
+      - store_artifacts:
           path: coverage
-      
+
       - deploy:
           name: Update Coveralls
           command: |
