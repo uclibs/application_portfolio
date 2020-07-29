@@ -16,16 +16,14 @@
 #
 
 require 'simplecov'
-SimpleCov.start 'rails'
-
-SimpleCov.at_exit do
-  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
-  SimpleCov.result.format!
-end
-
-# Include coveralls for code-coverage
 require 'coveralls'
-Coveralls.wear!
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [
+          SimpleCov::Formatter::HTMLFormatter,
+              Coveralls::SimpleCov::Formatter
+                ]
+)
+SimpleCov.start('rails')
 
 require 'devise'
 
