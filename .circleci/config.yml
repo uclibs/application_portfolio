@@ -63,7 +63,7 @@ jobs:
           command: |
             gem install rubocop
             bundle exec rubocop
-			
+
 			- run:
           name: Run rspec in parallel
           command: |
