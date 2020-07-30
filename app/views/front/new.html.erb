@@ -57,29 +57,29 @@
           </div>
 
           <div class="form-group" id="multiple_departments">
-            <%= form.label :departments %>
-            <div class="input-group">
-              <%= text_field_tag "software_record[departments][]", nil, class: "form-control" %>
-              <div class="input-group-append" id="btnAddDepartments">
-                <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+              <%= form.label :departments %> <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
+            <div class="input-group" id="departments1">
+              <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control" %>
+              <div class="input-group-append" id="btnRemove" onclick = "remove('departments1')">
+                <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
               </div>
             </div>
           </div>
 
           <div class="form-group" id="multiple_product_owners">
-            <%= form.label "Primary Contact" %>
-            <div class="input-group">
-              <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
-              <div class="input-group-append" id="btnAddProductOwners">
-                <span class="input-group-text"><i class="fas fa-plus">  Add</i></span>
+              <%= form.label "Primary Contact" %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
+            <div class="input-group" id="product_owners1">
+              <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control" %>
+              <div class="input-group-append" id="btnRemove" onclick = "remove('product_owners1')">
+                <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
               </div>
             </div>
           </div>
 
           <% if user_signed_in? && current_user.role.to_s == "owner" %>
             <div class="form-group">
-              <%= form.label :url %>
-              <%= form.text_field :url, :class => "form-control" %>
+              <%= form.label :production_url %>
+              <%= form.text_field :production_url, :class => "form-control" %>
             </div>
           <% end %>
 
