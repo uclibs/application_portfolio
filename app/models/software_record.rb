@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # SoftwareRecord Model
-class SoftwareRecord < ApplicationRecord
+class SoftwareRecord < ActiveRecord::Base
   STATUSES = ['None', 'In Design', 'In Development', 'In Upgrade', 'Production', 'Available', 'To be decomissioned', 'Requested'].freeze
   belongs_to :software_type
   belongs_to :vendor_record

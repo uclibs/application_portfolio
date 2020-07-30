@@ -81,7 +81,7 @@
         <% end %>
 
         <% if @software_record.product_owners.length != 0 && @software_record.product_owners[0].to_s != "" %>
-          <dt>Product Owners</dt>
+          <dt>Product Lead/Contact</dt>
           <dd>
             <% @software_record.product_owners.each do |product_owner| %>
               <ul>
@@ -141,11 +141,11 @@
           <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.current_version %></span></dt>
         <% end %>
 
-        <% if !@software_record.sensitive_information.nil? && !@software_record.sensitive_information.to_s.empty? %>
+        <% if !@decrypted_sensitive_information.nil? && !@decrypted_sensitive_information.to_s.empty? %>
           <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
             <dt>Sensitive Information</dt>
             <dd>
-              <ul><%= @software_record.sensitive_information %></ul>
+              <ul><%= @decrypted_sensitive_information %></ul>
             </dd>
           <% end %>
         <% end %>
