@@ -52,6 +52,18 @@ module ApplicationHelper
     url
   end
 
+  def clean_url(url)
+    url = url.to_s
+    url = if url.include?('https://')
+            url.sub('https://', '')
+          elsif url.include?('http://')
+            url.sub('http://', '')
+          else
+            url
+          end
+    url
+  end
+
   def navigation
     if session[:previous].nil?
       session[:previous] = request.original_url.to_s

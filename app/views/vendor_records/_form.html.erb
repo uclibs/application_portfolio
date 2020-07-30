@@ -22,8 +22,10 @@
         </div>
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
-          <%= form.submit nil, class: "btn btn-primary" %>       
-          <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
+          <%= form.submit 'Save', class: "btn btn-primary" %>
+          <% if component.to_s == "new" %>  
+            <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
+          <% end %>
         </div>
       <% end %>
     </div>

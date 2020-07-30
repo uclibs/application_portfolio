@@ -25,12 +25,12 @@
         <tbody>
           <% @softwarerecords_results.each do |software_record| %>
             <tr>
-              <td><%= software_record.title %></td>
-              <td><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
-              <td><%= SoftwareType.find(software_record.software_type_id).title %></td>
-              <td><%= software_record.date_implemented %></td>
-              <td><% if software_record.production_url.to_s.empty? %>No URL<% else %><a href="<%= software_record.production_url %>" target="_blank"><%= software_record.production_url %></a><% end %></td>
-              <td><% if software_record.product_owners[0] == "" %>N/A<% else %><%= software_record.product_owners[0].to_s %><% end %></td>
+              <td class="align-left" style="padding-left: 20px"><%= software_record.title %></td>
+              <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
+              <td class="align-left" style="padding-left: 20px"><%= SoftwareType.find(software_record.software_type_id).title %></td>
+              <td class="align-left" style="padding-left: 20px"><%= software_record.date_implemented %></td>
+              <td class="align-left" style="padding-left: 20px"><% if software_record.production_url.to_s.empty? %>-<% else %><a href="<%= software_record.production_url %>" target="_blank"><%= clean_url(software_record.production_url) %></a><% end %></td>
+              <td class="align-left" style="padding-left: 20px"><% if software_record.product_owners[0] == "" %>N/A<% else %><%= software_record.product_owners[0].to_s %><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', software_record , { :class => "btn btn-success actions" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
@@ -69,7 +69,7 @@
         <tbody>
           <% @softwaretypes_results.each do |software_type| %>
             <tr>
-              <td><%= software_type.title %></td>
+              <td class="align-left" style="padding-left: 20px"><%= software_type.title %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', software_type , { :class => "btn btn-success actions" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
@@ -107,7 +107,7 @@
         <tbody>
           <% @vendorrecords_results.each do |vendor_record| %>
             <tr>
-              <td><%= vendor_record.title %></td>
+              <td class="align-left" style="padding-left: 20px"><%= vendor_record.title %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', vendor_record , { :class => "btn btn-success actions" }%></td>
               <% elsif current_user.role.to_s == "owner" %>

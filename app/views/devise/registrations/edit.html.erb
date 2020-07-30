@@ -35,10 +35,10 @@
           <% end %>
           <br/>
           <div class="field">
-            <%= f.label :password, class: "labels" %> 
+            <%= f.label :password %> 
             <i class="labels;" style="font-size: 10px; color: yellow;">(leave blank if you don't want to change it.
               <% if @minimum_password_length %>
-                <em class="labels" style="font-size: 10px;"><%= @minimum_password_length %> characters minimum !)</em>
+                <em style="font-size: 10px;"><%= @minimum_password_length %> characters minimum !)</em>
               <% end %>
             </i>
             <br/>
@@ -46,13 +46,13 @@
           </div>
           <br/>
           <div class="field">
-            <%= f.label :password_confirmation, class: "labels" %><br />
+            <%= f.label :password_confirmation %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
           </div>
           <br/>
           <div class="field">
-            <%= f.label :current_password, class: "labels" %> 
-            <i class="labels" style="font-size: 10px; color: yellow;">(we need your current password to confirm your changes)</i><br />
+            <%= f.label :current_password %> 
+            <i style="font-size: 10px; color: yellow;">(we need your current password to confirm your changes)</i><br />
             <%= f.password_field :current_password, autocomplete: "current_password", :class => "form-control" %>
           </div>
           <br/>
