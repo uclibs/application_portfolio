@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_626_173_348) do
+ActiveRecord::Schema.define(version: 20_200_815_170_213) do
   create_table 'file_uploads', force: :cascade do |t|
     t.string 'attachment'
     t.datetime 'created_at', null: false
