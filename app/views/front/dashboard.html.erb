@@ -46,26 +46,26 @@
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td><%= record_indesign.title %></td>
-                  <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
-                  <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
-                  <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.title %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
+                  <td class="align-left" style="padding-left: 20px"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.status %></td>
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all;" class="align-left">
                     <% if record_indesign.production_url.to_s.empty? %>
-                      No URL
+                      -
                     <% else %>
-                      <a href=<%= generate_path(record_indesign.production_url) %> target="_blank"><%= record_indesign.production_url %></a>
+                      <a href=<%= generate_path(record_indesign.production_url) %> target="_blank"><%= clean_url(record_indesign.production_url) %></a>
                     <% end %>
                   </td>
                   <% if current_user.role.to_s == "viewer" %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
-                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_indesign) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_indesign , { :class => "text-success btn-icons", title: "View" }%></td>
-                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_indesign) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
-                    <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, record_indesign, method: :delete, :class => "text-danger btn-icons", data: { confirm: 'Are you sure?' }, title: "Delete" %></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger btn-icons", data: { confirm: 'Are you sure?' }, title: "Delete" %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -125,25 +125,25 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td><%= record_production.title %></td>
-                <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
-                <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
+                      <a class="align-left" href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= clean_url(record_production.production_url) %></a>
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
-                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, record_production , { :class => "text-success btn-icons", title: "View" }%></td>
-                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
-                    <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, record_production, method: :delete, :class => "text-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>
@@ -193,7 +193,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= line_chart SoftwareRecord.group(:status).group_by_week(:created_at).sum(SoftwareRecord.all.count), legend: "bottom" %> <br/>
+        <%= line_chart SoftwareRecord.group_by_month(:created_at).count, legend: "bottom" %> <br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>

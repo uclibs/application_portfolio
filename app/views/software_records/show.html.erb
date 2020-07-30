@@ -81,7 +81,7 @@
         <% end %>
 
         <% if @software_record.product_owners.length != 0 && @software_record.product_owners[0].to_s != "" %>
-          <dt>Product Owners</dt>
+          <dt>Product Lead/Contact</dt>
           <dd>
             <% @software_record.product_owners.each do |product_owner| %>
               <ul>

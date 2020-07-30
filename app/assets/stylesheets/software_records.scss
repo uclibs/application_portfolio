@@ -192,6 +192,9 @@ option {
 
 .software-records-table {
   font-size: 13px;
+  th {
+    text-align: center;
+  }
 }
 
 .card-deck{
@@ -200,7 +203,7 @@ option {
 
 @media screen and (min-width: 1440px) {
   .btn-icons {
-    font-size: 19px;
+    font-size: 12px;
   }
 }
 
@@ -219,7 +222,7 @@ option {
   }
 
   .btn-icons {
-    font-size: 23px;
+    font-size: 12px;
   }
 }
 
@@ -392,7 +395,7 @@ dt{
   background-color: #E00122;
 }
 
-input[type="radio"]:checked+label {
+input[type="radio"]:checked {
   color: #E00122;
 }
 
