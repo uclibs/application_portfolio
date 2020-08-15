@@ -46,11 +46,11 @@
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td><%= record_indesign.title %></td>
-                  <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
-                  <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.title %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
+                  <td class="align-left" style="padding-left: 20px"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all;" class="align-left">
                     <% if record_indesign.production_url.to_s.empty? %>
                       No URL
                     <% else %>
@@ -125,14 +125,14 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td><%= record_production.title %></td>
-                <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
-                <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
+                      <a class="align-left" href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>
