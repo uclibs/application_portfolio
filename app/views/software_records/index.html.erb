@@ -60,36 +60,36 @@
       <table class="table software-records-table" style="word-break: initial;">
         <thead>
           <tr>
-            <th><%= sortable "title", "Software Record" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "vendor_record_id", "Vendor" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "software_type_id", "Software Type" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "software_type_id", "Software Type" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "production_url", "Production URL" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "production_url", "Production URL" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
             <% if current_user.role.to_s == "viewer" %>
-              <th>Actions</th>
+              <th class="text-left" style="padding-left: 20px">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2">Actions</th>
+              <th colspan="2" class="text-left" style="padding-left: 20px">Actions</th>
             <% else %>
-              <th colspan="3">Actions</th>
+              <th colspan="3" class="text-left" style="padding-left: 20px">Actions</th>
             <% end %>
           </tr>
         </thead>
