@@ -9,48 +9,48 @@
           <table class="table text-center w-25">
             <thead>
               <tr>
-                <th><%= sortable "title", "Software Record" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th><%= sortable "vendor_record_id", "Vendor" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th><%= sortable "current_version", "Current Version" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th>Status</th>
-                <th><%= sortable "production_url", "URL" %> 
+                <th class="align-left" style="padding-left: 20px">Status</th>
+                <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <% if current_user.role.to_s == "viewer" %>
-                  <th>Action</th>
+                  <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
                 <% else %>
-                  <th colspan="3">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td><%= record_indesign.title %></td>
-                  <td><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
-                  <td><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.title %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
+                  <td class="align-left" style="padding-left: 20px"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td style="font-size: 12px"><%= pills record_indesign.status %></td>
-                  <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all;" class="align-left">
                     <% if record_indesign.production_url.to_s.empty? %>
                       No URL
                     <% else %>
@@ -88,36 +88,36 @@
         <table class="table text-center">
           <thead>
             <tr>
-              <th><%= sortable "title", "Software Record" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "vendor_record_id", "Vendor" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "current_version", "Current Version" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "production_url", "URL" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
               <% if current_user.role.to_s == "viewer" %>
-                  <th>Action</th>
+                  <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
                 <% else %>
-                  <th colspan="3">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
                 <% end %>
             </tr>
           </thead>
@@ -125,14 +125,14 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td><%= record_production.title %></td>
-                <td><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
-                <td style="table-layout:fixed; width: 300px; word-break:break-all;">
+                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
+                      <a class="align-left" href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= record_production.production_url %></a>
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>

@@ -57,39 +57,39 @@
 <% if @softwarerecords_count != 0 %>
   <div class="container animated fadeInLeft" style="margin-bottom: 10rem">
     <div class="row">
-      <table class="table text-center software-records-table" style="word-break: initial;">
+      <table class="table software-records-table" style="word-break: initial;">
         <thead>
           <tr>
-            <th><%= sortable "title", "Software Record" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "vendor_record_id", "Vendor" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "software_type_id", "Software Type" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "software_type_id", "Software Type" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
-            <th><%= sortable "production_url", "Production URL" %> 
+            <th class="text-left" style="padding-left: 20px"><%= sortable "production_url", "Production URL" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
                 <i class="fa fa-caret-down"></i>
               <% end %></th>
             <% if current_user.role.to_s == "viewer" %>
-              <th>Actions</th>
+              <th class="text-left" style="padding-left: 20px">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2">Actions</th>
+              <th colspan="2" class="text-left" style="padding-left: 20px">Actions</th>
             <% else %>
-              <th colspan="3">Actions</th>
+              <th colspan="3" class="text-left" style="padding-left: 20px">Actions</th>
             <% end %>
           </tr>
         </thead>
@@ -97,7 +97,7 @@
         <tbody>
           <% @software_records.each do |software_record| %>
             <tr>
-              <td><%= software_record.title %></td>
+              <td style="padding-left: 40px;"><%= software_record.title %></td>
               <td><%= VendorRecord.find(software_record.vendor_record_id).title %></td>
               <td><%= SoftwareType.find(software_record.software_type_id).title %></td>
               <td style="table-layout:fixed; width: 300px; word-break:break-all;"><% if software_record.production_url.to_s.empty? %>No URL<% else %><a href=<%= generate_path(software_record.production_url) %> target="_blank" ><%= software_record.production_url %></a><% end %></td>

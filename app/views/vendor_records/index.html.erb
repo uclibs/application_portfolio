@@ -17,7 +17,7 @@
       <table class="table text-center">
         <thead>
           <tr>
-            <th><%= sortable "title", "Vendors" %> 
+            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Vendors" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -37,7 +37,7 @@
         <tbody>
           <% @vendor_records.each do |vendor_record| %>
             <tr>
-              <td><%= vendor_record.title %></td>
+              <td class="text-left" style="padding-left: 50px"><%= vendor_record.title %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
               <% elsif current_user.role.to_s == "owner" %>

@@ -17,7 +17,7 @@
       <table class="table text-center">
         <thead>
           <tr>
-            <th><%= sortable "title", "Software Types" %> 
+            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Software Types" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -37,7 +37,7 @@
         <tbody>
           <% @software_types.each do |software_type| %>
             <tr>
-              <td><%= software_type.title %></td>
+              <td class="text-left" style="padding-left: 50px"><%= software_type.title %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
               <% elsif current_user.role.to_s == "owner" %>

@@ -262,7 +262,8 @@ a:hover {
 }
 
 .labels {
-  font-size: 14px
+  font-size: 14px;
+  margin-left: 20px;
 }
 
 .dashboard-actions {
@@ -280,6 +281,10 @@ a:hover {
 
 input[type=text]::placeholder {
   opacity: 0.6;
+}
+
+.align-left {
+  text-align: left;
 }
 
 .auth-role {
