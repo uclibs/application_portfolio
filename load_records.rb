@@ -43,6 +43,7 @@ class LoadRecords < ActiveRecord::Base
       puts(invalid_types)
     else
       count = 0
+      created = 0
       csv.each do |row|
         title = row['Title']
         desc = row['Description']
@@ -124,18 +125,23 @@ class LoadRecords < ActiveRecord::Base
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of Upgrade'].to_s.strip
 
-        SoftwareRecord.new(title: title, description: desc, status: status, software_type_id: software_type_id,
-                           vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
-                           developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
-                           production_url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
-                           hosting_environment: hosting, current_version: version, notes: notes, business_value: bvalue,
-                           it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
-                           date_of_upgrade: date_of_upgrade).save
+        if !SoftwareRecord.find_by_title(title).nil? && SoftwareRecord.find_by_title(title).title.to_s == title && SoftwareRecord.find_by_title(title).software_type_id == software_type_id && SoftwareRecord.find_by_title(title).vendor_record_id == vendor_record_id
+          puts("Software Record '#{title}' is found in the db and hence suppressing it.")
+        else
+          SoftwareRecord.new(title: title, description: desc, status: status, software_type_id: software_type_id,
+                             vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
+                             developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
+                             production_url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
+                             hosting_environment: hosting, current_version: version, notes: notes, business_value: bvalue,
+                             it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
+                             date_of_upgrade: date_of_upgrade).save
+          created += 1
+          puts("Created Software Record '" + row['Title'] + "'...")
+        end
         count += 1
-        puts("Created Software Record '" + row['Title'] + "'...")
       end
       puts '---------------------------------------------------------------------'
-      puts "Total Software Records created -> #{count + 1}"
+      puts "Total Software Records created -> #{created}"
       puts '---------------------------------------------------------------------'
     end
   end

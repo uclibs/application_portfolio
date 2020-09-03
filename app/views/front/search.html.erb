@@ -6,12 +6,12 @@
       <table class="table text-center software-records-table" style="border-radius: 10px;">
         <thead>
           <tr>
-            <th>Software Record</th>
-            <th>Vendor</th>
-            <th>Software Type</th>
-            <th>Date Implemented</th>
-            <th>URL</th>
-            <th>Product Owner</th>
+            <th class="text-left" style="padding-left: 20px">Software Record</th>
+            <th class="text-left" style="padding-left: 20px">Vendor</th>
+            <th class="text-left" style="padding-left: 20px">Software Type</th>
+            <th class="text-left" style="padding-left: 20px">Date Implemented</th>
+            <th class="text-left" style="padding-left: 20px">URL</th>
+            <th class="text-left" style="padding-left: 20px">Product Owner</th>
             <% if current_user.role.to_s == "viewer" %>
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
@@ -55,7 +55,7 @@
       <table class="table text-center software-records-table" style="border-radius: 10px">
         <thead>
           <tr>
-            <th>Software Types</th>
+            <th class="align-left" style="padding-left: 20px">Software Types</th>
             <% if current_user.role.to_s == "viewer" %>
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
@@ -94,7 +94,7 @@
       <table class="table text-center software-records-table" style="border-radius: 10px">
         <thead>
           <tr>
-            <th>Vendors</th>
+            <th class="align-left" style="padding-left: 20px">Vendors</th>
             <% if current_user.role.to_s == "viewer" %>
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
