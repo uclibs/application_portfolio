@@ -6,13 +6,13 @@
             <table class="table text-center w-25">
               <thead>
                 <tr>
-                  <th><%= sortable "first_name", "User" %> 
+                  <th class="align-left" style="padding-left: 20px"><%= sortable "first_name", "User" %> 
                   <% if params[:direction] == "asc" || params[:direction] == nil %> 
                     <i class="fa fa-caret-up"></i>
                   <% else %>
                     <i class="fa fa-caret-down float-none"></i>
                   <% end %></th>
-                  <th>Role</th>
+                  <th class="align-left" style="padding-left: 20px">Role</th>
                   <th colspan="4">Actions</th>
                 </tr>
               </thead>
@@ -20,8 +20,8 @@
                 <% @users.each do |user| %>
                   <tr>
                     <% if user.active.to_s == "true"%><% @status = "De-Activate" %><% @class = "btn btn-warning" %><% else %><% @status = "Activate"%><% @class = "btn btn-primary" %><% end %>
-                    <td><%= user.first_name.to_s + " " + user.last_name.to_s %></td>
-                    <td><% if user.role.to_s == "root_admin" %>admin<% else %> <%= user.role %> <% end %></td>
+                    <td class="align-left" style="padding-left: 20px"><%= user.first_name.to_s + " " + user.last_name.to_s %></td>
+                    <td class="align-left" style="padding-left: 20px"><% if user.role.to_s == "root_admin" %>admin<% else %> <%= user.role %> <% end %></td>
                     <td><%= link_to 'View', users_show_path(user.id) , { :class => "btn btn-success" }%></td>
                     <td><%= link_to 'Edit', user_edit_path(user.id) , { :class => "btn btn-info" }%></td>
                     <td><%= link_to @status, user_status_path(user.id) , { :class => @class }%></td>
