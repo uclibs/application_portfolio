@@ -63,6 +63,7 @@ class SoftwareRecordsController < ApplicationController
   # GET /software_records/1/edit
   def edit
     $page_title = 'Edit Software Record | UCL Application Portfolio'
+    @software_sc = SoftwareRecord.find_by_id(params[:id]).support_contract
     @count_developers = 2
     @count_tech_leads = 2
     @count_product_owners = 2

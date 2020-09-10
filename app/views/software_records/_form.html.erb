@@ -216,7 +216,7 @@
 
             <% if component.to_s == "new" %>
               <div class="form-group" id="multiple_product_owners">
-                <%= form.label :product_owners %>
+                <%= form.label "Product Lead/Contact" %>
               <div class="input-group">
                 <%= text_field_tag "software_record[product_owners][]", nil, class: "form-control" %>
                 <div class="input-group-append" id="btnAddProductOwners">
@@ -291,13 +291,23 @@
               </div>
             <% end %>
 
-            <div class="form-group">
-              <%= form.label :support_contract %><br/>
-              <%= form.label :support_contract, "Yes", :value => "Yes"  %>
-              <%= form.radio_button :support_contract, "Yes" %>
-              <%= form.label :support_contract, "No", :value => "No" %>
-              <%= form.radio_button :support_contract, "No", :checked => true %>
-            </div>
+            <% if params[:id].nil? %>
+              <div class="form-group">
+                <%= form.label :support_contract %><br/>
+                <%= form.label :support_contract, "Yes", :value => "Yes"  %>
+                <%= form.radio_button :support_contract, "Yes" %>
+                <%= form.label :support_contract, "No", :value => "No" %>
+                <%= form.radio_button :support_contract, "No", :checked => true %>
+              </div>
+            <% else %>
+              <div class="form-group">
+                <%= form.label :support_contract %><br/>
+                <%= form.label :support_contract, "Yes", :value => "Yes"  %>
+                <%= form.radio_button :support_contract, "Yes", :checked => @software_sc == "Yes" %>
+                <%= form.label :support_contract, "No", :value => "No" %>
+                <%= form.radio_button :support_contract, "No", :checked => @software_sc == "No" %>
+              </div>
+            <% end %>
 
             <div class="form-group">
               <%= form.label :hosting_environment %>
@@ -336,7 +346,7 @@
             <% end %>
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
-          <%= form.submit nil, class: "btn btn-primary" %>
+          <%= form.submit 'Save', class: "btn btn-primary" %>
           <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
         </div>
       <% end %>

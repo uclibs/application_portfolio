@@ -18,6 +18,8 @@ class FrontController < ApplicationController
     VendorRecord.all.each do |vendor|
       @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
     end
+    @test = [{ 'ORDER_CODE' => 519_805, 'PART' => '00049', 'LEAD_TIME' => 29, 'DATE' => '2015-03-03T00:00:00' }, { 'ORDER_CODE' => 517_297, 'PART' => '00149', 'LEAD_TIME' => 54, 'DATE' => '2014-11-26T00:00:00' }]
+    @data = @test.collect { |i| [i['ORDER_CODE'], i['lead_time']] }
     $page_title = 'Dashboard | UCL Application Portfolio'
     @user = current_user.first_name + ' ' + current_user.last_name
     @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(@user).order(sort_column + ' ' + sort_direction)

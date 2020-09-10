@@ -155,6 +155,9 @@ a:hover {
 }
 
 @media screen and (min-width: 1480px) {
+  .btn-icons {
+    font-size: 23px;
+  }
   .software-records-table {
     font-size: 16px;
     width: 100%;
@@ -165,6 +168,13 @@ a:hover {
   .table th {
     font-size: 16px;
   }
+  a.btn-icons {
+    font-size: 16px;
+  }
+}
+
+.btn-icons {
+  font-size: 12px;
 }
 
 .table th {
