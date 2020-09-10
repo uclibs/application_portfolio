@@ -139,7 +139,7 @@
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
