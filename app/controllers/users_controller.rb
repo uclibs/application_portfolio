@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   include SoftwareRecordsHelper
   before_action :retrieve_user, only: %i[show edit update destroy user_status]
   before_action :authenticate_user!
-  before_action :navigation
+  before_action :navigation, except: %i[edit update]
   access root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   helper_method :sort_column, :sort_direction
 

@@ -209,7 +209,7 @@
             <% else %>
             <% if @software_record.product_owners.count != 0 %>
               <div class="form-group" id="multiple_product_owners">
-                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners" onclick="add_product_owner()">+ add more</a>
+                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
                 <% @software_record.product_owners.each do |product_owner| %>
                     <% if @count_product_owners == 2 %>
                       <div class="input-group" id="product_owners1">
@@ -232,7 +232,7 @@
                 </div>
               <% else %>
               <div class="form-group" id="multiple_product_owners">
-                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners" onclick="add_product_owner()">+ add more</a>
+                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
               </div>
               <% end %>
             <% end %>
@@ -323,7 +323,9 @@
         <br/>
         <div class="form-group <%= component %>" style= "text-align: center;">
           <%= form.submit 'Save', class: "btn btn-primary" %>
-          <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
+          <% if component.to_s == "new" %>
+            <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
+          <% end %>
         </div>
       <% end %>
     </div>
