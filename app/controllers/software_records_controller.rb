@@ -102,6 +102,10 @@ class SoftwareRecordsController < ApplicationController
   def update
     software_update_params = software_record_params
     software_update_params[:sensitive_information] = check_and_encrypt(software_update_params[:sensitive_information])
+    software_update_params[:departments] = software_record_params[:departments]
+    software_update_params[:developers] = software_record_params[:developers]
+    software_update_params[:tech_leads] = software_record_params[:tech_leads]
+    software_update_params[:product_owners] = software_record_params[:product_owners]
     if @software_record.update(software_update_params)
       redirect_to @software_record, notice: 'Software record was successfully updated.'
     else

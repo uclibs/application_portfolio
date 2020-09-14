@@ -143,6 +143,11 @@
     window.count_product_owners++;
   };
 
+  function add_product_owner() {
+    add("product_owners", "");
+    window.count_product_owners++;
+  }
+
   document.getElementById("btnAddDepartments").onclick = function() {
     add("departments", "");
     window.count_departments++;

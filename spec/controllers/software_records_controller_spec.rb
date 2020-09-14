@@ -153,20 +153,33 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+        {
+          title: 'A Great Software v2.0',
+          description: 'An Updated good description of the software',
+          status: 'To be decomissioned',
+          software_type_id: SoftwareType.first.id,
+          vendor_record_id: VendorRecord.first.id,
+          created_by: 'Test Admin',
+          developers: %w[Developer Developer2],
+          tech_leads: %w[Lead Lead2],
+          product_owners: %w[Owner Owner2]
+        }
       end
 
       it 'updates the requested software_record' do
-        software_record = SoftwareRecord.create! valid_attributes
+        software_record = SoftwareRecord.create! new_attributes
         put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Admin')
-        expect(software_record.developers).to eq(%w[Tester Random])
-        expect(software_record.tech_leads).to eq(['Lead 1'])
-        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
+        expect(software_record.developers).to have_content('Developer')
+        expect(software_record.developers).to have_content('Developer2')
+        expect(software_record.tech_leads).to have_content('Lead')
+        expect(software_record.tech_leads).to have_content('Lead2')
+        expect(software_record.product_owners).to have_content('Owner')
+        expect(software_record.product_owners).to have_content('Owner2')
       end
 
       it 'redirects to the software_record' do
@@ -335,19 +348,33 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+        {
+          title: 'A Great Software v2.0',
+          description: 'An Updated good description of the software',
+          status: 'To be decomissioned',
+          software_type_id: SoftwareType.first.id,
+          vendor_record_id: VendorRecord.first.id,
+          created_by: 'Test Viewer',
+          developers: %w[Developer Developer2],
+          tech_leads: %w[Lead Lead2],
+          product_owners: %w[Owner Owner2]
+        }
       end
 
       it 'updates the requested software_record' do
-        software_record = SoftwareRecord.create! valid_attributes
+        software_record = SoftwareRecord.create! new_attributes
         put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
         software_record.reload
-        expect(software_record.title).to_not eq('A Great Software v2.0')
-        expect(software_record.description).to_not eq('An Updated good description of the software')
-        expect(software_record.status).to_not eq('To be decomissioned')
-        expect(software_record.developers).to eq(%w[Tester Random])
-        expect(software_record.tech_leads).to eq(['Lead 1'])
-        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
+        expect(software_record.title).to eq('A Great Software v2.0')
+        expect(software_record.description).to eq('An Updated good description of the software')
+        expect(software_record.status).to eq('To be decomissioned')
+        expect(software_record.created_by).to eq('Test Viewer')
+        expect(software_record.developers).to have_content('Developer')
+        expect(software_record.developers).to have_content('Developer2')
+        expect(software_record.tech_leads).to have_content('Lead')
+        expect(software_record.tech_leads).to have_content('Lead2')
+        expect(software_record.product_owners).to have_content('Owner')
+        expect(software_record.product_owners).to have_content('Owner2')
       end
 
       it 'redirects to the software_record' do
@@ -515,20 +542,33 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+        {
+          title: 'A Great Software v2.0',
+          description: 'An Updated good description of the software',
+          status: 'To be decomissioned',
+          software_type_id: SoftwareType.first.id,
+          vendor_record_id: VendorRecord.first.id,
+          created_by: 'Test Manager',
+          developers: %w[Developer Developer2],
+          tech_leads: %w[Lead Lead2],
+          product_owners: %w[Owner Owner2]
+        }
       end
 
       it 'updates the requested software_record' do
-        software_record = SoftwareRecord.create! valid_attributes
+        software_record = SoftwareRecord.create! new_attributes
         put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Manager')
-        expect(software_record.developers).to eq(%w[Tester Random])
-        expect(software_record.tech_leads).to eq(['Lead 1'])
-        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
+        expect(software_record.developers).to have_content('Developer')
+        expect(software_record.developers).to have_content('Developer2')
+        expect(software_record.tech_leads).to have_content('Lead')
+        expect(software_record.tech_leads).to have_content('Lead2')
+        expect(software_record.product_owners).to have_content('Owner')
+        expect(software_record.product_owners).to have_content('Owner2')
       end
 
       it 'redirects to the software_record' do
@@ -697,20 +737,33 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { title: 'A Great Software v2.0', description: 'An Updated good description of the software', status: 'To be decomissioned' }
+        {
+          title: 'A Great Software v2.0',
+          description: 'An Updated good description of the software',
+          status: 'To be decomissioned',
+          software_type_id: SoftwareType.first.id,
+          vendor_record_id: VendorRecord.first.id,
+          created_by: 'Test Owner',
+          developers: %w[Developer Developer2],
+          tech_leads: %w[Lead Lead2],
+          product_owners: %w[Owner Owner2]
+        }
       end
 
       it 'updates the requested software_record' do
-        software_record = SoftwareRecord.create! valid_attributes
+        software_record = SoftwareRecord.create! new_attributes
         put :update, params: { id: software_record.to_param, software_record: new_attributes }, session: valid_session
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
         expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Owner')
-        expect(software_record.developers).to eq(%w[Tester Random])
-        expect(software_record.tech_leads).to eq(['Lead 1'])
-        expect(software_record.product_owners).to eq(%w[Owner1 Owner2])
+        expect(software_record.developers).to have_content('Developer')
+        expect(software_record.developers).to have_content('Developer2')
+        expect(software_record.tech_leads).to have_content('Lead')
+        expect(software_record.tech_leads).to have_content('Lead2')
+        expect(software_record.product_owners).to have_content('Owner')
+        expect(software_record.product_owners).to have_content('Owner2')
       end
 
       it 'redirects to the software_record' do
