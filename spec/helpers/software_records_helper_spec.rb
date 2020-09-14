@@ -23,4 +23,17 @@ RSpec.describe SoftwareRecordsHelper, type: :helper do
       expect(helper.pills('Something')).to eq('<span class="badge badge-pill badge-dark">Something</span>')
     end
   end
+
+  describe 'encrypt' do
+    it 'returns encrypted value' do
+      expect(helper.encrypt('lets encrypt')).not_to eq('lets encrypt')
+    end
+  end
+
+  describe 'decrypt' do
+    it 'returns expected decrypt value' do
+      encrypted = helper.encrypt('lets encrypt v2')
+      expect(helper.decrypt(encrypted)).to eq('lets encrypt v2')
+    end
+  end
 end

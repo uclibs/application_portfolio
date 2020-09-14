@@ -322,7 +322,7 @@
             <% if current_user.role.to_s == "root_admin" %>
               <div class="form-group">
                 <%= form.label "Sensitive Information (Software keys/Passwords)" %>
-                <%= form.text_area :sensitive_information, :cols => 30, :rows => 3, :class => "form-control" %>
+                <%= form.text_area :sensitive_information, :cols => 30, :rows => 3, :value => @decrypted_sensitive_information, :class => "form-control" %>
               </div>
             <% end %>
 

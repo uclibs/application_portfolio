@@ -139,7 +139,7 @@
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                   <% elsif current_user.role.to_s == "owner" %>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
                   <% else %>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
                     <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
@@ -193,7 +193,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= line_chart SoftwareRecord.group_by_month(:created_at).count, legend: "bottom" %> <br/>
+        <%= line_chart SoftwareRecord.all.collect{|i| [i[:created_at],i[:count]]}, legend: "bottom" %> <br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
