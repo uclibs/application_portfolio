@@ -74,4 +74,35 @@ module ApplicationHelper
       session[:current] = request.original_url.to_s
     end
   end
+
+  def generate_software_records_series
+    series = [{ "data": {} }]
+    current_year = Date.today.year
+    current_month = Date.today.month
+    months = Hash.new('month')
+    months = { 1 => 'January' + ', ' + current_year.to_s,
+               2 => 'February' + ', ' + current_year.to_s,
+               3 => 'March' + ', ' + current_year.to_s,
+               4 => 'April' + ', ' + current_year.to_s,
+               5 => 'May' + ', ' + current_year.to_s,
+               6 => 'June' + ', ' + current_year.to_s,
+               7 => 'July' + ', ' + current_year.to_s,
+               8 => 'August' + ', ' + current_year.to_s,
+               9 => 'September' + ', ' + current_year.to_s,
+               10 => 'October' + ', ' + current_year.to_s,
+               11 => 'November' + ', ' + current_year.to_s,
+               12 => 'December' + ', ' + current_year.to_s }
+    month_keys = months.keys
+    count = 0
+    month_keys.each do |key|
+      break if key > current_month
+
+      start = DateTime.new(current_year, key, 0o1, 0o0, 0o0, 0o0)
+      start_date = start.in_time_zone.beginning_of_month
+      end_date = start.in_time_zone.end_of_month
+      count += SoftwareRecord.where(created_at: start_date..end_date).count
+      series[0][:data][months[key]] = count
+    end
+    series
+  end
 end

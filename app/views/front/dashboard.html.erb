@@ -193,7 +193,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= line_chart SoftwareRecord.all.collect{|i| [i[:created_at],i[:count]]}, legend: "bottom" %> <br/>
+        <%= line_chart generate_software_records_series, legend: "bottom", colors: ["#c20849"] %> <br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
