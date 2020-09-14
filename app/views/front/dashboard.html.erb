@@ -9,37 +9,37 @@
           <table class="table text-center w-25">
             <thead>
               <tr>
-                <th><%= sortable "title", "Software Record" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th><%= sortable "vendor_record_id", "Vendor" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th><%= sortable "current_version", "Current Version" %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th>Status</th>
-                <th><%= sortable "production_url", "URL" %> 
+                <th class="align-left" style="padding-left: 20px">Status</th>
+                <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <% if current_user.role.to_s == "viewer" %>
-                  <th>Action</th>
+                  <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
                 <% else %>
-                  <th colspan="3">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
                 <% end %>
               </tr>
             </thead>
@@ -88,36 +88,36 @@
         <table class="table text-center">
           <thead>
             <tr>
-              <th><%= sortable "title", "Software Record" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "vendor_record_id", "Vendor" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "current_version", "Current Version" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th><%= sortable "production_url", "URL" %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
                 <% if params[:direction] == "asc" || params[:direction] == nil %> 
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
               <% if current_user.role.to_s == "viewer" %>
-                  <th>Action</th>
+                  <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
                 <% else %>
-                  <th colspan="3">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
                 <% end %>
             </tr>
           </thead>
