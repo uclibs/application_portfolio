@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_815_170_213) do
+ActiveRecord::Schema.define(version: 20_200_915_041_754) do
   create_table 'file_uploads', force: :cascade do |t|
     t.string 'attachment'
     t.datetime 'created_at', null: false
@@ -46,13 +46,22 @@ ActiveRecord::Schema.define(version: 20_200_815_170_213) do
     t.string 'created_by'
     t.text 'sensitive_information'
     t.text 'source_code_url'
+    t.integer 'status_id'
     t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
+    t.index ['status_id'], name: 'index_software_records_on_status_id'
     t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'
   end
 
   create_table 'software_types', force: :cascade do |t|
     t.string 'title'
     t.text 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'statuses', force: :cascade do |t|
+    t.string 'title'
+    t.string 'status_type', default: 'Other'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

@@ -44,13 +44,17 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
   end
 
   let(:valid_attributes) do
     {
       title: 'A Good Software',
       description: 'A Good description about the software',
-      status: 'In Development',
+      status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
       created_by: 'Test Admin',
@@ -64,7 +68,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     {
       title: '',
       description: '',
-      status: '',
+      status_id: '',
       software_type_id: '',
       vendor_record_id: ''
     }
@@ -100,7 +104,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       get :show, params: { id: software_record.to_param }, session: valid_session
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
-      expect(response.body).to have_content('In Development')
+      expect(response.body).to have_content(Status.first.id)
       expect(response.body).to have_content('Test Admin')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
@@ -156,7 +160,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         {
           title: 'A Great Software v2.0',
           description: 'An Updated good description of the software',
-          status: 'To be decomissioned',
+          status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
           created_by: 'Test Admin',
@@ -172,7 +176,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
-        expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Admin')
         expect(software_record.developers).to have_content('Developer')
         expect(software_record.developers).to have_content('Developer2')
@@ -239,13 +242,17 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
   end
 
   let(:valid_attributes) do
     {
       title: 'A Good Software',
       description: 'A Good description about the software',
-      status: 'In Development',
+      status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
       created_by: 'Test Viewer',
@@ -259,7 +266,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     {
       title: '',
       description: '',
-      status: '',
+      status_id: '',
       software_type_id: '',
       vendor_record_id: ''
     }
@@ -295,7 +302,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       get :show, params: { id: software_record.to_param }, session: valid_session
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
-      expect(response.body).to have_content('In Development')
       expect(response.body).not_to have_content('Test Viewer')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
@@ -351,7 +357,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         {
           title: 'A Great Software v2.0',
           description: 'An Updated good description of the software',
-          status: 'To be decomissioned',
+          status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
           created_by: 'Test Viewer',
@@ -367,7 +373,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
-        expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Viewer')
         expect(software_record.developers).to have_content('Developer')
         expect(software_record.developers).to have_content('Developer2')
@@ -433,13 +438,17 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
   end
 
   let(:valid_attributes) do
     {
       title: 'A Good Software',
       description: 'A Good description about the software',
-      status: 'In Development',
+      status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
       created_by: 'Test Manager',
@@ -489,7 +498,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       get :show, params: { id: software_record.to_param }, session: valid_session
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
-      expect(response.body).to have_content('In Development')
       expect(response.body).not_to have_content('Test Manager')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
@@ -545,7 +553,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         {
           title: 'A Great Software v2.0',
           description: 'An Updated good description of the software',
-          status: 'To be decomissioned',
+          status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
           created_by: 'Test Manager',
@@ -561,7 +569,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
-        expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Manager')
         expect(software_record.developers).to have_content('Developer')
         expect(software_record.developers).to have_content('Developer2')
@@ -628,13 +635,17 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
   end
 
   let(:valid_attributes) do
     {
       title: 'A Good Software',
       description: 'A Good description about the software',
-      status: 'In Development',
+      status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
       created_by: 'Test Owner',
@@ -648,7 +659,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     {
       title: '',
       description: '',
-      status: '',
+      status_id: '',
       software_type_id: '',
       vendor_record_id: ''
     }
@@ -684,7 +695,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       get :show, params: { id: software_record.to_param }, session: valid_session
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
-      expect(response.body).to have_content('In Development')
       expect(response.body).not_to have_content('Test Owner')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
@@ -740,7 +750,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         {
           title: 'A Great Software v2.0',
           description: 'An Updated good description of the software',
-          status: 'To be decomissioned',
+          status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
           created_by: 'Test Owner',
@@ -756,7 +766,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         software_record.reload
         expect(software_record.title).to eq('A Great Software v2.0')
         expect(software_record.description).to eq('An Updated good description of the software')
-        expect(software_record.status).to eq('To be decomissioned')
         expect(software_record.created_by).to eq('Test Owner')
         expect(software_record.developers).to have_content('Developer')
         expect(software_record.developers).to have_content('Developer2')

@@ -49,7 +49,7 @@
                   <td class="align-left" style="padding-left: 20px"><%= record_indesign.title %></td>
                   <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
                   <td class="align-left" style="padding-left: 20px"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
-                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.status %></td>
+                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.status.title %></td>
                   <td style="table-layout:fixed; width: 300px; word-break:break-all;" class="align-left">
                     <% if record_indesign.production_url.to_s.empty? %>
                       -
@@ -172,7 +172,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart SoftwareRecord.group(:status).count, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" %><br/>
+        <%= pie_chart software_records_status_hash, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" %><br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
@@ -181,7 +181,7 @@
         <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
       </div>
       <div class="card-body">
-        <%= pie_chart @vendor_piechart_hash, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: {position: "none"} %><br/>
+        <%= pie_chart vendor_piechart, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: {position: "none"} %><br/>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='vendor_records'">View</button>
       </div>
     </div>

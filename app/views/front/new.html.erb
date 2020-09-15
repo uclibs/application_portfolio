@@ -17,8 +17,8 @@
           </div>
           
           <div class="form-group">
-            <%= form.label :status %><b style="color: red; font-size: 20px"> *</b>
-            <%= form.select :status, options_for_select(['Requested'], :selected=>"Requested"), {}, {:class => "form-control"} %>
+            <%= form.label "Status" %><b style="color: red; font-size: 20px"> *</b>
+            <%= form.collection_select(:status_id, Status.where(title: 'Requested'), :id, :title, {}, {:class => "form-control"}) %>
           </div>
 
           <% if user_signed_in? && current_user.role.to_s == "owner" %>

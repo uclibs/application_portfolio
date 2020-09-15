@@ -16,7 +16,7 @@ module SoftwareRecordsHelper
     elsif status == 'To be decomissioned'
       content_tag(:span, status, class: 'badge badge-pill badge-danger')
     else
-      content_tag(:span, status, class: 'badge badge-pill badge-dark')
+      content_tag(:span, status, class: 'badge badge-pill badge-info')
     end
   end
 
@@ -52,5 +52,21 @@ module SoftwareRecordsHelper
     key   = ActiveSupport::KeyGenerator.new(Rails.application.secrets.secret_key_base).generate_key salt, len
     crypt = ActiveSupport::MessageEncryptor.new key
     crypt.decrypt_and_verify data
+  end
+
+  def vendor_piechart
+    @vendor_piechart_hash = {}
+    VendorRecord.all.each do |vendor|
+      @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
+    end
+    @vendor_piechart_hash
+  end
+
+  def software_records_status_hash
+    @software_status_piechart_hash = {}
+    Status.all.each do |status|
+      @software_status_piechart_hash[status.title] = Status.find_by_id(status.id).software_records.count
+    end
+    @software_status_piechart_hash
   end
 end

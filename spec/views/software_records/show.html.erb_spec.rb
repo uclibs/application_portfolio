@@ -12,10 +12,14 @@ RSpec.describe 'software_records/show', type: :view do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
     @software_record = assign(:software_record, SoftwareRecord.create!(
                                                   title: 'MyString',
                                                   description: 'MyText',
-                                                  status: 'MyString',
+                                                  status_id: Status.first.id,
                                                   software_type_id: SoftwareType.first.id,
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
@@ -28,6 +32,6 @@ RSpec.describe 'software_records/show', type: :view do
     render
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/MyString/)
+    expect(rendered).to match(/1/)
   end
 end

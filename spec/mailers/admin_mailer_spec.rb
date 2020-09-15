@@ -14,13 +14,17 @@ RSpec.describe AdminMailer, type: :mailer do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
   end
   describe 'new_software_request_mail' do
     let(:software_records) do
       SoftwareRecord.create!(
         title: 'Title',
         description: 'MyText',
-        status: 'Status',
+        status_id: Status.first.id,
         date_implemented: '2020-12-12',
         vendor_record_id: VendorRecord.first.id,
         software_type_id: SoftwareType.first.id,

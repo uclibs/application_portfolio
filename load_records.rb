@@ -11,12 +11,16 @@ class LoadRecords < ActiveRecord::Base
     csv = CSV.read(file, headers: true)
     webapp_type = csv['Type']
     vendor_records = csv['Vendor']
+    statuses = csv['Status']
     valid_types = []
     valid_vendors = []
+    valid_statuses = []
     invalid_vendors = []
     invalid_types = []
+    invalid_statuses = []
     types_invalid = false
     vendors_invalid = false
+    statuses_invalid = false
     webapp_type.each do |type|
       valid_types.push(SoftwareType.find_by_title(type).id)
     rescue StandardError
@@ -29,10 +33,16 @@ class LoadRecords < ActiveRecord::Base
       vendors_invalid = true
       invalid_vendors.push(record)
     end
+    statuses.each do |status|
+      valid_statuses.push(Status.find_by_title(status).id)
+    rescue StandardError
+      statuses_invalid = true
+      invalid_statuses.push(status)
+    end
 
-    if types_invalid || vendors_invalid
+    if types_invalid || vendors_invalid || statuses_invalid
       puts '---------------------------------------------------------------------'
-      puts('No Software Records created due to following in-valid records/types..')
+      puts('No Software Records created due to following in-valid records/types/statuses..')
       puts '---------------------------------------------------------------------'
       puts('In-Valid Vendor Records')
       puts('-----------------------------')
@@ -41,15 +51,19 @@ class LoadRecords < ActiveRecord::Base
       puts('In-Valid Software Types')
       puts('-----------------------------')
       puts(invalid_types)
+      puts('-----------------------------')
+      puts('In-Valid Statuses')
+      puts('-----------------------------')
+      puts(invalid_statuses)
     else
       count = 0
       created = 0
       csv.each do |row|
         title = row['Title']
         desc = row['Description']
-        status = row['Status']
         software_type_id = valid_types[count]
         vendor_record_id = valid_vendors[count]
+        status_id = valid_statuses[count]
 
         departments = []
         if row['Departments'].to_s.include?(',')
@@ -128,7 +142,7 @@ class LoadRecords < ActiveRecord::Base
         if !SoftwareRecord.find_by_title(title).nil? && SoftwareRecord.find_by_title(title).title.to_s == title && SoftwareRecord.find_by_title(title).software_type_id == software_type_id && SoftwareRecord.find_by_title(title).vendor_record_id == vendor_record_id
           puts("Software Record '#{title}' is found in the db and hence suppressing it.")
         else
-          SoftwareRecord.new(title: title, description: desc, status: status, software_type_id: software_type_id,
+          SoftwareRecord.new(title: title, description: desc, status_id: status_id, software_type_id: software_type_id,
                              vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
                              developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
                              production_url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
@@ -207,6 +221,37 @@ class LoadRecords < ActiveRecord::Base
     puts "Total Software Types created -> #{count - 1}"
     puts '---------------------------------------------------------------------'
   end
+
+  def statuses
+    file = Dir.pwd + '/public/uploads/' + $filename
+    csv = CSV.read(file, headers: true)
+    all_statuses = csv['Status']
+    duplicate_statuses = []
+    statuses_exists = false
+    valid_statuses = []
+    count = 1
+    all_statuses.each do |status|
+      SoftwareType.find_by_title(status).id
+    rescue StandardError
+      statuses_exists = false
+      valid_statuses.push(status)
+    else
+      statuses_exists = true
+      duplicate_statuses.push(type)
+    end
+    duplicate_statuses = duplicate_statuses.uniq
+    valid_statuses = valid_statuses.uniq
+
+    puts 'Duplicate Statuses exists and suppressing them...' if statuses_exists
+    valid_statuses.each do |eachstatus|
+      count += 1
+      puts "Creating Status '" + eachstatus.to_s + "'"
+      Status.new(title: eachstatus).save
+    end
+    puts '---------------------------------------------------------------------'
+    puts "Total Statuses created -> #{count - 1}"
+    puts '---------------------------------------------------------------------'
+  end
 end
 
 args = ARGV[0]
@@ -225,6 +270,10 @@ elsif args == 'type'
   LoadRecords.table_name = 'software_types'
   l = LoadRecords.new
   l.software_types
+elsif args == 'status'
+  LoadRecords.table_name = 'statuses'
+  l = LoadRecords.new
+  l.statuses
 else
   puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data."
 end
