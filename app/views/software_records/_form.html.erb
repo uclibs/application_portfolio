@@ -98,6 +98,30 @@
                   </div>
                 <% end %>
               <% end %>
+            <% else %>
+              <% if @software_record.departments.count != 0 %>
+                <div class="form-group" id="multiple_departments">
+                  <% @software_record.departments.each do |department| %>
+                      <% if @count_departments == 2 %>
+                        <div class="input-group" id="departments1" style="display: none">
+                          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('departments1')">
+                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                          </div>
+                        </div>
+                          <% @count_departments += 1 %>
+                      <% else %>
+                      <% @id = "software_record_departments_" + @count_departments.to_s %>
+                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
+                          <%= text_field_tag "software_record[departments][]", department, id: "software_record_departments_", required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                          </div>
+                        </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
 
             <!-- Multiple Departments ends -->
@@ -144,6 +168,30 @@
               </div>
               <% end %>
             <% end %>
+            <% else %>
+              <% if @software_record.developers.count != 0 %>
+                <div class="form-group" id="multiple_developers">
+                  <% @software_record.developers.each do |developer| %>
+                      <% if @count_developers == 2 %>
+                        <div class="input-group" id="developers1" style="display: none">
+                          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('developers1')">
+                            <span class="input-group-text"><i class="fas fa-minus remove" >  Delete</i></span>
+                          </div>
+                        </div>
+                          <% @count_developers += 1 %>
+                      <% else %>
+                        <% @id = "software_record_developers_" + @count_developers.to_s %>
+                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
+                          <%= text_field_tag "software_record[developers][]", developer, id: "software_record_developers_", required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                          </div>
+                        </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
 
             <!-- Multiple Developers ends -->
@@ -190,6 +238,30 @@
               </div>
               <% end %>
             <% end %>
+            <% else %>
+              <% if @software_record.tech_leads.count != 0 %>
+                <div class="form-group" id="multiple_tech_leads">
+                  <% @software_record.tech_leads.each do |tech_lead| %>
+                      <% if @count_tech_leads == 2 %>
+                        <div class="input-group" id="tech_leads1" style="display: none">
+                          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('tech_leads1')">
+                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                          </div>
+                        </div>
+                          <% @count_tech_leads += 1 %>
+                      <% else %>
+                        <% @id = "software_record_tech_leads_" + @count_tech_leads.to_s %>
+                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
+                          <%= text_field_tag "software_record[tech_leads][]", tech_lead, id: "software_record_tech_leads_", required: true, class: "form-control" %>
+                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                          </div>
+                        </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
 
             <!-- Multiple Tech Leads ends -->
