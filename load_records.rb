@@ -185,7 +185,7 @@ class LoadRecords < ActiveRecord::Base
     valid_vendors.each do |eachrecord|
       count += 1
       puts "Creating Vendor Record '" + eachrecord.to_s + "'"
-      VendorRecord.new(title: eachrecord, description: 'test').save
+      VendorRecord.new(title: eachrecord, description: '-').save
     end
     puts '---------------------------------------------------------------------'
     puts "Total Vendor Records created -> #{count - 1}"
@@ -216,7 +216,7 @@ class LoadRecords < ActiveRecord::Base
     valid_types.each do |eachtype|
       count += 1
       puts "Creating Software Type '" + eachtype.to_s + "'"
-      SoftwareType.new(title: eachtype, description: 'test').save
+      SoftwareType.new(title: eachtype, description: '-').save
     end
     puts '---------------------------------------------------------------------'
     puts "Total Software Types created -> #{count - 1}"
