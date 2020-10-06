@@ -35,6 +35,7 @@ Metrics/AbcSize:
     - 'app/controllers/file_uploads_controller.rb'
     - 'load_records.rb'
     - 'exports/software_records.rb'
+    - 'app/helpers/software_records_helper.rb'
 
 Metrics/ClassLength:
   Max: 260

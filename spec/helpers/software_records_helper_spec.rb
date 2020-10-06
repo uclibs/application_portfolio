@@ -15,12 +15,12 @@ require 'rails_helper'
 RSpec.describe SoftwareRecordsHelper, type: :helper do
   describe 'pills' do
     it 'returns correct value' do
-      expect(helper.pills('In Design')).to eq('<span class="badge badge-pill badge-light">In Design</span>')
+      expect(helper.pills('In Design')).to eq('<span class="badge badge-pill badge-dark">In Design</span>')
       expect(helper.pills('In Development')).to eq('<span class="badge badge-pill badge-info">In Development</span>')
       expect(helper.pills('Production')).to eq('<span class="badge badge-pill badge-primary">Production</span>')
       expect(helper.pills('Available')).to eq('<span class="badge badge-pill badge-success">Available</span>')
       expect(helper.pills('To be decomissioned')).to eq('<span class="badge badge-pill badge-danger">To be decomissioned</span>')
-      expect(helper.pills('Something')).to eq('<span class="badge badge-pill badge-info">Something</span>')
+      expect(helper.pills('Something')).to eq('<span class="badge badge-pill badge-light">Something</span>')
     end
   end
 
