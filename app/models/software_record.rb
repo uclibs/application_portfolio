@@ -5,6 +5,7 @@ class SoftwareRecord < ActiveRecord::Base
   belongs_to :software_type
   belongs_to :vendor_record
   belongs_to :status
+  belongs_to :hosting_environment
   validates_presence_of :title, :description, :status, :created_by
   serialize :tech_leads, Array
   serialize :developers, Array

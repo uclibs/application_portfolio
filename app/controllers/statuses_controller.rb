@@ -12,20 +12,26 @@ class StatusesController < ApplicationController
   access root_admin: :all
   # GET /statuses
   def index
+    $page_title = 'Status | UCL Application Portfolio'
     @statuses = Status.all
     @statuses_count = Status.all.count
   end
 
   # GET /statuses/1
-  def show; end
+  def show
+    $page_title = @status.title.to_s.upcase + ' | UCL Application Portfolio'
+  end
 
   # GET /statuses/new
   def new
+    $page_title = 'New Status | UCL Application Portfolio'
     @status = Status.new
   end
 
   # GET /statuses/1/edit
-  def edit; end
+  def edit
+    $page_title = 'Edit Status | UCL Application Portfolio'
+  end
 
   # POST /statuses
   def create

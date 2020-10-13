@@ -48,6 +48,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
   end
 
   let(:valid_attributes) do
@@ -60,7 +64,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       created_by: 'Test Admin',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
-      product_owners: %w[Owner1 Owner2]
+      product_owners: %w[Owner1 Owner2],
+      hosting_environment_id: HostingEnvironment.first.id
     }
   end
 
@@ -105,6 +110,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response).to be_successful
       expect(response.body).to have_content('A Good Software')
       expect(response.body).to have_content(Status.first.id)
+      expect(response.body).to have_content(HostingEnvironment.first.title)
       expect(response.body).to have_content('Test Admin')
       expect(response.body).to have_content('Tester')
       expect(response.body).to have_content('Random')
@@ -163,6 +169,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
+          hosting_environment_id: HostingEnvironment.first.id,
           created_by: 'Test Admin',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
@@ -246,6 +253,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env 2'
+    )
   end
 
   let(:valid_attributes) do
@@ -255,6 +266,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
+      hosting_environment_id: HostingEnvironment.first.id,
       created_by: 'Test Viewer',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
@@ -360,6 +372,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
+          hosting_environment_id: HostingEnvironment.first.id,
           created_by: 'Test Viewer',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
@@ -442,6 +455,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
   end
 
   let(:valid_attributes) do
@@ -451,6 +468,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
+      hosting_environment_id: HostingEnvironment.first.id,
       created_by: 'Test Manager',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
@@ -556,6 +574,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
+          hosting_environment_id: HostingEnvironment.first.id,
           created_by: 'Test Manager',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
@@ -639,6 +658,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
   end
 
   let(:valid_attributes) do
@@ -648,6 +671,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       status_id: Status.first.id,
       software_type_id: SoftwareType.first.id,
       vendor_record_id: VendorRecord.first.id,
+      hosting_environment_id: HostingEnvironment.first.id,
       created_by: 'Test Owner',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
@@ -753,6 +777,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           status_id: Status.first.id,
           software_type_id: SoftwareType.first.id,
           vendor_record_id: VendorRecord.first.id,
+          hosting_environment_id: HostingEnvironment.first.id,
           created_by: 'Test Owner',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],

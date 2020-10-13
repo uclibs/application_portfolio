@@ -34,6 +34,9 @@ class FileUploadsController < ApplicationController
     elsif option == 'status'
       system('cd../..')
       $output = `ruby load_records.rb status "#{filename}" "#{user}"`
+    elsif option == 'hosting_env'
+      system('cd../..')
+      $output = `ruby load_records.rb hosting_env "#{filename}" "#{user}"`
     end
     File.delete(Rails.root.join('public', 'uploads', uploaded_io.original_filename))
     redirect_to file_uploads_new_path, notice: "The file `#{uploaded_io.original_filename}` has been loaded successfully."

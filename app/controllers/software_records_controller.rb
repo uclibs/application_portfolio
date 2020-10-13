@@ -165,7 +165,7 @@ class SoftwareRecordsController < ApplicationController
       :user_seats,
       :annual_fees,
       :support_contract,
-      :hosting_environment,
+      :hosting_environment_id,
       :current_version,
       :notes,
       :business_value,

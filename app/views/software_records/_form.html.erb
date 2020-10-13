@@ -286,8 +286,8 @@
             <% end %>
 
             <div class="form-group">
-              <%= form.label :hosting_environment %>
-              <%= form.text_field :hosting_environment, :class => "form-control" %>
+              <%= form.label "Hosting Environment" %>
+              <%= form.collection_select(:hosting_environment_id, HostingEnvironment.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
 
             <div class="form-group">
