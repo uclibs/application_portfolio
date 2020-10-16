@@ -25,10 +25,6 @@ class StatusesController < ApplicationController
   # GET /statuses/new
   def new
     $page_title = 'New Status | UCL Application Portfolio'
-  def show; end
-
-  # GET /statuses/new
-  def new
     @status = Status.new
   end
 
@@ -36,8 +32,6 @@ class StatusesController < ApplicationController
   def edit
     $page_title = 'Edit Status | UCL Application Portfolio'
   end
-    
-  def edit; end
 
   # POST /statuses
   def create

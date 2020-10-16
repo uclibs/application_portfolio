@@ -89,6 +89,10 @@ describe FrontController do
         title: 'Test',
         status_type: 'Design'
       )
+      HostingEnvironment.create!(
+        title: 'Test Env.',
+        description: 'test env.'
+      )
     end
 
     let(:valid_session) { {} }
@@ -100,6 +104,7 @@ describe FrontController do
         status_id: Status.first.id,
         software_type_id: SoftwareType.first.id,
         vendor_record_id: VendorRecord.first.id,
+        hosting_environment_id: HostingEnvironment.first.id,
         created_by: 'Test Admin',
         developers: %w[Tester Random],
         tech_leads: ['Lead 1'],

@@ -66,10 +66,6 @@ class LoadRecords < ActiveRecord::Base
     if types_invalid || vendors_invalid || statuses_invalid || hostings_invalid
       puts '---------------------------------------------------------------------'
       puts('No Software Records created due to following in-valid records/types/statuses/hosting environments..')
-
-    if types_invalid || vendors_invalid || statuses_invalid
-      puts '---------------------------------------------------------------------'
-      puts('No Software Records created due to following in-valid records/types/statuses..')
       puts '---------------------------------------------------------------------'
       puts('In-Valid Vendor Records')
       puts('-----------------------------')
@@ -167,7 +163,6 @@ class LoadRecords < ActiveRecord::Base
         user_seats = row['User Seats'].to_s.strip
         annual_fees = row['Annual Fees'].to_s.strip
         support_contract = row['Support Contract'].to_s.strip
-        hosting = row['Hosting Environment'].to_s.strip
         version = row['Current Version'].to_s.strip
         notes = row['Notes'].to_s.strip
         bvalue = row['Business value'].to_s.strip
