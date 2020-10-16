@@ -3,20 +3,20 @@
 # SoftwareRecords Helper method
 module SoftwareRecordsHelper
   def pills(status)
-    if status == 'In Design'
-      content_tag(:span, status, class: 'badge badge-pill badge-light')
-    elsif status == 'In Development'
+    if status.to_s.downcase.include?('design')
+      content_tag(:span, status, class: 'badge badge-pill badge-dark')
+    elsif status.to_s.downcase.include?('development')
       content_tag(:span, status, class: 'badge badge-pill badge-info')
-    elsif status == 'In Upgrade'
+    elsif status.to_s.downcase.include?('upgrade')
       content_tag(:span, status, class: 'badge badge-pill badge-warning')
-    elsif status == 'Production'
+    elsif status.to_s.downcase.include?('production')
       content_tag(:span, status, class: 'badge badge-pill badge-primary')
-    elsif status == 'Available'
+    elsif status.to_s.downcase.include?('available')
       content_tag(:span, status, class: 'badge badge-pill badge-success')
-    elsif status == 'To be decomissioned'
+    elsif status.to_s.downcase.include?('decomission')
       content_tag(:span, status, class: 'badge badge-pill badge-danger')
     else
-      content_tag(:span, status, class: 'badge badge-pill badge-info')
+      content_tag(:span, status, class: 'badge badge-pill badge-light')
     end
   end
 
