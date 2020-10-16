@@ -13,10 +13,14 @@ RSpec.describe 'software_records/edit', type: :view do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
     @software_record = assign(:software_record, SoftwareRecord.create!(
                                                   title: 'MyString',
                                                   description: 'MyText',
-                                                  status: 'MyString',
+                                                  status_id: Status.first.id,
                                                   software_type_id: SoftwareType.first.id,
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
@@ -30,7 +34,7 @@ RSpec.describe 'software_records/edit', type: :view do
     assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
       assert_select 'input[name=?]', 'software_record[title]'
       assert_select 'textarea[name=?]', 'software_record[description]'
-      assert_select 'select[name=?]', 'software_record[status]'
+      assert_select 'select[name=?]', 'software_record[status_id]'
       assert_select 'select[name=?]', 'software_record[software_type_id]'
       assert_select 'select[name=?]', 'software_record[vendor_record_id]'
     end

@@ -1,0 +1,60 @@
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Statuses</h1>
+    <em style="font-size: 14px; color: black">Contains list of all statuses available</em><br/><br/>
+    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+      <p>
+        <%= link_to 'Create a new status', new_status_path, {:class => "mx-auto new-record btn btn-dark"} %>
+      </p>
+      <% end %> 
+  </div>
+</section>
+<hr style = "background-color: black; width: 54%;">
+
+<% if @statuses_count != 0 %>
+  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
+    <div class="row">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Status" %> 
+              <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %>
+            </th>
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @statuses.each do |status| %>
+            <tr>
+              <td class="text-left" style="padding-left: 50px"><%= status.title %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', status , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', status , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_status_path(status), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', status , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_status_path(status), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', status, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <h3 class="text-center">No records found</h3>
+<% end %>
+

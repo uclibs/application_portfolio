@@ -1,0 +1,17 @@
+<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
+  <div class = "card" style = "background-color: black; width: 40%">
+    <div class = "card-body">
+        <blockquote class="blockquote text-center">
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @status.title %></h2>
+            <div class="blockquote-footer"><cite title="Source Title"><%= @status.status_type %></cite></div>
+        </blockquote>
+		<br/>
+      <div class="text-center">
+        <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+          <%= link_to 'Edit', edit_status_path(@status), :class => "btn btn-warning nav-links" %>
+        <% end %>
+        <%= link_to 'Back', session[:previous], :class => "btn btn-primary nav-links"%>
+      </div>
+    </div>
+  </div>
+</div>

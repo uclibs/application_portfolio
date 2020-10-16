@@ -19,11 +19,15 @@ RSpec.describe 'software_records/index', type: :view do
       title: 'Web app',
       description: 'test software type'
     )
+    Status.create!(
+      title: 'Test',
+      status_type: 'Design'
+    )
     assign(:software_records, [
              SoftwareRecord.create!(
                title: 'Title',
                description: 'MyText',
-               status: 'Status',
+               status_id: Status.first.id,
                date_implemented: '2020-12-12',
                vendor_record_id: VendorRecord.first.id,
                software_type_id: SoftwareType.first.id,
@@ -32,7 +36,7 @@ RSpec.describe 'software_records/index', type: :view do
              SoftwareRecord.create!(
                title: 'Title',
                description: 'MyText',
-               status: 'Status',
+               status_id: Status.first.id,
                date_implemented: '2020-12-12',
                vendor_record_id: VendorRecord.first.id,
                software_type_id: SoftwareType.first.id,

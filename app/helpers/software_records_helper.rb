@@ -3,20 +3,20 @@
 # SoftwareRecords Helper method
 module SoftwareRecordsHelper
   def pills(status)
-    if status == 'In Design'
-      content_tag(:span, status, class: 'badge badge-pill badge-light')
-    elsif status == 'In Development'
+    if status.to_s.downcase.include?('design')
+      content_tag(:span, status, class: 'badge badge-pill badge-dark')
+    elsif status.to_s.downcase.include?('development')
       content_tag(:span, status, class: 'badge badge-pill badge-info')
-    elsif status == 'In Upgrade'
+    elsif status.to_s.downcase.include?('upgrade')
       content_tag(:span, status, class: 'badge badge-pill badge-warning')
-    elsif status == 'Production'
+    elsif status.to_s.downcase.include?('production')
       content_tag(:span, status, class: 'badge badge-pill badge-primary')
-    elsif status == 'Available'
+    elsif status.to_s.downcase.include?('available')
       content_tag(:span, status, class: 'badge badge-pill badge-success')
-    elsif status == 'To be decomissioned'
+    elsif status.to_s.downcase.include?('decomission')
       content_tag(:span, status, class: 'badge badge-pill badge-danger')
     else
-      content_tag(:span, status, class: 'badge badge-pill badge-dark')
+      content_tag(:span, status, class: 'badge badge-pill badge-light')
     end
   end
 
@@ -52,5 +52,21 @@ module SoftwareRecordsHelper
     key   = ActiveSupport::KeyGenerator.new(Rails.application.secrets.secret_key_base).generate_key salt, len
     crypt = ActiveSupport::MessageEncryptor.new key
     crypt.decrypt_and_verify data
+  end
+
+  def vendor_piechart
+    @vendor_piechart_hash = {}
+    VendorRecord.all.each do |vendor|
+      @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
+    end
+    @vendor_piechart_hash
+  end
+
+  def software_records_status_hash
+    @software_status_piechart_hash = {}
+    Status.all.each do |status|
+      @software_status_piechart_hash[status.title] = Status.find_by_id(status.id).software_records.count
+    end
+    @software_status_piechart_hash
   end
 end

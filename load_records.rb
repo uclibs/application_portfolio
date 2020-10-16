@@ -9,14 +9,18 @@ class LoadRecords < ActiveRecord::Base
   def software_records
     file = Dir.pwd + '/public/uploads/' + $filename
     csv = CSV.read(file, headers: true)
-    webapp_type = csv['Type']
-    vendor_records = csv['Vendor']
+    webapp_type = csv['Software Type']
+    vendor_records = csv['Vendor Record']
+    statuses = csv['Status']
     valid_types = []
     valid_vendors = []
+    valid_statuses = []
     invalid_vendors = []
     invalid_types = []
+    invalid_statuses = []
     types_invalid = false
     vendors_invalid = false
+    statuses_invalid = false
     webapp_type.each do |type|
       valid_types.push(SoftwareType.find_by_title(type).id)
     rescue StandardError
@@ -29,10 +33,16 @@ class LoadRecords < ActiveRecord::Base
       vendors_invalid = true
       invalid_vendors.push(record)
     end
+    statuses.each do |status|
+      valid_statuses.push(Status.find_by_title(status).id)
+    rescue StandardError
+      statuses_invalid = true
+      invalid_statuses.push(status)
+    end
 
-    if types_invalid || vendors_invalid
+    if types_invalid || vendors_invalid || statuses_invalid
       puts '---------------------------------------------------------------------'
-      puts('No Software Records created due to following in-valid records/types..')
+      puts('No Software Records created due to following in-valid records/types/statuses..')
       puts '---------------------------------------------------------------------'
       puts('In-Valid Vendor Records')
       puts('-----------------------------')
@@ -41,15 +51,19 @@ class LoadRecords < ActiveRecord::Base
       puts('In-Valid Software Types')
       puts('-----------------------------')
       puts(invalid_types)
+      puts('-----------------------------')
+      puts('In-Valid Statuses')
+      puts('-----------------------------')
+      puts(invalid_statuses)
     else
       count = 0
       created = 0
       csv.each do |row|
-        title = row['Title']
+        title = row['Software Record']
         desc = row['Description']
-        status = row['Status']
         software_type_id = valid_types[count]
         vendor_record_id = valid_vendors[count]
+        status_id = valid_statuses[count]
 
         departments = []
         if row['Departments'].to_s.include?(',')
@@ -66,7 +80,7 @@ class LoadRecords < ActiveRecord::Base
 
         if !row['Developers'].to_s.empty?
           if row['Developers'].to_s.include?(',')
-            alldevs = row['Departments'].split(',')
+            alldevs = row['Developers'].split(',')
             alldevs.each do |dev|
               dev = dev.to_s.strip
               developers.push(dev)
@@ -96,7 +110,7 @@ class LoadRecords < ActiveRecord::Base
 
         product_owners = []
 
-        if !row['Tech Leads'].to_s.empty?
+        if !row['Product Owners'].to_s.empty?
           if row['Product Owners'].to_s.include?(',')
             allproductowners = row['Product Owners'].split(',')
             allproductowners.each do |owner|
@@ -110,33 +124,34 @@ class LoadRecords < ActiveRecord::Base
           product_owners.push('')
         end
 
-        date_implemented = row['Date Implemented'].to_s
-        lang = row['Languages or frameworks'].to_s.strip
-        url = row['URL'].to_s.strip
-        user_seats = row['# of User seats'].to_s.strip
+        date_implemented = row['Date Implemented'].to_s.strip
+        lang = row['Languages Used'].to_s.strip
+        url = row['Production URL'].to_s.strip
+        source_url = row['Source Code URL'].to_s.strip
+        user_seats = row['User Seats'].to_s.strip
         annual_fees = row['Annual Fees'].to_s.strip
         support_contract = row['Support Contract'].to_s.strip
-        hosting = row['Hosting environment/servers'].to_s.strip
+        hosting = row['Hosting Environment'].to_s.strip
         version = row['Current Version'].to_s.strip
         notes = row['Notes'].to_s.strip
         bvalue = row['Business value'].to_s.strip
         itquality = row['IT quality'].to_s.strip
         created_by = $user
         sensitive_information = row['Sensitive Information'].to_s.strip
-        date_of_upgrade = row['Date of Upgrade'].to_s.strip
+        date_of_upgrade = row['Date of upgrade'].to_s.strip
 
         if !SoftwareRecord.find_by_title(title).nil? && SoftwareRecord.find_by_title(title).title.to_s == title && SoftwareRecord.find_by_title(title).software_type_id == software_type_id && SoftwareRecord.find_by_title(title).vendor_record_id == vendor_record_id
           puts("Software Record '#{title}' is found in the db and hence suppressing it.")
         else
-          SoftwareRecord.new(title: title, description: desc, status: status, software_type_id: software_type_id,
+          SoftwareRecord.new(title: title, description: desc, status_id: status_id, software_type_id: software_type_id,
                              vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
                              developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
-                             production_url: url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
+                             production_url: url, source_code_url: source_url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
                              hosting_environment: hosting, current_version: version, notes: notes, business_value: bvalue,
                              it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
                              date_of_upgrade: date_of_upgrade).save
           created += 1
-          puts("Created Software Record '" + row['Title'] + "'...")
+          puts("Created Software Record '" + row['Software Record'] + "'...")
         end
         count += 1
       end
@@ -149,7 +164,7 @@ class LoadRecords < ActiveRecord::Base
   def vendor_records
     file = Dir.pwd + '/public/uploads/' + $filename
     csv = CSV.read(file, headers: true)
-    vendor_records = csv['Vendor']
+    vendor_records = csv['Vendor Record']
     duplicate_vendors = []
     vendors_exists = false
     valid_vendors = []
@@ -180,7 +195,7 @@ class LoadRecords < ActiveRecord::Base
   def software_types
     file = Dir.pwd + '/public/uploads/' + $filename
     csv = CSV.read(file, headers: true)
-    software_types = csv['Type']
+    software_types = csv['Software Type']
     duplicate_types = []
     types_exists = false
     valid_types = []
@@ -207,6 +222,37 @@ class LoadRecords < ActiveRecord::Base
     puts "Total Software Types created -> #{count - 1}"
     puts '---------------------------------------------------------------------'
   end
+
+  def statuses
+    file = Dir.pwd + '/public/uploads/' + $filename
+    csv = CSV.read(file, headers: true)
+    all_statuses = csv['Status']
+    duplicate_statuses = []
+    statuses_exists = false
+    valid_statuses = []
+    count = 1
+    all_statuses.each do |status|
+      Status.find_by_title(status).id
+    rescue StandardError
+      statuses_exists = false
+      valid_statuses.push(status)
+    else
+      statuses_exists = true
+      duplicate_statuses.push(status)
+    end
+    duplicate_statuses = duplicate_statuses.uniq
+    valid_statuses = valid_statuses.uniq
+
+    puts 'Duplicate Statuses exists and suppressing them...' if statuses_exists
+    valid_statuses.each do |eachstatus|
+      count += 1
+      puts "Creating Status '" + eachstatus.to_s + "'"
+      Status.new(title: eachstatus).save
+    end
+    puts '---------------------------------------------------------------------'
+    puts "Total Statuses created -> #{count - 1}"
+    puts '---------------------------------------------------------------------'
+  end
 end
 
 args = ARGV[0]
@@ -225,6 +271,10 @@ elsif args == 'type'
   LoadRecords.table_name = 'software_types'
   l = LoadRecords.new
   l.software_types
+elsif args == 'status'
+  LoadRecords.table_name = 'statuses'
+  l = LoadRecords.new
+  l.statuses
 else
   puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data."
 end

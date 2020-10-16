@@ -29,19 +29,24 @@ class SoftwareRecordsController < ApplicationController
   end
 
   def self.indesign_dashboard(user)
-    indesign_filter = SoftwareRecord.where(status: 'In Design')
-    indev_filter = SoftwareRecord.where(status: 'In Development')
-    inup_filter = SoftwareRecord.where(status: 'In Upgrade')
+    design_status = Status.where(status_type: 'Design')
+    design_filter = SoftwareRecord.where(status_id: 0)
+    design_status.each do |design|
+      design_filter = design_filter.or(SoftwareRecord.where(status_id: design.id))
+    end
     developer_filter = SoftwareRecord.where("developers like '%#{user}%'")
     tech_leads_filter = SoftwareRecord.where("tech_leads like '%#{user}%'")
     product_owners_filter = SoftwareRecord.where("product_owners like '%#{user}%'")
     currentuser_filter = developer_filter.or(tech_leads_filter).or(product_owners_filter)
-    dashboard_filter = indesign_filter.or(indev_filter).or(inup_filter)
-    dashboard_filter.merge(currentuser_filter)
+    design_filter.merge(currentuser_filter)
   end
 
   def self.production_dashboard(user)
-    production_filter = SoftwareRecord.where(status: 'Production')
+    production_status = Status.where(status_type: 'Production')
+    production_filter = SoftwareRecord.where(status_id: 0)
+    production_status.each do |production|
+      production_filter = production_filter.or(SoftwareRecord.where(status_id: production.id))
+    end
     developer_filter = SoftwareRecord.where("developers like '%#{user}%'")
     tech_leads_filter = SoftwareRecord.where("tech_leads like '%#{user}%'")
     product_owners_filter = SoftwareRecord.where("product_owners like '%#{user}%'")
@@ -149,7 +154,7 @@ class SoftwareRecordsController < ApplicationController
     params.require(:software_record).permit(
       :title,
       :description,
-      :status,
+      :status_id,
       :software_type_id,
       :vendor_record_id,
       :date_implemented,
