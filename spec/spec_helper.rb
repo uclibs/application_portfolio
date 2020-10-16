@@ -23,7 +23,10 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
     Coveralls::SimpleCov::Formatter
   ]
 )
-SimpleCov.start('rails')
+SimpleCov.start 'rails' do
+  add_filter 'app/channels'
+  add_filter 'app/jobs'
+end
 
 require 'devise'
 

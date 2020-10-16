@@ -25,6 +25,15 @@ class LoadRecords < ActiveRecord::Base
     vendors_invalid = false
     statuses_invalid = false
     hostings_invalid = false
+    valid_types = []
+    valid_vendors = []
+    valid_statuses = []
+    invalid_vendors = []
+    invalid_types = []
+    invalid_statuses = []
+    types_invalid = false
+    vendors_invalid = false
+    statuses_invalid = false
     webapp_type.each do |type|
       valid_types.push(SoftwareType.find_by_title(type).id)
     rescue StandardError
@@ -57,6 +66,10 @@ class LoadRecords < ActiveRecord::Base
     if types_invalid || vendors_invalid || statuses_invalid || hostings_invalid
       puts '---------------------------------------------------------------------'
       puts('No Software Records created due to following in-valid records/types/statuses/hosting environments..')
+
+    if types_invalid || vendors_invalid || statuses_invalid
+      puts '---------------------------------------------------------------------'
+      puts('No Software Records created due to following in-valid records/types/statuses..')
       puts '---------------------------------------------------------------------'
       puts('In-Valid Vendor Records')
       puts('-----------------------------')
@@ -154,6 +167,7 @@ class LoadRecords < ActiveRecord::Base
         user_seats = row['User Seats'].to_s.strip
         annual_fees = row['Annual Fees'].to_s.strip
         support_contract = row['Support Contract'].to_s.strip
+        hosting = row['Hosting Environment'].to_s.strip
         version = row['Current Version'].to_s.strip
         notes = row['Notes'].to_s.strip
         bvalue = row['Business value'].to_s.strip
