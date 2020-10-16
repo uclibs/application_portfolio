@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :hosting_environments
   resources :statuses
   get 'seed/new', to: 'file_uploads#new', as: 'file_uploads_new'
   get 'seed/create', to: 'file_uploads#create', as: 'file_uploads_create'

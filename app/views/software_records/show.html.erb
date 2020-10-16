@@ -130,10 +130,10 @@
           <dt class="inline-block">Support Contract: <span style="color: white; font-weight: normal"><%= @software_record.support_contract %></span></dt>
         <% end %>
 
-        <% if !@software_record.hosting_environment.nil? && !@software_record.hosting_environment.to_s.empty?%>
+        <% if !@software_record.hosting_environment.title.nil? && !@software_record.hosting_environment.title.to_s.empty?%>
           <dt>Hosting Environment</dt>
           <dd>
-            <ul><%= @software_record.hosting_environment %></ul>
+            <ul><%= @software_record.hosting_environment.title %></ul>
           </dd>
         <% end %>
 

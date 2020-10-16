@@ -23,11 +23,16 @@ RSpec.describe 'software_records/index', type: :view do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
     assign(:software_records, [
              SoftwareRecord.create!(
                title: 'Title',
                description: 'MyText',
                status_id: Status.first.id,
+               hosting_environment_id: HostingEnvironment.first.id,
                date_implemented: '2020-12-12',
                vendor_record_id: VendorRecord.first.id,
                software_type_id: SoftwareType.first.id,
@@ -37,6 +42,7 @@ RSpec.describe 'software_records/index', type: :view do
                title: 'Title',
                description: 'MyText',
                status_id: Status.first.id,
+               hosting_environment_id: HostingEnvironment.first.id,
                date_implemented: '2020-12-12',
                vendor_record_id: VendorRecord.first.id,
                software_type_id: SoftwareType.first.id,

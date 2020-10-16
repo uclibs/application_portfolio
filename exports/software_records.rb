@@ -101,7 +101,7 @@ class SoftwareRecords < ActiveRecord::Base
 
         the_product_owners = '' if the_product_owners.to_s == "''"
 
-        writer << [software_record.title, software_record.description, Status.find_by_id(software_record.status_id).title, software_record.created_at, SoftwareType.find_by_id(software_record.software_type_id).title, VendorRecord.find_by_id(software_record.vendor_record_id).title, the_departments, software_record.date_implemented, software_record.date_of_upgrade, the_developers, the_techleads, the_product_owners, software_record.languages_used, software_record.production_url, software_record.source_code_url, software_record.user_seats, software_record.annual_fees, software_record.support_contract, software_record.hosting_environment, software_record.current_version, software_record.notes, software_record.business_value, software_record.it_quality, software_record.created_by]
+        writer << [software_record.title, software_record.description, Status.find_by_id(software_record.status_id).title, software_record.created_at, SoftwareType.find_by_id(software_record.software_type_id).title, VendorRecord.find_by_id(software_record.vendor_record_id).title, the_departments, software_record.date_implemented, software_record.date_of_upgrade, the_developers, the_techleads, the_product_owners, software_record.languages_used, software_record.production_url, software_record.source_code_url, software_record.user_seats, software_record.annual_fees, software_record.support_contract, HostingEnvironment.find_by_id(software_record.hosting_environment_id).title, software_record.current_version, software_record.notes, software_record.business_value, software_record.it_quality, software_record.created_by]
       end
     end
   end

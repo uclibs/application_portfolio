@@ -12,6 +12,19 @@ class LoadRecords < ActiveRecord::Base
     webapp_type = csv['Software Type']
     vendor_records = csv['Vendor Record']
     statuses = csv['Status']
+    hosting_environments = csv['Hosting Environment']
+    valid_types = []
+    valid_vendors = []
+    valid_statuses = []
+    valid_hostings = []
+    invalid_vendors = []
+    invalid_types = []
+    invalid_statuses = []
+    invalid_hostings = []
+    types_invalid = false
+    vendors_invalid = false
+    statuses_invalid = false
+    hostings_invalid = false
     valid_types = []
     valid_vendors = []
     valid_statuses = []
@@ -39,10 +52,20 @@ class LoadRecords < ActiveRecord::Base
       statuses_invalid = true
       invalid_statuses.push(status)
     end
+    hosting_environments.each do |hosting_env|
+      if hosting_env.to_s.strip.empty?
+        valid_hostings.push(nil)
+      else
+        valid_hostings.push(HostingEnvironment.find_by_title(hosting_env).id)
+      end
+    rescue StandardError
+      hostings_invalid = true
+      invalid_hostings.push(hosting_env)
+    end
 
-    if types_invalid || vendors_invalid || statuses_invalid
+    if types_invalid || vendors_invalid || statuses_invalid || hostings_invalid
       puts '---------------------------------------------------------------------'
-      puts('No Software Records created due to following in-valid records/types/statuses..')
+      puts('No Software Records created due to following in-valid records/types/statuses/hosting environments..')
       puts '---------------------------------------------------------------------'
       puts('In-Valid Vendor Records')
       puts('-----------------------------')
@@ -55,6 +78,10 @@ class LoadRecords < ActiveRecord::Base
       puts('In-Valid Statuses')
       puts('-----------------------------')
       puts(invalid_statuses)
+      puts('-----------------------------')
+      puts('In-Valid Hosting Env.')
+      puts('-----------------------------')
+      puts(invalid_hostings)
     else
       count = 0
       created = 0
@@ -64,6 +91,11 @@ class LoadRecords < ActiveRecord::Base
         software_type_id = valid_types[count]
         vendor_record_id = valid_vendors[count]
         status_id = valid_statuses[count]
+        hosting_environment_id = if valid_hostings[count].nil?
+                                   HostingEnvironment.find_by_title('None').id
+                                 else
+                                   valid_hostings[count]
+                                 end
 
         departments = []
         if row['Departments'].to_s.include?(',')
@@ -131,7 +163,6 @@ class LoadRecords < ActiveRecord::Base
         user_seats = row['User Seats'].to_s.strip
         annual_fees = row['Annual Fees'].to_s.strip
         support_contract = row['Support Contract'].to_s.strip
-        hosting = row['Hosting Environment'].to_s.strip
         version = row['Current Version'].to_s.strip
         notes = row['Notes'].to_s.strip
         bvalue = row['Business value'].to_s.strip
@@ -147,7 +178,7 @@ class LoadRecords < ActiveRecord::Base
                              vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
                              developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
                              production_url: url, source_code_url: source_url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
-                             hosting_environment: hosting, current_version: version, notes: notes, business_value: bvalue,
+                             hosting_environment_id: hosting_environment_id, current_version: version, notes: notes, business_value: bvalue,
                              it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
                              date_of_upgrade: date_of_upgrade).save
           created += 1
@@ -253,6 +284,37 @@ class LoadRecords < ActiveRecord::Base
     puts "Total Statuses created -> #{count - 1}"
     puts '---------------------------------------------------------------------'
   end
+
+  def hosting_envs
+    file = Dir.pwd + '/public/uploads/' + $filename
+    csv = CSV.read(file, headers: true)
+    all_hostings = csv['Hosting Environment']
+    duplicate_hostings = []
+    hostings_exists = false
+    valid_hostings = []
+    count = 1
+    all_hostings.each do |hosting|
+      HostingEnvironment.find_by_title(hosting).id
+    rescue StandardError
+      hostings_exists = false
+      valid_hostings.push(hosting)
+    else
+      hostings_exists = true
+      duplicate_hostings.push(hosting)
+    end
+    duplicate_hostings = duplicate_hostings.uniq
+    valid_hostings = valid_hostings.uniq
+
+    puts 'Duplicate Statuses exists and suppressing them...' if hostings_exists
+    valid_hostings.each do |eachenv|
+      count += 1
+      puts "Creating Hosting Environment '" + eachenv.to_s + "'"
+      HostingEnvironment.new(title: eachenv).save
+    end
+    puts '---------------------------------------------------------------------'
+    puts "Total Hosting Environments created -> #{count - 1}"
+    puts '---------------------------------------------------------------------'
+  end
 end
 
 args = ARGV[0]
@@ -275,6 +337,10 @@ elsif args == 'status'
   LoadRecords.table_name = 'statuses'
   l = LoadRecords.new
   l.statuses
+elsif args == 'hosting_env'
+  LoadRecords.table_name = 'hosting_environments'
+  l = LoadRecords.new
+  l.hosting_envs
 else
-  puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data."
+  puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data, \n 4) `status` to import status data, \n 5) `hosting_env` to import hosting_environment data"
 end

@@ -12,9 +12,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_930_184_802) do
+ActiveRecord::Schema.define(version: 20_201_012_201_319) do
   create_table 'file_uploads', force: :cascade do |t|
     t.string 'attachment'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'hosting_environments', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
@@ -37,7 +44,6 @@ ActiveRecord::Schema.define(version: 20_200_930_184_802) do
     t.string 'user_seats'
     t.string 'annual_fees'
     t.string 'support_contract'
-    t.string 'hosting_environment'
     t.string 'current_version'
     t.string 'notes'
     t.integer 'business_value'
@@ -46,6 +52,8 @@ ActiveRecord::Schema.define(version: 20_200_930_184_802) do
     t.text 'sensitive_information'
     t.text 'source_code_url'
     t.integer 'status_id'
+    t.integer 'hosting_environment_id'
+    t.index ['hosting_environment_id'], name: 'index_software_records_on_hosting_environment_id'
     t.index ['software_type_id'], name: 'index_software_records_on_software_type_id'
     t.index ['status_id'], name: 'index_software_records_on_status_id'
     t.index ['vendor_record_id'], name: 'index_software_records_on_vendor_record_id'

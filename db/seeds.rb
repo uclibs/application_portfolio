@@ -8,3 +8,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 VendorRecord.create(title: 'University of Cincinnati', description: 'UC Vendor')
+HostingEnvironment.create(title: 'None', description: 'No Hosting Environment')

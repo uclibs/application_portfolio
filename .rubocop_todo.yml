@@ -38,7 +38,7 @@ Metrics/AbcSize:
     - 'app/helpers/software_records_helper.rb'
 
 Metrics/ClassLength:
-  Max: 260
+  Max: 360
   Exclude:
     - 'app/controllers/front_controller.rb'
     - 'app/controllers/software_records_controller.rb'
@@ -50,6 +50,7 @@ Metrics/PerceivedComplexity:
     - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
     - 'exports/software_records.rb'
+    - 'app/controllers/file_uploads_controller.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
@@ -57,6 +58,7 @@ Metrics/CyclomaticComplexity:
     - 'app/helpers/software_records_helper.rb'
     - 'load_records.rb'
     - 'exports/software_records.rb'
+    - 'app/controllers/file_uploads_controller.rb'
 
 Style/GuardClause:
   Exclude:
@@ -81,7 +83,7 @@ Style/IdenticalConditionalBranches:
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Metrics/MethodLength:
-  Max: 154
+  Max: 174
 
 Metrics/BlockLength:
   Max: 174

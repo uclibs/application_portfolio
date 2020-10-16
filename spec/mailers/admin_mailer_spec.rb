@@ -18,6 +18,10 @@ RSpec.describe AdminMailer, type: :mailer do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
   end
   describe 'new_software_request_mail' do
     let(:software_records) do
@@ -25,6 +29,7 @@ RSpec.describe AdminMailer, type: :mailer do
         title: 'Title',
         description: 'MyText',
         status_id: Status.first.id,
+        hosting_environment_id: HostingEnvironment.first.id,
         date_implemented: '2020-12-12',
         vendor_record_id: VendorRecord.first.id,
         software_type_id: SoftwareType.first.id,

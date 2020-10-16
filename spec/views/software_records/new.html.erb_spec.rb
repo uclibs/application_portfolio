@@ -16,11 +16,16 @@ RSpec.describe 'software_records/new', type: :view do
       title: 'Test',
       status_type: 'Design'
     )
+    HostingEnvironment.create!(
+      title: 'Test Env.',
+      description: 'test env.'
+    )
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
     @software_record = assign(:software_record, SoftwareRecord.new(
                                                   title: 'MyString',
                                                   description: 'MyText',
                                                   status_id: Status.first.id,
+                                                  hosting_environment_id: HostingEnvironment.first.id,
                                                   software_type_id: SoftwareType.first.id,
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
