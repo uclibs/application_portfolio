@@ -7,11 +7,12 @@ class UsersController < ApplicationController
   before_action :retrieve_user, only: %i[show edit update destroy user_status]
   before_action :authenticate_user!
   before_action :navigation, except: %i[edit update]
-  access root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access root_admin: :all,
+         message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.order(sort_column + ' ' + sort_direction)
+    @users = User.order("#{sort_column} #{sort_direction}")
     @active = 'users'
     $page_title = 'Manage Users | UCL Application Portfolio'
   end
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    $page_title = @user.first_name.to_s + ' ' + @user.last_name.to_s + ' | UCL Application Portfolio'
+    $page_title = "#{@user.first_name} #{@user.last_name} | UCL Application Portfolio"
     render :show
   end
 

@@ -10,7 +10,9 @@ RSpec.describe 'hosting_environments/index', type: :view do
                description: 'test env.'
              )
            ])
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
   end
 
   it 'renders a list of hosting_environments' do

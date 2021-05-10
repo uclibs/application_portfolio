@@ -14,7 +14,9 @@ end
 describe 'front/index' do
   context 'when user is created' do
     before(:each) do
-      allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+      allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                             FactoryBot.build(:admin)
+                                                                           end)
     end
 
     it 'displays who is logged in' do

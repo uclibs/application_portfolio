@@ -14,11 +14,12 @@ module ApplicationHelper
   end
 
   def alert_generator(msg, type)
-    if type == 'alert'
+    case type
+    when 'alert'
       js add_gritter(msg, title: 'UCL Application Portfolio', image: :notice, time: 3000, class_name: 'gritter')
-    elsif type == 'notice'
+    when 'notice'
       js add_gritter(msg, title: 'UCL Application Portfolio', image: :progress, time: 3000, class_name: 'gritter')
-    elsif type == 'error'
+    when 'error'
       js add_gritter(msg, title: 'UCL Application Portfolio', image: :error, time: 3000, class_name: 'gritter')
     else
       js add_gritter(flash[:warning], title: 'UCL Application Portfolio', image: :warning, time: 3000, class_name: 'gritter')
@@ -44,24 +45,22 @@ module ApplicationHelper
 
   def generate_path(url)
     url = url.to_s
-    url = if url.include?('http') || url.include?('https')
-            url
-          else
-            'http://' + url
-          end
-    url
+    if url.include?('http') || url.include?('https')
+      url
+    else
+      "http://#{url}"
+    end
   end
 
   def clean_url(url)
     url = url.to_s
-    url = if url.include?('https://')
-            url.sub('https://', '')
-          elsif url.include?('http://')
-            url.sub('http://', '')
-          else
-            url
-          end
-    url
+    if url.include?('https://')
+      url.sub('https://', '')
+    elsif url.include?('http://')
+      url.sub('http://', '')
+    else
+      url
+    end
   end
 
   def navigation
@@ -80,18 +79,18 @@ module ApplicationHelper
     current_year = Date.today.year
     current_month = Date.today.month
     months = Hash.new('month')
-    months = { 1 => 'January' + ', ' + current_year.to_s,
-               2 => 'February' + ', ' + current_year.to_s,
-               3 => 'March' + ', ' + current_year.to_s,
-               4 => 'April' + ', ' + current_year.to_s,
-               5 => 'May' + ', ' + current_year.to_s,
-               6 => 'June' + ', ' + current_year.to_s,
-               7 => 'July' + ', ' + current_year.to_s,
-               8 => 'August' + ', ' + current_year.to_s,
-               9 => 'September' + ', ' + current_year.to_s,
-               10 => 'October' + ', ' + current_year.to_s,
-               11 => 'November' + ', ' + current_year.to_s,
-               12 => 'December' + ', ' + current_year.to_s }
+    months = { 1 => "January, #{current_year}",
+               2 => "February, #{current_year}",
+               3 => "March, #{current_year}",
+               4 => "April, #{current_year}",
+               5 => "May, #{current_year}",
+               6 => "June, #{current_year}",
+               7 => "July, #{current_year}",
+               8 => "August, #{current_year}",
+               9 => "September, #{current_year}",
+               10 => "October, #{current_year}",
+               11 => "November, #{current_year}",
+               12 => "December, #{current_year}" }
     month_keys = months.keys
     count = 0
     month_keys.each do |key|

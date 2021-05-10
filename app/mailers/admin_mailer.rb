@@ -10,7 +10,8 @@ class AdminMailer < ApplicationMailer
     @template = 'new_software_request_mail.html.erb'
     @users = User.where(roles: 'root_admin')
     @users.each do |admin|
-      mail(to: admin.email, subject: 'Software Requested for UCL Application Portfolio', template_name: @template).deliver
+      mail(to: admin.email, subject: 'Software Requested for UCL Application Portfolio',
+           template_name: @template).deliver
     end
   end
 end

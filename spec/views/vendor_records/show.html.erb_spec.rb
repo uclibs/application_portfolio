@@ -8,7 +8,9 @@ RSpec.describe 'vendor_records/show', type: :view do
                                               title: 'Name',
                                               description: 'MyText'
                                             ))
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     session[:previous] = dashboard_path
   end
 

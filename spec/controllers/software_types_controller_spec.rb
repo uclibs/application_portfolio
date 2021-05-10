@@ -134,7 +134,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'updates the requested software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: new_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: new_attributes },
+                     session: valid_session
         software_type.reload
         expect(software_type.title).to eq('Web App')
         expect(software_type.description).to eq('Web Application')
@@ -142,7 +143,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'redirects to the software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: valid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(software_type)
       end
     end
@@ -150,7 +152,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: invalid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -285,7 +288,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'updates the requested software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: new_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: new_attributes },
+                     session: valid_session
         software_type.reload
         expect(software_type.title).to eq('Web App')
         expect(software_type.description).to eq('Web Application')
@@ -293,7 +297,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'redirects to the software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: valid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(software_type)
       end
     end
@@ -301,7 +306,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: invalid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -436,7 +442,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'updates the requested software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: new_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: new_attributes },
+                     session: valid_session
         software_type.reload
         expect(software_type.title).to eq('Web App')
         expect(software_type.description).to eq('Web Application')
@@ -444,7 +451,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'redirects to the software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: valid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(software_type)
       end
     end
@@ -452,7 +460,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: invalid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -587,7 +596,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'updates the requested software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: new_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: new_attributes },
+                     session: valid_session
         software_type.reload
         expect(software_type.title).to_not eq('Web App')
         expect(software_type.description).to_not eq('Web Application')
@@ -595,7 +605,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
 
       it 'redirects to the software_type' do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: valid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: valid_attributes },
+                     session: valid_session
         expect(response).to_not redirect_to(software_type)
       end
     end
@@ -603,7 +614,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         software_type = SoftwareType.create! valid_attributes
-        put :update, params: { id: software_type.to_param, software_type: invalid_attributes }, session: valid_session
+        put :update, params: { id: software_type.to_param, software_type: invalid_attributes },
+                     session: valid_session
         expect(response).to_not be_successful
         expect(response).to_not render_template(:edit)
         expect(response.body).to_not have_content("Title can\\'t be blank")

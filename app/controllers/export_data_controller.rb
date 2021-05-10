@@ -9,18 +9,18 @@ class ExportDataController < ApplicationController
   def software_records
     system('cd../..')
     $export = `ruby exports/software_records.rb`
-    send_file Dir.pwd + '/public/software_records.csv', disposition: 'attachment'
+    send_file "#{Dir.pwd}/public/software_records.csv", disposition: 'attachment'
   end
 
   def software_types
     system('cd../..')
     $export = `ruby exports/software_types.rb`
-    send_file Dir.pwd + '/public/software_types.csv', disposition: 'attachment'
+    send_file "#{Dir.pwd}/public/software_types.csv", disposition: 'attachment'
   end
 
   def vendor_records
     system('cd../..')
     $export = `ruby exports/vendor_records.rb`
-    send_file Dir.pwd + '/public/vendor_records.csv', disposition: 'attachment'
+    send_file "#{Dir.pwd}/public/vendor_records.csv", disposition: 'attachment'
   end
 end

@@ -2,7 +2,7 @@
 
 # HostingEnvironment Model
 class HostingEnvironment < ApplicationRecord
-  validates_presence_of :title
+  validates :title, presence: true
   has_many :software_records
   has_many :request_softwares
 end

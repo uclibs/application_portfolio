@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper_method :navigation
   before_action :configure_permitted_parameters, if: :devise_controller?
-  $deployed_at = Time.new.strftime('%Y-%m-%d %H:%M:%S')
+  $deployed_at = Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')
   # Redirect to dashboard on user login
   def after_sign_in_path_for(_resource)
     # return the path based on resource
@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name department title email password password_confirmation current_password roles active])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name department title email password password_confirmation current_password])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: %i[first_name last_name department title email password password_confirmation
+                                               current_password roles active])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: %i[first_name last_name department title email password password_confirmation
+                                               current_password])
   end
 end

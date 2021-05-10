@@ -3,11 +3,11 @@
 require 'csv'
 require 'date'
 # !/bin/env ruby
-require Dir.pwd + '/config/environment.rb'
+require "#{Dir.pwd}/config/environment.rb"
 # Script for importing seeds data
-class LoadRecords < ActiveRecord::Base
+class LoadRecords < ApplicationRecord
   def software_records
-    file = Dir.pwd + '/public/uploads/' + $filename
+    file = "#{Dir.pwd}/public/uploads/#{$filename}"
     csv = CSV.read(file, headers: true)
     webapp_type = csv['Software Type']
     vendor_records = csv['Vendor Record']
@@ -35,19 +35,19 @@ class LoadRecords < ActiveRecord::Base
     vendors_invalid = false
     statuses_invalid = false
     webapp_type.each do |type|
-      valid_types.push(SoftwareType.find_by_title(type).id)
+      valid_types.push(SoftwareType.find_by(title: type).id)
     rescue StandardError
       types_invalid = true
       invalid_types.push(type)
     end
     vendor_records.each do |record|
-      valid_vendors.push(VendorRecord.find_by_title(record).id)
+      valid_vendors.push(VendorRecord.find_by(title: record).id)
     rescue StandardError
       vendors_invalid = true
       invalid_vendors.push(record)
     end
     statuses.each do |status|
-      valid_statuses.push(Status.find_by_title(status).id)
+      valid_statuses.push(Status.find_by(title: status).id)
     rescue StandardError
       statuses_invalid = true
       invalid_statuses.push(status)
@@ -56,7 +56,7 @@ class LoadRecords < ActiveRecord::Base
       if hosting_env.to_s.strip.empty?
         valid_hostings.push(nil)
       else
-        valid_hostings.push(HostingEnvironment.find_by_title(hosting_env).id)
+        valid_hostings.push(HostingEnvironment.find_by(title: hosting_env).id)
       end
     rescue StandardError
       hostings_invalid = true
@@ -92,7 +92,7 @@ class LoadRecords < ActiveRecord::Base
         vendor_record_id = valid_vendors[count]
         status_id = valid_statuses[count]
         hosting_environment_id = if valid_hostings[count].nil?
-                                   HostingEnvironment.find_by_title('None').id
+                                   HostingEnvironment.find_by(title: 'None').id
                                  else
                                    valid_hostings[count]
                                  end
@@ -110,50 +110,44 @@ class LoadRecords < ActiveRecord::Base
 
         developers = []
 
-        if !row['Developers'].to_s.empty?
-          if row['Developers'].to_s.include?(',')
-            alldevs = row['Developers'].split(',')
-            alldevs.each do |dev|
-              dev = dev.to_s.strip
-              developers.push(dev)
-            end
-          else
-            developers.push(row['Developers'])
+        if row['Developers'].to_s.empty?
+          developers.push('')
+        elsif row['Developers'].to_s.include?(',')
+          alldevs = row['Developers'].split(',')
+          alldevs.each do |dev|
+            dev = dev.to_s.strip
+            developers.push(dev)
           end
         else
-          developers.push('')
+          developers.push(row['Developers'])
         end
 
         tech_leads = []
 
-        if !row['Tech Leads'].to_s.empty?
-          if row['Tech Leads'].to_s.include?(',')
-            alltechleads = row['Tech Leads'].split(',')
-            alltechleads.each do |lead|
-              lead = lead.to_s.strip
-              tech_leads.push(lead)
-            end
-          else
-            tech_leads.push(row['Tech Leads'])
+        if row['Tech Leads'].to_s.empty?
+          tech_leads.push('')
+        elsif row['Tech Leads'].to_s.include?(',')
+          alltechleads = row['Tech Leads'].split(',')
+          alltechleads.each do |lead|
+            lead = lead.to_s.strip
+            tech_leads.push(lead)
           end
         else
-          tech_leads.push('')
+          tech_leads.push(row['Tech Leads'])
         end
 
         product_owners = []
 
-        if !row['Product Owners'].to_s.empty?
-          if row['Product Owners'].to_s.include?(',')
-            allproductowners = row['Product Owners'].split(',')
-            allproductowners.each do |owner|
-              owner = owner.to_s.strip
-              product_owners.push(owner)
-            end
-          else
-            product_owners.push(row['Product Owners'])
+        if row['Product Owners'].to_s.empty?
+          product_owners.push('')
+        elsif row['Product Owners'].to_s.include?(',')
+          allproductowners = row['Product Owners'].split(',')
+          allproductowners.each do |owner|
+            owner = owner.to_s.strip
+            product_owners.push(owner)
           end
         else
-          product_owners.push('')
+          product_owners.push(row['Product Owners'])
         end
 
         date_implemented = row['Date Implemented'].to_s.strip
@@ -171,7 +165,7 @@ class LoadRecords < ActiveRecord::Base
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of upgrade'].to_s.strip
 
-        if !SoftwareRecord.find_by_title(title).nil? && SoftwareRecord.find_by_title(title).title.to_s == title && SoftwareRecord.find_by_title(title).software_type_id == software_type_id && SoftwareRecord.find_by_title(title).vendor_record_id == vendor_record_id
+        if !SoftwareRecord.find_by(title: title).nil? && SoftwareRecord.find_by(title: title).title.to_s == title && SoftwareRecord.find_by(title: title).software_type_id == software_type_id && SoftwareRecord.find_by(title: title).vendor_record_id == vendor_record_id
           puts("Software Record '#{title}' is found in the db and hence suppressing it.")
         else
           SoftwareRecord.new(title: title, description: desc, status_id: status_id, software_type_id: software_type_id,
@@ -182,7 +176,7 @@ class LoadRecords < ActiveRecord::Base
                              it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
                              date_of_upgrade: date_of_upgrade).save
           created += 1
-          puts("Created Software Record '" + row['Software Record'] + "'...")
+          puts("Created Software Record '#{row['Software Record']}'...")
         end
         count += 1
       end
@@ -193,7 +187,7 @@ class LoadRecords < ActiveRecord::Base
   end
 
   def vendor_records
-    file = Dir.pwd + '/public/uploads/' + $filename
+    file = "#{Dir.pwd}/public/uploads/#{$filename}"
     csv = CSV.read(file, headers: true)
     vendor_records = csv['Vendor Record']
     duplicate_vendors = []
@@ -201,7 +195,7 @@ class LoadRecords < ActiveRecord::Base
     valid_vendors = []
     count = 1
     vendor_records.each do |record|
-      VendorRecord.find_by_title(record).id
+      VendorRecord.find_by(title: record).id
     rescue StandardError
       vendors_exists = false
       valid_vendors.push(record)
@@ -215,7 +209,7 @@ class LoadRecords < ActiveRecord::Base
     puts 'Duplicate Vendor Records exists and suppressing them...' if vendors_exists
     valid_vendors.each do |eachrecord|
       count += 1
-      puts "Creating Vendor Record '" + eachrecord.to_s + "'"
+      puts "Creating Vendor Record '#{eachrecord}'"
       VendorRecord.new(title: eachrecord, description: '-').save
     end
     puts '---------------------------------------------------------------------'
@@ -224,7 +218,7 @@ class LoadRecords < ActiveRecord::Base
   end
 
   def software_types
-    file = Dir.pwd + '/public/uploads/' + $filename
+    file = "#{Dir.pwd}/public/uploads/#{$filename}"
     csv = CSV.read(file, headers: true)
     software_types = csv['Software Type']
     duplicate_types = []
@@ -232,7 +226,7 @@ class LoadRecords < ActiveRecord::Base
     valid_types = []
     count = 1
     software_types.each do |type|
-      SoftwareType.find_by_title(type).id
+      SoftwareType.find_by(title: type).id
     rescue StandardError
       types_exists = false
       valid_types.push(type)
@@ -246,7 +240,7 @@ class LoadRecords < ActiveRecord::Base
     puts 'Duplicate Software Types exists and suppressing them...' if types_exists
     valid_types.each do |eachtype|
       count += 1
-      puts "Creating Software Type '" + eachtype.to_s + "'"
+      puts "Creating Software Type '#{eachtype}'"
       SoftwareType.new(title: eachtype, description: '-').save
     end
     puts '---------------------------------------------------------------------'
@@ -255,7 +249,7 @@ class LoadRecords < ActiveRecord::Base
   end
 
   def statuses
-    file = Dir.pwd + '/public/uploads/' + $filename
+    file = "#{Dir.pwd}/public/uploads/#{$filename}"
     csv = CSV.read(file, headers: true)
     all_statuses = csv['Status']
     duplicate_statuses = []
@@ -263,7 +257,7 @@ class LoadRecords < ActiveRecord::Base
     valid_statuses = []
     count = 1
     all_statuses.each do |status|
-      Status.find_by_title(status).id
+      Status.find_by(title: status).id
     rescue StandardError
       statuses_exists = false
       valid_statuses.push(status)
@@ -277,7 +271,7 @@ class LoadRecords < ActiveRecord::Base
     puts 'Duplicate Statuses exists and suppressing them...' if statuses_exists
     valid_statuses.each do |eachstatus|
       count += 1
-      puts "Creating Status '" + eachstatus.to_s + "'"
+      puts "Creating Status '#{eachstatus}'"
       Status.new(title: eachstatus).save
     end
     puts '---------------------------------------------------------------------'
@@ -286,7 +280,7 @@ class LoadRecords < ActiveRecord::Base
   end
 
   def hosting_envs
-    file = Dir.pwd + '/public/uploads/' + $filename
+    file = "#{Dir.pwd}/public/uploads/#{$filename}"
     csv = CSV.read(file, headers: true)
     all_hostings = csv['Hosting Environment']
     duplicate_hostings = []
@@ -294,7 +288,7 @@ class LoadRecords < ActiveRecord::Base
     valid_hostings = []
     count = 1
     all_hostings.each do |hosting|
-      HostingEnvironment.find_by_title(hosting).id
+      HostingEnvironment.find_by(title: hosting).id
     rescue StandardError
       hostings_exists = false
       valid_hostings.push(hosting)
@@ -308,7 +302,7 @@ class LoadRecords < ActiveRecord::Base
     puts 'Duplicate Statuses exists and suppressing them...' if hostings_exists
     valid_hostings.each do |eachenv|
       count += 1
-      puts "Creating Hosting Environment '" + eachenv.to_s + "'"
+      puts "Creating Hosting Environment '#{eachenv}'"
       HostingEnvironment.new(title: eachenv).save
     end
     puts '---------------------------------------------------------------------'
@@ -321,23 +315,24 @@ args = ARGV[0]
 $filename = ARGV[1]
 $user = ARGV[2]
 
-if args == 'vendor'
+case args
+when 'vendor'
   LoadRecords.table_name = 'vendor_records'
   l = LoadRecords.new
   l.vendor_records
-elsif args == 'software'
+when 'software'
   LoadRecords.table_name = 'software_records'
   l = LoadRecords.new
   l.software_records
-elsif args == 'type'
+when 'type'
   LoadRecords.table_name = 'software_types'
   l = LoadRecords.new
   l.software_types
-elsif args == 'status'
+when 'status'
   LoadRecords.table_name = 'statuses'
   l = LoadRecords.new
   l.statuses
-elsif args == 'hosting_env'
+when 'hosting_env'
   LoadRecords.table_name = 'hosting_environments'
   l = LoadRecords.new
   l.hosting_envs

@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'statuses/edit', type: :view do
   before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     @status = assign(:status, Status.create!(
                                 title: 'Test',
                                 status_type: 'Design'

@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'users/edit.html.erb', type: :view do
   before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     assign(:users, [
              User.create!(
                first_name: 'Admin',

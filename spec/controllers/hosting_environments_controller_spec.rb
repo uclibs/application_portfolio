@@ -120,7 +120,8 @@ RSpec.describe HostingEnvironmentsController, type: :controller do
 
       it 'updates the requested hosting_environment' do
         hosting_environment = HostingEnvironment.create! valid_attributes
-        put :update, params: { id: hosting_environment.to_param, hosting_environment: new_attributes }, session: valid_session
+        put :update,
+            params: { id: hosting_environment.to_param, hosting_environment: new_attributes }, session: valid_session
         hosting_environment.reload
         expect(hosting_environment.title).to eq('Test New Env.')
         expect(hosting_environment.description).to eq('new hosting environment')
@@ -128,7 +129,8 @@ RSpec.describe HostingEnvironmentsController, type: :controller do
 
       it 'redirects to the hosting_environment' do
         hosting_environment = HostingEnvironment.create! valid_attributes
-        put :update, params: { id: hosting_environment.to_param, hosting_environment: valid_attributes }, session: valid_session
+        put :update,
+            params: { id: hosting_environment.to_param, hosting_environment: valid_attributes }, session: valid_session
         expect(response).to redirect_to(hosting_environment)
       end
     end
@@ -136,7 +138,8 @@ RSpec.describe HostingEnvironmentsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         hosting_environment = HostingEnvironment.create! valid_attributes
-        put :update, params: { id: hosting_environment.to_param, hosting_environment: invalid_attributes }, session: valid_session
+        put :update,
+            params: { id: hosting_environment.to_param, hosting_environment: invalid_attributes }, session: valid_session
         expect(response).to be_successful
       end
     end

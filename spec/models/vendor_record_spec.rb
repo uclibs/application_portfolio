@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe VendorRecord, type: :model do
   it 'is valid if all required fields are provided' do
-    vendorrecord = VendorRecord.new(title: 'Open Source', description: 'Just and open source vendor')
+    vendorrecord = VendorRecord.new(title: 'Open Source',
+                                    description: 'Just and open source vendor')
     expect(vendorrecord).to be_valid
   end
 

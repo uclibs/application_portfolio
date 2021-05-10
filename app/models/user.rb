@@ -8,7 +8,7 @@ class User < ApplicationRecord
   ## The multiple option can be set to true if you need users to have multiple roles.       ##
   petergate(roles: %i[root_admin owner viewer manager], multiple: false) ##
   ############################################################################################
-  validates_presence_of :first_name, :last_name, :email
+  validates :first_name, :last_name, :email, presence: true
   validate :allow_uc_domains
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -19,7 +19,9 @@ class User < ApplicationRecord
 
   def allow_uc_domains
     allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
-    errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? { |domain| email.end_with?(domain) }
+    errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? do |domain|
+                                                                  email.end_with?(domain)
+                                                                end
   end
 
   def send_admin_mail

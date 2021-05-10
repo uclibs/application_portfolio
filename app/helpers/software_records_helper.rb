@@ -4,19 +4,19 @@
 module SoftwareRecordsHelper
   def pills(status)
     if status.to_s.downcase.include?('design')
-      content_tag(:span, status, class: 'badge badge-pill badge-dark')
+      tag.span(status, class: 'badge badge-pill badge-dark')
     elsif status.to_s.downcase.include?('development')
-      content_tag(:span, status, class: 'badge badge-pill badge-info')
+      tag.span(status, class: 'badge badge-pill badge-info')
     elsif status.to_s.downcase.include?('upgrade')
-      content_tag(:span, status, class: 'badge badge-pill badge-warning')
+      tag.span(status, class: 'badge badge-pill badge-warning')
     elsif status.to_s.downcase.include?('production')
-      content_tag(:span, status, class: 'badge badge-pill badge-primary')
+      tag.span(status, class: 'badge badge-pill badge-primary')
     elsif status.to_s.downcase.include?('available')
-      content_tag(:span, status, class: 'badge badge-pill badge-success')
+      tag.span(status, class: 'badge badge-pill badge-success')
     elsif status.to_s.downcase.include?('decomission')
-      content_tag(:span, status, class: 'badge badge-pill badge-danger')
+      tag.span(status, class: 'badge badge-pill badge-danger')
     else
-      content_tag(:span, status, class: 'badge badge-pill badge-light')
+      tag.span(status, class: 'badge badge-pill badge-light')
     end
   end
 
@@ -51,7 +51,7 @@ module SoftwareRecordsHelper
   def vendor_piechart
     @vendor_piechart_hash = {}
     VendorRecord.all.each do |vendor|
-      @vendor_piechart_hash[vendor.title] = VendorRecord.find_by_id(vendor.id).software_records.count
+      @vendor_piechart_hash[vendor.title] = VendorRecord.find_by(id: vendor.id).software_records.count
     end
     @vendor_piechart_hash
   end
@@ -59,7 +59,7 @@ module SoftwareRecordsHelper
   def software_records_status_hash
     @software_status_piechart_hash = {}
     Status.all.each do |status|
-      @software_status_piechart_hash[status.title] = Status.find_by_id(status.id).software_records.count
+      @software_status_piechart_hash[status.title] = Status.find_by(id: status.id).software_records.count
     end
     @software_status_piechart_hash
   end

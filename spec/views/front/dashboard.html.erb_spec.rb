@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'front/dashboard', type: :view do
   before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     admin = FactoryBot.build(:admin)
     @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(admin)
     @softwarerecords_production = SoftwareRecordsController.production_dashboard(admin)

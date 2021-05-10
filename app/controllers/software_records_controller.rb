@@ -9,7 +9,8 @@ class SoftwareRecordsController < ApplicationController
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
   before_action :navigation, except: %i[edit update]
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update], manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update],
+         manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_records
 
   def index
@@ -17,11 +18,11 @@ class SoftwareRecordsController < ApplicationController
     @params = request.query_parameters
 
     @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
-                          SoftwareRecord.where("software_type_id ='#{@params['software_type_filter']}'").order(sort_column + ' ' + sort_direction)
+                          SoftwareRecord.where("software_type_id ='#{@params['software_type_filter']}'").order("#{sort_column} #{sort_direction}")
                         elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && !@params['vendor_record_filter'].empty?
-                          SoftwareRecord.where("vendor_record_id ='#{@params['vendor_record_filter']}'").order(sort_column + ' ' + sort_direction)
+                          SoftwareRecord.where("vendor_record_id ='#{@params['vendor_record_filter']}'").order("#{sort_column} #{sort_direction}")
                         else
-                          SoftwareRecord.order(sort_column + ' ' + sort_direction)
+                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
                         end
     @vendor_records = VendorRecord.all
     @software_types = SoftwareType.all
@@ -56,8 +57,8 @@ class SoftwareRecordsController < ApplicationController
 
   # GET /software_records/1
   def show
-    $page_title = @software_record.title.to_s.upcase + ' | Application Portfolio'
-    @decrypted_sensitive_information = check_and_decrypt(SoftwareRecord.find_by_id(params[:id]).sensitive_information)
+    $page_title = "#{@software_record.title.to_s.upcase} | Application Portfolio"
+    @decrypted_sensitive_information = check_and_decrypt(SoftwareRecord.find_by(id: params[:id]).sensitive_information)
   end
 
   # GET /software_records/new
@@ -70,8 +71,8 @@ class SoftwareRecordsController < ApplicationController
   # GET /software_records/1/edit
   def edit
     $page_title = 'Edit Software Record | UCL Application Portfolio'
-    @software_sc = SoftwareRecord.find_by_id(params[:id]).support_contract
-    @decrypted_sensitive_information = check_and_decrypt(SoftwareRecord.find_by_id(params[:id]).sensitive_information)
+    @software_sc = SoftwareRecord.find_by(id: params[:id]).support_contract
+    @decrypted_sensitive_information = check_and_decrypt(SoftwareRecord.find_by(id: params[:id]).sensitive_information)
     @count_developers = 2
     @count_tech_leads = 2
     @count_product_owners = 2
@@ -85,12 +86,13 @@ class SoftwareRecordsController < ApplicationController
     if @software_record.save && user_signed_in?
       redirect_to @software_record, notice: 'Software record was successfully created.'
     elsif !user_signed_in? && @software_record.save
-      if !verify_recaptcha(model: @software_record)
+      if verify_recaptcha(model: @software_record)
+        AdminMailer.new_software_request_mail(@software_record.id,
+                                              @software_record.created_by).deliver_now
+        redirect_to @software_record, notice: 'Software record was successfully requested.'
+      else
         flash[:error] = 'reCaptcha not verified. Please try again and verify reCaptcha.'
         redirect_to request_new_path
-      else
-        AdminMailer.new_software_request_mail(@software_record.id, @software_record.created_by).deliver_now
-        redirect_to @software_record, notice: 'Software record was successfully requested.'
       end
     elsif !user_signed_in? && !@software_record.save
       flash[:error] = 'All mandatory fields are required.'
@@ -106,7 +108,8 @@ class SoftwareRecordsController < ApplicationController
   # PATCH/PUT /software_records/1
   def update
     software_update_params = software_record_params
-    software_update_params[:sensitive_information] = check_and_encrypt(software_update_params[:sensitive_information])
+    software_update_params[:sensitive_information] =
+      check_and_encrypt(software_update_params[:sensitive_information])
     software_update_params[:departments] = software_record_params[:departments]
     software_update_params[:developers] = software_record_params[:developers]
     software_update_params[:tech_leads] = software_record_params[:tech_leads]
@@ -126,12 +129,12 @@ class SoftwareRecordsController < ApplicationController
 
   def check_and_encrypt(sensitive_data)
     # Encrypt 'Sensitive Information' field before saving into db if it's not empty.
-    encrypt sensitive_data if !sensitive_data.to_s.nil? && !sensitive_data.to_s.empty?
+    encrypt sensitive_data if sensitive_data.to_s.present?
   end
 
   def check_and_decrypt(sensitive_data)
     # Encrypt 'Sensitive Information' field before saving into db if it's not empty.
-    decrypt sensitive_data if !sensitive_data.to_s.nil? && !sensitive_data.to_s.empty?
+    decrypt sensitive_data if sensitive_data.to_s.present?
   end
 
   private
