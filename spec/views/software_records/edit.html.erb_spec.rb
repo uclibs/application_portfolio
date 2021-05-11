@@ -46,4 +46,15 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'select[name=?]', 'software_record[vendor_record_id]'
     end
   end
+
+  it 'renders form tab links' do
+    render
+
+    assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
+      assert_select 'a#general-tab'
+      assert_select 'a#server-environment-tab'
+      assert_select 'a#change-management-tab'
+      assert_select 'a#upgrade-history-tab'
+    end
+  end
 end
