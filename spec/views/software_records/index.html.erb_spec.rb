@@ -52,7 +52,9 @@ RSpec.describe 'software_records/index', type: :view do
     assign(:vendor_records, VendorRecord.all)
     assign(:software_types, SoftwareType.all)
 
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
   end
   it 'renders a list of software_records' do
     render

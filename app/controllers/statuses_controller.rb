@@ -19,7 +19,7 @@ class StatusesController < ApplicationController
 
   # GET /statuses/1
   def show
-    $page_title = @status.title.to_s.upcase + ' | UCL Application Portfolio'
+    $page_title = "#{@status.title.to_s.upcase} | UCL Application Portfolio"
   end
 
   # GET /statuses/new

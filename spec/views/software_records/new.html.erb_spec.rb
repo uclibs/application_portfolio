@@ -20,7 +20,9 @@ RSpec.describe 'software_records/new', type: :view do
       title: 'Test Env.',
       description: 'test env.'
     )
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     @software_record = assign(:software_record, SoftwareRecord.new(
                                                   title: 'MyString',
                                                   description: 'MyText',

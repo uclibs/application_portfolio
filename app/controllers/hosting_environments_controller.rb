@@ -20,7 +20,7 @@ class HostingEnvironmentsController < ApplicationController
 
   # GET /hosting_environments/1
   def show
-    $page_title = @hosting_environment.title.to_s.upcase + ' | UCL Application Portfolio'
+    $page_title = "#{@hosting_environment.title.to_s.upcase} | UCL Application Portfolio"
   end
 
   # GET /hosting_environments/new

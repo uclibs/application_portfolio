@@ -8,7 +8,9 @@ RSpec.describe 'hosting_environments/new', type: :view do
                                    title: 'Test',
                                    description: 'test env.'
                                  ))
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
   end
 
   it 'renders new hosting_environment form' do

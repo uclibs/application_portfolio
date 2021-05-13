@@ -132,7 +132,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'updates the requested vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes },
+                     session: valid_session
         vendor_record.reload
         expect(vendor_record.title).to eq('A Test Vendor v2.0')
         expect(vendor_record.description).to eq('Another testing vendor record')
@@ -140,7 +141,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'redirects to the vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(vendor_record)
       end
     end
@@ -148,7 +150,8 @@ RSpec.describe VendorRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -281,7 +284,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'updates the requested vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes },
+                     session: valid_session
         vendor_record.reload
         expect(vendor_record.title).to eq('A Test Vendor v2.0')
         expect(vendor_record.description).to eq('Another testing vendor record')
@@ -289,7 +293,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'redirects to the vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(vendor_record)
       end
     end
@@ -297,7 +302,8 @@ RSpec.describe VendorRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -430,7 +436,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'updates the requested vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes },
+                     session: valid_session
         vendor_record.reload
         expect(vendor_record.title).to eq('A Test Vendor v2.0')
         expect(vendor_record.description).to eq('Another testing vendor record')
@@ -438,7 +445,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'redirects to the vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(vendor_record)
       end
     end
@@ -446,7 +454,8 @@ RSpec.describe VendorRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(response.body).to have_content("Title can\\'t be blank")
@@ -579,7 +588,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'updates the requested vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: new_attributes },
+                     session: valid_session
         vendor_record.reload
         expect(vendor_record.title).to_not eq('A Test Vendor v2.0')
         expect(vendor_record.description).to_not eq('Another testing vendor record')
@@ -587,7 +597,8 @@ RSpec.describe VendorRecordsController, type: :controller do
 
       it 'redirects to the vendor_record' do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: valid_attributes },
+                     session: valid_session
         expect(response).to_not redirect_to(vendor_record)
       end
     end
@@ -595,7 +606,8 @@ RSpec.describe VendorRecordsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         vendor_record = VendorRecord.create! valid_attributes
-        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes }, session: valid_session
+        put :update, params: { id: vendor_record.to_param, vendor_record: invalid_attributes },
+                     session: valid_session
         expect(response).to_not be_successful
         expect(response).to_not render_template(:edit)
         expect(response.body).to_not have_content("Title can\\'t be blank")

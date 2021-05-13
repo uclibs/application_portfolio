@@ -129,7 +129,8 @@ RSpec.describe StatusesController, type: :controller do
 
       it 'redirects to the status' do
         status = Status.create! valid_attributes
-        put :update, params: { id: status.to_param, status: valid_attributes }, session: valid_session
+        put :update, params: { id: status.to_param, status: valid_attributes },
+                     session: valid_session
         expect(response).to redirect_to(status)
       end
     end
@@ -137,7 +138,8 @@ RSpec.describe StatusesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         status = Status.create! valid_attributes
-        put :update, params: { id: status.to_param, status: invalid_attributes }, session: valid_session
+        put :update, params: { id: status.to_param, status: invalid_attributes },
+                     session: valid_session
         expect(response).to be_successful
       end
     end

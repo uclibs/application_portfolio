@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'file_uploads/new.html.erb', type: :view do
   before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           FactoryBot.build(:admin)
+                                                                         end)
     @file = assign(:file_upload, FileUpload.new(attachment: 'Test file.csv'))
   end
   it 'renders the file_uploads form' do

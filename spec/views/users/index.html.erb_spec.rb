@@ -12,6 +12,8 @@ RSpec.describe 'users/index.html.erb', type: :view do
       password_confirmation: 'admintest',
       roles: 'admin'
     )])
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { @user })
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
+                                                                           @user
+                                                                         end)
   end
 end

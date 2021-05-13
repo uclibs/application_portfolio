@@ -2,5 +2,5 @@
 
 # FileUpload Model
 class FileUpload < ApplicationRecord
-  validates_presence_of :attachment
+  validates :attachment, presence: true
 end
