@@ -165,15 +165,48 @@ class LoadRecords < ApplicationRecord
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of upgrade'].to_s.strip
 
+        # change managmeent fields
+        requires_cm_review = row['Requires Chanage Management review?'].to_s.strip
+        last_security_scan = row['Last security scan'].to_s.strip
+        last_accessibility_scan = row['Last accessibility scan'].to_s.strip
+        last_ogc_review = row['Last OGC review'].to_s.strip
+        last_info_sec_review = row['Last Infosec review'].to_s.strip
+        cm_stakeholders = row['CM Stakeholders'].to_s.strip
+        cm_other_notes = row['CM other notes'].to_s.strip
+
         if !SoftwareRecord.find_by(title: title).nil? && SoftwareRecord.find_by(title: title).title.to_s == title && SoftwareRecord.find_by(title: title).software_type_id == software_type_id && SoftwareRecord.find_by(title: title).vendor_record_id == vendor_record_id
           puts("Software Record '#{title}' is found in the db and hence suppressing it.")
         else
-          SoftwareRecord.new(title: title, description: desc, status_id: status_id, software_type_id: software_type_id,
-                             vendor_record_id: vendor_record_id, departments: departments, date_implemented: date_implemented,
-                             developers: developers, tech_leads: tech_leads, product_owners: product_owners, languages_used: lang,
-                             production_url: url, source_code_url: source_url, user_seats: user_seats, annual_fees: annual_fees, support_contract: support_contract,
-                             hosting_environment_id: hosting_environment_id, current_version: version, notes: notes, business_value: bvalue,
-                             it_quality: itquality, created_by: created_by, sensitive_information: sensitive_information,
+          SoftwareRecord.new(title: title,
+                             description: desc,
+                             status_id: status_id,
+                             software_type_id: software_type_id,
+                             vendor_record_id: vendor_record_id,
+                             departments: departments,
+                             date_implemented: date_implemented,
+                             developers: developers,
+                             tech_leads: tech_leads,
+                             product_owners: product_owners,
+                             languages_used: lang,
+                             production_url: url,
+                             source_code_url: source_url,
+                             user_seats: user_seats,
+                             annual_fees: annual_fees,
+                             support_contract: support_contract,
+                             hosting_environment_id: hosting_environment_id,
+                             current_version: version,
+                             notes: notes,
+                             business_value: bvalue,
+                             it_quality: itquality,
+                             created_by: created_by,
+                             sensitive_information: sensitive_information,
+                             requires_cm_review: requires_cm_review,
+                             last_security_scan: last_security_scan,
+                             last_accessibility_scan: last_accessibility_scan,
+                             last_ogc_review: last_ogc_review,
+                             last_info_sec_review: last_info_sec_review,
+                             cm_stakeholders: cm_stakeholders,
+                             cm_other_notes: cm_other_notes,
                              date_of_upgrade: date_of_upgrade).save
           created += 1
           puts("Created Software Record '#{row['Software Record']}'...")
