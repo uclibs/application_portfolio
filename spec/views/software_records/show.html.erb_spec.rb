@@ -41,4 +41,12 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/1/)
   end
+
+  it 'renders tabbed view' do
+    render
+    expect(rendered).to match(/General/)
+    expect(rendered).to match(/Server Environment/)
+    expect(rendered).to match(/Change Management/)
+    expect(rendered).to match(/Upgrade History/)
+  end
 end
