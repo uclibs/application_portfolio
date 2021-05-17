@@ -69,4 +69,18 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'textarea[name=?]', 'software_record[cm_stakeholders]'
     end
   end
+
+  it 'renders the server env form' do
+    render
+    assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
+      assert_select 'textarea[name=?]', 'software_record[qa_url]'
+      assert_select 'textarea[name=?]', 'software_record[dev_url]'
+      assert_select 'textarea[name=?]', 'software_record[prod_url]'
+      assert_select 'textarea[name=?]', 'software_record[production_support_servers]'
+      assert_select 'input[name=?]', 'software_record[last_record_change]'
+      assert_select 'input[name=?]', 'software_record[track_uptime]'
+      assert_select 'input[name=?]', 'software_record[monitor_health]'
+      assert_select 'input[name=?]', 'software_record[monitor_errors]'
+    end
+  end
 end

@@ -1,42 +1,24 @@
-            <% if params[:id].nil? %>
-              <div class="form-group">
-                <%= form.label :requires_cm, 'Requires Change Management review?' %><br/>
-                <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :requires_cm, "Yes" %>
-                <%= form.label :requires_cm, "No", :value => "No" %>
-                <%= form.radio_button :requires_cm, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="form-group">
-                <%= form.label :requires_cm, 'Requires Change Management Review?' %><br/>
-                <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :requires_cm, "Yes", :checked => @software_sc == "Yes" %>
-                <%= form.label :requires_cm, "No", :value => "No" %>
-                <%= form.radio_button :requires_cm, "No", :checked => @software_sc == "No" %>
-              </div>
-            <% end %>
-            <div class="form-group">
-              <%= form.label "last_security_scan" %>
-               <%= form.date_field :last_security_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="form-group">
-              <%= form.label "last_accessibility_scan" %>
-               <%= form.date_field :last_accessibility_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="form-group">
-              <%= form.label "last_ogc_review" %>
-               <%= form.date_field :last_ogc_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="form-group">
-              <%= form.label "last_info_sec_review" %>
-               <%= form.date_field :last_info_sec_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-            <div class="form-group">
-              <%= form.label :cm_stakeholders %>
-              <%= form.text_area :cm_stakeholders, :class => "form-control" %>
-            </div>
-           <div class="form-group">
-              <%= form.label :cm_other_notes %>
-              <%= form.text_area :cm_other_notes, :class => "form-control" %>
-            </div>
-
+        <dl>
+          <% unless @software_record.requires_cm.to_s.blank? %>
+            <dt class="inline-block">Requires Change Management review?: <span style="color: white; font-weight: normal"><%= @software_record.requires_cm %></span></dt>
+          <% end %>
+          <% unless @software_record.last_security_scan.to_s.blank? %>
+            <dt class="inline-block">Last security scan: <span style="color: white; font-weight: normal"><%= @software_record.last_security_scan %></span></dt>
+          <% end %>
+          <% unless @software_record.last_accessibility_scan.to_s.blank? %>
+            <dt class="inline-block">Last accessibility scan: <span style="color: white; font-weight: normal"><%= @software_record.last_accessibility_scan %></span></dt>
+          <% end %>
+          <% unless @software_record.last_ogc_review.to_s.blank? %>
+            <dt class="inline-block">Last OGC review: <span style="color: white; font-weight: normal"><%= @software_record.last_ogc_review %></span></dt>
+          <% end %>
+          <% unless @software_record.last_info_sec_review.to_s.blank? %>
+            <dt class="inline-block">Last Infosec review: <span style="color: white; font-weight: normal"><%= @software_record.last_info_sec_review %></span></dt>
+          <% end %>
+          <% unless @software_record.cm_stakeholders.blank? %>
+            <dt class="inline-block">CM stakeholders: <span style="color: white; font-weight: normal"><%= @software_record.cm_stakeholders %></span></dt>
+          <% end %>
+          <% unless @software_record.cm_other_notes.blank? %>
+            <dt class="inline-block">CM other notes: <span style="color: white; font-weight: normal"><%= @software_record.cm_other_notes %></span></dt>
+          <% end %>
+        </dl>
+ 

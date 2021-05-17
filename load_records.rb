@@ -207,7 +207,15 @@ class LoadRecords < ApplicationRecord
                              last_info_sec_review: last_info_sec_review,
                              cm_stakeholders: cm_stakeholders,
                              cm_other_notes: cm_other_notes,
-                             date_of_upgrade: date_of_upgrade).save
+                             date_of_upgrade: date_of_upgrade,
+                             qa_url: qa_url,
+                             dev_url: dev_url,
+                             prod_url: prod_url,
+                             production_support_servers: production_support_servers,
+                             last_record_change: last_record_change,
+                             track_uptime: track_uptime,
+                             monitor_health: monitor_health,
+                             monitor_errors: monitor_errors).save
           created += 1
           puts("Created Software Record '#{row['Software Record']}'...")
         end
