@@ -4,9 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'software_records/edit', type: :view do
   before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:admin)
-                                                                         end)
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:admin) })
     VendorRecord.create!(
       title: 'Vendor 1',
       description: 'test vendor'
@@ -55,6 +53,20 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'a#server-environment-tab'
       assert_select 'a#change-management-tab'
       assert_select 'a#upgrade-history-tab'
+    end
+  end
+
+  it 'renders the change management form' do
+    render
+
+    assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
+      assert_select 'input[name=?]', 'software_record[requires_cm]'
+      assert_select 'input[name=?]', 'software_record[last_security_scan]'
+      assert_select 'input[name=?]', 'software_record[last_ogc_review]'
+      assert_select 'input[name=?]', 'software_record[last_accessibility_scan]'
+      assert_select 'input[name=?]', 'software_record[last_info_sec_review]'
+      assert_select 'textarea[name=?]', 'software_record[cm_other_notes]'
+      assert_select 'textarea[name=?]', 'software_record[cm_stakeholders]'
     end
   end
 end

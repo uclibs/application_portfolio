@@ -2,10 +2,13 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   NewCops: disable
-  
 Metrics/CyclomaticComplexity:
   Enabled: false
-
+Metrics/MethodLength:
+  Exclude:
+    - 'load_records.rb'
+Style/Documentation:
+  Enabled: false
 Style/StringLiterals:
   Exclude:
     - 'db/schema.rb'

@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'software_records/show', type: :view do
+  let(:now) { Time.now.strftime('%Y/%m/%d') }
   before(:each) do
     VendorRecord.create!(
       title: 'Vendor 1',
@@ -27,19 +28,29 @@ RSpec.describe 'software_records/show', type: :view do
                                                   hosting_environment_id: HostingEnvironment.first.id,
                                                   software_type_id: SoftwareType.first.id,
                                                   vendor_record_id: VendorRecord.first.id,
-                                                  created_by: 'Test User'
+                                                  created_by: 'Test User',
+                                                  requires_cm: 1,
+                                                  last_security_scan: now,
+                                                  last_accessibility_scan: now,
+                                                  last_ogc_review: now,
+                                                  last_info_sec_review: now,
+                                                  cm_stakeholders: 'me, you',
+                                                  cm_other_notes: 'other text'
                                                 ))
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:viewer)
-                                                                         end)
+    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
     session[:previous] = dashboard_path
   end
 
-  it 'renders attributes in <p>' do
+  it 'renders general attributes in <p>' do
     render
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/1/)
+  end
+
+  it 'renders change management attributes in <p>' do
+    render
+    expect(rendered).to match(/Last accessibility scan:/)
   end
 
   it 'renders tabbed view' do
@@ -48,5 +59,16 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Server Environment/)
     expect(rendered).to match(/Change Management/)
     expect(rendered).to match(/Upgrade History/)
+  end
+
+  it 'renders change management values' do
+    render
+    expect(rendered).to match(/Requires Change Management review/)
+    expect(rendered).to match(/Last security scan/)
+    expect(rendered).to match(/Last accessibility scan/)
+    expect(rendered).to match(/Last OGC review/)
+    expect(rendered).to match(/Last Infosec review/)
+    expect(rendered).to match(/CM stakeholders/)
+    expect(rendered).to match(/CM other notes/)
   end
 end

@@ -192,7 +192,29 @@
       server environment
       </div>
       <div class="tab-pane fade" id="change-management" role="tabpanel">
-      change management
+        <dl>
+          <% unless @software_record.requires_cm.to_s.blank? %>
+            <dt class="inline-block">Requires Change Management review?: <span style="color: white; font-weight: normal"><%= @software_record.requires_cm %></span></dt>
+          <% end %>
+          <% unless @software_record.last_security_scan.to_s.blank? %>
+            <dt class="inline-block">Last security scan: <span style="color: white; font-weight: normal"><%= @software_record.last_security_scan %></span></dt>
+          <% end %>
+          <% unless @software_record.last_accessibility_scan.to_s.blank? %>
+            <dt class="inline-block">Last accessibility scan: <span style="color: white; font-weight: normal"><%= @software_record.last_accessibility_scan %></span></dt>
+          <% end %>
+          <% unless @software_record.last_ogc_review.to_s.blank? %>
+            <dt class="inline-block">Last OGC review: <span style="color: white; font-weight: normal"><%= @software_record.last_ogc_review %></span></dt>
+          <% end %>
+          <% unless @software_record.last_info_sec_review.to_s.blank? %>
+            <dt class="inline-block">Last Infosec review: <span style="color: white; font-weight: normal"><%= @software_record.last_info_sec_review %></span></dt>
+          <% end %>
+          <% unless @software_record.cm_stakeholders.blank? %>
+            <dt class="inline-block">CM stakeholders: <span style="color: white; font-weight: normal"><%= @software_record.cm_stakeholders %></span></dt>
+          <% end %>
+          <% unless @software_record.cm_other_notes.blank? %>
+            <dt class="inline-block">CM other notes: <span style="color: white; font-weight: normal"><%= @software_record.cm_other_notes %></span></dt>
+          <% end %>
+        </dl>
       </div>
       <div class="tab-pane fade" id="upgrade-history" role="tabpanel">
       upgrade history
