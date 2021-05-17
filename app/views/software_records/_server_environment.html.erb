@@ -1,1 +1,28 @@
-<p>Server environment</p>
+        <dl>
+          <% unless @software_record.qa_url.to_s.blank? %>
+            <dt class="inline-block">QA URL: <span style="color: white; font-weight: normal"><%= @software_record.qa_url %></span></dt>
+          <% end %>
+          <% unless @software_record.dev_url.to_s.blank? %>
+            <dt class="inline-block">Dev URL: <span style="color: white; font-weight: normal"><%= @software_record.dev_url %></span></dt>
+          <% end %>
+          <% unless @software_record.prod_url.to_s.blank? %>
+            <dt class="inline-block">Production URL: <span style="color: white; font-weight: normal"><%= @software_record.prod_url %></span></dt>
+          <% end %>
+          <% unless @software_record.production_support_servers.to_s.blank? %>
+            <dt class="inline-block">Production support servers:<span style="color: white; font-weight: normal"><%= @software_record.production_support_servers %></span></dt>
+          <% end %>
+          <% unless @software_record.last_record_change.to_s.blank? %>
+            <dt class="inline-block">Last record change: <span style="color: white; font-weight: normal"><%= @software_record.last_record_change %></span></dt>
+          <% end %>
+          <% unless @software_record.track_uptime.blank? %>
+            <dt class="inline-block">Track uptime:<span style="color: white; font-weight: normal"><%= @software_record.track_uptime %></span></dt>
+          <% end %>
+          <% unless @software_record.monitor_health.blank? %>
+            <dt class="inline-block">Monitor health:<span style="color: white; font-weight: normal"><%= @software_record.monitor_health %></span></dt>
+          <% end %>
+          <% unless @software_record.monitor_errors.blank? %>
+            <dt class="inline-block">Monitor errors: <span style="color: white; font-weight: normal"><%= @software_record.monitor_errors %></span></dt>
+          <% end %>
+
+        </dl>
+ 

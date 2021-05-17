@@ -72,6 +72,11 @@ class SoftwareRecordsController < ApplicationController
   def edit
     $page_title = 'Edit Software Record | UCL Application Portfolio'
     @software_sc = SoftwareRecord.find_by(id: params[:id]).support_contract
+    @software_requires_cm = SoftwareRecord.find_by(id: params[:id]).requires_cm
+    @software_track_uptime = SoftwareRecord.find_by(id: params[:id]).track_uptime
+    @software_monitor_health = SoftwareRecord.find_by(id: params[:id]).monitor_health
+    @software_monitor_errors = SoftwareRecord.find_by(id: params[:id]).monitor_errors
+
     @decrypted_sensitive_information = check_and_decrypt(SoftwareRecord.find_by(id: params[:id]).sensitive_information)
     @count_developers = 2
     @count_tech_leads = 2
@@ -182,6 +187,14 @@ class SoftwareRecordsController < ApplicationController
       :cm_stakeholders,
       :cm_other_notes,
       :sensitive_information,
+      :qa_url,
+      :dev_url,
+      :prod_url,
+      :production_support_servers,
+      :last_record_change,
+      :track_uptime,
+      :monitor_health,
+      :monitor_errors,
       tech_leads: [],
       developers: [],
       product_owners: [],
