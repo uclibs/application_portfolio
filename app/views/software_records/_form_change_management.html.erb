@@ -10,9 +10,9 @@
               <div class="form-group">
                 <%= form.label :requires_cm, 'Requires Change Management Review?' %><br/>
                 <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :requires_cm, "Yes", :checked => @software_requires_cm == "Yes" %>
+                <%= form.radio_button :requires_cm, "Yes", :checked => yes_no_toggle(:requires_cm) == "Yes" %>
                 <%= form.label :requires_cm, "No", :value => "No" %>
-                <%= form.radio_button :requires_cm, "No", :checked => @software_requires_cm == "No" %>
+                <%= form.radio_button :requires_cm, "No", :checked => yes_no_toggle(:requires_cm) == "No" %>
               </div>
             <% end %>
             <div class="form-group">

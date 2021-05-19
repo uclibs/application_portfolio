@@ -35,9 +35,9 @@
               <div class="form-group">
                 <%= form.label :track_uptime, 'Track uptime?' %><br/>
                 <%= form.label :track_uptime, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :track_uptime, "Yes", :checked => @software_track_uptime == "Yes" %>
+                <%= form.radio_button :track_uptime, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
                 <%= form.label :track_uptime, "No", :value => "No" %>
-                <%= form.radio_button :track_uptime, "No", :checked => @software_track_uptime == "No" %>
+                <%= form.radio_button :track_uptime, "No", :checked => yes_no_toggle(:track_uptime) == "No" %>
               </div>
             <% end %>
  
@@ -53,9 +53,9 @@
               <div class="form-group">
                 <%= form.label :monitor_health, 'Monitor health?' %><br/>
                 <%= form.label :monitor_health, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_health, "Yes", :checked => @software_monitor_health == "Yes" %>
+                <%= form.radio_button :monitor_health, "Yes", :checked => yes_no_toggle(:monitor_health) == "Yes" %>
                 <%= form.label :monitor_health, "No", :value => "No" %>
-                <%= form.radio_button :monitor_health, "No", :checked => @software_monitor_health == "No" %>
+                <%= form.radio_button :monitor_health, "No", :checked => yes_no_toggle(:monitor_health) == "No" %>
               </div>
             <% end %>
 
@@ -72,9 +72,9 @@
               <div class="form-group">
                 <%= form.label :monitor_errors, 'Monitor errors?' %><br/>
                 <%= form.label :monitor_errors, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_errors, "Yes", :checked => @software_monitor_errors == "Yes" %>
+                <%= form.radio_button :monitor_errors, "Yes", :checked => yes_no_toggle(:monitor_errors) == "Yes" %>
                 <%= form.label :monitor_errors, "No", :value => "No" %>
-                <%= form.radio_button :monitor_errors, "No", :checked => @software_monitor_errors == "No" %>
+                <%= form.radio_button :monitor_errors, "No", :checked => yes_no_toggle(:monitor_errors) == "No" %>
               </div>
             <% end %>
 

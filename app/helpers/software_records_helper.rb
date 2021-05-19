@@ -63,4 +63,8 @@ module SoftwareRecordsHelper
     end
     @software_status_piechart_hash
   end
+
+  def yes_no_toggle(attr)
+    @software_record.read_attribute(attr)
+  end
 end
