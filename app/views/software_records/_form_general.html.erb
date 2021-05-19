@@ -337,9 +337,9 @@
               <div class="form-group">
                 <%= form.label :support_contract %><br/>
                 <%= form.label :support_contract, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :support_contract, "Yes", :checked => @software_sc == "Yes" %>
+                <%= form.radio_button :support_contract, "Yes", :checked => yes_no_toggle(:support_contract) == "Yes" %>
                 <%= form.label :support_contract, "No", :value => "No" %>
-                <%= form.radio_button :support_contract, "No", :checked => @software_sc == "No" %>
+                <%= form.radio_button :support_contract, "No", :checked => yes_no_toggle(:support_contract) == "No" %>
               </div>
             <% end %>
 
