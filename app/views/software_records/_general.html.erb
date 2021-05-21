@@ -27,7 +27,14 @@
             <ul><%= VendorRecord.find(@software_record.vendor_record_id).title %>
             </ul>
           </dd>
-        <% end %>
+              
+   <% if !@software_record.authentication_type.nil? && !@software_record.authentication_type.to_s.empty? %>
+   <dt>Authentication Type</dt>
+   <dd>
+   <ul><%= @software_record.authentication_type %></ul>
+  </dd>
+ <% end %>
+<% end %>
         <% if @software_record.developers.length != 0 && @software_record.developers[0].to_s != "" %>
           <dt>Developers</dt>
           <dd>

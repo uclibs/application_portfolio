@@ -27,6 +27,7 @@ RSpec.describe 'software_records/show', type: :view do
                                                   status_id: Status.first.id,
                                                   hosting_environment_id: HostingEnvironment.first.id,
                                                   software_type_id: SoftwareType.first.id,
+                                                  authentication_type: 'DUO',
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User',
                                                   requires_cm: 'Yes',
@@ -54,6 +55,7 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/1/)
+    expect(rendered).to match(/DUO/)
   end
 
   it 'renders change management attributes in <p>' do

@@ -9,7 +9,7 @@ class SoftwareRecords < ApplicationRecord
   def software_records
     file = "#{Dir.pwd}/public/software_records.csv"
     software_records = SoftwareRecords.all
-    headers = ['Software Record', 'Description', 'Status', 'Created on', 'Software Type', 'Vendor Record', 'Departments', 'Date Implemented', 'Date of upgrade', 'Developers', 'Tech Leads', 'Product Owners', 'Languages Used', 'Production URL', 'Source Code URL', 'User Seats', 'Annual Fees', 'Support Contract', 'Hosting Environment',
+    headers = ['Software Record', 'Description', 'Status', 'Created on', 'Software Type', 'Authentication Type', 'Vendor Record', 'Departments', 'Date Implemented', 'Date of upgrade', 'Developers', 'Tech Leads', 'Product Owners', 'Languages Used', 'Production URL', 'Source Code URL', 'User Seats', 'Annual Fees', 'Support Contract', 'Hosting Environment',
                'Current Version', 'Notes', 'Business Value', 'IT Quality', 'Created By']
 
     CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
@@ -102,7 +102,7 @@ class SoftwareRecords < ApplicationRecord
 
         the_product_owners = '' if the_product_owners.to_s == "''"
 
-        writer << [software_record.title, software_record.description, Status.find_by(id: software_record.status_id).title, software_record.created_at, SoftwareType.find_by(id: software_record.software_type_id).title, VendorRecord.find_by(id: software_record.vendor_record_id).title, the_departments, software_record.date_implemented,
+        writer << [software_record.title, software_record.description, Status.find_by(id: software_record.status_id).title, software_record.created_at, SoftwareType.find_by(id: software_record.software_type_id).title, software_record.authentication_type, VendorRecord.find_by(id: software_record.vendor_record_id).title, the_departments, software_record.date_implemented,
                    software_record.date_of_upgrade, the_developers, the_techleads, the_product_owners, software_record.languages_used, software_record.production_url, software_record.source_code_url, software_record.user_seats, software_record.annual_fees, software_record.support_contract, HostingEnvironment.find_by(id: software_record.hosting_environment_id).title, software_record.current_version, software_record.notes, software_record.business_value, software_record.it_quality, software_record.created_by]
       end
     end

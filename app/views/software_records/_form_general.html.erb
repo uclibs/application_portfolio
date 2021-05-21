@@ -41,6 +41,11 @@
               <%= form.label "Vendor" %><b style="color: red; font-size: 20px"> *</b>
               <%= form.collection_select(:vendor_record_id, VendorRecord.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
+            
+            <div class="form-group">
+              <%= form.label "Authentication Type" %>
+              <%= form.select(:authentication_type, ['None', 'DUO', 'LDAP','E-Directory','Shibboleth'], {}, { :class => 'form-control' }) %>
+            </div>
 
             <!-- Multiple Departments -->
             <% if current_user.role.to_s == "root_admin" %>
@@ -302,7 +307,7 @@
                 <%= form.text_field :languages_used, :class => "form-control" %>
               </div>
             <% end %>
-
+            
             <div class="form-group">
               <%= form.label :production_url, "Production URL" %>
               <%= form.text_field :production_url, :class => "form-control" %>
