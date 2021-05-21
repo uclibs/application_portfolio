@@ -27,6 +27,7 @@ RSpec.describe 'software_records/edit', type: :view do
                                                   status_id: Status.first.id,
                                                   hosting_environment_id: HostingEnvironment.first.id,
                                                   software_type_id: SoftwareType.first.id,
+                                                  authentication_type: 'DUO',
                                                   vendor_record_id: VendorRecord.first.id,
                                                   created_by: 'Test User'
                                                 ))

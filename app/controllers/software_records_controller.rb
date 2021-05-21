@@ -160,6 +160,7 @@ class SoftwareRecordsController < ApplicationController
       :status_id,
       :software_type_id,
       :vendor_record_id,
+      :authentication_type,
       :date_implemented,
       :date_of_upgrade,
       :languages_used,

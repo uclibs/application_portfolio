@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_517_140_912) do
+ActiveRecord::Schema.define(version: 20_210_521_155_541) do
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment"
     t.datetime "created_at", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20_210_517_140_912) do
     t.string "track_uptime"
     t.string "monitor_health"
     t.string "monitor_errors"
+    t.string "authentication_type"
     t.index ["hosting_environment_id"], name: "index_software_records_on_hosting_environment_id"
     t.index ["software_type_id"], name: "index_software_records_on_software_type_id"
     t.index ["status_id"], name: "index_software_records_on_status_id"

@@ -164,7 +164,7 @@ class LoadRecords < ApplicationRecord
         created_by = $user
         sensitive_information = row['Sensitive Information'].to_s.strip
         date_of_upgrade = row['Date of upgrade'].to_s.strip
-
+        authentication_type = row['Authentication Type'].to_s.strip
         # change managmeent fields
         requires_cm_review = row['Requires Chanage Management review?'].to_s.strip
         last_security_scan = row['Last security scan'].to_s.strip
@@ -200,6 +200,7 @@ class LoadRecords < ApplicationRecord
                              it_quality: itquality,
                              created_by: created_by,
                              sensitive_information: sensitive_information,
+                             authentication_type: authentication_type,
                              requires_cm_review: requires_cm_review,
                              last_security_scan: last_security_scan,
                              last_accessibility_scan: last_accessibility_scan,
