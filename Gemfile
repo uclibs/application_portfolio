@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
 gem 'rails-controller-testing'
 # Use coveralls for code-coverage
-gem 'coveralls', '~> 0.8.22', require: false
+gem 'coveralls'
 # Use rubocop for static code analysis
 gem 'rubocop'
 
