@@ -166,13 +166,22 @@ class LoadRecords < ApplicationRecord
         date_of_upgrade = row['Date of upgrade'].to_s.strip
         authentication_type = row['Authentication Type'].to_s.strip
         # change managmeent fields
-        requires_cm_review = row['Requires Chanage Management review?'].to_s.strip
-        last_security_scan = row['Last security scan'].to_s.strip
-        last_accessibility_scan = row['Last accessibility scan'].to_s.strip
-        last_ogc_review = row['Last OGC review'].to_s.strip
-        last_info_sec_review = row['Last Infosec review'].to_s.strip
+        requires_cm = row['Requires Chanage Management review?'].to_s.strip
+        last_security_scan = row['Last Security Scan'].to_s.strip
+        last_accessibility_scan = row['Last Accessibility Scan'].to_s.strip
+        last_ogc_review = row['Last OGC Review'].to_s.strip
+        last_info_sec_review = row['Last Infosec Review'].to_s.strip
         cm_stakeholders = row['CM Stakeholders'].to_s.strip
-        cm_other_notes = row['CM other notes'].to_s.strip
+        cm_other_notes = row['CM Other Notes'].to_s.strip
+        # serven env fields
+        qa_url = row['QA URL'].to_s.strip
+        dev_url = row['Dev URL'].to_s.strip
+        prod_url = row['Prod URL'].to_s.strip
+        production_support_servers = row['Production Support Servers'].to_s.strip
+        last_record_change = row['Last Record Change'].to_s.strip
+        track_uptime = row['Track Uptime'].to_s.strip
+        monitor_health = row['Monitor Health'].to_s.strip
+        monitor_errors = row['Monitor Errors'].to_s.strip
 
         if !SoftwareRecord.find_by(title: title).nil? && SoftwareRecord.find_by(title: title).title.to_s == title && SoftwareRecord.find_by(title: title).software_type_id == software_type_id && SoftwareRecord.find_by(title: title).vendor_record_id == vendor_record_id
           puts("Software Record '#{title}' is found in the db and hence suppressing it.")
@@ -201,7 +210,7 @@ class LoadRecords < ApplicationRecord
                              created_by: created_by,
                              sensitive_information: sensitive_information,
                              authentication_type: authentication_type,
-                             requires_cm_review: requires_cm_review,
+                             requires_cm: requires_cm,
                              last_security_scan: last_security_scan,
                              last_accessibility_scan: last_accessibility_scan,
                              last_ogc_review: last_ogc_review,
