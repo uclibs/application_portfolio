@@ -49,8 +49,8 @@ gem 'petergate'
 gem 'gritter'
 # Use bootstrap-datepicker-rails for datepicker
 gem 'bootstrap-datepicker-rails'
-# Use chartkick for data-visualization
-gem 'chartkick', '3.3.0'
+# Use chartkick for data-visualization techniques
+gem 'chartkick', '~> 4.0', '>= 4.0.4'
 # Use groupdate to group by dates
 gem 'csv'
 gem 'groupdate'
