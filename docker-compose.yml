@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app_portfolio:
+    container_name: app_portfolio
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: .
+      labels:
+      - "application_portfolio:1.0.0"
+    environment:
+    - RAILS_ENV=development
+    env_file:
+      - .env.development
+    ports:
+    - "3000:3000"
+    volumes:
+    - db_sqlite:/var/www/application_portfolio/db/development.sqlite
+
+volumes:
+  db_sqlite:
