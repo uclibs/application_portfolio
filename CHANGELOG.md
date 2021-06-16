@@ -1,3 +1,24 @@
+1.1.0 6/19/2021
+* Cleaned up Status Field
+* Removed status field from software records table
+* Rubcop corrections
+* Import Data script updated
+* Dashboard edits
+* Improved Coveralls Coverage
+* Added Hosting Environment field
+* Modified start up scripts for QA and Prod
+* Bundle Update
+* Setup tabs for software record
+* Expanded db seeds
+* Added Change Management fields
+* Added Server Environment tab and fields
+* Created yes/no toggle helper
+* Added Authentication type field
+* Added new field to import / export script
+* Bug Fixes
+  * Fixes blind sql injection
+  * Updates chartkick gem
+
 1.0.1 10/1/2020
 * Prevent overwriting of data on import
 * Left justify text on all index and dashboard
