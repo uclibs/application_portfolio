@@ -10,7 +10,7 @@ services:
     environment:
     - RAILS_ENV=development
     env_file:
-      - .env.development
+    - .env.development
     ports:
     - "3000:3000"
     volumes:
