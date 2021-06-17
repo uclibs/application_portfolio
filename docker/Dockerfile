@@ -19,10 +19,10 @@ RUN addgroup -S $RAILS_USER -g $RAILS_GROUP_ID && adduser -S $RAILS_USER -G $RAI
 
 USER $RAILS_USER
 WORKDIR $RAILS_ROOT
-COPY Gemfile* ./
+COPY --chown=$RAILS_USER Gemfile* ./
 RUN gem install bundler -v "$(cat Gemfile.lock | tail -1 | tr -d ' ')" && bundle install --no-cache --jobs 20 --retry 5
 
-COPY . ./
+COPY --chown=$RAILS_USER . ./
 RUN mkdir -p $RAILS_ROOT/tmp/puma
 EXPOSE 3000
 

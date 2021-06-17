@@ -17,6 +17,7 @@ yarn-error.log
 coverage/
 .env.*
 db/*.sqlite
+docker-compose.yml
 .idea
 .coveralls.yml
 .rubocop*.yml
