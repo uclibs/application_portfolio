@@ -8,7 +8,7 @@ executors:
     environment:
       IMAGE_NAME: application_portfolio
     docker:
-      - image: docker:20.10.2-git
+      - image: docker:20.10.7-git
 jobs:
   build:
     docker:
