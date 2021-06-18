@@ -19,6 +19,8 @@ RUN addgroup -S $RAILS_USER -g $RAILS_GROUP_ID && adduser -S $RAILS_USER -G $RAI
 
 USER $RAILS_USER
 WORKDIR $RAILS_ROOT
+# `--chown` needs have to the actual user name instead of the variable $RAILS_USER due to https://github.com/moby/moby/issues/35018,
+# this issue is present in the version of the Docker used by CircleCI
 COPY --chown=rails:rails Gemfile* ./
 RUN gem install bundler -v "$(cat Gemfile.lock | tail -1 | tr -d ' ')" && bundle install --no-cache --jobs 20 --retry 5
 
