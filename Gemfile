@@ -29,7 +29,8 @@ gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
 gem 'rails-controller-testing'
 # Use coveralls for code-coverage
-gem 'coveralls'
+# gem 'coveralls'
+gem 'coveralls', '~> 0.8.22', require: false
 # Use rubocop for static code analysis
 gem 'rubocop'
 
@@ -37,7 +38,8 @@ gem 'rubocop-rails', require: false
 
 gem 'rubocop-rspec', require: false
 # Use simplecov to generate the coveralls report in .html format
-gem 'simplecov', require: false
+# gem 'simplecov', require: false
+# gem 'simplecov', '0.16'
 # Use bootstrap css, jquery-rails gem for styling the components
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
@@ -78,6 +80,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
   gem 'rspec-rails', '~>3.8'
+  gem 'simplecov', require: false
 end
 
 group :development do
