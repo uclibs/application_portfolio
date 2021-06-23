@@ -1,4 +1,4 @@
-# Ruby CircleCI 2.0 configuration file
+# Ruby CircleCI 2.1 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
@@ -25,7 +25,6 @@ jobs:
       CACHE_PATH: /tmp/cache
       COVERALLS_PARALLEL: true
 
-    parallelism: 4
     working_directory: ~/application_portfolio
 
     steps:
@@ -63,7 +62,7 @@ jobs:
           command: |
             gem install rubocop
             bundle exec rubocop
-
+      # run tests!
       - run:
           name: Run rspec in parallel
           command: |
@@ -75,20 +74,17 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-
       - store_artifacts:
           path: coverage
 
       - deploy:
-          webhooks:
-            - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[service_number]=$CIRCLE_BUILD_NUMBER&payload[status]=done"
-
+          name: Update Coveralls
+          command: |
+            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_NODE_INDEX&payload[status]=done"
+            exit 0
 workflows:
     version: 2
     ci:
         jobs:
             - build:
-                name: ruby2-6-5      
-
-
-
+                name: ruby2-6-5
