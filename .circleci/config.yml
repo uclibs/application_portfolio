@@ -80,9 +80,8 @@ jobs:
           path: coverage
 
       - deploy:
-          name: Update Coveralls
-          command: |
-            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
+          webhooks:
+            - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[service_number]=$CIRCLE_BUILD_NUMBER&payload[status]=done"
 
 workflows:
     version: 2
@@ -90,3 +89,6 @@ workflows:
         jobs:
             - build:
                 name: ruby2-6-5      
+
+
+
