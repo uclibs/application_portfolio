@@ -153,11 +153,8 @@ jobs:
           command: |
             IMAGE_TAG=${CIRCLE_TAG}
             IMAGE_TAG=$(echo $IMAGE_TAG | cut -c 2-)
-            echo "IMAGE_TAG: $IMAGE_TAG"
             : "${IMAGE_TAG:=$(echo $CIRCLE_SHA1 | cut -c -7)}"
-            echo "IMAGE_TAG: $IMAGE_TAG"
             : "${IMAGE_TAG:=latest}"
-            echo "IMAGE_TAG: $IMAGE_TAG"
             alias aws='docker run --rm -it -e AWS_ACCESS_KEY_ID -e AWS_DEFAULT_REGION -e AWS_SECRET_ACCESS_KEY amazon/aws-cli'
             aws ecr get-login-password | cut -c5- | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
             docker tag ${IMAGE_NAME}:latest "${ECR_ENDPOINT}/${IMAGE_NAME}:$IMAGE_TAG"
@@ -177,3 +174,6 @@ workflows:
         - publish-image:
             requires:
               - build-image
+            filters:
+              branches:
+                only: qa
