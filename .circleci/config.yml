@@ -173,6 +173,3 @@ workflows:
         - publish-image:
             requires:
               - build-image
-            filters:
-              branches:
-                only: qa
