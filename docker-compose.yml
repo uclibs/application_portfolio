@@ -5,7 +5,7 @@ services:
       dockerfile: ./docker/Dockerfile
       context: .
       labels:
-      - "application_portfolio:1.0.0"
+      - "application_portfolio:latest"
     environment:
     - RAILS_ENV=development
     env_file:
@@ -13,24 +13,4 @@ services:
     ports:
     - "3000:3000"
     volumes:
-    - db_sqlite:/opt/app/db/development.sqlite3
-    depends_on:
-      - migration
-
-  migration:
-    build:
-      dockerfile: ./docker/Dockerfile
-      context: .
-      labels:
-        - "application_portfolio:1.0.0"
-    command: |
-      rails db:migrate
-    environment:
-      - RAILS_ENV=development
-    env_file:
-      - .env.development
-    volumes:
-      - db_sqlite:/opt/app/db/development.sqlite3
-
-volumes:
-  db_sqlite:
+    - ./db/development.sqlite3:/opt/app/db/development.sqlite3
