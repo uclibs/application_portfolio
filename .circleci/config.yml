@@ -151,7 +151,7 @@ jobs:
       - run:
           name: Publish Docker Image to ECR
           command: |
-            IMAGE_TAG=$(echo CIRCLE_TAG | cut -c 2-)
+            IMAGE_TAG=$(echo $CIRCLE_TAG | cut -c 2-)
             : "${IMAGE_TAG:=$(echo $CIRCLE_SHA1 | cut -c -7)}"
             : "${IMAGE_TAG:=latest}"
             alias aws='docker run --rm -it -e AWS_ACCESS_KEY_ID -e AWS_DEFAULT_REGION -e AWS_SECRET_ACCESS_KEY amazon/aws-cli'
