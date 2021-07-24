@@ -92,8 +92,8 @@ We use the chartkick gem to draw our graphs
 
 ## Docker
 * The Docker containers for Application Portfolio currently only work in development mode with a SQLite Database.
-* The SQLite Database file itself is persisted using a Docker Volume.
-* When we first run `docker-compose up`, a temporary container is started to create the SQLite database(on the shared volume) and to run `rails db:migrate` on it.
+* The SQLite Database file itself is shared using a Docker Volume from host to container.
+    * So, we must run `bundle exec rails db:migrate` on the host, before running starting the services using `docker-compose up`
   
 ### Using Docker Compose
 * To build and start the containerized application, run the below command, from the root directory of the repo:
