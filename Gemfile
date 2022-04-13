@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
@@ -73,6 +73,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop
   # execution and get a debugger console
+  gem 'brakeman'
+  gem 'bundler-audit'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'

@@ -13,7 +13,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.5-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -164,11 +164,11 @@ workflows:
     ci:
       jobs:
         - build:
-            name: ruby2-6-5
+            name: ruby2-7-5
 
         - build-image:
             requires:
-              - ruby2-6-5
+              - ruby2-7-5
 
         - publish-image:
             requires:
