@@ -48,12 +48,12 @@ jobs:
           command: |
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler -v 2.0.1
+            gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+
       - run:
           name: Install Dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-            sudo apt-get update
             sudo apt-get install xvfb libfontconfig wkhtmltopdf
       - save_cache:
           paths:
@@ -90,89 +90,8 @@ jobs:
           command: |
             curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
 
-
-  build-image:
-    working_directory: ~/application_portfolio
-    executor: docker-publisher
-
-    steps:
-      - checkout
-      - setup_remote_docker
-
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/image.tar
-
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/image.tar | true
-
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build --cache-from=${IMAGE_NAME} -t ${IMAGE_NAME}:latest -f docker/Dockerfile .
-
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/image.tar ${IMAGE_NAME}:latest
-
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/image.tar
-
-      - persist_to_workspace:
-          root: /caches
-          paths:
-            - ./image.tar
-
-  publish-image:
-    executor: docker-publisher
-
-    environment:
-      AWS_DEFAULT_REGION: us-east-2
-
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-
-      - setup_remote_docker
-
-      - run:
-          name: Load archived Docker image
-          command: docker load -i /tmp/workspace/image.tar
-
-      - run:
-          name: Publish Docker Image to ECR
-          command: |
-            IMAGE_TAG=${CIRCLE_TAG/v/''}
-            : "${IMAGE_TAG:=$(echo $CIRCLE_SHA1 | cut -c -7)}"
-            : "${IMAGE_TAG:=latest}"
-            alias aws='docker run --rm -it -e AWS_ACCESS_KEY_ID -e AWS_DEFAULT_REGION -e AWS_SECRET_ACCESS_KEY amazon/aws-cli'
-            aws ecr get-login-password | cut -c5- | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
-            docker tag ${IMAGE_NAME}:latest "${ECR_ENDPOINT}/${IMAGE_NAME}:$IMAGE_TAG"
-            docker push "${ECR_ENDPOINT}/${IMAGE_NAME}:$IMAGE_TAG"
-
 workflows:
     version: 2
     ci:
       jobs:
-        - build:
-            name: ruby2-7-5
-
-        - build-image:
-            requires:
-              - ruby2-7-5
-
-        - publish-image:
-            requires:
-              - build-image
-            filters:
-              branches:
-                only: qa
+        - build
