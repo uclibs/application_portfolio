@@ -16,14 +16,7 @@ end
 
 task :start_local do
   on roles(:all) do
-    execute "export PATH=$PATH:/usr/local/bin && cd #{fetch(:deploy_to)}/current/script && source start_local.sh"
-    execute "mkdir -p #{fetch(:deploy_to)}/static"
-  end
-end
-
-task :start_curly do
-  on roles(:all) do
-    execute "export PATH=$PATH:/usr/sbin/ && cd #{fetch(:deploy_to)}/current/script && chmod u+x * && source start_curly.sh"
+    execute "export PATH=$PATH:/usr/local/bin && cd #{fetch(:deploy_to)}/current/scripts && source start_local.sh"
     execute "mkdir -p #{fetch(:deploy_to)}/static"
   end
 end
@@ -31,6 +24,7 @@ end
 task :init_qp do
   on roles(:all) do
     execute 'gem install --user-install bundler'
+    execute "bundle config path 'vendor/bundle' --local"
     execute "mkdir -p #{fetch(:deploy_to)}/static"
     execute "cp #{fetch(:deploy_to)}/static/.env.production #{fetch(:release_path)}/ || true"
   end
@@ -38,6 +32,12 @@ end
 
 task :start_qp do
   on roles(:all) do
-    execute "cd #{fetch(:deploy_to)}/current && chmod a+x script/* && source script/start_qp.sh"
+    execute "cd #{fetch(:release_path)}/ && chmod a+x scripts/* && source scripts/start_qp.sh"
+  end
+end
+
+task :ruby_update_check do
+  on roles(:all) do
+    execute "cd #{fetch(:release_path)}/ && chmod a+x scripts/* && source scripts/check_ruby.sh"
   end
 end

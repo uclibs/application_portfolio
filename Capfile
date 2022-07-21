@@ -17,4 +17,3 @@ task :use_rvm do
 end
 
 task local: :use_rvm
-task curly: :use_rvm

@@ -9,8 +9,6 @@ fi
 export RAILS_RELATIVE_URL_ROOT=/application_portfolio
 export RAILS_ENV=production
 
-bin/bundle exec rake db:seed
-
 # Check if puma is started
 if ! ( [ -f /opt/webapps/application_portfolio/current/tmp/puma/pid ] && pgrep -F /opt/webapps/application_portfolio/current/tmp/puma/pid > /dev/null )
 then
