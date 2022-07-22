@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-alpine
+FROM ruby:2.7.5-alpine
 RUN apk --update --no-cache add build-base ncurses xvfb xvfb-run nodejs yarn sqlite-dev tzdata libxslt-dev libxml2-dev
 RUN apk --update --no-cache add mariadb-dev
 
