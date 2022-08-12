@@ -3,7 +3,7 @@
 #
 # Starts the application if it's not already running
 #
-# Example usage: script/start-appport.sh /opt/webapps/application_portfolio /application_portfolio production
+# Example usage: scripts/start-appport.sh /opt/webapps/application_portfolio /application_portfolio production
 
 APP_DIR=$1 # Directory where the app is installed
 WEB_URI=$2 # The sub-URI on the web server where the app can be accessed
