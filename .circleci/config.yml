@@ -8,7 +8,7 @@ executors:
     environment:
       IMAGE_NAME: application_portfolio
     docker:
-      - image: docker:20.10.7-git
+      - image: docker:20.10.23
 
 orbs:
   browser-tools: circleci/browser-tools@1.4.1
@@ -17,8 +17,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/ruby:2.7.5-browsers
-
+      - image: cimg/ruby:3.0.5-browsers
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -39,6 +38,7 @@ jobs:
     working_directory: ~/application_portfolio
 
     steps:
+ 
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
@@ -60,7 +60,7 @@ jobs:
           name: Install Dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-            sudo apt-get install xvfb libfontconfig wkhtmltopdf
+            sudo apt-get install -y xvfb libfontconfig1
       - save_cache:
           paths:
             - ./vendor/bundle
