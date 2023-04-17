@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '3.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 4.3.9'
+gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Devise for authentication
@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
 gem 'rails-controller-testing'
 # Use coveralls for code-coverage
-gem 'coveralls', '~> 0.8.22', require: false
+gem 'coveralls_reborn'
 # Use rubocop for static code analysis
 gem 'rubocop'
 
@@ -38,6 +38,7 @@ gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 # Use simplecov to generate the coveralls report in .html format
 gem 'simplecov', require: false
+gem 'simplecov-lcov', require: false
 # Use bootstrap css, jquery-rails gem for styling the components
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
@@ -79,11 +80,11 @@ group :development, :test do
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
-  gem 'rspec-rails', '~>3.8'
+  gem 'rspec-rails', '~>4.1.0'
 end
 
 group :development do
-  gem 'capistrano', '3.11.2'
+  gem 'capistrano', '3.17.1'
   gem 'capistrano-bundler', '~> 1.6', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-rvm', require: false
