@@ -92,7 +92,7 @@ module ApplicationHelper
                11 => "November, #{current_year}",
                12 => "December, #{current_year}" }
     month_keys = months.keys
-    count = 0
+    count = SoftwareRecord.where('created_at <= ?', Date.today.beginning_of_year).count
     month_keys.each do |key|
       break if key > current_month
 
