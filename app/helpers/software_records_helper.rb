@@ -33,7 +33,7 @@ module SoftwareRecordsHelper
 
     len   = ActiveSupport::MessageEncryptor.key_len
     salt  = SecureRandom.hex len
-    key   = ActiveSupport::KeyGenerator.new(Rails.application.secrets.secret_key_base).generate_key salt, len
+    key   = ActiveSupport::KeyGenerator.new(Rails.application.secret_key_base).generate_key salt, len
     crypt = ActiveSupport::MessageEncryptor.new key
     encrypted_data = crypt.encrypt_and_sign text
     "#{salt}$$#{encrypted_data}"
