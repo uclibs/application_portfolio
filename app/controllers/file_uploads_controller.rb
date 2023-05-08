@@ -25,19 +25,19 @@ class FileUploadsController < ApplicationController
     case option
     when 'srecords'
       system('cd../..')
-      $output = `ruby load_records.rb software "#{filename}" "#{user}"`
+      $output = system('ruby', 'load_records.rb', 'software', filename, user)
     when 'vrecords'
       system('cd../..')
-      $output = `ruby load_records.rb vendor "#{filename}" "#{user}"`
+      $output = system('ruby', 'load_records.rb', 'vendor', filename, user)
     when 'stypes'
       system('cd../..')
-      $output = `ruby load_records.rb type "#{filename}" "#{user}"`
+      $output = system('ruby', 'load_records.rb', 'type', filename, user)
     when 'status'
       system('cd../..')
-      $output = `ruby load_records.rb status "#{filename}" "#{user}"`
+      $output = system('ruby', 'load_records.rb', 'status', filename, user)
     when 'hosting_env'
       system('cd../..')
-      $output = `ruby load_records.rb hosting_env "#{filename}" "#{user}"`
+      $output = system('ruby', 'load_records.rb', 'hosting_env', filename, user)
     end
     File.delete(Rails.root.join('public', 'uploads', uploaded_io.original_filename))
     redirect_to file_uploads_new_path,
