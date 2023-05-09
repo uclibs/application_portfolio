@@ -66,12 +66,6 @@ namespace :deploy do
       puts "\nDeploy cancelled!"
       exit
     end
-
-    ask :value, 'Have you submitted your Change Management Request? (Y)'
-    if fetch(:value) != 'Y'
-      puts "\nDeploy cancelled!"
-      exit
-    end
   end
 end
 
