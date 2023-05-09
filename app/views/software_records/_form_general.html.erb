@@ -301,6 +301,52 @@
             <% end %>
 
             <!-- Multiple Product Owners ends -->
+
+            <!-- Multiple Admin Users -->
+
+            <% if component.to_s == "new" %>
+              <div class="form-group" id="multiple_admin_users">
+                <%= form.label "Admin Users" %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+              <div class="input-group" id="admin_users1">
+                <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
+                <div class="input-group-append" id="btnRemove" onclick = "remove('admin_users1')">
+                  <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                </div>
+              </div>
+            </div>
+            <% else %>
+            <% if @software_record.admin_users.count != 0 %>
+              <div class="form-group" id="multiple_admin_users">
+                <%= form.label :admin_users %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+                <% @software_record.admin_users.each do |admin_user| %>
+                    <% if @count_admin_users == 2 %>
+                      <div class="input-group" id="admin_users1">
+                        <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('admin_users1')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                        <% @count_admin_users += 1 %>
+                    <% else %>
+                      <% @id = "software_record_admin_users" + @count_admin_users.to_s %>
+                      <div class="input-group mt-2" id = "<%= @id %>" >
+                        <%= text_field_tag "software_record[admin_users][]", admin_user, id: "software_record_admin_users", required: true, class: "form-control" %>
+                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
+                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+                        </div>
+                      </div>
+                    <% end %>
+                <% end %>
+                </div>
+              <% else %>
+              <div class="form-group" id="multiple_admin_users">
+                <%= form.label :admin_users %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+              </div>
+              <% end %>
+            <% end %>
+
+            <!-- Multiple Admin Users ends -->
+
             <% if current_user.role.to_s != "owner" %>
               <div class="form-group">
                 <%= form.label :languages_used %>

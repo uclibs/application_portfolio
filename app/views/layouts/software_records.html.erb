@@ -73,6 +73,7 @@
     window.count_tech_leads = 2;
     window.count_departments = 2;
     window.count_product_owners = 2;
+    window.count_admin_users = 2;
   }
 
   function add(name, value) {
@@ -93,6 +94,11 @@
     else if(name == "product_owners") {
       element.id = name + window.count_product_owners; 
     }
+
+    else if(name == "admin_users") {
+      element.id = name + window.count_admin_users; 
+    }
+
 
     else {
       element.id = name + window.count_departments; 
@@ -147,6 +153,17 @@
     add("product_owners", "");
     window.count_product_owners++;
   }
+
+  document.getElementById("btnAddAdminUsers").onclick = function() {
+    add("admin_users", "");
+    window.count_admin_users++;
+  };
+
+  function add_admin_user() {
+    add("admin_users", "");
+    window.count_admin_users++;
+  }
+
 
   document.getElementById("btnAddDepartments").onclick = function() {
     add("departments", "");

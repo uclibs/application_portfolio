@@ -10,7 +10,7 @@ class SoftwareRecords < ApplicationRecord
     file = "#{Dir.pwd}/public/software_records.csv"
     software_records = SoftwareRecords.all
     # general metadata
-    headers = ['Software Record', 'Description', 'Status', 'Created on', 'Software Type', 'Authentication Type', 'Vendor Record', 'Departments', 'Date Implemented', 'Date of upgrade', 'Developers', 'Tech Leads', 'Product Owners', 'Languages Used', 'Production URL', 'Source Code URL', 'User Seats', 'Annual Fees', 'Support Contract', 'Hosting Environment',
+    headers = ['Software Record', 'Description', 'Status', 'Created on', 'Software Type', 'Authentication Type', 'Vendor Record', 'Departments', 'Date Implemented', 'Date of upgrade', 'Developers', 'Tech Leads', 'Product Owners', 'Admin Users', 'Languages Used', 'Production URL', 'Source Code URL', 'User Seats', 'Annual Fees', 'Support Contract', 'Hosting Environment',
                'Current Version', 'Notes', 'Business Value', 'IT Quality', 'Created By']
     # change management metadata
     headers += ['Requires Chanage Management review?', 'Last Security Scan', 'Last Accessibility Scan', 'Last OGC Review', 'Last Infosec Review', 'CM Stakeholders', 'CM Other Notes']
@@ -108,8 +108,30 @@ class SoftwareRecords < ApplicationRecord
 
         the_product_owners = '' if the_product_owners.to_s == "''"
 
+        admin_users = software_record.admin_users.to_s.gsub!('---', '').to_s
+        admin_users = admin_users.gsub!(/\n/, '-').to_s
+        all_admin_users = admin_users.split('- ')
+        the_admin_users = ''
+        all_admin_users_count = 0
+        all_admin_users.each do |each_admin_user|
+          if each_admin_user.to_s == '-'
+            all_admin_users_count += 1
+          else
+            each_admin_user = if each_admin_user.include?('-')
+                                each_admin_user.gsub('-', '').to_s
+                              else
+                                each_admin_user
+                              end
+            all_admin_users_count += 1
+            the_admin_users += each_admin_user
+            the_admin_users += ',' if all_admin_users_count != all_admin_users.size
+          end
+        end
+
+        the_admin_users = '' if the_admin_users.to_s == "''"
+
         writer << [software_record.title, software_record.description, Status.find_by(id: software_record.status_id).title, software_record.created_at, SoftwareType.find_by(id: software_record.software_type_id).title, software_record.authentication_type, VendorRecord.find_by(id: software_record.vendor_record_id).title, the_departments, software_record.date_implemented,
-                   software_record.date_of_upgrade, the_developers, the_techleads, the_product_owners, software_record.languages_used, software_record.production_url, software_record.source_code_url, software_record.user_seats, software_record.annual_fees, software_record.support_contract, HostingEnvironment.find_by(id: software_record.hosting_environment_id).title, software_record.current_version, software_record.notes, software_record.business_value, software_record.it_quality, software_record.created_by, software_record.requires_cm, software_record.last_security_scan, software_record.last_accessibility_scan, software_record.last_ogc_review, last_info_sec_review, software_record.cm_stakeholders, software_record.cm_other_notes, software_record.qa_url, software_record.dev_url, software_record.prod_url, software_record.production_support_servers, software_record.last_record_change, software_record.track_uptime, software_record.monitor_health, software_record.monitor_errors]
+                   software_record.date_of_upgrade, the_developers, the_techleads, the_product_owners, the_admin_users, software_record.languages_used, software_record.production_url, software_record.source_code_url, software_record.user_seats, software_record.annual_fees, software_record.support_contract, HostingEnvironment.find_by(id: software_record.hosting_environment_id).title, software_record.current_version, software_record.notes, software_record.business_value, software_record.it_quality, software_record.created_by, software_record.requires_cm, software_record.last_security_scan, software_record.last_accessibility_scan, software_record.last_ogc_review, last_info_sec_review, software_record.cm_stakeholders, software_record.cm_other_notes, software_record.qa_url, software_record.dev_url, software_record.prod_url, software_record.production_support_servers, software_record.last_record_change, software_record.track_uptime, software_record.monitor_health, software_record.monitor_errors]
       end
     end
   end

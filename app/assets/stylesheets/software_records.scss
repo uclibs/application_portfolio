@@ -373,6 +373,13 @@ div.active.tab-pane {
   }
 }
 
+#btnAddAdminUsers:hover {
+  cursor: pointer;
+  .fa-plus {
+    color: red;
+  }
+}
+
 #btnAddTechLeads:hover {
   cursor: pointer;
   .fa-plus {

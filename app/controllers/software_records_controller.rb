@@ -114,6 +114,7 @@ class SoftwareRecordsController < ApplicationController
     software_update_params[:developers] = software_record_params[:developers]
     software_update_params[:tech_leads] = software_record_params[:tech_leads]
     software_update_params[:product_owners] = software_record_params[:product_owners]
+    software_update_params[:admin_users] = software_record_params[:admin_users]
     if @software_record.update(software_update_params)
       redirect_to @software_record, notice: 'Software record was successfully updated.'
     else
@@ -194,6 +195,7 @@ class SoftwareRecordsController < ApplicationController
       tech_leads: [],
       developers: [],
       product_owners: [],
+      admin_users: [],
       departments: []
     )
   end
