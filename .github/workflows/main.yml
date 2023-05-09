@@ -1,8 +1,8 @@
 name: CI GitHub Action
 on: "push"
 
-permissions:
-  contents: read
+#permissions:
+#  contents: read
 
 jobs:
   test:
@@ -20,3 +20,9 @@ jobs:
       run: bundle exec rake
     - name: Coveralls
       uses: coverallsapp/github-action@v2
+    - name: Bundler Audit Action
+      uses: andrewmcodes/bundler-audit-action@v0.1.0
+    - name: Brakeman linter
+      uses: devmasx/brakeman-linter-action@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
