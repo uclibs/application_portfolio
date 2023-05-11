@@ -8,8 +8,12 @@ set :bundle_path, -> { shared_path.join('vendor/bundle') }
 append :linked_dirs, 'tmp', 'log'
 ask(:username, nil)
 ask(:password, nil, echo: false)
-server 'libapps2.libraries.uc.edu', user: fetch(:username), password: fetch(:password), port: 22,
-                                    roles: %i[web app db]
+server 'libapps2.libraries.uc.edu', user: fetch(:username), password: fetch(:password), port: 22
+ask(:value, 'Have you submitted and received an approved Change Management Request? (Y)')
+if fetch(:value) != 'Y'
+  puts "\nDeploy cancelled!"
+  exit
+end
 set :deploy_to, '/opt/webapps/application_portfolio'
 after 'deploy:updating', 'ruby_update_check'
 after 'deploy:updating', 'init_qp'
