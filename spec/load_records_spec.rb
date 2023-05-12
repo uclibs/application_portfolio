@@ -17,6 +17,7 @@ RSpec.describe LoadRecords do
                                             :developers,
                                             :tech_leads,
                                             :product_owners,
+                                            :admin_users,
                                             :languages_used,
                                             :production_url,
                                             :source_code_url,

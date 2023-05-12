@@ -108,7 +108,8 @@ describe FrontController do
         created_by: 'Test Admin',
         developers: %w[Tester Random],
         tech_leads: ['Lead 1'],
-        product_owners: %w[Owner1 Owner2]
+        product_owners: %w[Owner1 Owner2],
+        admin_users: %w[Admin1 Admin2]
       }
     end
 

@@ -150,6 +150,20 @@ class LoadRecords < ApplicationRecord
           product_owners.push(row['Product Owners'])
         end
 
+        admin_users = []
+
+        if row['Admin Users'].to_s.empty?
+          admin_users.push('')
+        elsif row['Admin Users'].to_s.include?(',')
+          alladminusers = row['Admin Users'].split(',')
+          alladminusers.each do |admin|
+            admin = admin.to_s.strip
+            admin_users.push(admin)
+          end
+        else
+          admin_users.push(row['Admin Users'])
+        end
+
         date_implemented = row['Date Implemented'].to_s.strip
         lang = row['Languages Used'].to_s.strip
         url = row['Production URL'].to_s.strip
@@ -196,6 +210,7 @@ class LoadRecords < ApplicationRecord
                              developers: developers,
                              tech_leads: tech_leads,
                              product_owners: product_owners,
+                             admin_users: admin_users,
                              languages_used: lang,
                              production_url: url,
                              source_code_url: source_url,

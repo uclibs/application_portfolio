@@ -76,6 +76,17 @@
             </div>
           </div>
 
+          <div class="form-group" id="multiple_admin_users">
+              <%= form.label "Primary Contact" %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+            <div class="input-group" id="admin_users1">
+              <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
+              <div class="input-group-append" id="btnRemove" onclick = "remove('admin_users1')">
+                <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
+              </div>
+            </div>
+          </div>
+
+
           <% if user_signed_in? && current_user.role.to_s == "owner" %>
             <div class="form-group">
               <%= form.label :production_url %>

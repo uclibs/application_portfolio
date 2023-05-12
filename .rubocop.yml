@@ -4,6 +4,9 @@ AllCops:
   NewCops: disable
 Metrics/CyclomaticComplexity:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/controllers/software_records_controller_spec.rb'
 Metrics/MethodLength:
   Exclude:
     - 'load_records.rb'

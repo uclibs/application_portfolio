@@ -10,5 +10,6 @@ class SoftwareRecord < ApplicationRecord
   serialize :tech_leads, Array
   serialize :developers, Array
   serialize :product_owners, Array
+  serialize :admin_users, Array
   serialize :departments, Array
 end
