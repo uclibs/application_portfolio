@@ -1,0 +1,259 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "10f17d3b6b4fc72339d9bee2e7c0e76557cdd79b76262e0c9d61ae92c34cae80",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/front_controller.rb",
+      "line": 98,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareType.all.where((\"\" + (if (SoftwareType.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend)), :search => (\",%#{params[:search].downcase}%\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FrontController",
+        "method": "search"
+      },
+      "user_input": "if (SoftwareType.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "2e879cb1c739abb869cbc76be8e4eed75c6fd388a64065912caf91ab75e5df17",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/front_controller.rb",
+      "line": 100,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "VendorRecord.all.where((\"\" + (if (VendorRecord.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend)), :search => (\",%#{params[:search].downcase}%\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FrontController",
+        "method": "search"
+      },
+      "user_input": "if (VendorRecord.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "483d0c54b668b99c832cacd3f9fd68d1432f8e769ca675b25e8da8cfebcefea0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 38,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"developers like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.indesign_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "4d6e9bf38963e636dd899df876cd45e65d931e24776457a84d3aba97f9794944",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/file_uploads_controller.rb",
+      "line": 19,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Rails.root.join(\"public\", \"uploads\", params[:file_upload][:attachment].original_filename), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FileUploadsController",
+        "method": "create"
+      },
+      "user_input": "params[:file_upload][:attachment].original_filename",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "584554d7e24eee09fe3a84fc8d4ee1795eb878c6bf0708e8eef7bd34cde9b439",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 39,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"tech_leads like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.indesign_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "8e5bce8fb65041c91931b9c648a630c35d198caea5990d0f91528ca1030c06bc",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"tech_leads like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.production_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "8e63719431ed3ba76914aeabd3499de7f3c5e6f99fcdaa67bbddcdfb05cf7fd3",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/file_uploads_controller.rb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(Rails.root.join(\"public\", \"uploads\", params[:file_upload][:attachment].original_filename))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FileUploadsController",
+        "method": "create"
+      },
+      "user_input": "params[:file_upload][:attachment].original_filename",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "969e8a4be490f87a9957077f71334d275e17175d36be80d6ae405e0104175398",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/front_controller.rb",
+      "line": 96,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.all.where((\"\" + (if (SoftwareRecord.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend)), :search => (\",%#{params[:search].downcase}%\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FrontController",
+        "method": "search"
+      },
+      "user_input": "if (SoftwareRecord.columns.count == 1) then\n  \"(lower(#{column.name}) LIKE :search)\"\nelse\n  \"(lower(#{column.name}) LIKE :search) or\"\nend",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c664dd0b8b70af39faac5c72cda61ffdb79fd00c3616cca697ac99fa0d198e91",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 53,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"product_owners like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.production_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "dfceec68cf1b74b9d39e3427f6eaba768625c03a1c8a1d3ef26aca612c51b765",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 51,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"developers like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.production_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f2f988119820a65fd71d59e0e83b027bc16adf3c9d1e4a5e10634c0c0c1d2197",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/software_records_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "SoftwareRecord.where(\"product_owners like '%#{user}%'\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SoftwareRecordsController",
+        "method": "SoftwareRecordsController.indesign_dashboard"
+      },
+      "user_input": "user",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2023-05-12 09:37:59 -0400",
+  "brakeman_version": "5.4.1"
+}
