@@ -37,6 +37,8 @@ RSpec.describe 'software_records/new', type: :view do
   it 'renders new software_record form' do
     render
 
+    expect(rendered).to have_select('software_record_authentication_type', with_options: %w[DUO LDAP E-Directory Shibboleth Local])
+
     assert_select 'form[action=?][method=?]', software_records_path, 'post' do
       assert_select 'input[name=?]', 'software_record[title]'
 
