@@ -78,6 +78,17 @@
           </dd>
         <% end %>
 
+        <% if @software_record.admin_users.length != 0 && @software_record.admin_users[0].to_s != "" %>
+          <dt>Admin Users</dt>
+          <dd>
+            <% @software_record.admin_users.each do |admin_user| %>
+              <ul>
+                <li><%= admin_user %></li>
+              </ul>
+            <% end %>
+          </dd>
+        <% end %>
+
         <% if !@software_record.languages_used.nil? && !@software_record.languages_used.to_s.empty? %>
           <dt>Languages Used</dt>
           <dd>
