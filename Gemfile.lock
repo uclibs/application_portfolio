@@ -114,11 +114,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
-    coveralls_reborn (0.27.0)
-      simplecov (~> 0.22.0)
-      term-ansicolor (~> 1.7)
-      thor (~> 1.2)
-      tins (~> 1.32)
     crass (1.0.6)
     csv (3.2.6)
     date (3.3.3)
@@ -188,7 +183,9 @@ GEM
       net-protocol
     net-ssh (7.1.0)
     nio4r (2.5.9)
-    nokogiri (1.14.2-x86_64-darwin)
+    nokogiri (1.14.3-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
@@ -331,17 +328,13 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.6.2-x86_64-darwin)
+    sqlite3 (1.6.2-x86_64-linux)
     sshkit (1.21.4)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    sync (0.5.0)
-    term-ansicolor (1.7.1)
-      tins (~> 1.0)
     thor (1.2.1)
     tilt (2.1.0)
     timeout (0.3.2)
-    tins (1.32.1)
-      sync
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -372,6 +365,7 @@ GEM
 PLATFORMS
   x86_64-darwin-19
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
@@ -387,7 +381,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   chartkick (~> 4.0, >= 4.0.4)
   coffee-rails (~> 4.2)
-  coveralls_reborn
   csv
   devise
   dotenv-rails
