@@ -65,6 +65,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
       product_owners: %w[Owner1 Owner2],
+      admin_users: %w[Admin1 Admin2],
       hosting_environment_id: HostingEnvironment.first.id
     }
   end
@@ -117,6 +118,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Lead 1')
       expect(response.body).to have_content('Owner1')
       expect(response.body).to have_content('Owner2')
+      expect(response.body).to have_content('Admin1')
+      expect(response.body).to have_content('Admin2')
     end
   end
 
@@ -173,7 +176,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           created_by: 'Test Admin',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
-          product_owners: %w[Owner Owner2]
+          product_owners: %w[Owner Owner2],
+          admin_users: %w[Admin Admin2]
         }
       end
 
@@ -190,6 +194,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.tech_leads).to have_content('Lead2')
         expect(software_record.product_owners).to have_content('Owner')
         expect(software_record.product_owners).to have_content('Owner2')
+        expect(software_record.admin_users).to have_content('Admin')
+        expect(software_record.admin_users).to have_content('Admin2')
       end
 
       it 'redirects to the software_record' do
@@ -270,7 +276,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       created_by: 'Test Viewer',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
-      product_owners: %w[Owner1 Owner2]
+      product_owners: %w[Owner1 Owner2],
+      admin_users: %w[Admin1 Admin2]
     }
   end
 
@@ -320,6 +327,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Lead 1')
       expect(response.body).to have_content('Owner1')
       expect(response.body).to have_content('Owner2')
+      expect(response.body).to have_content('Admin1')
+      expect(response.body).to have_content('Admin2')
     end
   end
 
@@ -376,7 +385,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           created_by: 'Test Viewer',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
-          product_owners: %w[Owner Owner2]
+          product_owners: %w[Owner Owner2],
+          admin_users: %w[Admin Admin2]
         }
       end
 
@@ -393,6 +403,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.tech_leads).to have_content('Lead2')
         expect(software_record.product_owners).to have_content('Owner')
         expect(software_record.product_owners).to have_content('Owner2')
+        expect(software_record.admin_users).to have_content('Admin')
+        expect(software_record.admin_users).to have_content('Admin2')
       end
 
       it 'redirects to the software_record' do
@@ -472,7 +484,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       created_by: 'Test Manager',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
-      product_owners: %w[Owner1 Owner2]
+      product_owners: %w[Owner1 Owner2],
+      admin_users: %w[Admin1 Admin2]
     }
   end
 
@@ -522,6 +535,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Lead 1')
       expect(response.body).to have_content('Owner1')
       expect(response.body).to have_content('Owner2')
+      expect(response.body).to have_content('Admin1')
+      expect(response.body).to have_content('Admin2')
     end
   end
 
@@ -578,7 +593,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           created_by: 'Test Manager',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
-          product_owners: %w[Owner Owner2]
+          product_owners: %w[Owner Owner2],
+          admin_users: %w[Admin Admin2]
         }
       end
 
@@ -595,6 +611,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.tech_leads).to have_content('Lead2')
         expect(software_record.product_owners).to have_content('Owner')
         expect(software_record.product_owners).to have_content('Owner2')
+        expect(software_record.admin_users).to have_content('Admin')
+        expect(software_record.admin_users).to have_content('Admin2')
       end
 
       it 'redirects to the software_record' do
@@ -675,7 +693,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       created_by: 'Test Owner',
       developers: %w[Tester Random],
       tech_leads: ['Lead 1'],
-      product_owners: %w[Owner1 Owner2]
+      product_owners: %w[Owner1 Owner2],
+      admin_users: %w[Admin1 Admin2]
     }
   end
 
@@ -725,6 +744,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Lead 1')
       expect(response.body).to have_content('Owner1')
       expect(response.body).to have_content('Owner2')
+      expect(response.body).to have_content('Admin1')
+      expect(response.body).to have_content('Admin2')
     end
   end
 
@@ -781,7 +802,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           created_by: 'Test Owner',
           developers: %w[Developer Developer2],
           tech_leads: %w[Lead Lead2],
-          product_owners: %w[Owner Owner2]
+          product_owners: %w[Owner Owner2],
+          admin_users: %w[Admin Admin2]
         }
       end
 
@@ -798,6 +820,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.tech_leads).to have_content('Lead2')
         expect(software_record.product_owners).to have_content('Owner')
         expect(software_record.product_owners).to have_content('Owner2')
+        expect(software_record.admin_users).to have_content('Admin')
+        expect(software_record.admin_users).to have_content('Admin2')
       end
 
       it 'redirects to the software_record' do
