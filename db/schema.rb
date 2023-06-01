@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_230_503_170_052) do
+ActiveRecord::Schema.define(version: 2023_05_30_213413) do
+
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment"
     t.datetime "created_at", null: false
@@ -70,6 +69,23 @@ ActiveRecord::Schema.define(version: 20_230_503_170_052) do
     t.string "monitor_errors"
     t.string "authentication_type"
     t.text "admin_users"
+    t.string "service"
+    t.string "installed_version"
+    t.string "latest_version"
+    t.string "proposed_version"
+    t.date "last_upgrade_date"
+    t.boolean "upgrade_available"
+    t.boolean "vulnerabilities_reported"
+    t.boolean "vulnerabilities_fixed"
+    t.boolean "bug_fixes"
+    t.boolean "new_features"
+    t.boolean "breaking_changes"
+    t.boolean "end_of_life"
+    t.integer "priority"
+    t.string "upgrade_status"
+    t.string "who"
+    t.string "when"
+    t.string "upgrade_docs"
     t.index ["hosting_environment_id"], name: "index_software_records_on_hosting_environment_id"
     t.index ["software_type_id"], name: "index_software_records_on_software_type_id"
     t.index ["status_id"], name: "index_software_records_on_status_id"
@@ -115,4 +131,9 @@ ActiveRecord::Schema.define(version: 20_230_503_170_052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "software_records", "hosting_environments"
+  add_foreign_key "software_records", "software_types"
+  add_foreign_key "software_records", "statuses"
+  add_foreign_key "software_records", "vendor_records"
 end

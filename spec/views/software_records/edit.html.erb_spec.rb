@@ -29,7 +29,24 @@ RSpec.describe 'software_records/edit', type: :view do
                                                   software_type_id: SoftwareType.first.id,
                                                   authentication_type: 'DUO',
                                                   vendor_record_id: VendorRecord.first.id,
-                                                  created_by: 'Test User'
+                                                  created_by: 'Test User',
+                                                  service: 'App Service',
+                                                  installed_version: '4.5',
+                                                  latest_version: '4.6',
+                                                  proposed_version: '4.4',
+                                                  last_upgrade_date: '2020-02-02',
+                                                  upgrade_available: true,
+                                                  vulnerabilities_reported: true,
+                                                  vulnerabilities_fixed: true,
+                                                  bug_fixes: true,
+                                                  new_features: true,
+                                                  breaking_changes: true,
+                                                  end_of_life: true,
+                                                  priority: '10',
+                                                  upgrade_status: 'Review',
+                                                  who: 'Test Admin',
+                                                  when: 'Fall Quarter 2023',
+                                                  upgrade_docs: 'www.example.com'
                                                 ))
     session[:previous] = dashboard_path
   end
@@ -84,6 +101,21 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'input[name=?]', 'software_record[track_uptime]'
       assert_select 'input[name=?]', 'software_record[monitor_health]'
       assert_select 'input[name=?]', 'software_record[monitor_errors]'
+    end
+  end
+
+  it 'renders the maintenance log form' do
+    render
+    assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
+      assert_select 'input[name=?]', 'software_record[service]'
+      assert_select 'input[name=?]', 'software_record[installed_version]'
+      assert_select 'input[name=?]', 'software_record[proposed_version]'
+      assert_select 'input[name=?]', 'software_record[monitor_errors]'
+      assert_select 'input[name=?]', 'software_record[priority]'
+      assert_select 'input[name=?]', 'software_record[upgrade_status]'
+      assert_select 'input[name=?]', 'software_record[who]'
+      assert_select 'input[name=?]', 'software_record[when]'
+      assert_select 'input[name=?]', 'software_record[upgrade_docs]'
     end
   end
 end

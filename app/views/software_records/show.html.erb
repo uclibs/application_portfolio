@@ -35,6 +35,10 @@
           <a class="nav-link" id="upgrade-history-tab" data-toggle="tab" href="#upgrade-history" role="tab" aria-controls="contact"
             aria-selected="false">Upgrade History</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="upgrade-history-tab" data-toggle="tab" href="#maintenance-log" role="tab" aria-controls="contact"
+            aria-selected="false">Maintenance Log</a>
+        </li>
       </ul>
 
       <div class="tab-content" id="SoftwareRecordsTabContent">
@@ -50,6 +54,9 @@
       </div>
       <div class="tab-pane fade" id="upgrade-history" role="tabpanel">
         <%= render 'upgrade_history' %>
+      </div>
+      <div class="tab-pane fade" id="maintenance-log" role="tabpanel">
+        <%= render 'maintenance_log' %>
       </div>
       </div>
     </div>

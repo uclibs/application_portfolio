@@ -1,0 +1,53 @@
+        <dl>
+          <% unless @software_record.service.to_s.blank? %>
+            <dt class="inline-block">Name of Service: <span style="color: white; font-weight: normal"><%= @software_record.service %></span></dt>
+          <% end %>
+          <% unless @software_record.installed_version.to_s.blank? %>
+            <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.installed_version %></span></dt>
+          <% end %>
+          <% unless @software_record.latest_version.to_s.blank? %>
+            <dt class="inline-block">Latest version available: <span style="color: white; font-weight: normal"><%= @software_record.latest_version %></span></dt>
+          <% end %>
+          <% unless @software_record.proposed_version.to_s.blank? %>
+            <dt class="inline-block">Next Proposed version:<span style="color: white; font-weight: normal"><%= @software_record.proposed_version %></span></dt>
+          <% end %>
+          <% unless @software_record.last_upgrade_date.to_s.blank? %>
+            <dt class="inline-block">Last Upgrade Date: <span style="color: white; font-weight: normal"><%= @software_record.last_upgrade_date%></span></dt>
+          <% end %>
+          <% unless @software_record.upgrade_available.blank? %>
+            <dt class="inline-block">Is there an upgrade available:<span style="color: white; font-weight: normal"><%= @software_record.upgrade_available %></span></dt>
+          <% end %>
+          <% unless @software_record.vulnerabilities_reported.blank? %>
+            <dt class="inline-block">Are there vulnerabilities reported?<span style="color: white; font-weight: normal"><%= @software_record.vulnerabilities_reported %></span></dt>
+          <% end %>
+          <% unless @software_record.vulnerabilities_fixed.blank? %>
+            <dt class="inline-block">Does the new version fix vulnerabilities?: <span style="color: white; font-weight: normal"><%= @software_record.vulnerabilities_fixed %></span></dt>
+          <% end %>
+          <% unless @software_record.bug_fixes.blank? %>
+            <dt class="inline-block">Are there bug fixes reported?<span style="color: white; font-weight: normal"><%= @software_record.vulnerabilities_reported %></span></dt>
+          <% end %>
+          <% unless @software_record.new_features.blank? %>
+            <dt class="inline-block">Are there any new features?: <span style="color: white; font-weight: normal"><%= @software_record.new_features %></span></dt>
+          <% end %>
+          <% unless @software_record.breaking_changes.blank? %>
+            <dt class="inline-block">Are there any breaking changes?: <span style="color: white; font-weight: normal"><%= @software_record.breaking_changes %></span></dt>
+          <% end %>
+          <% unless @software_record.end_of_life.blank? %>
+            <dt class="inline-block">Is this an end of life version?: <span style="color: white; font-weight: normal"><%= @software_record.end_of_life %></span></dt>
+          <% end %>
+          <% unless @software_record.priority.blank? %>
+            <dt class="inline-block">Is this a priority: <span style="color: white; font-weight: normal"><%= @software_record.priority %></span></dt>
+          <% end %>
+          <% unless @software_record.upgrade_status.blank? %>
+            <dt class="inline-block">What is the status?: <span style="color: white; font-weight: normal"><%= @software_record.upgrade_status %></span></dt>
+          <% end %>
+          <% unless @software_record.who.blank? %>
+            <dt class="inline-block">Who is responsible?: <span style="color: white; font-weight: normal"><%= @software_record.who %></span></dt>
+          <% end %>
+          <% unless @software_record.when.blank? %>
+            <dt class="inline-block">When is this scheduled for?: <span style="color: white; font-weight: normal"><%= @software_record.when %></span></dt>
+          <% end %>
+          <% unless @software_record.upgrade_docs.blank? %>
+            <dt class="inline-block">Are there any ugprade links?: <span style="color: white; font-weight: normal"><%= @software_record.new_features %></span></dt>
+          <% end %>
+        </dl>
