@@ -16,26 +16,20 @@
 #
 
 require 'simplecov'
-require 'simplecov-lcov'
-require 'coveralls'
 
 SimpleCov.start 'rails' do
-  add_filter 'app/channels'
-  add_filter 'app/jobs'
-end
+  if ENV['CI']
+    require 'simplecov-lcov'
 
-SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
-SimpleCov.at_exit do
-  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
-  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-    [
-      SimpleCov::Formatter::HTMLFormatter,
-      SimpleCov::Formatter::LcovFormatter,
-      Coveralls::SimpleCov::Formatter
-    ]
-  )
-  SimpleCov.result.format!
+    SimpleCov::Formatter::LcovFormatter.config do |c|
+      c.report_with_single_file = true
+      c.single_report_path = 'coverage/lcov.info'
+    end
+
+    formatter SimpleCov::Formatter::LcovFormatter
+  end
+
+  add_filter %w[version.rb initializer.rb]
 end
 
 require 'devise'
