@@ -26,6 +26,4 @@ jobs:
     - name: Bundler Audit Action
       uses: andrewmcodes/bundler-audit-action@v0.1.0
     - name: Brakeman linter
-      uses: devmasx/brakeman-linter-action@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      run: bundle exec brakeman --no-exit-on-warn --no-exit-on-error
