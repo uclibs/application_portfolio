@@ -76,6 +76,20 @@ jobs:
             gem install rubocop
             bundle exec rubocop
 
+      # Brakeman
+      - run:
+          name: Run Brakeman
+          command: bundle exec brakeman -q -w 2
+
+      # Bundler-audit
+      - run:
+          name: Install Bundler-audit
+          command: gem install bundler-audit
+      - run:
+          name: Run Bundle-audit
+          command: bundle exec bundle audit check --update
+
+      #Rspec
       - run:
           name: Run rspec in parallel
           command: |

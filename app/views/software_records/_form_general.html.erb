@@ -44,7 +44,7 @@
             
             <div class="form-group">
               <%= form.label "Authentication Type" %>
-              <%= form.select(:authentication_type, ['None', 'DUO', 'LDAP','E-Directory','Shibboleth'], {}, { :class => 'form-control' }) %>
+              <%= form.select(:authentication_type, t('authentication_types'), {}, { :class => 'form-control' }) %>
             </div>
 
             <!-- Multiple Departments -->
