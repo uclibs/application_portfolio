@@ -61,7 +61,11 @@ RSpec.describe 'software_records/show', type: :view do
                                                   upgrade_status: 'Review',
                                                   who: 'Test Admin',
                                                   semester: 'Fall Quarter 2023',
-                                                  upgrade_docs: 'www.example.com'
+                                                  upgrade_docs: :'www.example.com',
+                                                  qa_support_servers: 'server.example.com',
+                                                  dev_support_servers: 'dev.example.com',
+                                                  date_cert_expires: '2020-01-01',
+                                                  monitor_certificates: 'Yes'
                                                 ))
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
     session[:previous] = dashboard_path
@@ -105,8 +109,12 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Dev URL/)
     expect(rendered).to match(/Production URL/)
     expect(rendered).to match(/Production support servers/)
+    expect(rendered).to match(/QA support servers/)
+    expect(rendered).to match(/DEV support servers/)
     expect(rendered).to match(/Last record change/)
-    expect(rendered).to match(/Track uptime/)
+    expect(rendered).to match(/Date that the certificate expires/)
+    expect(rendered).to match(/Uses SSL Certificate/)
+    expect(rendered).to match(/Tracks uptime wiht Monastic/)
     expect(rendered).to match(/Monitor health/)
     expect(rendered).to match(/Monitor errors/)
   end
