@@ -35,5 +35,9 @@ RSpec.describe SoftwareRecordsController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/software_records/1').to route_to('software_records#destroy', id: '1')
     end
+
+    it 'routes to #list_upgrades' do
+      expect(get: '/list_upgrades').to route_to('software_records#list_upgrades')
+    end
   end
 end

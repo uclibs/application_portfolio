@@ -1,0 +1,142 @@
+<section class="jumbotron text-center">
+  <br/>
+  <hr style = "background-color: black; width: 54%;">
+  <div class="container-fluid">
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Maintenace Priorities</h1>
+    <em style="font-size: 14px; color: black">Collection of all the software applications prioritized for Upgrade.</em><br/><br/>
+  </div>
+  <br/>
+  <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+    <p>
+      <%= link_to 'Create a new software record', new_software_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
+    </p>
+  <% end %>
+    <form>
+      <p style="font-size: 20px; color: black; display: inline;">Filter based on: </p>
+      <div style="color: black; display: inline;">
+        <input type="radio" id="stypes" name="filter_by" value="software_types" onclick="handleRadio(this);" style="margin-left: 30px;" <% if @params["filter_by"].to_s == "software_types" %>checked<% end %>>
+        <label for="stypes">Software Types</label>
+
+        <input type="radio" id="vrecords" name="filter_by" value="vendor_records" onclick="handleRadio(this);" style="margin-left: 30px;" <% if @params["filter_by"].to_s == "vendor_records" %>checked<% end %>>
+        <label for="vrecords">Vendor Records</label>
+
+        <button type="button" class="btn btn-dark clear-filters" <% if @params["filter_by"].nil? %>style="margin-left: 60px; display: none;" <% else %> style="margin-left: 60px; display: inline;" <% end %> onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
+      </div>
+      <div style="margin-top: 13px;"></div>
+
+      <div id="vendor-record-filter" <% if @params["filter_by"].to_s == "vendor_records" %> style="display: block;" <% else %>style="display: none"<% end %> >
+        <p style="font-size: 17px; color: black; display: inline;">Search/Filter value:
+        <select name="vendor_record_filter" onchange="this.form.submit()">
+            <option value="">None</option>
+            <% @vendor_records.each do |vendor| %>
+              <% if vendor.id.to_s == @params["vendor_record_filter"].to_s %>
+                <option value="<%= vendor.id %>" selected><%= vendor.title %></option>
+              <% else %>
+                <option value="<%= vendor.id %>"><%= vendor.title %></option>
+              <% end %>
+            <% end %>
+          </select>
+      </div>
+      <div id="software-type-filter" <% if @params["filter_by"].to_s == "software_types" %> style="display: block;" <% else %>style="display: none"<% end %> >
+        <p style="font-size: 17px; color: black; display: inline;">Search/Filter value:
+        <select name="software_type_filter" onchange="this.form.submit()">
+            <option value="">None</option>
+            <% @software_types.each do |type| %>
+              <% if type.id.to_s == @params["software_type_filter"].to_s %>
+                <option value="<%= type.id %>" selected><%= type.title %></option>
+              <% else %>
+                <option value="<%= type.id %>"><%= type.title %></option>
+              <% end %>
+            <% end %>
+          </select>
+      </div>
+    </form>
+</div>
+<br/>
+<hr style = "background-color: black; width: 54%;">
+</section>
+
+<% if @softwarerecords_count != 0 %>
+<div class="container animated fadeInLeft" style="margin-bottom: 10rem">
+  <div class="row">
+    <table class="table software-records-table" style="word-break: initial;">
+      <thead>
+        <tr>
+          <th class="text-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+            <% if params[:direction] == "asc" || params[:direction] == nil %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %></th>
+
+            <th class="text-left" style="padding-left: 20px"><%= sortable "priority", "Priority Rating" %>
+              <% if params[:direction] == "asc" || params[:direction] == nil %>
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+
+          <th class="text-left" style="padding-left: 20px"><%= sortable "installed_version", "Current Version" %>
+            <% if params[:direction] == "asc" || params[:direction] == nil %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %></th>
+          <th class="text-left" style="padding-left: 20px"><%= sortable "proposed_version", "Proposed Version" %>
+            <% if params[:direction] == "asc" || params[:direction] == nil %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %></th>
+          <th class="text-left" style="padding-left: 20px"><%= sortable "last_upgrade_date", "Last Upgrade Date" %>
+            <% if params[:direction] == "asc" || params[:direction] == nil %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %></th>
+
+            <th class="text-left" style="padding-left: 20px"><%= sortable "vulnerabilities_reported", "Vulnerabilites Reported" %>
+              <% if params[:direction] == "asc" || params[:direction] == nil %>
+                <i class="fa fa-caret-up"></i>
+              <% else %>
+                <i class="fa fa-caret-down"></i>
+              <% end %></th>
+
+          <% if current_user.role.to_s == "viewer" %>
+            <th class="text-left" style="padding-left: 20px">Actions</th>
+          <% elsif current_user.role.to_s == "owner" %>
+            <th colspan="2" class="text-left" style="padding-left: 20px">Actions</th>
+          <% else %>
+            <th colspan="3" class="text-left" style="padding-left: 20px">Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @software_records.each do |software_record| %>
+          <tr>
+            <td style="padding-left: 40px;"><%= software_record.title %></td>
+            <td><%= software_record.priority %></td>
+            <td><%= software_record.installed_version %></td>
+            <td><%= software_record.proposed_version %></td>
+            <td><%= software_record.last_upgrade_date %></td>
+            <td><%= software_record.vulnerabilities_reported %></td>
+            <% if current_user.role.to_s == "viewer" %>
+              <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+            <% elsif current_user.role.to_s == "owner" %>
+              <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+              <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+            <% else %>
+              <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+              <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+              <td><%= link_to 'Delete', software_record, method: :delete, :class => "btn btn-danger action-btn", data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% else %>
+<h3 class="text-center">No records found</h3>
+<% end %>

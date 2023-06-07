@@ -17,6 +17,7 @@
                 <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
                 <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Hosting Env.'s</a>
                 <hr style="background-color: white">
+								<a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Next Software Upgrades</a>
                 <a href="<%= users_path %>"><i class="fas fa-users float-right"></i> Manage all Users</a>
                 <a href="<%= file_uploads_new_path %>"><i class="fas fa-file-import float-right"></i> Import Data</a>
                 <hr style="background-color: white">
@@ -39,6 +40,8 @@
                 <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
                 <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
                 <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Hosting Env.'s</a>
+                <hr style="background-color: white">
+		 					<a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Next Software Upgrades</a>
             </div>
             <br/>
             <% end %>
@@ -56,6 +59,8 @@
                 <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-right"></i> Export Software Records</a>
                 <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-right"></i> Export Software Types</a>
                 <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-right"></i> Export Vendor Records</a>
+                <hr style="background-color: white">
+									<a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Next Software Upgrades</a>
             </div>
             <br/>
             <% end %>
@@ -70,7 +75,7 @@
                 <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
                 <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Hosting Env.'s</a>
             </div>
-            <br/>      
+            <br/>
         <% end %>
     <% else %>
         <p> Please sign-in to access this content !</p>

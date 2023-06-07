@@ -138,6 +138,22 @@ class SoftwareRecordsController < ApplicationController
     decrypt sensitive_data if sensitive_data.to_s.present?
   end
 
+  def list_upgrades
+    $page_title = 'Maintenance Priority| UCL Application Portfolio'
+    @params = request.query_parameters
+
+    @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
+                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_column} #{sort_direction}")
+                        elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && !@params['vendor_record_filter'].empty?
+                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_column} #{sort_direction}")
+                        else
+                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
+                        end
+    @vendor_records = VendorRecord.all
+    @software_types = SoftwareType.all
+    @softwarerecords_count = SoftwareRecord.count
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -146,11 +162,11 @@ class SoftwareRecordsController < ApplicationController
   end
 
   def sort_column
-    SoftwareRecord.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+    SoftwareRecord.column_names.include?(params[:sort]) ? params[:sort] : 'priority'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   # Only allow a trusted parameter "white list" through.
