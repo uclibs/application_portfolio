@@ -27,6 +27,11 @@ class CreateChangeRequests < ActiveRecord::Migration[6.1]
       t.string :director_department
       t.string :director_email
 
+      t.integer :application_pages
+      t.integer :number_roles
+      t.boolean :authentication_needed, default: true
+      t.boolean :custom_error_pages, default: true
+
       t.timestamps
     end
   end

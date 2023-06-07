@@ -12,22 +12,42 @@
           </div>
         <% end %>
 
-        <div class="field"
+        <div class="field">
           <%= form.label :change_title %>
           <%= form.text_field :change_title, :class => "form-control" %>
         </div><br/>
 
-        <div class="field"
+        <div class="field">
           <%= form.label :change_description %>
           <%= form.text_area :change_description, :class => "form-control" %>
         </div><br/>
 
-        <div class="field"
+        <div class="field">
+          <%= form.label :application_pages %>
+          <%= form.text_field :application_pages, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :number_roles %>
+          <%= form.text_field :number_roles, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :authentication_needed %>
+          <%= form.check_box :authentication_needed, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :custom_error_pages %>
+          <%= form.check_box :custom_error_pages, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
           <%= form.label :change_submitted_date %>
           <%= form.date_field :change_submitted_date, :class => "form-control" %>
         </div><br/>
 
-        <div class="field"
+        <div class="field">
           <%= form.label :change_completed %>
           <%= form.check_box :change_completed, :class => "form-control" %>
         </div><br/>

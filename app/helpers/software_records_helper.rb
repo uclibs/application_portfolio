@@ -76,6 +76,7 @@ module SoftwareRecordsHelper
                         'false'
                       end
     converted_value = value ? 'Yes' : 'No'
+  end
 
   def software_records_upgrade_hash(software_pid)
     @software_pid = software_pid

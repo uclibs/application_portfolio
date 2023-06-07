@@ -65,6 +65,6 @@ class ChangeRequestsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def change_request_params
-    params.require(:change_request).permit(:change_title, :software_record_id, :change_description, :change_submitted_date, :change_completed)
+    params.require(:change_request).permit(:change_title, :software_record_id, :change_description, :change_submitted_date, :change_completed, :application_pages, :number_roles, :authentication_needed, :custom_error_pages)
   end
 end

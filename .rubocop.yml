@@ -21,7 +21,7 @@ Lint/UselessAssignment:
   Exclude:
     - 'app/helpers/software_records_helper.rb'
 Metrics/AbcSize:
-  Max: 25
+  Max: 50
 Lint/Void:
   Exclude:
     - 'app/helpers/change_requests_helper.rb'

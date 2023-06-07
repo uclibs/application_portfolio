@@ -47,7 +47,11 @@ RSpec.describe ChangeRequestsController, type: :controller do
     {
       change_title: 'A Good Software',
       change_description: 'A Good description about the software',
-      software_record_id: 1
+      software_record_id: 1,
+      application_pages: 10,
+      number_roles: 3,
+      authentication_needed: true,
+      custom_error_pages: true
     }
   end
 
@@ -177,7 +181,11 @@ RSpec.describe ChangeRequestsController, type: :controller do
         {
           change_title: 'A Good Software',
           change_description: 'A Good description about the software',
-          software_record_id: 1
+          software_record_id: 1,
+          application_pages: 10,
+          number_roles: 3,
+          authentication_needed: true,
+          custom_error_pages: true
         }
       end
 

@@ -4,9 +4,13 @@
         <blockquote class="blockquote text-center">
             <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_title %></h2>
             <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_description %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.application_pages %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.number_roles %></h2>
             <div class="blockquote-footer"><cite title="System"><%= @software_name %></cite></div>
             <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_submitted_date %></h2>
             <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.change_completed) %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.authentication_needed) %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.custom_error_pages) %></h2>
         </blockquote>
 		<br/>
       <div class="text-center">
