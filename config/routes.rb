@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :software_records
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'front#index'
+  get 'list_upgrades' => 'software_records#list_upgrades'
   get 'about', to: 'front#about'
   get 'contact', to: 'front#contact'
   get 'request/new', to: 'front#new'

@@ -44,7 +44,24 @@ RSpec.describe 'software_records/show', type: :view do
                                                   last_record_change: now,
                                                   track_uptime: 'Yes',
                                                   monitor_health: 'Yes',
-                                                  monitor_errors: 'Yes'
+                                                  monitor_errors: 'Yes',
+                                                  service: 'App Service',
+                                                  installed_version: '4.5',
+                                                  latest_version: '4.6',
+                                                  proposed_version: '4.4',
+                                                  last_upgrade_date: '2020-02-02',
+                                                  upgrade_available: true,
+                                                  vulnerabilities_reported: true,
+                                                  vulnerabilities_fixed: true,
+                                                  bug_fixes: true,
+                                                  new_features: true,
+                                                  breaking_changes: true,
+                                                  end_of_life: true,
+                                                  priority: '10',
+                                                  upgrade_status: 'Review',
+                                                  who: 'Test Admin',
+                                                  semester: 'Fall Quarter 2023',
+                                                  upgrade_docs: 'www.example.com'
                                                 ))
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
     session[:previous] = dashboard_path
@@ -92,5 +109,26 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Track uptime/)
     expect(rendered).to match(/Monitor health/)
     expect(rendered).to match(/Monitor errors/)
+  end
+
+  it 'renders maintenance log values' do
+    render
+    expect(rendered).to match(/Name of Service/)
+    expect(rendered).to match(/Current Version/)
+    expect(rendered).to match(/Latest version available/)
+    expect(rendered).to match(/Next Proposed version/)
+    expect(rendered).to match(/Last Upgrade Date/)
+    expect(rendered).to match(/Is there an upgrade available/)
+    expect(rendered).to match(/Are there vulnerabilities reported/)
+    expect(rendered).to match(/Does the new version fix vulnerabilities/)
+    expect(rendered).to match(/Are there bug fixes reported/)
+    expect(rendered).to match(/Are there any new features/)
+    expect(rendered).to match(/Are there any breaking changes/)
+    expect(rendered).to match(/Is this an end of life version/)
+    expect(rendered).to match(/Is this a priority/)
+    expect(rendered).to match(/What is the status/)
+    expect(rendered).to match(/Who is responsible/)
+    expect(rendered).to match(/What semester is this scheduled for/)
+    expect(rendered).to match(/Are there any ugprade links/)
   end
 end

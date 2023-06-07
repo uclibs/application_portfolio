@@ -138,11 +138,35 @@ class SoftwareRecordsController < ApplicationController
     decrypt sensitive_data if sensitive_data.to_s.present?
   end
 
+  def list_upgrades
+    $page_title = 'Maintenance Priority| UCL Application Portfolio'
+    @params = request.query_parameters
+
+    @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
+                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && !@params['vendor_record_filter'].empty?
+                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        else
+                          SoftwareRecord.order("#{sort_priority} #{sort_direction_priority}")
+                        end
+    @vendor_records = VendorRecord.all
+    @software_types = SoftwareType.all
+    @softwarerecords_count = SoftwareRecord.count
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_software_record
     @software_record = SoftwareRecord.find(params[:id])
+  end
+
+  def sort_priority
+    SoftwareRecord.column_names.include?(params[:sort]) ? params[:sort] : 'priority'
+  end
+
+  def sort_direction_priority
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def sort_column
@@ -192,6 +216,23 @@ class SoftwareRecordsController < ApplicationController
       :track_uptime,
       :monitor_health,
       :monitor_errors,
+      :service,
+      :installed_version,
+      :latest_version,
+      :proposed_version,
+      :last_upgrade_date,
+      :upgrade_available,
+      :vulnerabilities_reported,
+      :vulnerabilities_fixed,
+      :bug_fixes,
+      :new_features,
+      :breaking_changes,
+      :end_of_life,
+      :priority,
+      :upgrade_status,
+      :who,
+      :semester,
+      :upgrade_docs,
       tech_leads: [],
       developers: [],
       product_owners: [],
