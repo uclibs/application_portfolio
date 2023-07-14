@@ -16,9 +16,17 @@ class FileUploadsController < ApplicationController
     $page_title = 'Import Seed Data | UCL Application Portfolio'
     @file = FileUpload.new(file_upload_params)
     uploaded_io = params[:file_upload][:attachment]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+
+    # Sanitize the filename to remove any potentially malicious characters
+    sanitized_filename = params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, '')
+
+    # Construct the safe path using Rails.root.join and the sanitized filename
+    safe_path = File.join(Rails.root, 'public', 'uploads', sanitized_filename)
+
+    File.open(safe_path, 'wb') do |file|
       file.write(uploaded_io.read)
     end
+
     filename = params[:file_upload][:attachment].original_filename
     option = params[:seed].to_s
     user = "#{current_user.first_name} #{current_user.last_name}"
@@ -39,7 +47,18 @@ class FileUploadsController < ApplicationController
       system('cd../..')
       $output = system('ruby', 'load_records.rb', 'hosting_env', filename, user)
     end
-    File.delete(Rails.root.join('public', 'uploads', uploaded_io.original_filename))
+
+    # Sanitize the filename to remove any potentially malicious characters
+    sanitized_filename = params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, '')
+
+    # Construct the safe path using Rails.root.join and the sanitized filename
+    safe_path = File.join(Rails.root, 'public', 'uploads', sanitized_filename)
+
+    File.open(safe_path, 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+
+    File.delete(safe_path)
     redirect_to file_uploads_new_path,
                 notice: "The file `#{uploaded_io.original_filename}` has been loaded successfully."
   rescue StandardError

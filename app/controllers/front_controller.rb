@@ -22,7 +22,8 @@ class FrontController < ApplicationController
     rescue StandardError
       @indesign_count = 0
     end
-    @softwarerecords_production = SoftwareRecordsController.production_dashboard(@user).order("#{sort_column} #{sort_direction}")
+    @softwarerecords_production = SoftwareRecordsController.production_dashboard(@user).order("#{sort_column}
+#{sort_direction}")
     begin
       @production_count = @softwarerecords_production.count
     rescue StandardError
@@ -54,56 +55,26 @@ class FrontController < ApplicationController
 
   def search
     if params[:search].blank?
-      redirect_to(root_path, alert: 'Cannot search on empty field !') && return
+      redirect_to(root_path, alert: 'Cannot search on empty field!') && return
     else
       @parameter = params[:search].downcase
-      @totalcolumns_softwarerecords = SoftwareRecord.columns.count
-      @softwarerecords_column_count = 0
-      @softwarerecords_query = ''
-      SoftwareRecord.columns.each do |column|
-        @softwarerecords_column_count += 1
-        @softwarerecords_query += if @totalcolumns_softwarerecords == @softwarerecords_column_count
-                                    "(lower(#{column.name}) LIKE :search)"
-                                  else
-                                    "(lower(#{column.name}) LIKE :search) or"
-                                  end
-      end
+      search_term = "%#{@parameter}%"
 
-      @totalcolumns_vendorrecords = VendorRecord.columns.count
-      @vendorrecords_column_count = 0
-      @vendorrecords_query = ''
-      VendorRecord.columns.each do |column|
-        @vendorrecords_column_count += 1
-        @vendorrecords_query += if @totalcolumns_vendorrecords == @vendorrecords_column_count
-                                  "(lower(#{column.name}) LIKE :search)"
-                                else
-                                  "(lower(#{column.name}) LIKE :search) or"
-                                end
-      end
+      software_records_columns = SoftwareRecord.columns.map { |column| "lower(#{column.name}) LIKE :search" }
+      @softwarerecords_results = SoftwareRecord.where(software_records_columns.join(' OR '), search: search_term)
 
-      @totalcolumns_softwaretypes = SoftwareType.columns.count
-      @softwaretypes_column_count = 0
-      @softwaretypes_query = ''
-      SoftwareType.columns.each do |column|
-        @softwaretypes_column_count += 1
-        @softwaretypes_query += if @totalcolumns_softwaretypes == @softwaretypes_column_count
-                                  "(lower(#{column.name}) LIKE :search)"
-                                else
-                                  "(lower(#{column.name}) LIKE :search) or"
-                                end
-      end
-      @softwarerecords_results = SoftwareRecord.all.where(@softwarerecords_query,
-                                                          search: "%#{@parameter}%")
-      @softwaretypes_results = SoftwareType.all.where(@softwaretypes_query,
-                                                      search: "%#{@parameter}%")
-      @vendorrecords_results = VendorRecord.all.where(@vendorrecords_query,
-                                                      search: "%#{@parameter}%")
+      vendor_records_columns = VendorRecord.columns.map { |column| "lower(#{column.name}) LIKE :search" }
+      @vendorrecords_results = VendorRecord.where(vendor_records_columns.join(' OR '), search: search_term)
+
+      software_types_columns = SoftwareType.columns.map { |column| "lower(#{column.name}) LIKE :search" }
+      @softwaretypes_results = SoftwareType.where(software_types_columns.join(' OR '), search: search_term)
     end
   end
 
   def create
     @requestnewsoftwares = SoftwareRecord.new(params.require(:software_record).permit(:title,
-                                                                                      :description, :status, :created_by, :tentative_date_of_implementation, :notes, :departments, :product_owners, :software_type_id, :vendor_recor_id))
+                                                                                      :description, :status, :created_by,
+                                                                                      :tentative_date_of_implementation, :notes, :departments, :product_owners, :software_type_id, :vendor_recor_id))
     if @requestnewsoftwares.save
       AdminMailer.send_email(params[:id], params[:created_by])
       redirect_to @request_softwares, notice: 'Software record was successfully requested.'
