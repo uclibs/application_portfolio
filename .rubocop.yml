@@ -16,3 +16,6 @@ Style/Documentation:
 Style/StringLiterals:
   Exclude:
     - 'db/schema.rb'
+Lint/UselessAssignment:
+  Exclude:
+    - 'app/helpers/software_records_helper.rb'

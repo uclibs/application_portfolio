@@ -180,6 +180,8 @@ class SoftwareRecordsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def software_record_params
     params.require(:software_record).permit(
+      :themes,
+      :modules,
       :title,
       :description,
       :status_id,

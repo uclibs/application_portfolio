@@ -30,7 +30,9 @@ RSpec.describe 'software_records/new', type: :view do
                                                   hosting_environment_id: HostingEnvironment.first.id,
                                                   software_type_id: SoftwareType.first.id,
                                                   vendor_record_id: VendorRecord.first.id,
-                                                  created_by: 'Test User'
+                                                  created_by: 'Test User',
+                                                  themes: true,
+                                                  modules: true
                                                 ))
   end
 
@@ -47,6 +49,8 @@ RSpec.describe 'software_records/new', type: :view do
       assert_select 'select[name=?]', 'software_record[status_id]'
       assert_select 'select[name=?]', 'software_record[software_type_id]'
       assert_select 'select[name=?]', 'software_record[vendor_record_id]'
+      assert_select 'input[name=?]', 'software_record[themes]'
+      assert_select 'input[name=?]', 'software_record[modules]'
     end
   end
 end

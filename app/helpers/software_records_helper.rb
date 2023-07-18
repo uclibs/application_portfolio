@@ -67,4 +67,14 @@ module SoftwareRecordsHelper
   def yes_no_toggle(attr)
     @software_record.read_attribute(attr)
   end
+
+  def true_false_toggle(_attr)
+    value = true
+    converted_value = if value
+                        'true'
+                      else
+                        'false'
+                      end
+    converted_value = value ? 'Yes' : 'No'
+  end
 end

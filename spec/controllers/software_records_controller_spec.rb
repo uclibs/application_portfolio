@@ -87,7 +87,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
       date_cert_expires: '2020-01-01',
-      monitor_certificates: 'yes'
+      monitor_certificates: 'yes',
+      themes: true,
+      modules: true
     }
   end
 
@@ -367,7 +369,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
       date_cert_expires: '2020-01-01',
-      monitor_certificates: 'yes'
+      monitor_certificates: 'yes',
+      themes: true,
+      modules: true
     }
   end
 
@@ -644,7 +648,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
       date_cert_expires: '2020-01-01',
-      monitor_certificates: 'yes'
+      monitor_certificates: 'yes',
+      themes: true,
+      modules: true
     }
   end
 
@@ -787,7 +793,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
           date_cert_expires: '2020-01-01',
-          monitor_certificates: 'yes'
+          monitor_certificates: 'yes',
+          themes: true,
+          modules: true
         }
       end
 
@@ -922,7 +930,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
       date_cert_expires: '2020-01-01',
-      monitor_certificates: 'yes'
+      monitor_certificates: 'yes',
+      themes: true,
+      modules: true
     }
   end
 
@@ -1065,7 +1075,9 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
           date_cert_expires: '2020-01-01',
-          monitor_certificates: 'yes'
+          monitor_certificates: 'yes',
+          themes: true,
+          modules: true
         }
       end
 

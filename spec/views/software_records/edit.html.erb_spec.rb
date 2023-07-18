@@ -101,6 +101,8 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'input[name=?]', 'software_record[track_uptime]'
       assert_select 'input[name=?]', 'software_record[monitor_health]'
       assert_select 'input[name=?]', 'software_record[monitor_errors]'
+      assert_select 'input[name=?]', 'software_record[themes]'
+      assert_select 'input[name=?]', 'software_record[modules]'
     end
   end
 

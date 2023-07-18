@@ -65,7 +65,9 @@ RSpec.describe 'software_records/show', type: :view do
                                                   qa_support_servers: 'server.example.com',
                                                   dev_support_servers: 'dev.example.com',
                                                   date_cert_expires: '2020-01-01',
-                                                  monitor_certificates: 'Yes'
+                                                  monitor_certificates: 'Yes',
+                                                  themes: true,
+                                                  modules: true
                                                 ))
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
     session[:previous] = dashboard_path
@@ -117,6 +119,8 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Tracks uptime with Monastic/)
     expect(rendered).to match(/Monitor health/)
     expect(rendered).to match(/Monitor errors/)
+    expect(rendered).to match(/Contains Themes/)
+    expect(rendered).to match(/Contains Modules/)
   end
 
   it 'renders maintenance log values' do
