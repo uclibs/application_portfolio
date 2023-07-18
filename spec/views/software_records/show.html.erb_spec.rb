@@ -114,7 +114,7 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Last record change/)
     expect(rendered).to match(/Date that the certificate expires/)
     expect(rendered).to match(/Uses SSL Certificate/)
-    expect(rendered).to match(/Tracks uptime wiht Monastic/)
+    expect(rendered).to match(/Tracks uptime with Monastic/)
     expect(rendered).to match(/Monitor health/)
     expect(rendered).to match(/Monitor errors/)
   end

@@ -40,7 +40,7 @@
 
             <% if params[:id].nil? %>
               <div class="form-group">
-                <%= form.label :monitor_certificates, 'Track certificates?' %><br/>
+                <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
                 <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_certificates, "Yes" %>
                 <%= form.label :monitor_certificates, "No", :value => "No" %>
@@ -48,7 +48,7 @@
               </div>
             <% else %>
               <div class="form-group">
-                <%= form.label :monitor_certificates, 'Track uptime?' %><br/>
+                <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
                 <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_certificates, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
                 <%= form.label :monitor_certificates, "No", :value => "No" %>
