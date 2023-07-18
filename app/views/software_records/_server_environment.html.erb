@@ -11,11 +11,23 @@
           <% unless @software_record.production_support_servers.to_s.blank? %>
             <dt class="inline-block">Production support servers:<span style="color: white; font-weight: normal"><%= @software_record.production_support_servers %></span></dt>
           <% end %>
+          <% unless @software_record.qa_support_servers.to_s.blank? %>
+            <dt class="inline-block">QA support servers:<span style="color: white; font-weight: normal"><%= @software_record.qa_support_servers %></span></dt>
+          <% end %>
+          <% unless @software_record.dev_support_servers.to_s.blank? %>
+            <dt class="inline-block">DEV support servers:<span style="color: white; font-weight: normal"><%= @software_record.dev_support_servers %></span></dt>
+          <% end %>
           <% unless @software_record.last_record_change.to_s.blank? %>
             <dt class="inline-block">Last record change: <span style="color: white; font-weight: normal"><%= @software_record.last_record_change %></span></dt>
           <% end %>
+          <% unless @software_record.date_cert_expires.to_s.blank? %>
+            <dt class="inline-block">Date that the certificate expires: <span style="color: white; font-weight: normal"><%= @software_record.date_cert_expires %></span></dt>
+          <% end %>
+          <% unless @software_record.monitor_certificates.blank? %>
+            <dt class="inline-block">Uses SSL Certificate:<span style="color: white; font-weight: normal"><%= @software_record.monitor_certificates %></span></dt>
+          <% end %>
           <% unless @software_record.track_uptime.blank? %>
-            <dt class="inline-block">Track uptime:<span style="color: white; font-weight: normal"><%= @software_record.track_uptime %></span></dt>
+            <dt class="inline-block">Tracks uptime with Monastic:<span style="color: white; font-weight: normal"><%= @software_record.track_uptime %></span></dt>
           <% end %>
           <% unless @software_record.monitor_health.blank? %>
             <dt class="inline-block">Monitor health:<span style="color: white; font-weight: normal"><%= @software_record.monitor_health %></span></dt>
@@ -25,4 +37,3 @@
           <% end %>
 
         </dl>
- 

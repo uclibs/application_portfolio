@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_230_530_213_413) do
+ActiveRecord::Schema.define(version: 20_230_606_145_207) do
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment"
     t.datetime "created_at", null: false
@@ -87,6 +87,10 @@ ActiveRecord::Schema.define(version: 20_230_530_213_413) do
     t.string "who"
     t.string "semester"
     t.string "upgrade_docs"
+    t.text "qa_support_servers"
+    t.text "dev_support_servers"
+    t.date "date_cert_expires"
+    t.string "monitor_certificates"
     t.index ["hosting_environment_id"], name: "index_software_records_on_hosting_environment_id"
     t.index ["software_type_id"], name: "index_software_records_on_software_type_id"
     t.index ["status_id"], name: "index_software_records_on_status_id"
@@ -132,4 +136,9 @@ ActiveRecord::Schema.define(version: 20_230_530_213_413) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "software_records", "hosting_environments"
+  add_foreign_key "software_records", "software_types"
+  add_foreign_key "software_records", "statuses"
+  add_foreign_key "software_records", "vendor_records"
 end

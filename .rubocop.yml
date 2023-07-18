@@ -7,6 +7,7 @@ Metrics/CyclomaticComplexity:
 Metrics/BlockLength:
   Exclude:
     - 'spec/controllers/software_records_controller_spec.rb'
+    - 'spec/controllers/front_controller_spec.rb'
 Metrics/MethodLength:
   Exclude:
     - 'load_records.rb'

@@ -83,7 +83,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
-      upgrade_docs: 'www.example.com'
+      upgrade_docs: 'www.example.com',
+      qa_support_servers: 'server.example.com',
+      dev_support_servers: 'dev.example.com',
+      date_cert_expires: '2020-01-01',
+      monitor_certificates: 'yes'
     }
   end
 
@@ -146,6 +150,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(response.body).to have_content('server.example.com')
+      expect(response.body).to have_content('dev.example.com')
+      expect(response.body).to have_content('2020-01-01')
+      expect(response.body).to have_content('yes')
     end
   end
 
@@ -220,7 +228,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
-          upgrade_docs: 'www.example.com'
+          upgrade_docs: 'www.example.com',
+          qa_support_servers: 'server.example.com',
+          dev_support_servers: 'dev.example.com',
+          date_cert_expires: '2020-01-01',
+          monitor_certificates: 'yes'
         }
       end
 
@@ -249,6 +261,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
+        expect(software_record.qa_support_servers).to have_content('server.example.com')
+        expect(software_record.dev_support_servers).to have_content('dev.example.com')
+        expect(software_record.date_cert_expires).to have_content('2020-01-01')
+        expect(software_record.monitor_certificates).to have_content('yes')
       end
 
       it 'redirects to the software_record' do
@@ -347,7 +363,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
-      upgrade_docs: 'www.example.com'
+      upgrade_docs: 'www.example.com',
+      qa_support_servers: 'server.example.com',
+      dev_support_servers: 'dev.example.com',
+      date_cert_expires: '2020-01-01',
+      monitor_certificates: 'yes'
     }
   end
 
@@ -408,6 +428,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(response.body).to have_content('server.example.com')
+      expect(response.body).to have_content('dev.example.com')
+      expect(response.body).to have_content('2020-01-01')
+      expect(response.body).to have_content('yes')
     end
   end
 
@@ -482,7 +506,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
-          upgrade_docs: 'www.example.com'
+          upgrade_docs: 'www.example.com',
+          qa_support_servers: 'server.example.com',
+          dev_support_servers: 'dev.example.com',
+          date_cert_expires: '2020-01-01',
+          monitor_certificates: 'yes'
         }
       end
 
@@ -511,6 +539,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
+        expect(software_record.qa_support_servers).to have_content('server.example.com')
+        expect(software_record.dev_support_servers).to have_content('dev.example.com')
+        expect(software_record.date_cert_expires).to have_content('2020-01-01')
+        expect(software_record.monitor_certificates).to have_content('yes')
       end
 
       it 'redirects to the software_record' do
@@ -608,7 +640,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
-      upgrade_docs: 'www.example.com'
+      upgrade_docs: 'www.example.com',
+      qa_support_servers: 'server.example.com',
+      dev_support_servers: 'dev.example.com',
+      date_cert_expires: '2020-01-01',
+      monitor_certificates: 'yes'
     }
   end
 
@@ -669,6 +705,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(response.body).to have_content('server.example.com')
+      expect(response.body).to have_content('dev.example.com')
+      expect(response.body).to have_content('2020-01-01')
+      expect(response.body).to have_content('yes')
     end
   end
 
@@ -743,7 +783,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
-          upgrade_docs: 'www.example.com'
+          upgrade_docs: 'www.example.com',
+          qa_support_servers: 'server.example.com',
+          dev_support_servers: 'dev.example.com',
+          date_cert_expires: '2020-01-01',
+          monitor_certificates: 'yes'
         }
       end
 
@@ -772,6 +816,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
+        expect(software_record.qa_support_servers).to have_content('server.example.com')
+        expect(software_record.dev_support_servers).to have_content('dev.example.com')
+        expect(software_record.date_cert_expires).to have_content('2020-01-01')
+        expect(software_record.monitor_certificates).to have_content('yes')
       end
 
       it 'redirects to the software_record' do
@@ -870,7 +918,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
-      upgrade_docs: 'www.example.com'
+      upgrade_docs: 'www.example.com',
+      qa_support_servers: 'server.example.com',
+      dev_support_servers: 'dev.example.com',
+      date_cert_expires: '2020-01-01',
+      monitor_certificates: 'yes'
     }
   end
 
@@ -931,6 +983,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(response.body).to have_content('server.example.com')
+      expect(response.body).to have_content('dev.example.com')
+      expect(response.body).to have_content('2020-01-01')
+      expect(response.body).to have_content('yes')
     end
   end
 
@@ -1005,7 +1061,11 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
-          upgrade_docs: 'www.example.com'
+          upgrade_docs: 'www.example.com',
+          qa_support_servers: 'server.example.com',
+          dev_support_servers: 'dev.example.com',
+          date_cert_expires: '2020-01-01',
+          monitor_certificates: 'yes'
         }
       end
 
@@ -1034,6 +1094,10 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
+        expect(software_record.qa_support_servers).to have_content('server.example.com')
+        expect(software_record.dev_support_servers).to have_content('dev.example.com')
+        expect(software_record.date_cert_expires).to have_content('2020-01-01')
+        expect(software_record.monitor_certificates).to have_content('yes')
       end
 
       it 'redirects to the software_record' do
