@@ -21,6 +21,30 @@ RSpec.describe SoftwareRecord, type: :model do
       description: 'test env.'
     )
   end
+
+  describe 'associations' do
+    it { should belong_to(:software_type) }
+    it { should belong_to(:vendor_record) }
+    it { should belong_to(:status) }
+    it { should belong_to(:hosting_environment) }
+    it { should have_many(:change_request) }
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:created_by) }
+  end
+
+  describe 'serialization' do
+    it { should serialize(:tech_leads).as(Array) }
+    it { should serialize(:developers).as(Array) }
+    it { should serialize(:product_owners).as(Array) }
+    it { should serialize(:admin_users).as(Array) }
+    it { should serialize(:departments).as(Array) }
+  end
+
   it 'is valid if all required fields are provided' do
     softwarerecord = SoftwareRecord.new(title: 'Scholar UC',
                                         description: 'UC Digital conservatory preservation library', status_id: Status.first.id, hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id, created_by: 'Test User')

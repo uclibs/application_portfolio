@@ -2,6 +2,10 @@
 
 FactoryBot.define do
   factory :software_record do
+    association :software_type
+    association :vendor_record
+    association :status
+    association :hosting_environment
     title { 'MyString' }
     description { 'MyText' }
     status_id { Status.first.id }

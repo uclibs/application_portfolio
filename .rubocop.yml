@@ -8,6 +8,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/controllers/software_records_controller_spec.rb'
     - 'spec/controllers/front_controller_spec.rb'
+    - 'spec/controllers/change_requests_controller_spec.rb'
 Metrics/MethodLength:
   Exclude:
     - 'load_records.rb'
@@ -19,3 +20,8 @@ Style/StringLiterals:
 Lint/UselessAssignment:
   Exclude:
     - 'app/helpers/software_records_helper.rb'
+Metrics/AbcSize:
+  Max: 25
+Lint/Void:
+  Exclude:
+    - 'app/helpers/change_requests_helper.rb'

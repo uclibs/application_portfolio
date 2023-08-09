@@ -29,6 +29,15 @@ class FrontController < ApplicationController
     rescue StandardError
       @production_count = 0
     end
+
+    @softwarerecords_inchange = SoftwareRecordsController.inchange_dashboard(@user).order("#{sort_column} #{sort_direction}")
+    # @software_change_hash = ChangeRequest.joins(:software_record).where('software_records.id = ?', @id)
+    # @softwarerecords_change = SoftwareRecordsController.change_dashboard(@user).order("#{sort_column} #{sort_direction}").where(change_completed: true)
+    begin
+      @inchange_count = @softwarerecords_inchange.count
+    rescue StandardError
+      @inchange_count = 0
+    end
     render 'dashboard'
   end
 

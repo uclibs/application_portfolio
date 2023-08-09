@@ -55,6 +55,21 @@ class SoftwareRecordsController < ApplicationController
     production_filter.merge(currentuser_filter)
   end
 
+  def self.inchange_dashboard(user)
+    inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+
+    inchange_complete = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+    inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+    inchange_complete.each do |_change|
+      inchange_filter = inchange_filter.or(SoftwareRecord.where(change_request: { change_completed: false }))
+    end
+    developer_filter = SoftwareRecord.where("developers like '%#{user}%'")
+    tech_leads_filter = SoftwareRecord.where("tech_leads like '%#{user}%'")
+    product_owners_filter = SoftwareRecord.where("product_owners like '%#{user}%'")
+    currentuser_filter = developer_filter.or(tech_leads_filter).or(product_owners_filter)
+    inchange_filter.merge(currentuser_filter)
+  end
+
   # GET /software_records/1
   def show
     $page_title = "#{@software_record.title.to_s.upcase} | Application Portfolio"

@@ -1,1 +1,49 @@
-Upgrade history
+Upgrade history (Completed Change Request)
+
+<% if @change_request_counts != 0 %>
+  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
+    <div class="row">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th class="text-left" style="padding-left: 50px">Date Completed</th>
+            <th class="text-left" style="padding-left: 50px">Change Requests</th>
+            <th class="text-left" style="padding-left: 50px">Version</th>
+            <th class="text-left" style="padding-left: 50px">Tech Lead</th>
+
+            <% if current_user.role.to_s == "viewer" %>
+              <th>Actions</th>
+            <% elsif current_user.role.to_s == "owner" %>
+              <th colspan="2">Actions</th>
+            <% else %>
+              <th colspan="3">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% software_records_upgrade_hash(@software_record.id).each do |change_request| %>
+            <tr>
+              <td class="text-left" style="padding-left: 50px"><%= change_request.change_completed_date %></td>
+              <td class="text-left" style="padding-left: 50px"><%= change_request.change_title %></td>
+              <td class="text-left" style="padding-left: 50px"><%= find_software_version(change_request.software_record_id) %></td>
+              <td class="text-left" width="250px" style="padding-left: 50px"><% find_tech_leads(change_request.software_record_id).each do |a| %><li><%= a %></li><% end %></td>
+              <% if current_user.role.to_s == "viewer" %>
+                <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
+              <% elsif current_user.role.to_s == "owner" %>
+                <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_change_request_path(change_requests), { :class => "btn btn-primary" } %></td>
+              <% else %>
+                <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
+                <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Delete', change_request, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <h3 class="text-center">No records found</h3>
+<% end %>
