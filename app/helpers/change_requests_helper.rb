@@ -45,6 +45,7 @@ module ChangeRequestsHelper
   def software_records_where_hash(pid)
     @pid = pid
     @software_record_hash = {}
-    @software_record_hash = ChangeRequest.joins(:software_record).where('software_records.id = ?', @id)
+     @software_record_hash = ChangeRequest.where(software_record_id: @pid.to_s)
+#    @software_record_hash = ChangeRequest.joins(:software_record).where('software_records.id = ?', @id)
   end
 end

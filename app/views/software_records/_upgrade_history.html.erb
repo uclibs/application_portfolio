@@ -6,7 +6,7 @@ Upgrade history (Completed Change Request)
       <table class="table text-center">
         <thead>
           <tr>
-            <th class="text-left" style="padding-left: 50px">Date Completed</th>
+            <th class="text-left" style="padding-left: 50px">Date Submitted</th>
             <th class="text-left" style="padding-left: 50px">Change Requests</th>
             <th class="text-left" style="padding-left: 50px">Version</th>
             <th class="text-left" style="padding-left: 50px">Tech Lead</th>
@@ -24,7 +24,7 @@ Upgrade history (Completed Change Request)
         <tbody>
           <% software_records_upgrade_hash(@software_record.id).each do |change_request| %>
             <tr>
-              <td class="text-left" style="padding-left: 50px"><%= change_request.change_completed_date %></td>
+              <td class="text-left" style="padding-left: 50px"><%= change_request.change_submitted_date %></td>
               <td class="text-left" style="padding-left: 50px"><%= change_request.change_title %></td>
               <td class="text-left" style="padding-left: 50px"><%= find_software_version(change_request.software_record_id) %></td>
               <td class="text-left" width="250px" style="padding-left: 50px"><% find_tech_leads(change_request.software_record_id).each do |a| %><li><%= a %></li><% end %></td>
