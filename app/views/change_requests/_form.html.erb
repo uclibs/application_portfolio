@@ -1,5 +1,5 @@
-<div class="container animated fadeIn" style="display:flex; justify-content: center; align-items: center; height: 85vh; opacity: 0.9">
-  <div class = "card" style = "background-color: black; width: 36%;"><br/>
+<div class="container animated fadeIn" style="opacity: 0.8">
+  <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
     <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Change Request<% else %>Edit Change Request<% end %></h1>
     <hr style="background-color: white">
     <div class = "card-body">
@@ -53,6 +53,7 @@
         </div><br/>
 
         <div class="field">
+          <%= form.label :software_record_id %>
           <%= form.collection_select :software_record_id, SoftwareRecord.all.order(title: :asc), :id, :title, prompt: true %>
         </div>
 
