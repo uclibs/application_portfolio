@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Change Requests</h1>
     <em style="font-size: 14px; color: black">Contains list of all change requests</em><br/><br/>
-    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" or current_user.role.to_s == "owner"  %>
       <p>
         <%= link_to 'Create a new change request', new_change_request_path, {:class => "mx-auto new-record btn btn-dark"} %>
       </p>
@@ -29,6 +29,8 @@
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
               <th colspan="2">Actions</th>
+            <% elsif current_user.role.to_s == "manager" %>
+              <th colspan="2">Actions</th>
             <% else %>
               <th colspan="3">Actions</th>
             <% end %>
@@ -49,7 +51,7 @@
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_change_request_path(change_requests), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>
               <% else %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
                 <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>

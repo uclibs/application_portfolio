@@ -8,7 +8,9 @@ class ChangeRequestsController < ApplicationController
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_change_request, only: %i[show edit update destroy]
   before_action :navigation, except: %i[edit update]
-  access root_admin: :all
+
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update new create destroy],
+         manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
 
   def index
     $page_title = 'Change Requests | UCL Application Portfolio'
