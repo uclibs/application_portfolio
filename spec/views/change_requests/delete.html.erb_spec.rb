@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'change_request/delete.html.erb', type: :view do
   shared_examples 'role-based access' do |user_role|
-        before(:each) do
+    before(:each) do
       assign(:change_requests, [
                ChangeRequest.new(
                  change_title: 'Change Request 1',
@@ -30,7 +30,6 @@ RSpec.describe 'change_request/delete.html.erb', type: :view do
     pending "add some examples to (or delete) #{__FILE__}"
   end
 
-  
   context 'when user is an admin' do
     let(:user) { admin }
     it_behaves_like 'role-based access', :admin
@@ -50,5 +49,4 @@ RSpec.describe 'change_request/delete.html.erb', type: :view do
     let(:user) { viewer }
     it_behaves_like 'role-based access', :viewer
   end
-
 end
