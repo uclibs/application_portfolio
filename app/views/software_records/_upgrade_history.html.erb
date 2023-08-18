@@ -32,7 +32,7 @@ Upgrade history (Completed Change Request)
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_change_request_path(change_requests), { :class => "btn btn-primary" } %></td>
+                <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>
               <% else %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
                 <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>
