@@ -9,27 +9,27 @@
           <table class="table text-center w-25">
             <thead>
               <tr>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <th class="align-left" style="padding-left: 20px">Status</th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+                <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
@@ -78,6 +78,7 @@
       </div>
     </div>
   </div>
+
   <div class="card-deck mb-3 text-center prod-data" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
@@ -88,26 +89,26 @@
         <table class="table text-center">
           <thead>
             <tr>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %> 
-                <% if params[:direction] == "asc" || params[:direction] == nil %> 
+              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
@@ -157,6 +158,87 @@
     </div>
   </div>
   <br/>
+
+  <div class="card-deck mb-3 text-center prod-data" style="color: black;">
+    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
+      <div class="card-header">
+        <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Change Management <i class="fa fa-bolt"></i></h3>
+      </div>
+      <div class="card-body" style="overflow: scroll; height: 10%">
+        <% if @inchange_count != 0 and @softwarerecords_inchange.present?%>
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
+                  <i class="fa fa-caret-up"></i>
+                <% else %>
+                  <i class="fa fa-caret-down float-none"></i>
+                <% end %></th>
+              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
+                  <i class="fa fa-caret-up"></i>
+                <% else %>
+                  <i class="fa fa-caret-down float-none"></i>
+                <% end %></th>
+              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
+                  <i class="fa fa-caret-up"></i>
+                <% else %>
+                  <i class="fa fa-caret-down float-none"></i>
+                <% end %></th>
+              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+                <% if params[:direction] == "asc" || params[:direction] == nil %>
+                  <i class="fa fa-caret-up"></i>
+                <% else %>
+                  <i class="fa fa-caret-down float-none"></i>
+                <% end %></th>
+              <% if current_user.role.to_s == "viewer" %>
+                  <th class="align-left" style="padding-left: 20px">Action</th>
+                <% elsif current_user.role.to_s == "owner" %>
+                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
+                <% else %>
+                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
+                <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @softwarerecords_inchange.each do |record_production| %>
+              <tr>
+                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
+                    <% if record_production.production_url.to_s.empty? %>
+                      No URL
+                    <% else %>
+                      <a class="align-left" href=<%= generate_path(record_production.production_url) %> target="_blank" ><%= clean_url(record_production.production_url) %></a>
+                    <% end %>
+                  </td>
+                <% if current_user.role.to_s == "viewer" %>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                  <% elsif current_user.role.to_s == "owner" %>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                  <% else %>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                  <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+          <p>No Apps found In 'Change Management'.</p>
+        <% end %>
+        <br/>
+      </div>
+    </div>
+  </div>
+  <br/>
+
   <div class="card-deck mb-3 text-center" style="color: black;">
     <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
       <div class="card-header">

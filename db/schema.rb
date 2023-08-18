@@ -13,6 +13,35 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20_230_606_145_207) do
+  create_table "change_requests", force: :cascade do |t|
+    t.integer "software_record_id", null: false
+    t.string "change_title"
+    t.string "change_description"
+    t.date "change_submitted_date"
+    t.boolean "change_completed", default: false
+    t.date "change_scheduled_date"
+    t.date "change_completed_date"
+    t.string "manager_last_name"
+    t.string "manager_first_name"
+    t.string "manager_work_phone"
+    t.string "manager_contact_phone"
+    t.string "manager_department"
+    t.string "manager_email"
+    t.string "director_last_name"
+    t.string "director_first_name"
+    t.string "director_work_phone"
+    t.string "director_contact_phone"
+    t.string "director_department"
+    t.string "director_email"
+    t.integer "application_pages"
+    t.integer "number_roles"
+    t.boolean "authentication_needed", default: true
+    t.boolean "custom_error_pages", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["software_record_id"], name: "index_change_requests_on_software_record_id"
+  end
+
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment"
     t.datetime "created_at", null: false
@@ -49,8 +78,6 @@ ActiveRecord::Schema.define(version: 20_230_606_145_207) do
     t.integer "business_value"
     t.integer "it_quality"
     t.string "created_by"
-    t.boolean "theme"
-    t.boolean "module"
     t.text "sensitive_information"
     t.text "source_code_url"
     t.integer "status_id"
@@ -141,6 +168,7 @@ ActiveRecord::Schema.define(version: 20_230_606_145_207) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "change_requests", "software_records"
   add_foreign_key "software_records", "hosting_environments"
   add_foreign_key "software_records", "software_types"
   add_foreign_key "software_records", "statuses"

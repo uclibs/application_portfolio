@@ -9,8 +9,8 @@ class SoftwareRecordsController < ApplicationController
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
   before_action :navigation, except: %i[edit update]
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update],
-         manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update list_upgrades],
+         manager: %i[index show edit update new create destroy list_upgrades], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   # GET /software_records
 
   def index
@@ -53,6 +53,23 @@ class SoftwareRecordsController < ApplicationController
     product_owners_filter = SoftwareRecord.where("product_owners like '%#{user}%'")
     currentuser_filter = developer_filter.or(tech_leads_filter).or(product_owners_filter)
     production_filter.merge(currentuser_filter)
+  end
+
+  def self.inchange_dashboard(user)
+    inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+
+    inchange_complete = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+    inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+    inchange_complete.each do |_change|
+      inchange_filter = inchange_filter.or(SoftwareRecord.where(change_request: { change_completed: false }))
+    end
+
+    developer_filter = SoftwareRecord.where('developers like ?', "%#{user}%")
+    tech_leads_filter = SoftwareRecord.where('tech_leads like ?', "%#{user}%")
+    product_owners_filter = SoftwareRecord.where('product_owners like ?', "%#{user}%")
+    currentuser_filter = developer_filter.or(tech_leads_filter).or(product_owners_filter)
+
+    inchange_filter.merge(currentuser_filter)
   end
 
   # GET /software_records/1

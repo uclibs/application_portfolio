@@ -77,4 +77,10 @@ module SoftwareRecordsHelper
                       end
     converted_value = value ? 'Yes' : 'No'
   end
+
+  def software_records_upgrade_hash(software_pid)
+    @software_pid = software_pid
+    @software_upgrade_hash = {}
+    @software_upgrade_hash = ChangeRequest.where(software_record_id: @software_pid.to_s, change_completed: true)
+  end
 end

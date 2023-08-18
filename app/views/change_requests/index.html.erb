@@ -1,18 +1,18 @@
-<% if @change_request_counts != 0 %>
-  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
-
-    <section class="jumbotron text-center">
+<section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Change Requests</h1>
     <em style="font-size: 14px; color: black">Contains list of all change requests</em><br/><br/>
-    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" or current_user.role.to_s == "owner" %>
+    <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" or current_user.role.to_s == "owner"  %>
       <p>
         <%= link_to 'Create a new change request', new_change_request_path, {:class => "mx-auto new-record btn btn-dark"} %>
-      </p> 
+      </p>
       <% end %>
   </div>
 </section>
+<hr style = "background-color: black; width: 54%;">
 
+<% if @change_request_counts != 0 %>
+  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
     <div class="row">
       <table class="table text-center">
         <thead>
@@ -20,6 +20,8 @@
             <th class="text-left" style="padding-left: 50px">Completed</th>
             <th class="text-left" style="padding-left: 50px">Date Submitted</th>
             <th class="text-left" style="padding-left: 50px">Change Requests</th>
+            <th class="text-left" style="padding-left: 50px">Change Description</th>
+            <th class="text-left" style="padding-left: 50px">System Affected</th>
             <th class="text-left" style="padding-left: 50px">Version</th>
             <th class="text-left" style="padding-left: 50px">Tech Lead</th>
 
@@ -27,7 +29,7 @@
               <th>Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
               <th colspan="2">Actions</th>
-             <% elsif current_user.role.to_s == "manager" %>
+            <% elsif current_user.role.to_s == "manager" %>
               <th colspan="2">Actions</th>
             <% else %>
               <th colspan="3">Actions</th>
@@ -36,11 +38,13 @@
         </thead>
 
         <tbody>
-          <% software_records_where_hash(@software_record.id).each do |change_request| %>
+          <% @change_requests.each do |change_request| %>
             <tr>
               <td class="text-left" style="padding-left: 50px"><%= convert_completed(change_request.change_completed) %> </td>
               <td class="text-left" style="padding-left: 50px"><%= change_request.change_submitted_date %></td>
               <td class="text-left" style="padding-left: 50px"><%= change_request.change_title %></td>
+              <td class="text-left" style="padding-left: 50px"><%= change_request.change_description %></td>
+              <td class="text-left" style="padding-left: 50px"><%= find_software_name(change_request.software_record_id) %></td>
               <td class="text-left" style="padding-left: 50px"><%= find_software_version(change_request.software_record_id) %></td>
               <td class="text-left" width="250px" style="padding-left: 50px"><% find_tech_leads(change_request.software_record_id).each do |a| %><li><%= a %></li><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
@@ -62,29 +66,3 @@
 <% else %>
   <h3 class="text-center">No records found</h3>
 <% end %>
-
-<dl>
-  <% unless @software_record.requires_cm.to_s.blank? %>
-    <dt class="inline-block">Requires Change Management review?: <span style="color: white; font-weight: normal"><%= @software_record.requires_cm %></span></dt>
-  <% end %>
-  <% unless @software_record.last_security_scan.to_s.blank? %>
-    <dt class="inline-block">Last security scan: <span style="color: white; font-weight: normal"><%= @software_record.last_security_scan %></span></dt>
-  <% end %>
-  <% unless @software_record.last_accessibility_scan.to_s.blank? %>
-    <dt class="inline-block">Last accessibility scan: <span style="color: white; font-weight: normal"><%= @software_record.last_accessibility_scan %></span></dt>
-  <% end %>
-  <% unless @software_record.last_ogc_review.to_s.blank? %>
-    <dt class="inline-block">Last OGC review: <span style="color: white; font-weight: normal"><%= @software_record.last_ogc_review %></span></dt>
-  <% end %>
-  <% unless @software_record.last_info_sec_review.to_s.blank? %>
-    <dt class="inline-block">Last Infosec review: <span style="color: white; font-weight: normal"><%= @software_record.last_info_sec_review %></span></dt>
-  <% end %>
-  <% unless @software_record.cm_stakeholders.blank? %>
-    <dt class="inline-block">CM stakeholders: <span style="color: white; font-weight: normal"><%= @software_record.cm_stakeholders %></span></dt>
-  <% end %>
-  <% unless @software_record.cm_other_notes.blank? %>
-    <dt class="inline-block">CM other notes: <span style="color: white; font-weight: normal"><%= @software_record.cm_other_notes %></span></dt>
-  <% end %>
-</dl>
-
-<hr style = "background-color: black; width: 54%;">

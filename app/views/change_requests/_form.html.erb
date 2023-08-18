@@ -1,0 +1,70 @@
+<div class="container animated fadeIn" style="opacity: 0.8">
+  <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
+    <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Change Request<% else %>Edit Change Request<% end %></h1>
+    <hr style="background-color: white">
+    <div class = "card-body">
+      <%= form_with(model: change_request, local: true) do |form| %>
+        <% if change_request.errors.any? %>
+          <div id="error_explanation">
+            <% change_request.errors.full_messages.each do |message| %>
+              <%= alert_generator message, "error" %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :change_title %>
+          <%= form.text_field :change_title, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :change_description %>
+          <%= form.text_area :change_description, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :application_pages %>
+          <%= form.text_field :application_pages, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :number_roles %>
+          <%= form.text_field :number_roles, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :authentication_needed %>
+          <%= form.check_box :authentication_needed, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :custom_error_pages %>
+          <%= form.check_box :custom_error_pages, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :change_submitted_date %>
+          <%= form.date_field :change_submitted_date, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :change_completed %>
+          <%= form.check_box :change_completed, :class => "form-control" %>
+        </div><br/>
+
+        <div class="field">
+          <%= form.label :software_record_id %>
+          <%= form.collection_select :software_record_id, SoftwareRecord.all.order(title: :asc), :id, :title, prompt: true %>
+        </div>
+
+        <br/><br/>
+        <div class="form-group <%= component %>" style= "text-align: center;">
+          <%= form.submit 'Save', class: "btn btn-primary" %>
+          <% if component.to_s == "new" %>
+            <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

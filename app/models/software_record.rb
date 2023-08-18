@@ -6,6 +6,7 @@ class SoftwareRecord < ApplicationRecord
   belongs_to :vendor_record
   belongs_to :status
   belongs_to :hosting_environment
+  has_many :change_request
   validates :title, :description, :status, :created_by, presence: true
   serialize :tech_leads, Array
   serialize :developers, Array

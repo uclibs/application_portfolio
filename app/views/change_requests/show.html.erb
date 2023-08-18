@@ -1,0 +1,24 @@
+<div class="container animated fadeIn" style="opacity: 0.9;">
+  <div class="card" style="width: 90%; margin-top: 40px; height: auto; background-color: black; color: white; margin-bottom: 10rem">
+    <div class = "card-body">
+        <blockquote class="blockquote text-center">
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_title %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_description %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.application_pages %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.number_roles %></h2>
+            <div class="blockquote-footer"><cite title="System"><%= @software_name %></cite></div>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= @change_request.change_submitted_date %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.change_completed) %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.authentication_needed) %></h2>
+            <h2 style="color: white; font-family: Courier New, Lucida, Console"><%= convert_completed(@change_request.custom_error_pages) %></h2>
+        </blockquote>
+		<br/>
+      <div class="text-center">
+        <% if current_user.role.to_s == "owner" or current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
+          <%= link_to 'Edit', edit_change_request_path(@change_request), :class => "btn btn-warning nav-links" %>
+        <% end %>
+        <%= link_to 'Back', session[:previous], :class => "btn btn-primary nav-links"%>
+      </div>
+    </div>
+  </div>
+</div>
