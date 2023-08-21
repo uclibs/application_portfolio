@@ -18,7 +18,7 @@ class SoftwareRecords < ApplicationRecord
     # server env metadtata
     headers += ['QA URL', 'Dev_URL', 'Prod_URL', 'Production Support Servers', 'Last Record Change', 'Track Uptime', 'Monitor Health', 'Monitor Errors']
 
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
+    CSV.open(file, 'w', write_headers: true, headers:) do |writer|
       software_records.each do |software_record|
         tech_leads = software_record.tech_leads.to_s.gsub!('---', '').to_s
         tech_leads = tech_leads.gsub!(/\n/, '-').to_s

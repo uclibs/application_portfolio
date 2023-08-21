@@ -12,7 +12,7 @@ class SoftwareTypes < ApplicationRecord
 
     headers = ['SoftwareType ID', 'Created On', 'Software Type', 'Description']
 
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
+    CSV.open(file, 'w', write_headers: true, headers:) do |writer|
       software_types.each do |software_type|
         writer << [software_type.id, software_type.created_at, software_type.title,
                    software_type.description]
