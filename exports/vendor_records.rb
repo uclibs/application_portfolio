@@ -12,7 +12,7 @@ class VendorRecords < ApplicationRecord
 
     headers = ['VendorRecord ID', 'Created On', 'Vendor Record', 'Description']
 
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
+    CSV.open(file, 'w', write_headers: true, headers:) do |writer|
       vendor_records.each do |vendor_record|
         writer << [vendor_record.id, vendor_record.created_at, vendor_record.title,
                    vendor_record.description]
