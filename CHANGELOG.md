@@ -1,3 +1,29 @@
+1.2.0 8/18/2023
+* Updates Ruby to version 3.2.2
+* Updates Rails to version 6.1.7.4
+* Updates Change Management and Upgrade Tab.
+* Improves UX responsiveness for Change Request.
+* Adds more required fields to ChangeRequest.
+* Adds ChangeRequest Model.
+* Use puma as a service
+* Adds server and certificate fields to SoftwareRecords.
+* Updates front and file_uploads controller to solve security vulnerabilities.
+* Adds Maintentance Log and Priority list
+* add local option to auth type
+* Configure Github Actions and Coveralls
+* Add Admin Roles to Software Records
+* Updates linters and security gems
+* Bug Fixes
+  * Fixes edit_path on upgrade history.
+  * Fixes rubocop errors in delete spec.
+  * Fixes role access for manager and owner.
+  * Fixes SoftwareRecords typos and test.
+  * Fixes grey menu
+  * Fixes some accessiblity issues.
+  * Fixes password update.
+  * Fix Software Graph
+  * Update Secret Key call.
+
 1.1.0 6/19/2021
 * Cleaned up Status Field
 * Removed status field from software records table
