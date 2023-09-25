@@ -15,7 +15,7 @@ rails server
 
 ## Ruby version and System dependencies
 
-Ruby 2.7.5
+Ruby 3.2.2
 
 ## Running the Tests
 The application portfolio has a test suite built with rspec, rubocop, and coveralls, running it is simple, just call the following in the project directory:
