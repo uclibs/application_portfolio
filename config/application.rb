@@ -9,7 +9,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 # Change the load order. dotenv environment gets fired first.
-Dotenv::Railtie.load
+Dotenv::Rails.load
 
 module ApplicationPortfolio
   class Application < Rails::Application
