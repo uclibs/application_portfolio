@@ -11,13 +11,13 @@ executors:
       - image: docker:20.10.23
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.1
+  browser-tools: circleci/browser-tools@1.4.7
   coveralls: coveralls/coveralls@1.0.6
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/ruby:3.2.2-browsers
+      - image: cimg/ruby:3.3.0-browsers
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -39,8 +39,7 @@ jobs:
 
     steps:
  
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
+      - browser-tools/install-browser-tools
       - checkout
 
       - restore_cache:
