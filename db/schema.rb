@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_230_606_145_207) do
+ActiveRecord::Schema.define(version: 20_240_307_190_949) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "software_record_id", null: false
     t.string "change_title"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20_230_606_145_207) do
     t.string "annual_fees"
     t.string "support_contract"
     t.string "current_version"
-    t.string "notes"
+    t.text "notes"
     t.integer "business_value"
     t.integer "it_quality"
     t.string "created_by"
