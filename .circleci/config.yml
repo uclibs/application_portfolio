@@ -13,6 +13,7 @@ executors:
 orbs:
   browser-tools: circleci/browser-tools@1.4.7
   coveralls: coveralls/coveralls@1.0.6
+
 jobs:
   build:
     docker:
@@ -39,7 +40,10 @@ jobs:
 
     steps:
  
-      - browser-tools/install-browser-tools
+
+      - browser-tools/install-browser-tools:
+          replace-existing-chrome: true
+
       - checkout
 
       - restore_cache:
