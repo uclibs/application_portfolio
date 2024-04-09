@@ -1,3 +1,10 @@
+1.3.0 4/9/2024
+* Updates Ruby to version 3.3.0
+* Updates Rails to version 6.1.7.7
+* Bug Fixes
+  * Changes notes field to text.
+  * Removes old server name.
+
 1.2.0 8/18/2023
 * Updates Ruby to version 3.2.2
 * Updates Rails to version 6.1.7.4
