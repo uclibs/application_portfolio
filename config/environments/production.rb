@@ -72,7 +72,7 @@ Rails.application.configure do
   # Store the base url from where request is received.
   config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] }
 
-  #updated for tls and sendmail
+  # updated for tls and sendmail
   config.action_mailer.smtp_settings = {
     enable_starttls_auto: true,
     port: 25,
