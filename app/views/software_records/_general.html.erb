@@ -151,7 +151,7 @@
         <% if !@software_record.notes.nil? && !@software_record.notes.to_s.empty? %>
           <dt>Notes</dt>
           <dd>
-            <ul><%= @software_record.notes %></ul>
+            <ul><%= simple_format(@software_record.notes) %></ul>
           </dd>
         <% end %>
 
