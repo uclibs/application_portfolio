@@ -170,6 +170,23 @@ class SoftwareRecordsController < ApplicationController
     @software_types = SoftwareType.all
     @softwarerecords_count = SoftwareRecord.count
   end
+  
+  def list_road_map
+    $page_title = 'Road Map | UCL Application Portfolio'
+    @params = request.query_parameters
+     
+    @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
+                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && 
+!@params['vendor_record_filter'].empty?
+                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        else
+                          SoftwareRecord.order("#{sort_priority} #{sort_direction_priority}")
+                        end
+    @vendor_records = VendorRecord.all 
+    @software_types = SoftwareType.all
+    @softwarerecords_count = SoftwareRecord.count
+  end
 
   private
 
@@ -239,6 +256,7 @@ class SoftwareRecordsController < ApplicationController
       :installed_version,
       :latest_version,
       :proposed_version,
+      :road_map,
       :last_upgrade_date,
       :upgrade_available,
       :vulnerabilities_reported,

@@ -66,6 +66,7 @@ RSpec.describe 'software_records/show', type: :view do
                                                   dev_support_servers: 'dev.example.com',
                                                   date_cert_expires: '2020-01-01',
                                                   monitor_certificates: 'Yes',
+                                                  road_map: "Road Map",
                                                   notes: "Line one\nLine two",
                                                   themes: true,
                                                   modules: true
@@ -81,6 +82,7 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/1/)
     expect(rendered).to match(/DUO/)
     expect(rendered).to match(%r{Line one\n<br />Line two})
+    expect(rendered).to match(/Road Map/)
   end
 
   it 'renders change management attributes in <p>' do
