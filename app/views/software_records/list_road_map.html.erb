@@ -43,13 +43,14 @@
         <% @software_records.each do |software_record| %>
           <tr>
             <td style="padding-left: 40px;"><%= software_record.title %></td>
-            <td><%= software_record.road_map %></td>
+            <td><%= simple_format(software_record.road_map) %></td>
             <% if current_user.role.to_s == "viewer" %>
               <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
             <% elsif current_user.role.to_s == "owner" %>
-              <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
             <% else %>
-              <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+
             <% end %>
           </tr>
         <% end %>

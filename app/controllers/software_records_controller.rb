@@ -188,7 +188,24 @@ class SoftwareRecordsController < ApplicationController
     @softwarerecords_count = SoftwareRecord.count
   end
 
+  def edit_road_map
+    @software_record = SoftwareRecord.find(params[:id])
+  end
+
+  def update_road_map
+    @software_record = SoftwareRecord.find(params[:id])
+    if @software_record.update(road_map_params)
+      redirect_to @software_record, notice: 'Road map was successfully updated.'
+    else
+      render :edit_road_map
+    end
+  end
+
   private
+
+  def road_map_params
+    params.require(:software_record).permit(:road_map)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_software_record

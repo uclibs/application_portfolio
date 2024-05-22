@@ -1,0 +1,43 @@
+<div class="container animated fadeIn" style="opacity: 0.8">
+  <div class = "card-detail" style = "background-color: black; width: 100%;"><br/>
+    <hr style="background-color: white">
+
+
+<!-- app/views/software_records/edit_road_map.html.erb -->
+<h1>Edit Road Map</h1>
+
+<%= form_with(model: @software_record, url: update_road_map_software_record_path(@software_record), local: true) do |form| %>
+  <% if @software_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@software_record.errors.count, "error") %> prohibited this road map from being saved:</h2>
+      <ul>
+        <% @software_record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <% if !@software_record.title.nil? && !@software_record.title.to_s.empty? %> 
+  <div class="form-group">
+    <%= form.label :title %>
+    <p><%= @software_record.title %></p> <!-- Display the title but don't allow editing -->
+  </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= form.label :road_map %>
+    <%= form.text_area :road_map %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', software_records_path %>
+</div>
+</div>

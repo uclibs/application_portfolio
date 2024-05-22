@@ -16,6 +16,15 @@ Rails.application.routes.draw do
   root 'front#index'
   get 'list_upgrades' => 'software_records#list_upgrades'
   get 'list_road_map' => 'software_records#list_road_map'
+  resources :software_records do
+    member do
+      get 'edit_road_map'
+      patch 'update_road_map'
+    end
+  end
+
+  #  get 'software_records/:id/edit_roadmap', to: 'software_records#edit_road_map', as: 'edit_road_map_software_record'
+  get 'edit_road_map_software_records' => 'software_records#list_road_map'
   get 'about', to: 'front#about'
   get 'contact', to: 'front#contact'
   get 'request/new', to: 'front#new'
