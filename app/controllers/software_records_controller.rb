@@ -195,7 +195,7 @@ class SoftwareRecordsController < ApplicationController
   def update_road_map
     @software_record = SoftwareRecord.find(params[:id])
     if @software_record.update(road_map_params)
-      redirect_to @software_record, notice: 'Road map was successfully updated.'
+      redirect_to list_road_map_path, notice: 'Road map was successfully updated.'
     else
       render :edit_road_map
     end
