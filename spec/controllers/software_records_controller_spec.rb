@@ -84,6 +84,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
       upgrade_docs: 'www.example.com',
+      road_map: 'Road Map',
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
       date_cert_expires: '2020-01-01',
@@ -110,6 +111,39 @@ RSpec.describe SoftwareRecordsController, type: :controller do
 
   def sign_in_user(admin)
     sign_in admin
+  end
+
+  describe 'GET #list_road_map' do
+    it 'assigns the requested software records to @software_records' do
+      get :list_road_map
+      expect(response).to be_successful
+    end
+
+    it 'renders the list_road_map template' do
+      get :list_road_map
+      expect(response).to render_template(:list_road_map)
+    end
+  end
+
+  describe 'GET #edit_road_map' do
+    it 'assigns the requested software record to @software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit_road_map, params: { id: software_record.to_param }
+      expect(response).to be_successful
+      expect(response).to render_template(:edit_road_map)
+    end
+  end
+
+  describe 'PATCH/PUT #update_road_map' do
+    context 'with valid attributes' do
+      it 'updates the software record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        patch :update_road_map, params: { id: software_record.id, software_record: { road_map: 'New Road Map' } }
+        software_record.reload
+        expect(software_record.road_map).to eq('New Road Map')
+        expect(response).to redirect_to(list_road_map_path)
+      end
+    end
   end
 
   describe 'GET #index' do
@@ -151,6 +185,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('true')
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
+      expect(response.body).to have_content('Road Map')
       expect(response.body).to have_content('Fall Quarter 2023')
       expect(response.body).to have_content('server.example.com')
       expect(response.body).to have_content('dev.example.com')
@@ -230,6 +265,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
+          road_map: 'Road Map',
           upgrade_docs: 'www.example.com',
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
@@ -262,6 +298,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.priority).to have_content('10')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
+        expect(software_record.road_map).to have_content('Road Map')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
         expect(software_record.qa_support_servers).to have_content('server.example.com')
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
@@ -365,6 +402,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
+      road_map: 'Road Map',
       upgrade_docs: 'www.example.com',
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
@@ -432,6 +470,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(software_record.road_map).to have_content('Road Map')
       expect(response.body).to have_content('server.example.com')
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
@@ -510,6 +549,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
+          road_map: 'Road Map',
           upgrade_docs: 'www.example.com',
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
@@ -542,6 +582,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.priority).to have_content('10')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
+        expect(software_record.road_map).to have_content('Road Map')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
         expect(software_record.qa_support_servers).to have_content('server.example.com')
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
@@ -644,6 +685,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
+      road_map: 'Road Map',
       upgrade_docs: 'www.example.com',
       qa_support_servers: 'server.example.com',
       dev_support_servers: 'dev.example.com',
@@ -671,6 +713,35 @@ RSpec.describe SoftwareRecordsController, type: :controller do
 
   def sign_in_user(manager)
     sign_in manager
+  end
+
+  describe 'GET #list_road_map' do
+    it 'assigns the requested software records to @software_records' do
+      get :list_road_map
+      expect(response).to be_successful
+      expect(response).to render_template(:list_road_map)
+    end
+  end
+
+  describe 'GET #edit_road_map' do
+    it 'assigns the requested software record to @software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit_road_map, params: { id: software_record.to_param }
+      expect(response).to be_successful
+      expect(response).to render_template(:edit_road_map)
+    end
+  end
+
+  describe 'PATCH/PUT #update_road_map' do
+    context 'with valid attributes' do
+      it 'updates the software record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        patch :update_road_map, params: { id: software_record.to_param, software_record: { road_map: 'New Road Map' } }
+        software_record.reload
+        expect(software_record.road_map).to eq('New Road Map')
+        expect(response).to redirect_to(list_road_map_path)
+      end
+    end
   end
 
   describe 'GET #index' do
@@ -711,6 +782,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
+      expect(response.body).to have_content('Road Map')
       expect(response.body).to have_content('server.example.com')
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
@@ -789,6 +861,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
+          road_map: 'Road Map',
           upgrade_docs: 'www.example.com',
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
@@ -823,6 +896,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.priority).to have_content('10')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
+        expect(software_record.road_map).to have_content('Road Map')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
         expect(software_record.qa_support_servers).to have_content('server.example.com')
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
@@ -924,6 +998,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       end_of_life: true,
       priority: '10',
       upgrade_status: 'Review',
+      road_map: 'Road Map',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
       upgrade_docs: 'www.example.com',
@@ -954,6 +1029,34 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   def sign_in_user(owner)
     sign_in owner
   end
+
+  describe 'GET #list_road_map' do
+    it 'assigns the requested software records to @software_records' do
+      get :list_road_map
+      expect(response).to be_successful
+      expect(response).to render_template(:list_road_map)
+    end
+  end
+
+  describe 'GET #edit_road_map' do
+    it 'assigns the requested software record to @software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit_road_map, params: { id: software_record.to_param }
+      expect(response).to be_successful
+      expect(response).to render_template(:edit_road_map)
+    end
+  end
+
+  #  describe "PATCH/PUT #update_road_map" do
+  #    context "with valid attributes" do
+  #      it "updates the software record" do
+  #        software_record = SoftwareRecord.create! valid_attributes
+  #        patch :update_road_map, params: { id: software_record.to_param, software_record: { road_map: "New Road Map" } }
+  #        software_record.reload
+  #        expect(software_record.road_map).to eq("New Road Map")
+  #        expect(response).to redirect_to(list_road_map_path)
+  #      end
+  #    end
 
   describe 'GET #index' do
     it 'returns a success response' do
@@ -992,6 +1095,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('true')
       expect(response.body).to have_content('10')
       expect(response.body).to have_content('Review')
+      expect(response.body).to have_content('Fall Quarter 2023')
       expect(response.body).to have_content('Fall Quarter 2023')
       expect(response.body).to have_content('server.example.com')
       expect(response.body).to have_content('dev.example.com')
@@ -1071,6 +1175,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
+          road_map: 'Road Map',
           upgrade_docs: 'www.example.com',
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
@@ -1105,6 +1210,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.priority).to have_content('10')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
+        expect(software_record.road_map).to have_content('Road Map')
         expect(software_record.upgrade_docs).to have_content('www.example.com')
         expect(software_record.qa_support_servers).to have_content('server.example.com')
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
