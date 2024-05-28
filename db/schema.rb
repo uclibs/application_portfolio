@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_240_307_190_949) do
+ActiveRecord::Schema.define(version: 20_240_521_135_737) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "software_record_id", null: false
     t.string "change_title"
@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(version: 20_240_307_190_949) do
     t.string "monitor_errors"
     t.string "authentication_type"
     t.text "admin_users"
+    t.boolean "themes"
+    t.boolean "modules"
     t.string "service"
     t.string "installed_version"
     t.string "latest_version"
@@ -120,8 +122,7 @@ ActiveRecord::Schema.define(version: 20_240_307_190_949) do
     t.text "dev_support_servers"
     t.date "date_cert_expires"
     t.string "monitor_certificates"
-    t.boolean "themes"
-    t.boolean "modules"
+    t.text "road_map"
     t.index ["hosting_environment_id"], name: "index_software_records_on_hosting_environment_id"
     t.index ["software_type_id"], name: "index_software_records_on_software_type_id"
     t.index ["status_id"], name: "index_software_records_on_status_id"
