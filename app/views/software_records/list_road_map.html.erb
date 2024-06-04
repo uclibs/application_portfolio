@@ -47,9 +47,11 @@
             <% if current_user.role.to_s == "viewer" %>
               <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
             <% elsif current_user.role.to_s == "owner" %>
-              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
+"white-space: nowrap;" %></td>
             <% else %>
-              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
+              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
+"white-space: nowrap;" %></td>
 
             <% end %>
           </tr>

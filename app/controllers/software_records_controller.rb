@@ -184,7 +184,7 @@ info.'
                               !@params['vendor_record_filter'].empty?
                           SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
                         else
-                          SoftwareRecord.order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
                         end
     @vendor_records = VendorRecord.all
     @software_types = SoftwareType.all
