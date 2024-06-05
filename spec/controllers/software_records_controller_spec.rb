@@ -125,11 +125,62 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     end
   end
 
+  context 'when filter_by is software_types and software_type_filter is provided' do
+    it 'assigns filtered software records to @software_records' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: SoftwareType.first.id }
+      expect(assigns(:software_records)).to include(software_record)
+    end
+  end
+
+  context 'when filter_by is not software_types' do
+    it 'assigns all software records to @software_records' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :list_road_map, params: { filter_by: 'other_filter' }
+      expect(assigns(:software_records)).to include(software_record)
+    end
+  end
+
+  context 'when software_type_filter is nil or empty' do
+    it 'assigns all software records to @software_records if filter_by is software_types' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: nil }
+      expect(assigns(:software_records)).to include(software_record)
+
+      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: '' }
+      expect(assigns(:software_records)).to include(software_record)
+    end
+  end
+
+  context 'when filtering by vendor_records' do
+    it 'assigns the filtered software records to @software_records' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :list_road_map, params: { filter_by: 'vendor_records', vendor_record_filter: VendorRecord.first.id }
+      expect(assigns(:software_records)).to match_array([software_record])
+    end
+  end
+
+  context 'when no filters are applied' do
+    it 'assigns all software records to @software_records' do
+      software_record1 = SoftwareRecord.create! valid_attributes
+      software_record2 = SoftwareRecord.create! valid_attributes
+      get :list_road_map
+      expect(assigns(:software_records)).to match_array([software_record1, software_record2])
+    end
+  end
+
   describe 'GET #edit_road_map' do
     it 'assigns the requested software record to @software_record' do
       software_record = SoftwareRecord.create! valid_attributes
       get :edit_road_map, params: { id: software_record.to_param }
       expect(response).to be_successful
+      expect(response).to render_template(:edit_road_map)
+      expect(assigns(:software_record)).to eq(software_record)
+    end
+
+    it 'renders the edit_road_map template' do
+      software_record = SoftwareRecord.create! valid_attributes
+      get :edit_road_map, params: { id: software_record.to_param }
       expect(response).to render_template(:edit_road_map)
     end
   end
@@ -142,6 +193,22 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         software_record.reload
         expect(software_record.road_map).to eq('New Road Map')
         expect(response).to redirect_to(list_road_map_path)
+      end
+
+      it 'redirects to the list_road_map path with a notice' do
+        software_record = SoftwareRecord.create! valid_attributes
+        patch :update_road_map, params: { id: software_record.id, software_record: { road_map: 'New Road Map' } }
+        expect(response).to redirect_to(list_road_map_path)
+        expect(flash[:notice]).to eq('Road map was successfully updated.')
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not update the software record' do
+        software_record = SoftwareRecord.create! valid_attributes
+        patch :update_road_map, params: { id: software_record.id, software_record: invalid_attributes }
+        software_record.reload
+        expect(software_record.title).not_to eq('')
       end
     end
   end
