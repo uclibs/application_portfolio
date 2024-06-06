@@ -9,8 +9,11 @@ class SoftwareRecordsController < ApplicationController
   before_action :authenticate_user!, except: %i[new create show]
   before_action :set_software_record, only: %i[show edit update destroy]
   before_action :navigation, except: %i[edit update]
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update list_upgrades],
-         manager: %i[index show edit update new create destroy list_upgrades], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update list_upgrades list_road_map edit_road_map update_road_map],
+         manager: %i[index show edit update new create destroy list_upgrades list_road_map edit_road_map update_road_map], root_admin: :all, message: 'Permission Denied ! <br/> Please
+contact the administrator for more
+info.'
+
   # GET /software_records
 
   def index
@@ -171,7 +174,41 @@ class SoftwareRecordsController < ApplicationController
     @softwarerecords_count = SoftwareRecord.count
   end
 
+  def list_road_map
+    $page_title = 'Road Map | UCL Application Portfolio'
+    @params = request.query_parameters
+
+    @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
+                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? &&
+                              !@params['vendor_record_filter'].empty?
+                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                        else
+                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
+                        end
+    @vendor_records = VendorRecord.all
+    @software_types = SoftwareType.all
+    @softwarerecords_count = SoftwareRecord.count
+  end
+
+  def edit_road_map
+    @software_record = SoftwareRecord.find(params[:id])
+  end
+
+  def update_road_map
+    @software_record = SoftwareRecord.find(params[:id])
+    if @software_record.update(road_map_params)
+      redirect_to list_road_map_path, notice: 'Road map was successfully updated.'
+    else
+      render :edit_road_map
+    end
+  end
+
   private
+
+  def road_map_params
+    params.require(:software_record).permit(:road_map)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_software_record
@@ -239,6 +276,7 @@ class SoftwareRecordsController < ApplicationController
       :installed_version,
       :latest_version,
       :proposed_version,
+      :road_map,
       :last_upgrade_date,
       :upgrade_available,
       :vulnerabilities_reported,

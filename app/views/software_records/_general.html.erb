@@ -148,6 +148,13 @@
           <% end %>
         <% end %>
 
+        <% if !@software_record.road_map.nil? && !@software_record.road_map.to_s.empty? %>
+            <dt>Road Map</dt>
+            <dd>
+              <ul><%= simple_format(@software_record.road_map) %></ul>
+            </dd>
+        <% end %>
+
         <% if !@software_record.notes.nil? && !@software_record.notes.to_s.empty? %>
           <dt>Notes</dt>
           <dd>

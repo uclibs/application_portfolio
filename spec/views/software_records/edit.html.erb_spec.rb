@@ -43,6 +43,7 @@ RSpec.describe 'software_records/edit', type: :view do
                                                   breaking_changes: true,
                                                   end_of_life: true,
                                                   priority: '10',
+                                                  road_map: 'Road Map',
                                                   upgrade_status: 'Review',
                                                   who: 'Test Admin',
                                                   semester: 'Fall Quarter 2023',
@@ -62,6 +63,7 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'select[name=?]', 'software_record[status_id]'
       assert_select 'select[name=?]', 'software_record[software_type_id]'
       assert_select 'select[name=?]', 'software_record[vendor_record_id]'
+      assert_select 'textarea[name=?]', 'software_record[road_map]'
     end
   end
 

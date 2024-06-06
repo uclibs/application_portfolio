@@ -411,6 +411,13 @@
               </div>
             <% end %>
 
+            <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" or current_user.role.to_s == "technician"%>
+              <div class="form-group">
+                <%= form.label :road_map, 'Road Map' %>
+                <%= form.text_area :road_map, :cols => 30, :rows => 7, :class => "form-control" %>
+              </div>
+            <% end %>
+
             <div class="form-group">
               <%= form.label :notes %>
               <%= form.text_area :notes, :cols => 30, :rows => 3, :class => "form-control" %>

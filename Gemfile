@@ -31,7 +31,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'rails-controller-testing'
 # Use rubocop for static code analysis
 gem 'rubocop'
-
+# bundler audit
+gem 'rexml', '>= 3.2.7'
 gem 'rubocop-rails', require: false
 
 gem 'rubocop-rspec', require: false
