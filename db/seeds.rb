@@ -33,7 +33,8 @@ end
 # Create default status types
 status = { 'Available': 'Production',
            'Development': 'Design',
-           'Production': 'Production' }
+           'Production': 'Production',
+           'Decommissioned': 'Decommissioned' }
 
 status.each do |name, desc|
   Status.create(title: name, status_type: desc)

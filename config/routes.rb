@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   root 'front#index'
   get 'list_upgrades' => 'software_records#list_upgrades'
   get 'list_road_map' => 'software_records#list_road_map'
+  get 'list_decommissioned' => 'software_records#list_decommissioned'
+
   resources :software_records do
     member do
       get 'edit_road_map'
@@ -23,8 +25,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :software_records do
+    member do
+      get 'edit_decommissioned'
+      patch 'update_decommissioned'
+    end
+  end
+
   #  get 'software_records/:id/edit_roadmap', to: 'software_records#edit_road_map', as: 'edit_road_map_software_record'
   get 'edit_road_map_software_records' => 'software_records#list_road_map'
+  get 'edit_decommissioned_software_records' => 'software_records#list_decommissioned'
   get 'about', to: 'front#about'
   get 'contact', to: 'front#contact'
   get 'request/new', to: 'front#new'

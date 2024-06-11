@@ -1,0 +1,58 @@
+<section class="jumbotron text-center">
+  <br/>
+  <hr style = "background-color: black; width: 54%;">
+  <div class="container-fluid">
+    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Decommissioned 
+List</h1>
+    <em style="font-size: 14px; color: black">Collection of all the software application that have been decommissioned.</em><br/><br/>
+  </div>
+<br/>
+<hr style = "background-color: black; width: 54%;">
+</section>
+
+<% if @softwarerecords_count != 0 %>
+<div class="container animated fadeInLeft" style="margin-bottom: 10rem">
+  <div class="row">
+    <table class="table software-records-table" style="word-break: initial;">
+      <thead>
+        <tr>
+          <th class="text-left" style="padding-left: 20px"><%= sortable "title", "Title" %>
+            <% if params[:direction] == "asc" || params[:direction] == nil %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %></th>
+
+          <% if current_user.role.to_s == "viewer" %>
+            <th class="text-left" style="padding-left: 20px">Actions</th>
+          <% elsif current_user.role.to_s == "owner" %>
+            <th colspan="2" class="text-left" style="padding-left: 20px">Actions</th>
+          <% else %>
+            <th colspan="3" class="text-left" style="padding-left: 20px">Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @software_records.each do |software_record| %>
+          <tr>
+            <td style="padding-left: 40px; white-space: nowrap;"><%= software_record.title %></td>
+            <% if current_user.role.to_s == "viewer" %>
+              <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+            <% elsif current_user.role.to_s == "owner" %>
+              <td><%= link_to 'Change Status', edit_decommissioned_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
+"white-space: nowrap;" %></td>
+            <% else %>
+              <td><%= link_to 'Change Status', edit_decommissioned_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
+"white-space: nowrap;" %></td>
+
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% else %>
+<h3 class="text-center">No records found</h3>
+<% end %>
