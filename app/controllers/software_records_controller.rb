@@ -21,11 +21,14 @@ info.'
     @params = request.query_parameters
 
     @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
-                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_column} #{sort_direction}")
+                          SoftwareRecord.joins(:status).where(software_type_id:
+@params['software_type_filter']).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_column} #{sort_direction}")
                         elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && !@params['vendor_record_filter'].empty?
-                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_column} #{sort_direction}")
+                          SoftwareRecord.joins(:status).where(vendor_record_id:
+@params['vendor_record_filter']).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_column} #{sort_direction}")
                         else
-                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
+                          SoftwareRecord.joins(:status).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_column}
+#{sort_direction}")
                         end
     @vendor_records = VendorRecord.all
     @software_types = SoftwareType.all
@@ -33,7 +36,7 @@ info.'
   end
 
   def self.indesign_dashboard(user)
-    design_status = Status.where(status_type: 'Design')
+    design_status = Status.where(status_type: %w[Design Development])
     design_filter = SoftwareRecord.where(status_id: 0)
     design_status.each do |design|
       design_filter = design_filter.or(SoftwareRecord.where(status_id: design.id))
@@ -158,16 +161,53 @@ info.'
     decrypt sensitive_data if sensitive_data.to_s.present?
   end
 
+  def list_decommissioned
+    $page_title = 'Decommissioned Software | UCL Application Portfolio'
+    @params = request.query_parameters
+
+    @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? &&
+                           !@params['software_type_filter'].empty?
+                          SoftwareRecord.joins(:status).where(software_type_id: @params['software_type_filter']).where(status:
+'Decommissioned').order("#{sort_priority} #{sort_direction_priority}")
+                        elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? &&
+                              !@params['vendor_record_filter'].empty?
+                          SoftwareRecord.joins(:status).where(vendor_record_id: @params['vendor_record_filter']).where(status:
+'Decommissioned').order("#{sort_priority} #{sort_direction_priority}")
+                        else
+                          SoftwareRecord.joins(:status).where(statuses: { status_type: 'Decommissioned' }).order("#{sort_column}
+#{sort_direction}")
+                        end
+    @vendor_records = VendorRecord.all
+    @software_types = SoftwareType.all
+    @softwarerecords_count = SoftwareRecord.count
+  end
+
+  def edit_decommissioned
+    @software_record = SoftwareRecord.find(params[:id])
+  end
+
+  def update_decommissioned
+    @software_record = SoftwareRecord.find(params[:id])
+    if @software_record.update(software_record_params)
+      redirect_to list_decommissioned_path, notice: 'The Software title has been re-commissioned.'
+    else
+      render :edit_decommissioned
+    end
+  end
+
   def list_upgrades
     $page_title = 'Maintenance Priority| UCL Application Portfolio'
     @params = request.query_parameters
 
     @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
-                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.joins(:status).where(software_type_id:
+@params['software_type_filter']).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_priority} #{sort_direction_priority}")
                         elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? && !@params['vendor_record_filter'].empty?
-                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.joins(:status).where(vendor_record_id:
+@params['vendor_record_filter']).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_priority} #{sort_direction_priority}")
                         else
-                          SoftwareRecord.order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.joins(:status).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_priority}
+#{sort_direction_priority}")
                         end
     @vendor_records = VendorRecord.all
     @software_types = SoftwareType.all
@@ -179,12 +219,15 @@ info.'
     @params = request.query_parameters
 
     @software_records = if @params['filter_by'].to_s == 'software_types' && !@params['software_type_filter'].nil? && !@params['software_type_filter'].empty?
-                          SoftwareRecord.where(software_type_id: @params['software_type_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.joins(:status).where(software_type_id: @params['software_type_filter']).where.not(status:
+'Decommissioned').order("#{sort_priority} #{sort_direction_priority}")
                         elsif @params['filter_by'].to_s == 'vendor_records' && !@params['vendor_record_filter'].nil? &&
                               !@params['vendor_record_filter'].empty?
-                          SoftwareRecord.where(vendor_record_id: @params['vendor_record_filter']).order("#{sort_priority} #{sort_direction_priority}")
+                          SoftwareRecord.joins(:status).where(vendor_record_id: @params['vendor_record_filter']).where.not(status:
+'Decommissioned').order("#{sort_priority} #{sort_direction_priority}")
                         else
-                          SoftwareRecord.order("#{sort_column} #{sort_direction}")
+                          SoftwareRecord.joins(:status).where.not(statuses: { status_type: 'Decommissioned' }).order("#{sort_column}
+#{sort_direction}")
                         end
     @vendor_records = VendorRecord.all
     @software_types = SoftwareType.all
