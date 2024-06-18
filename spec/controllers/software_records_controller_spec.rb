@@ -125,10 +125,21 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     end
   end
 
+  #  context 'when filter_by is software_types and software_type_filter is provided' do
+  #    it 'assigns filtered software records to @software_records' do
+  #      software_record = SoftwareRecord.create! valid_attributes
+  #      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: SoftwareType.first.id }, session: valid_session
+  #      expect(assigns(:software_records)).to include(software_record)
+  #    end
+  #  end
+
   context 'when filter_by is software_types and software_type_filter is provided' do
+    let!(:software_type) { SoftwareType.create!(title: 'Test Type', status_type: 'Decommissioned') }
+
+    let!(:software_record) { SoftwareRecord.create!(valid_attributes.merge(software_type:)) }
+
     it 'assigns filtered software records to @software_records' do
-      software_record = SoftwareRecord.create! valid_attributes
-      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: SoftwareType.first.id }
+      get :list_road_map, params: { filter_by: 'software_types', software_type_filter: software_type.id }
       expect(assigns(:software_records)).to include(software_record)
     end
   end
@@ -136,7 +147,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   context 'when filter_by is not software_types' do
     it 'assigns all software records to @software_records' do
       software_record = SoftwareRecord.create! valid_attributes
-      get :list_road_map, params: { filter_by: 'other_filter' }
+      get :list_road_map, params: { filter_by: 'other_filter' }, session: valid_session
       expect(assigns(:software_records)).to include(software_record)
     end
   end
