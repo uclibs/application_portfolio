@@ -3,12 +3,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.0'
+ruby '3.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7.7'
+gem 'rails', '~> 6.1.7.8'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.4'
+
+# Needed for ruby 3.3.3 upgrade
+gem 'net-pop', '~> 0.1.2'
+gem 'net-protocol', '>= 0'
 # Use nokogiri for java
 gem 'nokogiri', '>= 1.16.5'
 # Use Puma as the app server
