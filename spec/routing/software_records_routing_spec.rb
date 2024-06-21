@@ -39,5 +39,13 @@ RSpec.describe SoftwareRecordsController, type: :routing do
     it 'routes to #list_upgrades' do
       expect(get: '/list_upgrades').to route_to('software_records#list_upgrades')
     end
+
+    it 'routes to #list_decommissioned' do
+      expect(get: '/list_decommissioned').to route_to('software_records#list_decommissioned')
+    end
+
+    it 'routes to #list_road_map' do
+      expect(get: '/list_road_map').to route_to('software_records#list_road_map')
+    end
   end
 end

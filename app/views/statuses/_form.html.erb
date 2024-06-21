@@ -20,9 +20,11 @@
         <div class="field">
           <%= form.label :status_type %>
           <% if component.eql?("new") %>
-            <%= form.select :status_type, options_for_select(['Design', 'Production', 'Other'], :selected=>"Design"), {}, {:class => "form-control"} %>
+            <%= form.select :status_type, options_for_select(['Design', 'Production', 'Decommissioned', 'Development', 'Other'], :selected=>"Design"), 
+{}, {:class => "form-control"} %>
           <% else %>
-            <%= form.select :status_type, options_for_select(['Design', 'Production', 'Other'], :selected=>Status.find_by_id(params[:id]).status_type.to_s), {}, {:class => "form-control"} %>
+            <%= form.select :status_type, options_for_select(['Design', 'Production', 'Decommissioned', 'Development', 'Other'], 
+:selected=>Status.find_by_id(params[:id]).status_type.to_s), {}, {:class => "form-control"} %>
           <% end %>
         </div>
         <br/><br/>
