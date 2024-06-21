@@ -232,6 +232,31 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     end
   end
 
+  describe 'GET #list_decommissioned' do
+    it 'assigns the requested software records to @software_records' do
+      get :list_decommissioned
+      expect(response).to be_successful
+    end
+
+    it 'renders the list_road_map template' do
+      get :list_decommissioned
+      expect(response).to render_template(:list_decommissioned)
+    end
+
+    context 'when not filtering by software types or vendor records' do
+      it 'returns all decommissioned software records' do
+        software_record_decommissioned = SoftwareRecord.create! decommissioned_attributes
+        get :list_decommissioned
+        expect(assigns(:software_records)).to include(software_record_decommissioned)
+      end
+    end
+
+    it 'sets the correct page title' do
+      get :list_decommissioned
+      expect(response.body).to match('\b(Decommissioned.List)\b')
+    end
+  end
+
   describe 'PATCH/PUT #update_road_map' do
     context 'with valid attributes' do
       it 'updates the software record' do
@@ -280,6 +305,36 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       get :index, params: {}, session: valid_session
       expect(response.body).to match('\b(A.Good.Software)\b')
       expect(response.body).not_to match('\b(Decommissioned.Software)\b')
+    end
+
+    context 'when filtering by software types' do
+      it 'returns software records with the specified software type and not decommissioned' do
+        software_record_active = SoftwareRecord.create! valid_attributes
+        software_record_decommissioned = SoftwareRecord.create! decommissioned_attributes
+        get :index, params: { filter_by: 'software_types', software_type_filter: SoftwareType.first.id }
+        expect(assigns(:software_records)).to include(software_record_active)
+        expect(assigns(:software_records)).not_to include(software_record_decommissioned)
+      end
+    end
+
+    context 'when filtering by vendor records' do
+      it 'returns software records with the specified vendor record and not decommissioned' do
+        software_record_active = SoftwareRecord.create! valid_attributes
+        software_record_decommissioned = SoftwareRecord.create! decommissioned_attributes
+        get :index, params: { filter_by: 'vendor_records', vendor_record_filter: VendorRecord.first.id }
+        expect(assigns(:software_records)).to include(software_record_active)
+        expect(assigns(:software_records)).not_to include(software_record_decommissioned)
+      end
+    end
+
+    context 'when not filtering by software types or vendor records' do
+      it 'returns all software records that are not decommissioned' do
+        software_record_active = SoftwareRecord.create! valid_attributes
+        software_record_decommissioned = SoftwareRecord.create! decommissioned_attributes
+        get :index
+        expect(assigns(:software_records)).to include(software_record_active)
+        expect(assigns(:software_records)).not_to include(software_record_decommissioned)
+      end
     end
   end
 
