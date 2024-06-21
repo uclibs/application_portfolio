@@ -182,19 +182,6 @@ info.'
     @softwarerecords_count = SoftwareRecord.count
   end
 
-  def edit_decommissioned
-    @software_record = SoftwareRecord.find(params[:id])
-  end
-
-  def update_decommissioned
-    @software_record = SoftwareRecord.find(params[:id])
-    if @software_record.update(software_record_params)
-      redirect_to list_decommissioned_path, notice: 'The Software title has been re-commissioned.'
-    else
-      render :edit_decommissioned
-    end
-  end
-
   def list_upgrades
     $page_title = 'Maintenance Priority| UCL Application Portfolio'
     @params = request.query_parameters
