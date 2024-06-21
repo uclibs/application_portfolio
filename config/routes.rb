@@ -25,13 +25,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :software_records do
-    member do
-      get 'edit_decommissioned'
-      patch 'update_decommissioned'
-    end
-  end
-
   #  get 'software_records/:id/edit_roadmap', to: 'software_records#edit_road_map', as: 'edit_road_map_software_record'
   get 'edit_road_map_software_records' => 'software_records#list_road_map'
   get 'edit_decommissioned_software_records' => 'software_records#list_decommissioned'
