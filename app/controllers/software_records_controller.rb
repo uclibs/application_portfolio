@@ -36,7 +36,7 @@ info.'
   end
 
   def self.indesign_dashboard(user)
-    design_status = Status.where(status_type: %w[Design Development])
+    design_status = Status.where(status_type: 'Design')
     design_filter = SoftwareRecord.where(status_id: 0)
     design_status.each do |design|
       design_filter = design_filter.or(SoftwareRecord.where(status_id: design.id))
