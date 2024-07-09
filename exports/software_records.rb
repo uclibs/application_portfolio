@@ -8,7 +8,8 @@ require "#{Dir.pwd}/config/environment.rb"
 class SoftwareRecords < ApplicationRecord
   def software_records
     file = "#{Dir.pwd}/public/software_records.csv"
-    software_records = SoftwareRecords.all
+    #    software_records = SoftwareRecords.all
+    software_records = SoftwareRecord.joins(:status).where.not(statuses: { status_type: 'Decommissioned' })
 
     headers = [
       'Software Record', 'Description', 'Status', 'Created on', 'Software Type',
