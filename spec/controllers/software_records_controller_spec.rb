@@ -54,6 +54,18 @@ RSpec.describe SoftwareRecordsController, type: :controller do
     )
   end
 
+  let(:change_attributes) do
+    {
+      change_title: 'A Good Software',
+      change_description: 'A Good description about the software',
+      software_record_id: 1,
+      application_pages: 10,
+      number_roles: 3,
+      authentication_needed: true,
+      custom_error_pages: true
+    }
+  end
+
   let(:valid_attributes) do
     {
       title: 'A Good Software',
@@ -505,9 +517,20 @@ RSpec.describe SoftwareRecordsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested software_record' do
       software_record = SoftwareRecord.create! valid_attributes
+      ChangeRequest.create! change_attributes
+
       expect do
         delete :destroy, params: { id: software_record.to_param }, session: valid_session
       end.to change(SoftwareRecord, :count).by(-1)
+    end
+
+    it 'also destroys the change request associated with the software_record' do
+      software_record = SoftwareRecord.create! valid_attributes
+      ChangeRequest.create! change_attributes
+      expect do
+        delete :destroy, params: { id: software_record.to_param }, session: valid_session
+      end.to change(ChangeRequest, :count).by(-1)
+      expect(response).to redirect_to(session[:previous])
     end
 
     it 'redirects to the software_records list' do
