@@ -1,93 +1,81 @@
-function openNav() {
-    document.getElementById("mySidenav").style.visibility = "visible";
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.visibility = "hidden";
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-}
-
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
-for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var dropdownContent = this.nextElementSibling;
-        if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
-        } else {
-            dropdownContent.style.display = "block";
-        }
-    });
-}
-
 window.onload = function() {
-    window.count_developers = 2;
-    window.count_tech_leads = 2;
-    window.count_departments = 2;
-    window.count_product_owners = 2;
-    window.count_admin_users = 2;
-}
+    window.counts = {
+
+      developers: window.counts?.developers || 1,
+      tech_leads: window.counts?.tech_leads || 1,
+      departments: window.counts?.departments || 1,
+      product_owners: window.counts?.product_owners || 1,
+      admin_users: window.counts?.admin_users || 1
+
+    };
+};
 
 function add(name, value) {
+    var count = window.counts[name]++;
+    var elementId = name + count;
+    var inputId = "software_record_" + name + "_" + count;
+
     var element = document.createElement("div");
-    var inputelement = document.createElement("input");
-    var inputgroupappend = document.createElement("div");
-    var spanelement = document.createElement("span");
-    var removebutton = document.createElement("i");
     element.className = "input-group mt-2";
-    if(name == "departments") {
-        element.id = name + window.count_departments;
+    element.id = elementId;
+
+    var inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.required = true;
+    inputElement.name = "software_record[" + name + "][]";
+    inputElement.id = inputId; // Ensure unique ID for each input element
+    inputElement.className = "form-control";
+    if (value != "") {
+        inputElement.value = value;
     }
-    else if(name == "product_owners") {
-        element.id = name + window.count_product_owners; 
-    }
-    else if(name == "admin_users") {
-        element.id = name + window.count_admin_users; 
-    }
-    inputelement.type = "text";
-    inputelement.required = true;
-    if(value != "") {
-        inputelement.innerHTML = value;
-    }
-    inputelement.name = "software_record[" + name + "][]";
-    inputelement.id = "software_record_"+ name + "_" ;
-    inputelement.className = "form-control";
-    element.appendChild(inputelement);
-    inputgroupappend.className = "input-group-append btnRemove";
-    element.appendChild(inputgroupappend);
-    spanelement.className = "input-group-text";
-    inputgroupappend.appendChild(spanelement);
-    removebutton.className = "fas fa-minus remove";
-    removebutton.innerHTML = "  Delete";
-    spanelement.appendChild(removebutton);
-    inputgroupappend.onclick = function() {
-        document.getElementById(element.id).remove();
+    element.appendChild(inputElement);
+
+    var inputGroupAppend = document.createElement("div");
+    inputGroupAppend.className = "input-group-append btnRemove";
+    element.appendChild(inputGroupAppend);
+
+    var spanElement = document.createElement("span");
+    spanElement.className = "input-group-text";
+    inputGroupAppend.appendChild(spanElement);
+
+    var removeButton = document.createElement("i");
+    removeButton.className = "fas fa-minus remove";
+    removeButton.innerHTML = "  Delete";
+    spanElement.appendChild(removeButton);
+
+    // Update the onclick handler to directly remove the parent element
+    inputGroupAppend.onclick = function() {
+        element.remove();
     };
-    var valued = "multiple_"+name;
-    var multi_valued = document.getElementById(valued);
-    multi_valued.appendChild(element);
+
+    var valued = "multiple_" + name;
+    var multiValued = document.getElementById(valued);
+    multiValued.appendChild(element);
+
+    console.log("Added element with ID: " + element.id + " and input ID: " + inputId);
 }
 
 document.getElementById("btnAddProductOwners").onclick = function() {
     add("product_owners", "");
-    window.count_product_owners++;
 };
 
 document.getElementById("btnAddAdminUsers").onclick = function() {
     add("admin_users", "");
-    window.count_admin_users++;
 };
 
 document.getElementById("btnAddDepartments").onclick = function() {
     add("departments", "");
-    window.count_departments++;
 };
 
-function remove(id){
+document.getElementById("btnAddDevelopers").onclick = function() {
+    add("developers", "");
+};
+
+document.getElementById("btnAddTechLeads").onclick = function() {
+    add("tech_leads", "");
+};
+
+function remove(id) {
     document.getElementById(id).remove();
 }
 
@@ -113,14 +101,4 @@ function handleRadio(myRadio) {
         document.getElementById("software-type-filter").style.display = "block";
     }
 }
-
-document.getElementById("btnAddDevelopers").onclick = function() {
-    add("developers", "");
-    window.count_developers++;
-};
-
-document.getElementById("btnAddTechLeads").onclick = function() {
-    add("tech_leads", "");
-    window.count_tech_leads++;
-};
 

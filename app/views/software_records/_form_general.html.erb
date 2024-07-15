@@ -48,304 +48,184 @@
             </div>
 
             <!-- Multiple Departments -->
-            <% if current_user.role.to_s == "root_admin" %>
-              <% if component.to_s == "new" %>
-                <div class="form-group" id="multiple_departments">
-                  <%= form.label :departments %> <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
-                <div class="input-group" id="departments1">
-                  <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control" %>
-                  <div class="input-group-append" id="btnRemove" onclick = "remove('departments1')">
-                    <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                  </div>
-                </div>
-              </div>
-              <% else %>
-              <% if @software_record.departments.count != 0 %>
-                <div class="form-group" id="multiple_departments">
-                  <%= form.label :departments %> <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
-                  <% @software_record.departments.each do |department| %>
-                      <% if @count_departments == 2 %>
-                        <div class="input-group" id="departments1">
-                          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('departments1')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                          <% @count_departments += 1 %>
-                      <% else %>
-                      <% @id = "software_record_departments_" + @count_departments.to_s %>
-                        <div class="input-group mt-2" id = "<%= @id %>" >
-                          <%= text_field_tag "software_record[departments][]", department, id: "software_record_departments_", required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                      <% end %>
-                  <% end %>
-                  </div>
-                <% else %>
-                  <div class="form-group" id="multiple_departments">
-                    <%= form.label :departments %> <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
-                  </div>
-                <% end %>
-              <% end %>
-            <% else %>
-              <% if @software_record.departments.count != 0 %>
-                <div class="form-group" id="multiple_departments">
-                  <% @software_record.departments.each do |department| %>
-                      <% if @count_departments == 2 %>
-                        <div class="input-group" id="departments1" style="display: none">
-                          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('departments1')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                          <% @count_departments += 1 %>
-                      <% else %>
-                      <% @id = "software_record_departments_" + @count_departments.to_s %>
-                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
-                          <%= text_field_tag "software_record[departments][]", department, id: "software_record_departments_", required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                      <% end %>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
+<% if current_user.role.to_s == "root_admin" %>
+  <div class="form-group" id="multiple_departments">
+    <%= form.label :departments %>
+    <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
 
-            <!-- Multiple Departments ends -->
+    <% if component.to_s == "new" || @software_record.departments.empty? %>
+      <div class="input-group" id="departments1">
+        <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('departments1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% else %>
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% @id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.departments.any? %>
+    <div class="form-group" id="multiple_departments">
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% @id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Departments ends -->
 
-            <!-- Multiple Developers -->
-            <% if current_user.role.to_s != "owner" %>
-            <% if component.to_s == "new" %>
-              <div class="form-group" id="multiple_developers">
-                <%= form.label :developers %> <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
-              <div class="input-group" id="developers1">
-                <%= text_field_tag "software_record[developers][]", nil, required: true, class: "form-control" %>
-                <div class="input-group-append" id="btnRemove" onclick = "remove('developers1')">
-                  <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                </div>
-              </div>
-            </div>
-            <% else %>
-            <% if @software_record.developers.count != 0 %>
-              <div class="form-group" id="multiple_developers">
-                <%= form.label :developers %> <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
-                <% @software_record.developers.each do |developer| %>
-                    <% if @count_developers == 2 %>
-                      <div class="input-group" id="developers1">
-                        <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('developers1')">
-                          <span class="input-group-text"><i class="fas fa-minus remove" >  Delete</i></span>
-                        </div>
-                      </div>
-                        <% @count_developers += 1 %>
-                    <% else %>
-                      <% @id = "software_record_developers_" + @count_developers.to_s %>
-                      <div class="input-group mt-2" id = "<%= @id %>" >
-                        <%= text_field_tag "software_record[developers][]", developer, id: "software_record_developers_", required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                    <% end %>
-                <% end %>
-                </div>
-              <% else %>
-               <div class="form-group" id="multiple_developers">
-                <%= form.label :developers %> <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
-              </div>
-              <% end %>
-            <% end %>
-            <% else %>
-              <% if @software_record.developers.count != 0 %>
-                <div class="form-group" id="multiple_developers">
-                  <% @software_record.developers.each do |developer| %>
-                      <% if @count_developers == 2 %>
-                        <div class="input-group" id="developers1" style="display: none">
-                          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('developers1')">
-                            <span class="input-group-text"><i class="fas fa-minus remove" >  Delete</i></span>
-                          </div>
-                        </div>
-                          <% @count_developers += 1 %>
-                      <% else %>
-                        <% @id = "software_record_developers_" + @count_developers.to_s %>
-                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
-                          <%= text_field_tag "software_record[developers][]", developer, id: "software_record_developers_", required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                      <% end %>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
+<!-- Multiple Developers -->
+<% if current_user.role.to_s != "owner" %>
+  <div class="form-group" id="multiple_developers">
+    <%= form.label :developers %>
+    <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
+    
+    <% if component.to_s == "new" || @software_record.developers.empty? %>
+      <div class="input-group mt-2" id="developers1">
+        <%= text_field_tag "software_record[developers][]", nil, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('developers1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% else %>
+      <% @software_record.developers.each_with_index do |developer, index| %>
+        <% @id = "developers#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>">
+          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.developers.any? %>
+    <div class="form-group" id="multiple_developers">
+      <% @software_record.developers.each_with_index do |developer, index| %>
+        <% @id = "developers#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
+          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Developers ends -->
 
-            <!-- Multiple Developers ends -->
+<!-- Multiple Tech Leads -->
+<% if current_user.role.to_s != "owner" %>
+  <div class="form-group" id="multiple_tech_leads">
+    <%= form.label :tech_leads %>
+    <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
+    
+    <% if component.to_s == "new" || @software_record.tech_leads.empty? %>
+      <div class="input-group mt-2" id="tech_leads1">
+        <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('tech_leads1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% else %>
+      <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
+        <% @id = "tech_leads#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>">
+          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.tech_leads.any? %>
+    <div class="form-group" id="multiple_tech_leads">
+      <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
+        <% @id = "tech_leads#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
+          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Tech Leads ends -->
 
-            <!-- Multiple Tech Leads -->
-            <% if current_user.role.to_s != "owner" %>
-            <% if component.to_s == "new" %>
-              <div class="form-group" id="multiple_tech_leads">
-                <%= form.label :tech_leads %> <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
-              <div class="input-group" id="tech_leads1">
-                <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control" %>
-                <div class="input-group-append" id="btnRemove" onclick = "remove('tech_leads1')">
-                  <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                </div>
-              </div>
-            </div>
-            <% else %>
-            <% if @software_record.tech_leads.count != 0 %>
-              <div class="form-group" id="multiple_tech_leads">
-                <%= form.label :tech_leads %> <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
-                <% @software_record.tech_leads.each do |tech_lead| %>
-                    <% if @count_tech_leads == 2 %>
-                      <div class="input-group" id="tech_leads1">
-                        <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('tech_leads1')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                        <% @count_tech_leads += 1 %>
-                    <% else %>
-                      <% @id = "software_record_tech_leads_" + @count_tech_leads.to_s %>
-                      <div class="input-group mt-2" id = "<%= @id %>" >
-                        <%= text_field_tag "software_record[tech_leads][]", tech_lead, id: "software_record_tech_leads_", required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                    <% end %>
-                <% end %>
-                </div>
-              <% else %>
-              <div class="form-group" id="multiple_tech_leads">
-                <%= form.label :tech_leads %> <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
-              </div>
-              <% end %>
-            <% end %>
-            <% else %>
-              <% if @software_record.tech_leads.count != 0 %>
-                <div class="form-group" id="multiple_tech_leads">
-                  <% @software_record.tech_leads.each do |tech_lead| %>
-                      <% if @count_tech_leads == 2 %>
-                        <div class="input-group" id="tech_leads1" style="display: none">
-                          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('tech_leads1')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                          <% @count_tech_leads += 1 %>
-                      <% else %>
-                        <% @id = "software_record_tech_leads_" + @count_tech_leads.to_s %>
-                        <div class="input-group mt-2" id = "<%= @id %>" style="display: none">
-                          <%= text_field_tag "software_record[tech_leads][]", tech_lead, id: "software_record_tech_leads_", required: true, class: "form-control" %>
-                          <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                            <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                          </div>
-                        </div>
-                      <% end %>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
+<!-- Multiple Product Owners -->
+<div class="form-group" id="multiple_product_owners">
+  <%= form.label "Product Lead/Contact" %>
+  <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
+  
+  <% if component.to_s == "new" || @software_record.product_owners.empty? %>
+    <div class="input-group mt-2" id="product_owners1">
+      <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control" %>
+      <div class="input-group-append" id="btnRemove" onclick="remove('product_owners1')">
+        <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+      </div>
+    </div>
+  <% else %>
+    <% @software_record.product_owners.each_with_index do |product_owner, index| %>
+      <% @id = "product_owners#{index + 1}" %>
+      <div class="input-group mt-2" id="<%= @id %>">
+        <%= text_field_tag "software_record[product_owners][]", product_owner, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<!-- Multiple Product Owners ends -->
 
-            <!-- Multiple Tech Leads ends -->
+<!-- Multiple Admin Users -->
+<div class="form-group" id="multiple_admin_users">
+  <%= form.label "Admin Users" %>
+  <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+  
+  <% if component.to_s == "new" || @software_record.admin_users.empty? %>
+    <div class="input-group mt-2" id="admin_users1">
+      <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
+      <div class="input-group-append" id="btnRemove" onclick="remove('admin_users1')">
+        <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+      </div>
+    </div>
+  <% else %>
+    <% @software_record.admin_users.each_with_index do |admin_user, index| %>
+      <% @id = "admin_users#{index + 1}" %>
+      <div class="input-group mt-2" id="<%= @id %>">
+        <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<!-- Multiple Admin Users ends -->
 
-            <!-- Multiple Product Owners -->
 
-            <% if component.to_s == "new" %>
-              <div class="form-group" id="multiple_product_owners">
-                <%= form.label "Product Lead/Contact" %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
-              <div class="input-group" id="product_owners1">
-                <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control" %>
-                <div class="input-group-append" id="btnRemove" onclick = "remove('product_owners1')">
-                  <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                </div>
-              </div>
-            </div>
-            <% else %>
-            <% if @software_record.product_owners.count != 0 %>
-              <div class="form-group" id="multiple_product_owners">
-                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
-                <% @software_record.product_owners.each do |product_owner| %>
-                    <% if @count_product_owners == 2 %>
-                      <div class="input-group" id="product_owners1">
-                        <%= text_field_tag "software_record[product_owners][]", product_owner, required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('product_owners1')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                        <% @count_product_owners += 1 %>
-                    <% else %>
-                      <% @id = "software_record_tech_leads_" + @count_product_owners.to_s %>
-                      <div class="input-group mt-2" id = "<%= @id %>" >
-                        <%= text_field_tag "software_record[product_owners][]", product_owner, id: "software_record_product_owners_", required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                    <% end %>
-                <% end %>
-                </div>
-              <% else %>
-              <div class="form-group" id="multiple_product_owners">
-                <%= form.label :product_owners %> <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
-              </div>
-              <% end %>
-            <% end %>
-
-            <!-- Multiple Product Owners ends -->
-
-            <!-- Multiple Admin Users -->
-
-            <% if component.to_s == "new" %>
-              <div class="form-group" id="multiple_admin_users">
-                <%= form.label "Admin Users" %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
-              <div class="input-group" id="admin_users1">
-                <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
-                <div class="input-group-append" id="btnRemove" onclick = "remove('admin_users1')">
-                  <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                </div>
-              </div>
-            </div>
-            <% else %>
-            <% if @software_record.admin_users.count != 0 %>
-              <div class="form-group" id="multiple_admin_users">
-                <%= form.label :admin_users %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
-                <% @software_record.admin_users.each do |admin_user| %>
-                    <% if @count_admin_users == 2 %>
-                      <div class="input-group" id="admin_users1">
-                        <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('admin_users1')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                        <% @count_admin_users += 1 %>
-                    <% else %>
-                      <% @id = "software_record_admin_users" + @count_admin_users.to_s %>
-                      <div class="input-group mt-2" id = "<%= @id %>" >
-                        <%= text_field_tag "software_record[admin_users][]", admin_user, id: "software_record_admin_users", required: true, class: "form-control" %>
-                        <div class="input-group-append" id="btnRemove" onclick = "remove('<%= @id %>')">
-                          <span class="input-group-text"><i class="fas fa-minus remove">  Delete</i></span>
-                        </div>
-                      </div>
-                    <% end %>
-                <% end %>
-                </div>
-              <% else %>
-              <div class="form-group" id="multiple_admin_users">
-                <%= form.label :admin_users %> <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
-              </div>
-              <% end %>
-            <% end %>
-
-            <!-- Multiple Admin Users ends -->
 
             <% if current_user.role.to_s != "owner" %>
               <div class="form-group">
