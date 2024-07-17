@@ -14,4 +14,7 @@ Rails.application.config.assets.precompile += %w[software_records.css]
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w[custom.js]
+Rails.application.config.assets.precompile += %w( navigation.js )
+Rails.application.config.assets.precompile += %w( filtermanagement.js )
+Rails.application.config.assets.precompile += %w( inputsanitization.js )
+Rails.application.config.assets.precompile += %w( multivalueinputs.js )
