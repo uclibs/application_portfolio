@@ -65,16 +65,19 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "application_portfolio_#{Rails.env}"
 
+  # Configure Secure Sendmail mailer
   config.action_mailer.raise_delivery_errors = true
-
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
+  config.mailer_from = 'uclappdev@uc.edu'
+  config.action_mailer.delivery_method = :smtp
   # Store the base url from where request is received.
   config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] }
-
   # updated for tls and sendmail
   config.action_mailer.smtp_settings = {
     enable_starttls_auto: true,
+    # 'address' specifies the address of the server that will handle email sending.
+    address: ENV['MAIL_SMTP_ADDRESS'],
+    # 'port' specifies which port to use on the SMTP server.
     port: 25,
     # 'ca_file' is the path to the certificate authority file.
     # In our case, it's a self-signed certificate. This tells Rails to trust this specific certificate.
