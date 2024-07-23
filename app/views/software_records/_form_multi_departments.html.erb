@@ -1,0 +1,44 @@
+            <!-- Multiple Departments -->
+<% if current_user.role.to_s == "root_admin" %>
+  <div class="form-group" id="multiple_departments">
+    <%= form.label :departments %>
+    <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
+
+    <% if component.to_s == "new" || @software_record.departments.empty? %>
+      <div class="input-group" id="departments1">
+        <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('departments1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% else %>
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% @id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.departments.any? %>
+    <div class="form-group" id="multiple_departments">
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% @id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Departments ends -->
+
+
+
