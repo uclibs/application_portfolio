@@ -6,179 +6,29 @@
     <%= csp_meta_tag %>
     <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type => 'image/x-icon' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" 
+crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <%= stylesheet_link_tag    'software_records', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'software_records', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  
   <body>
-  <%= render 'shared/dashboard_menu' %>
-  <div id="main">
-    <%= render 'shared/dashboard_header' %>
-    <% if current_user %><div id="pillSideNav"><span id="dashboard-open" onclick="openNav()" style="background-color: #E00122; color: white;">Menu &#9776;</span></div><% end %>
-    <%= yield %>
-    <%= alerts %>
-    <%= render 'shared/dashboard_footer' %>
-  </div>
+    <%= render 'shared/dashboard_menu' %>
+    <div id="main">
+      <%= render 'shared/dashboard_header' %>
+      <% if current_user %>
+        <div id="pillSideNav">
+          <span id="dashboard-open" onclick="openNav()" style="background-color: #E00122; color: white;">Menu &#9776;</span>
+        </div>
+      <% end %>
+      <%= yield %>
+      <%= alerts %>
+      <%= render 'shared/dashboard_footer' %>
+    </div>
+    <%= javascript_include_tag 'navigation' %>
+    <%= javascript_include_tag 'filtermanagement' %>
+    <%= javascript_include_tag 'inputsanitization' %>
+    <%= javascript_include_tag 'multivalueinputs' %>
   </body>
-
-  <script>
-  function openNav() {
-    document.getElementById("mySidenav").style.visibility = "visible";
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("mySidenav").style.visibility = "hidden";
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
-
-  function clearFilters() {
-    document.getElementById("vendor-record-filter").style.display = "none";
-    document.getElementById("software-type-filter").style.display = "none";
-    var loaded = window.location.host;
-    window.location = "software_records";
-  }
-
-  function handleRadio(myRadio) {
-    if(myRadio.value === "vendor_records") {
-      document.getElementById("vendor-record-filter").style.display = "block";
-      document.getElementById("software-type-filter").style.display = "none";
-    }
-    else{
-      document.getElementById("vendor-record-filter").style.display = "none";
-      document.getElementById("software-type-filter").style.display = "block";
-    }
-  }
-
-  var dropdown = document.getElementsByClassName("dropdown-btn");
-  var i;
-  for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
-    dropdownContent.style.display = "none";
-    } else {
-    dropdownContent.style.display = "block";
-    }
-    });
-  }
-
-  window.onload = function() {
-    window.count_developers = 2;
-    window.count_tech_leads = 2;
-    window.count_departments = 2;
-    window.count_product_owners = 2;
-    window.count_admin_users = 2;
-  }
-
-  function add(name, value) {
-    var element = document.createElement("div");
-    var inputelement = document.createElement("input");
-    var inputgroupappend = document.createElement("div");
-    var spanelement = document.createElement("span");
-    var removebutton = document.createElement("i");
-    element.className = "input-group mt-2";
-    if(name == "developers") {
-      element.id = name + window.count_developers;
-    }
-
-    else if(name == "tech_leads") {
-      element.id = name + window.count_tech_leads; 
-    }
-
-    else if(name == "product_owners") {
-      element.id = name + window.count_product_owners; 
-    }
-
-    else if(name == "admin_users") {
-      element.id = name + window.count_admin_users; 
-    }
-
-
-    else {
-      element.id = name + window.count_departments; 
-    }
-
-    inputelement.type = "text";
-    inputelement.required = true;
-    if(value != "") {
-      inputelement.innerHTML = value;
-    }
-    inputelement.name = "software_record[" + name + "][]";
-    inputelement.id = "software_record_"+ name + "_" ;
-    inputelement.className = "form-control";
-
-    element.appendChild(inputelement);
-
-    inputgroupappend.className = "input-group-append btnRemove";
-    element.appendChild(inputgroupappend);
-
-    spanelement.className = "input-group-text";
-    inputgroupappend.appendChild(spanelement);
-
-    removebutton.className = "fas fa-minus remove";
-    removebutton.innerHTML = "  Delete";
-    spanelement.appendChild(removebutton);
-
-    inputgroupappend.onclick = function() {
-      document.getElementById(element.id).remove();
-  };
-
-  var valued = "multiple_"+name;
-  var multi_valued = document.getElementById(valued);
-  multi_valued.appendChild(element);
-  }
-
-  document.getElementById("btnAddDevelopers").onclick = function() {
-    add("developers", "");
-    window.count_developers++;
-  };
-
-  document.getElementById("btnAddTechLeads").onclick = function() {
-    add("tech_leads", "");
-    window.count_tech_leads++;
-  };
-
-  document.getElementById("btnAddProductOwners").onclick = function() {
-    add("product_owners", "");
-    window.count_product_owners++;
-  };
-
-  function add_product_owner() {
-    add("product_owners", "");
-    window.count_product_owners++;
-  }
-
-  document.getElementById("btnAddAdminUsers").onclick = function() {
-    add("admin_users", "");
-    window.count_admin_users++;
-  };
-
-  function add_admin_user() {
-    add("admin_users", "");
-    window.count_admin_users++;
-  }
-
-
-  document.getElementById("btnAddDepartments").onclick = function() {
-    add("departments", "");
-    window.count_departments++;
-  };
-
-  function remove(id){
-    document.getElementById(id).remove();
-  }
-
-  var createdbyfield = document.getElementsByClassName('regex-createdby')[0];
-        createdbyfield.onkeyup = function() {
-            createdbyfield.value = createdbyfield.value.replace(/[^a-zA-Z0-9 ]/, '');
-        }
-</script>
-
-  
 </html>
+

@@ -1,28 +1,49 @@
 name: CI GitHub Action
-on: "push"
 
-#permissions:
-#  contents: read
+on: push
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
       uses: ruby/setup-ruby@v1
       with:
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        ruby-version: '3.3.3' # or your preferred Ruby version
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libnss3-dev
+        gem install bundler
+        bundle install
+
     - name: Run rubocop
       run: |
         bundle exec rubocop
+
     - name: Run tests
-      run: bundle exec rake
+      env:
+        DISPLAY: :99.0
+      run: |
+        Xvfb :99 -ac &
+        bundle exec rspec
+
     - name: Coveralls
       uses: coverallsapp/github-action@v2
+
     - name: Brakeman linter
       run: bundle exec brakeman --no-exit-on-warn --no-exit-on-error
+
     - name: 'Run Bundler Audit'
       run: bundle exec bundler-audit
+

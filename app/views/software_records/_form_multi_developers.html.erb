@@ -1,0 +1,43 @@
+<!-- Multiple Developers -->
+<% if current_user.role.to_s != "owner" %>
+  <div class="form-group" id="multiple_developers">
+    <%= form.label :developers %>
+    <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
+    
+    <% if component.to_s == "new" || @software_record.developers.empty? %>
+      <div class="input-group mt-2" id="developers1">
+        <%= text_field_tag "software_record[developers][]", nil, required: true, class: "form-control" %>
+        <div class="input-group-append" id="btnRemove" onclick="remove('developers1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        </div>
+      </div>
+    <% else %>
+      <% @software_record.developers.each_with_index do |developer, index| %>
+        <% @id = "developers#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>">
+          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.developers.any? %>
+    <div class="form-group" id="multiple_developers">
+      <% @software_record.developers.each_with_index do |developer, index| %>
+        <% @id = "developers#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
+          <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
+          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Developers ends -->
+
+
