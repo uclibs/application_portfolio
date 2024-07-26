@@ -1,12 +1,10 @@
 window.onload = function() {
     window.counts = {
-     
-      developers: window.counts?.developers || 1,
-      tech_leads: window.counts?.tech_leads || 1,
-      departments: window.counts?.departments || 1,
-      product_owners: window.counts?.product_owners || 1,
-      admin_users: window.counts?.admin_users || 1
-    
+        developers: (window.counts && window.counts.developers) || 1,
+        tech_leads: (window.counts && window.counts.tech_leads) || 1,
+        departments: (window.counts && window.counts.departments) || 1,
+        product_owners: (window.counts && window.counts.product_owners) || 1,
+        admin_users: (window.counts && window.counts.admin_users) || 1
     };
 };
 
