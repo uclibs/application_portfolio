@@ -1,3 +1,20 @@
+1.4.0 7/29/2024
+* Updates Ruby to version 3.3.3.
+* Updates Rails to version 6.1.7.8.
+* Updates the deploy script to update ruby.
+* Updates Github Actions.
+* Bundle Update.
+* Security updates to Nokogiri.
+* Improves notes field with simple format.
+* Moves javascript into asset pipeline.
+* Adds Road Map feature.
+* Adds Decommissioned as a feature.
+* Bug Fixes
+  * Fixes null value in export function.
+  * Fixes sensitive information field.
+  * Fixes problem of deleting a record with a change request associated.
+  * Fixes problem with multi_value fields.
+
 1.3.0 4/9/2024
 * Updates Ruby to version 3.3.0
 * Updates Rails to version 6.1.7.7
