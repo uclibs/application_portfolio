@@ -1,29 +1,29 @@
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :title %><b style="color: red; font-size: 20px"> *</b>
               <%= form.text_field :title, :class => "form-control" %>
             </div>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :description %><b style="color: red; font-size: 20px"> *</b>
               <%= form.text_area :description, :cols => 30, :rows => 4, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "Status" %><b style="color: red; font-size: 20px"> *</b>
               <%= form.collection_select(:status_id, Status.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :date_implemented %>
               <%= form.date_field :date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :date_of_upgrade, "Date of last upgrade" %>
               <%= form.date_field :date_of_upgrade, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :created_by %><b style="color: red; font-size: 20px"> *</b>
               <% if component.eql?("new") and user_signed_in? %>
                 <%= form.text_field :created_by, value: current_user.first_name + " " +current_user.last_name, :class => "form-control regex-createdby" %>
@@ -32,17 +32,17 @@
               <% end %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "Software Type" %><b style="color: red; font-size: 20px"> *</b>
               <%= form.collection_select(:software_type_id, SoftwareType.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "Vendor" %><b style="color: red; font-size: 20px"> *</b>
               <%= form.collection_select(:vendor_record_id, VendorRecord.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "Authentication Type" %>
               <%= form.select(:authentication_type, t('authentication_types'), {}, { :class => 'form-control' }) %>
             </div>
@@ -56,36 +56,36 @@
 
 
             <% if current_user.role.to_s != "owner" %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :languages_used %>
                 <%= form.text_field :languages_used, :class => "form-control" %>
               </div>
             <% end %>
             
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :production_url, "Production URL" %>
               <%= form.text_field :production_url, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :source_code_url, "Source Code URL" %>
               <%= form.text_field :source_code_url, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :user_seats %>
               <%= form.text_field :user_seats, :class => "form-control" %>
             </div>
 
             <% if current_user.role.to_s == "root_admin" %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :annual_fees %>
                 <%= form.text_field :annual_fees, :class => "form-control" %>
               </div>
             <% end %>
 
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :support_contract %><br/>
                 <%= form.label :support_contract, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :support_contract, "Yes" %>
@@ -93,7 +93,7 @@
                 <%= form.radio_button :support_contract, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :support_contract %><br/>
                 <%= form.label :support_contract, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :support_contract, "Yes", :checked => yes_no_toggle(:support_contract) == "Yes" %>
@@ -102,44 +102,44 @@
               </div>
             <% end %>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "Hosting Environment" %>
               <%= form.collection_select(:hosting_environment_id, HostingEnvironment.order(:title), :id, :title, {}, {:class => "form-control"}) %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :current_version %>
               <%= form.text_field :current_version, :class => "form-control" %>
             </div>
 
             <% if current_user.role.to_s == "root_admin" %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label "Sensitive Information (Software keys/Passwords)" %>
                 <%= form.text_area :sensitive_information, :cols => 30, :rows => 3, :value => @decrypted_sensitive_information, :class => "form-control" %>
               </div>
             <% end %>
 
             <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" or current_user.role.to_s == "technician"%>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :road_map, 'Road Map' %>
                 <%= form.text_area :road_map, :cols => 30, :rows => 7, :class => "form-control" %>
               </div>
             <% end %>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :notes %>
               <%= form.text_area :notes, :cols => 30, :rows => 3, :class => "form-control" %>
             </div>
 
             <% if current_user.role.to_s == "root_admin" %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :business_value %>
                 <%= form.number_field :business_value, :class => "form-control" %>
               </div>
             <% end %>
 
             <% if current_user.role.to_s != "owner" %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :it_quality, 'IT Quality' %>
                 <%= form.number_field :it_quality, :class => "form-control" %>
               </div>

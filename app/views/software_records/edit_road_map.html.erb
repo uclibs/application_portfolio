@@ -17,13 +17,13 @@
       <% end %>
 
       <% if !@software_record.title.nil? && !@software_record.title.to_s.empty? %> 
-        <div class="form-group">
+        <div class="mb-3">
           <%= form.label :title, class: 'form-label' %>
           <p class="form-control-plaintext text-white"><%= @software_record.title %></p> <!-- Display the title but don't allow editing -->
         </div>
       <% end %>
 
-      <div class="form-group">
+      <div class="mb-3">
         <%= form.label :road_map, class: 'form-label' %>
         <%= form.text_area :road_map, class: 'form-control', rows: 10  %>
       </div>

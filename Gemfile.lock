@@ -65,7 +65,7 @@ GEM
     airbrussh (1.5.2)
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
-    autoprefixer-rails (10.4.16.0)
+    autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -73,10 +73,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    bootstrap (4.3.1)
+    bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
+      popper_js (>= 2.11.8, < 3)
     bootstrap-datepicker-rails (1.10.0.1)
       railties (>= 3.0)
     brakeman (6.1.2)
@@ -213,7 +212,7 @@ GEM
       racc
     petergate (3.0.0)
       activerecord (> 4.0.0)
-    popper_js (1.16.1)
+    popper_js (2.11.8)
     public_suffix (6.0.0)
     puma (6.4.2)
       nio4r (~> 2.0)
@@ -401,7 +400,7 @@ PLATFORMS
 DEPENDENCIES
   bigdecimal
   bootsnap (>= 1.1.0)
-  bootstrap (~> 4.3.1)
+  bootstrap (~> 5.3.3)
   bootstrap-datepicker-rails
   brakeman
   bundler-audit
@@ -439,6 +438,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sass-rails (~> 5.0)
+  sassc-rails (~> 2.1)
   selenium-webdriver (~> 4.18.1)
   shoulda-matchers (~> 4.0)
   simplecov

@@ -1,6 +1,6 @@
 <!-- Multiple Developers -->
 <% if current_user.role.to_s != "owner" %>
-  <div class="form-group" id="multiple_developers">
+  <div class="mb-3" id="multiple_developers">
     <%= form.label :developers %>
     <a class="float-right text-primary anchor-underline" id="btnAddDevelopers">+ add more</a>
     
@@ -25,7 +25,7 @@
   </div>
 <% else %>
   <% if @software_record.developers.any? %>
-    <div class="form-group" id="multiple_developers">
+    <div class="mb-3" id="multiple_developers">
       <% @software_record.developers.each_with_index do |developer, index| %>
         <% @id = "developers#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>" style="display: none">

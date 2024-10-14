@@ -1,6 +1,6 @@
             <!-- Multiple Departments -->
 <% if current_user.role.to_s == "root_admin" %>
-  <div class="form-group" id="multiple_departments">
+  <div class="mb-3" id="multiple_departments">
     <%= form.label :departments %>
     <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
 
@@ -25,7 +25,7 @@
   </div>
 <% else %>
   <% if @software_record.departments.any? %>
-    <div class="form-group" id="multiple_departments">
+    <div class="mb-3" id="multiple_departments">
       <% @software_record.departments.each_with_index do |department, index| %>
         <% @id = "departments#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>" style="display: none">

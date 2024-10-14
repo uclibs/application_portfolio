@@ -44,7 +44,8 @@ gem 'rubocop-rspec', require: false
 gem 'simplecov', require: false
 gem 'simplecov-lcov', require: false
 # Use bootstrap css, jquery-rails gem for styling the components
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 5.3.3'
+gem 'sassc-rails', '~> 2.1' # SASSC adapter for Rails, needed for Bootstrap 5
 gem 'jquery-rails'
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'

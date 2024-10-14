@@ -54,7 +54,7 @@
           <%= render 'form_maintenance_log', software_record: @software_record, component: component, form: form %>
         </div>
 
-        <div class="form-group <%= component %>" style= "text-align: center;">
+        <div class="mb-3 <%= component %>" style= "text-align: center;">
           <%= form.submit 'Save', class: "btn btn-primary" %>
           <% if component.to_s == "new" %>
             <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>

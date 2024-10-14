@@ -22,7 +22,7 @@
           <%= form.text_field :description, :class => "form-control" %>
         </div>
         <br/><br/>
-        <div class="form-group <%= component %>" style= "text-align: center;">
+        <div class="mb-3 <%= component %>" style= "text-align: center;">
           <%= form.submit 'Save', class: "btn btn-primary" %>
           <% if component.to_s == "new" %>
             <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>

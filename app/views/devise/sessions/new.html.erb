@@ -3,7 +3,7 @@
     <h2 class= "text-center" style="color: white; padding-top: 14px">Login</h2><hr style="background: white">
       <div class = "card-body">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-group">
+        <div class="mb-3">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <%= image_tag("login.png", width:'18px', height: '19px') %> </span>
@@ -11,7 +11,7 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control w-75 email-input", style: 'margin: auto; width: 90%', placeholder: "Email" %><br/>
           </div>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <%= image_tag("password.png", width:'18px', height: '19px') %> </span>

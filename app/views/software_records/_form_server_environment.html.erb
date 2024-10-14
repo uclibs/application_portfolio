@@ -1,55 +1,55 @@
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :qa_url %>
               <%= form.text_area :qa_url, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :dev_url %>
               <%= form.text_area :dev_url, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :prod_url %>
               <%= form.text_area :prod_url, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :themes %>
               <%= form.check_box :themes %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :modules %>
               <%= form.check_box :modules %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :production_support_servers %>
               <%= form.text_area :production_support_servers, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :qa_support_servers %>
               <%= form.text_area :qa_support_servers, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :dev_support_servers %>
               <%= form.text_area :dev_support_servers, :class => "form-control" %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "last_record_change" %>
                <%= form.date_field :last_record_change, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "date_cert_expires" %>
                <%= form.date_field :date_cert_expires, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
 
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
                 <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_certificates, "Yes" %>
@@ -57,7 +57,7 @@
                 <%= form.radio_button :monitor_certificates, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
                 <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_certificates, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
@@ -67,7 +67,7 @@
             <% end %>
 
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :track_uptime, 'Track uptime?' %><br/>
                 <%= form.label :track_uptime, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :track_uptime, "Yes" %>
@@ -75,7 +75,7 @@
                 <%= form.radio_button :track_uptime, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :track_uptime, 'Track uptime?' %><br/>
                 <%= form.label :track_uptime, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :track_uptime, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
@@ -85,7 +85,7 @@
             <% end %>
 
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_health, 'Monitor health?' %><br/>
                 <%= form.label :monitor_health, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_health, "Yes" %>
@@ -93,7 +93,7 @@
                 <%= form.radio_button :monitor_health, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_health, 'Monitor health?' %><br/>
                 <%= form.label :monitor_health, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_health, "Yes", :checked => yes_no_toggle(:monitor_health) == "Yes" %>
@@ -105,7 +105,7 @@
 
 
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_errors, 'Monitor errors?' %><br/>
                 <%= form.label :monitor_errors, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_errors, "Yes" %>
@@ -113,7 +113,7 @@
                 <%= form.radio_button :monitor_errors, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :monitor_errors, 'Monitor errors?' %><br/>
                 <%= form.label :monitor_errors, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :monitor_errors, "Yes", :checked => yes_no_toggle(:monitor_errors) == "Yes" %>
