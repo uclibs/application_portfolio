@@ -1,56 +1,56 @@
-<div class = "container-block mt-5" style="margin-left: 150px; margin-right: 150px;">
-  <div class="card-deck mb-3 text-center design-data" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px;">
+<div class = "container mt-5" style="margin-left: 150px; margin-right: 150px;">
+  <div class="row mb-3 text-center design-data">
+    <div class="card w-100 mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-capitalize design-title">My Apps In Development <i class="fa fa-wrench"></i></h3>
       </div>
-      <div class="card-body" style="overflow: scroll; height: 10%">
+      <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @indesign_count != 0 %>
-          <table class="table text-center w-25">
+          <table class="table text-center w-25" style="padding-left: 20p; background-color: black">
             <thead>
-              <tr>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+              <tr">
+                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+                <th class="align-left" style="padding-left: 20px; padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+                <th class="align-left" style="padding-left: 20px; padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px">Status</th>
-                <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+                <th class="align-left" style="padding-left: 20px; padding-left: 20px; background-color: black ; color: white">Status</th>
+                <th class="align-left" style="padding-left: 20px; padding-left: 20px; background-color: black ; color: white""><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <% if current_user.role.to_s == "viewer" %>
-                  <th class="align-left" style="padding-left: 20px">Action</th>
+                  <th class="align-left" style="padding-left: 20px; background-color: black ; color: white">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td class="align-left" style="padding-left: 20px"><%= record_indesign.title %></td>
-                  <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
-                  <td class="align-left" style="padding-left: 20px"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
-                  <td class="align-left" style="padding-left: 20px"><%= pills record_indesign.status.title %></td>
-                  <td style="table-layout:fixed; width: 300px; word-break:break-all;" class="align-left">
+                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_indesign.title %></td>
+                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
+                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
+                  <td class="text-start" style="padding-left: 20px; background-color: transparent ; color: white"><%= pills record_indesign.status.title %></td>
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white" class="align-left">
                     <% if record_indesign.production_url.to_s.empty? %>
                       -
                     <% else %>
@@ -58,14 +58,20 @@
                     <% end %>
                   </td>
                   <% if current_user.role.to_s == "viewer" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary 
+btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger btn-icons", data: { confirm: 'Are you sure?' }, title: "Delete" %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_indesign , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary 
+btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger btn-icons", data: 
+{ confirm: 'Are you sure?' }, title: "Delete" %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -79,35 +85,35 @@
     </div>
   </div>
 
-  <div class="card-deck mb-3 text-center prod-data" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
+  <div class="row mb-3 text-center prod-data" style="color: black;">
+    <div class="card w-100 mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Production <i class="fa fa-bolt"></i></h3>
       </div>
-      <div class="card-body" style="overflow: scroll; height: 10%">
+      <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @production_count != 0 %>
         <table class="table text-center">
           <thead>
             <tr>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
@@ -116,9 +122,9 @@
               <% if current_user.role.to_s == "viewer" %>
                   <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
             </tr>
           </thead>
@@ -126,9 +132,10 @@
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
-                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
+record_production.current_version %><% end %></td>
                 <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
@@ -137,14 +144,20 @@
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary 
+btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary 
+btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", 
+title: "Delete", data: { confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>
@@ -159,35 +172,35 @@
   </div>
   <br/>
 
-  <div class="card-deck mb-3 text-center prod-data" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
+  <div class="row mb-3 text-center prod-data" style="color: black;">
+    <div class="card w-100 mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Change Management <i class="fa fa-bolt"></i></h3>
       </div>
-      <div class="card-body" style="overflow: scroll; height: 10%">
+      <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @inchange_count != 0 and @softwarerecords_inchange.present?%>
         <table class="table text-center">
           <thead>
             <tr>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "title", "Software Record" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "vendor_record_id", "Vendor" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "current_version", "Current Version" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px"><%= sortable "production_url", "URL" %>
+              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
@@ -196,9 +209,9 @@
               <% if current_user.role.to_s == "viewer" %>
                   <th class="align-left" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px">Actions</th>
+                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
             </tr>
           </thead>
@@ -206,9 +219,10 @@
           <tbody>
             <% @softwarerecords_inchange.each do |record_production| %>
               <tr>
-                <td class="align-left" style="padding-left: 20px"><%= record_production.title %></td>
-                <td class="align-left" style="padding-left: 20px"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td class="align-left" style="padding-left: 20px"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= record_production.current_version %><% end %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
+record_production.current_version %><% end %></td>
                 <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all;">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
@@ -217,14 +231,20 @@
                     <% end %>
                   </td>
                 <% if current_user.role.to_s == "viewer" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
                   <% elsif current_user.role.to_s == "owner" %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "text-primary 
+btn-icons", title: "Edit" }%></td>
                   <% else %>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px;"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'View', record_production , { :class => "btn btn-success btn-icons", title: "View" 
+}%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary 
+btn-icons", title: "Edit" }%></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", 
+title: "Delete", data: { confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>
@@ -239,38 +259,44 @@
   </div>
   <br/>
 
-  <div class="card-deck mb-3 text-center" style="color: black;">
-    <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
-      <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">Users</h3>
-      </div>
-      <div class="card-body">
-        <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", "#E8DE0D"], legend: "bottom"%><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='users'">View</button>
-      </div>
+  <div class="row mb-3 justify-content-center" style="color: black; display: flex; flex-wrap: nowrap;">
+  <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal text-uppercase">Users</h3>
     </div>
-    <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto">
-      <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
-      </div>
-      <div class="card-body">
-        <%= pie_chart software_records_status_hash, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" %><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
-      </div>
-    </div>
-    <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto">
-      <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
-      </div>
-      <div class="card-body">
-        <%= pie_chart vendor_piechart, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: {position: "none"} %><br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='vendor_records'">View</button>
-      </div>
+    <div class="card-body">
+      <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", 
+"#E8DE0D"], legend: "bottom"%><br/>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='users'">View</button>
     </div>
   </div>
-  <br/>
-  <div class="card-deck mb-3 text-center" style="color: black">
-    <div class="card mb-4 box-shadow animated fadeInDown" style="width: 50.33%; height: auto">
+
+  <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto;">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
+    </div>
+    <div class="card-body">
+      <%= pie_chart software_records_status_hash, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" 
+%><br/>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='software_records'">View</button>
+    </div>
+  </div>
+
+  <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto;">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
+    </div>
+    <div class="card-body">
+      <%= pie_chart vendor_piechart, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, 
+legend: {position: "none"} %><br/>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='vendor_records'">View</button>
+    </div>
+  </div>
+</div>
+
+
+  <div class="row mb-3 text-center" style="color: black">
+    <div class="card w-100 mb-4 box-shadow animated fadeInDown" style="width: 50.33%; height: auto">
       <div class="card-header">
         <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
       </div>

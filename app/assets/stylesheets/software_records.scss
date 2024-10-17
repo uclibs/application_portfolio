@@ -1,3 +1,5 @@
+$enable-responsive-font-sizes: false;
+
 @import "bootstrap";
 @import "gritter";
 
@@ -197,10 +199,6 @@ option {
   }
 }
 
-.card-deck{
-  font-size: 13px;
-}
-
 @media screen and (min-width: 1440px) {
   .btn-icons {
     font-size: 12px;
@@ -234,7 +232,7 @@ option {
   margin: auto;
   color: white;
   width: 100% !important;
-  background-color: black;
+  background-color: transparent;
   border-radius: 5px;
 }
 

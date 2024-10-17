@@ -1,3 +1,5 @@
+$enable-responsive-font-sizes: false;
+
 @import "bootstrap";
 @import "gritter";
 @import "**/*";
@@ -38,13 +40,13 @@ a:hover {
 	 	}
 }
 
-.form-group .input-group .email-input{
+.input-group .email-input{
 	border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 	border: 0;
 }
 
-.form-group .input-group .password-input{
+.input-group .password-input{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: 0;
@@ -187,7 +189,7 @@ a:hover {
   margin: auto;
   color: white;
   width: 100% !important;
-  background-color: black;
+  background-color: transparent;
   border-radius: 5px;
 }
 
