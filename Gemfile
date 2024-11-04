@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7.8'
+gem 'rails', '~> 6.1.7.9'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
@@ -16,7 +16,7 @@ gem 'net-protocol', '>= 0'
 # Use nokogiri for java
 gem 'nokogiri', '>= 1.16.5'
 # Use Puma as the app server
-gem 'puma', '>= 6.3.1'
+gem 'puma', '>= 6.4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Devise for authentication
@@ -36,7 +36,7 @@ gem 'rails-controller-testing'
 # Use rubocop for static code analysis
 gem 'rubocop'
 # bundler audit
-gem 'rexml', '>= 3.3.2'
+gem 'rexml', '>= 3.3.9'
 gem 'rubocop-rails', require: false
 
 gem 'rubocop-rspec', require: false

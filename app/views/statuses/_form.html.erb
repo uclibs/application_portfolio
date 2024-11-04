@@ -13,12 +13,12 @@
         <% end %>
 
         <div class="field">
-          <%= form.label :title %>
+          <%= form.label :title, class: 'text-white' %>
           <%= form.text_field :title, :class => "form-control" %>
         </div><br/>
 
         <div class="field">
-          <%= form.label :status_type %>
+          <%= form.label :status_type, class: 'text-white' %>
           <% if component.eql?("new") %>
             <%= form.select :status_type, options_for_select(['Design', 'Production', 'Decommissioned', 'Development', 'Other'], :selected=>"Design"), 
 {}, {:class => "form-control"} %>
