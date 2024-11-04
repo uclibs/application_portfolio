@@ -7,7 +7,7 @@
     <% if component.to_s == "new" || @software_record.developers.empty? %>
       <div class="input-group mt-2" id="developers1">
         <%= text_field_tag "software_record[developers][]", nil, required: true, class: "form-control" %>
-        <div class="input-group-append" id="btnRemove" onclick="remove('developers1')">
+        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('developers1')">
           <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
         </div>
       </div>
@@ -16,7 +16,7 @@
         <% @id = "developers#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>">
           <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
-          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>
@@ -30,7 +30,7 @@
         <% @id = "developers#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>" style="display: none">
           <%= text_field_tag "software_record[developers][]", developer, required: true, class: "form-control" %>
-          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>
