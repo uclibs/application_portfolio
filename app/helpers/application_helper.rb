@@ -78,7 +78,7 @@ module ApplicationHelper
     series = [{ "data": {} }]
     current_year = Date.today.year
     current_month = Date.today.month
-    months = Hash.new('month')
+    Hash.new('month')
     months = { 1 => "January, #{current_year}",
                2 => "February, #{current_year}",
                3 => "March, #{current_year}",

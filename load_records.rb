@@ -13,17 +13,8 @@ class LoadRecords < ApplicationRecord
     vendor_records = csv['Vendor Record']
     statuses = csv['Status']
     hosting_environments = csv['Hosting Environment']
-    valid_types = []
-    valid_vendors = []
-    valid_statuses = []
     valid_hostings = []
-    invalid_vendors = []
-    invalid_types = []
-    invalid_statuses = []
     invalid_hostings = []
-    types_invalid = false
-    vendors_invalid = false
-    statuses_invalid = false
     hostings_invalid = false
     valid_types = []
     valid_vendors = []

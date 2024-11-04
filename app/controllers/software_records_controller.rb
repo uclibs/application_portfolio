@@ -62,7 +62,7 @@ info.'
   end
 
   def self.inchange_dashboard(user)
-    inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
+    SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
 
     inchange_complete = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
     inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })

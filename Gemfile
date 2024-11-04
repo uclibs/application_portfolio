@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7.9'
+gem 'rails', '~> 6.1.7.10'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
@@ -38,7 +38,8 @@ gem 'rubocop'
 # bundler audit
 gem 'rexml', '>= 3.3.9'
 gem 'rubocop-rails', require: false
-
+# Needed with Rails upgrade
+gem 'drb'
 gem 'rubocop-rspec', require: false
 # Use simplecov to generate the coveralls report in .html format
 gem 'simplecov', require: false
