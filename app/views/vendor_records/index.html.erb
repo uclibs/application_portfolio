@@ -1,23 +1,23 @@
-<section class="jumbotron text-center">
+<section class="text-center py-5">
   <div class="container">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Vendor Records</h1>
+    <h1 class="display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Vendor Records</h1>
     <em style="font-size: 14px; color: black">Contains all information of vendors available till date</em><br/><br/>
     <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
       <p>
-        <%= link_to 'Create a new vendor record', new_vendor_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
+        <%= link_to 'Create a new vendor record', new_vendor_record_path, class: "mx-auto new-record btn btn-dark" %>
       </p>
     <% end %>
   </div>
 </section>
-<hr style = "background-color: black; width: 54%;">
+<hr style="background-color: black; width: 54%;">
 
 <% if @vendorrecords_count != 0 %>
-  <div class="container animated fadeInRight" style="margin-bottom: 10rem;">
+  <div class="container" style="margin-bottom: 10rem;">
     <div class="row">
-      <table class="table text-center">
-        <thead>
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
           <tr>
-            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Vendors" %> 
+            <th class="text-start ps-5" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Vendors" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -25,11 +25,11 @@
               <% end %>
             </th>
             <% if current_user.role.to_s == "viewer" %>
-              <th>Actions</th>
+              <th class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2">Actions</th>
+              <th colspan="2" class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% else %>
-              <th colspan="3">Actions</th>
+              <th colspan="3" class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% end %>
           </tr>
         </thead>
@@ -37,16 +37,17 @@
         <tbody>
           <% @vendor_records.each do |vendor_record| %>
             <tr>
-              <td class="text-left" style="padding-left: 50px"><%= vendor_record.title %></td>
+              <td class="text-start ps-5" style="padding-left: 20px; background-color: black ; color: white"><%= vendor_record.title %></td>
               <% if current_user.role.to_s == "viewer" %>
-                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'View', vendor_record, class: "btn btn-success" %></td>
               <% elsif current_user.role.to_s == "owner" %>
-                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'View', vendor_record, class: "btn btn-success" %></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'Edit', edit_vendor_record_path(vendor_record), class: "btn btn-primary" %></td>
               <% else %>
-                <td><%= link_to 'View', vendor_record , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary" } %></td>
-                <td><%= link_to 'Delete', vendor_record, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'View', vendor_record, class: "btn btn-success" %></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'Edit', edit_vendor_record_path(vendor_record), class: "btn btn-primary" %></td>
+                <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'Delete', vendor_record, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you 
+sure?' } %></td>
               <% end %>
             </tr>
           <% end %>
@@ -57,3 +58,4 @@
 <% else %>
   <h3 class="text-center">No records found</h3>
 <% end %>
+

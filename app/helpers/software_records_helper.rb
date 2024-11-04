@@ -40,23 +40,13 @@ module SoftwareRecordsHelper
   end
 
   def decrypt(text)
-    return nil if text.nil? || !text.include?('$$')
-    salt, data = text.split('$$', 2)
+    salt, data = text.split '$$'
+
     len   = ActiveSupport::MessageEncryptor.key_len
-<<<<<<< Updated upstream
     key   = ActiveSupport::KeyGenerator.new(Rails.application.secret_key_base).generate_key salt, len
     crypt = ActiveSupport::MessageEncryptor.new key
     crypt.decrypt_and_verify data
-=======
-    key   = ActiveSupport::KeyGenerator.new(Rails.application.secrets.secret_key_base).generate_key(salt, len)
-    crypt = ActiveSupport::MessageEncryptor.new(key)
-    crypt.decrypt_and_verify(data)
-    rescue StandardError => e
-      Rails.logger.error "Error decrypting: #{e.message}"
-    nil
->>>>>>> Stashed changes
   end
-
 
   def vendor_piechart
     @vendor_piechart_hash = {}
