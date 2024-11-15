@@ -99,6 +99,10 @@ a:hover {
 }
 
 #main {
+  display: flex; /* Flexbox for layout management */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  position: relative; /* For context for absolutely positioned children like the footer */
   transition: margin-left .5s;
 }
 
