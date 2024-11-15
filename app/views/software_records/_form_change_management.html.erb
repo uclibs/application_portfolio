@@ -1,5 +1,5 @@
             <% if params[:id].nil? %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :requires_cm, 'Requires Change Management review?' %><br/>
                 <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :requires_cm, "Yes" %>
@@ -7,7 +7,7 @@
                 <%= form.radio_button :requires_cm, "No", :checked => true %>
               </div>
             <% else %>
-              <div class="form-group">
+              <div class="mb-3">
                 <%= form.label :requires_cm, 'Requires Change Management Review?' %><br/>
                 <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
                 <%= form.radio_button :requires_cm, "Yes", :checked => yes_no_toggle(:requires_cm) == "Yes" %>
@@ -15,27 +15,27 @@
                 <%= form.radio_button :requires_cm, "No", :checked => yes_no_toggle(:requires_cm) == "No" %>
               </div>
             <% end %>
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label "last_security_scan" %>
                <%= form.date_field :last_security_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
-             <div class="form-group">
+             <div class="mb-3">
               <%= form.label "last_accessibility_scan" %>
                <%= form.date_field :last_accessibility_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
-             <div class="form-group">
+             <div class="mb-3">
               <%= form.label "last_ogc_review" %>
                <%= form.date_field :last_ogc_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
-             <div class="form-group">
+             <div class="mb-3">
               <%= form.label "last_info_sec_review" %>
                <%= form.date_field :last_info_sec_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <%= form.label :cm_stakeholders %>
               <%= form.text_area :cm_stakeholders, :class => "form-control" %>
             </div>
-           <div class="form-group">
+           <div class="mb-3">
               <%= form.label :cm_other_notes %>
               <%= form.text_area :cm_other_notes, :class => "form-control" %>
             </div>

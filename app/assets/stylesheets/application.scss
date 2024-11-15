@@ -1,3 +1,5 @@
+$enable-responsive-font-sizes: false;
+
 @import "bootstrap";
 @import "gritter";
 @import "**/*";
@@ -38,13 +40,13 @@ a:hover {
 	 	}
 }
 
-.form-group .input-group .email-input{
+.input-group .email-input{
 	border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 	border: 0;
 }
 
-.form-group .input-group .password-input{
+.input-group .password-input{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: 0;
@@ -97,6 +99,10 @@ a:hover {
 }
 
 #main {
+  display: flex; /* Flexbox for layout management */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  position: relative; /* For context for absolutely positioned children like the footer */
   transition: margin-left .5s;
 }
 
@@ -187,8 +193,9 @@ a:hover {
   margin: auto;
   color: white;
   width: 100% !important;
-  background-color: black;
+  background-color: transparent;
   border-radius: 5px;
+  border-color: black;
 }
 
 .table td, .table th {

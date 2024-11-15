@@ -13,16 +13,16 @@
         <% end %>
 
         <div class="field">
-          <%= form.label :title %>
+          <%= form.label :title, class: 'text-white' %>
           <%= form.text_field :title, :class => "form-control" %>
         </div><br/>
 
         <div class="field">
-          <%= form.label :description %>
+          <%= form.label :description, class: 'text-white' %>
           <%= form.text_field :description, :class => "form-control" %>
         </div>
         <br/><br/>
-        <div class="form-group <%= component %>" style= "text-align: center;">
+        <div class="mb-3 <%= component %>" style= "text-align: center;">
           <%= form.submit 'Save', class: "btn btn-primary" %>
           <% if component.to_s == "new" %>
             <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>

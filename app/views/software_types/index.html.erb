@@ -1,23 +1,23 @@
-<section class="jumbotron text-center">
+<section class="text-center py-5">
   <div class="container">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Software Types</h1>
+    <h1 class="display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Software Types</h1>
     <em style="font-size: 14px; color: black">Contains list of all software types available</em><br/><br/>
     <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
       <p>
-        <%= link_to 'Create a new software type', new_software_type_path, {:class => "mx-auto new-record btn btn-dark"} %>
+        <%= link_to 'Create a new software type', new_software_type_path, class: "mx-auto new-record btn btn-dark" %>
       </p>
-      <% end %> 
+    <% end %> 
   </div>
 </section>
-<hr style = "background-color: black; width: 54%;">
+<hr style="background-color: black; width: 54%;">
 
 <% if @softwaretypes_count != 0 %>
-  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
+  <div class="container" style="margin-bottom: 10rem;">
     <div class="row">
-      <table class="table text-center">
-        <thead>
+      <table class="table  text-center">
+        <thead class="table-light">
           <tr>
-            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Software Types" %> 
+            <th class="text-start ps-5" style="background-color: black ; color: white" ><%= sortable "title", "Software Types" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -25,11 +25,11 @@
               <% end %>
             </th>
             <% if current_user.role.to_s == "viewer" %>
-              <th>Actions</th>
+              <th style="background-color: black ; color: white">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2">Actions</th>
+              <th style="background-color: black ; color: white" colspan="2">Actions</th>
             <% else %>
-              <th colspan="3">Actions</th>
+              <th style="background-color: black ; color: white" colspan="3">Actions</th>
             <% end %>
           </tr>
         </thead>
@@ -37,16 +37,16 @@
         <tbody>
           <% @software_types.each do |software_type| %>
             <tr>
-              <td class="text-left" style="padding-left: 50px"><%= software_type.title %></td>
+              <td class="text-start ps-5" style="background-color: black ; color: white"><%= software_type.title %></td>
               <% if current_user.role.to_s == "viewer" %>
-                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', software_type, class: "btn btn-success" %></td>
               <% elsif current_user.role.to_s == "owner" %>
-                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary" } %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', software_type, class: "btn btn-success" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_software_type_path(software_type), class: "btn btn-primary" %></td>
               <% else %>
-                <td><%= link_to 'View', software_type , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary" } %></td>
-                <td><%= link_to 'Delete', software_type, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', software_type, class: "btn btn-success" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_software_type_path(software_type), class: "btn btn-primary" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Delete', software_type, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
               <% end %>
             </tr>
           <% end %>
@@ -57,3 +57,4 @@
 <% else %>
   <h3 class="text-center">No records found</h3>
 <% end %>
+

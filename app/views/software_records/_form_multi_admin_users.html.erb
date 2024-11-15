@@ -1,13 +1,13 @@
 <!-- Multiple Admin Users -->
-<div class="form-group" id="multiple_admin_users">
+<div class="mb-3" id="multiple_admin_users">
   <%= form.label "Admin Users" %>
   <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
-  
+
   <% if component.to_s == "new" || @software_record.admin_users.empty? %>
     <div class="input-group mt-2" id="admin_users1">
       <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
-      <div class="input-group-append" id="btnRemove" onclick="remove('admin_users1')">
-        <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+      <div class="input-group-append ms-2" id="btnRemove" onclick="remove('admin_users1')">
+        <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
       </div>
     </div>
   <% else %>
@@ -15,15 +15,13 @@
       <% @id = "admin_users#{index + 1}" %>
       <div class="input-group mt-2" id="<%= @id %>">
         <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control" %>
-        <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
-          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
+          <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
         </div>
       </div>
     <% end %>
   <% end %>
 </div>
 <!-- Multiple Admin Users ends -->
-
-
 
 

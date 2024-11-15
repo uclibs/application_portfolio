@@ -1,40 +1,40 @@
-<section class="jumbotron text-center">
-  <br/>
-  <hr style = "background-color: black; width: 54%;">
-  <div class="container-fluid">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Road Map List</h1>
-    <em style="font-size: 14px; color: black">Collection of all the software application and their road maps.</em><br/><br/>
+<section class="text-center py-5">
+  <hr class="mx-auto" style="background-color: black; width: 54%;">
+  <div class="container">
+    <h1 class="display-4 text-black" style="font-family: Courier New, Lucida Console;">Road Map List</h1>
+    <em class="text-black" style="font-size: 14px;">Collection of all the software applications and their road maps.</em><br><br>
   </div>
-<br/>
-<hr style = "background-color: black; width: 54%;">
+  <hr class="mx-auto" style="background-color: black; width: 54%;">
 </section>
 
 <% if @softwarerecords_count != 0 %>
-<div class="container animated fadeInLeft" style="margin-bottom: 10rem">
+<div class="container fadeInLeft" style="margin-bottom: 10rem;">
   <div class="row">
-    <table class="table software-records-table" style="word-break: initial;">
+    <table class="table software-records-table" style="word-break: break-word;">
       <thead>
         <tr>
-          <th class="text-left" style="padding-left: 20px"><%= sortable "title", "Title" %>
-            <% if params[:direction] == "asc" || params[:direction] == nil %>
+          <th scope="col" class="text-start ps-4" style="background-color: black ; color: white"><%= sortable "title", "Title" %>
+            <% if params[:direction] == "asc" || params[:direction].nil? %>
               <i class="fa fa-caret-up"></i>
             <% else %>
               <i class="fa fa-caret-down"></i>
-            <% end %></th>
+            <% end %>
+          </th>
 
-            <th class="text-left" style="padding-left: 20px"><%= sortable "road_map", "Road Map" %>
-              <% if params[:direction] == "asc" || params[:direction] == nil %>
-                <i class="fa fa-caret-up"></i>
-              <% else %>
-                <i class="fa fa-caret-down"></i>
-              <% end %></th>
+          <th scope="col" class="text-start ps-4" style="background-color: black ; color: white"><%= sortable "road_map", "Road Map" %>
+            <% if params[:direction] == "asc" || params[:direction].nil? %>
+              <i class="fa fa-caret-up"></i>
+            <% else %>
+              <i class="fa fa-caret-down"></i>
+            <% end %>
+          </th>
 
           <% if current_user.role.to_s == "viewer" %>
-            <th class="text-left" style="padding-left: 20px">Actions</th>
+            <th scope="col" class="text-start ps-4" style="background-color: black ; color: white">Actions</th>
           <% elsif current_user.role.to_s == "owner" %>
-            <th colspan="2" class="text-left" style="padding-left: 20px">Actions</th>
+            <th scope="col" colspan="2" class="text-start ps-4" style="background-color: black ; color: white">Actions</th>
           <% else %>
-            <th colspan="3" class="text-left" style="padding-left: 20px">Actions</th>
+            <th scope="col" colspan="3" class="text-start ps-4" style="background-color: black ; color: white">Actions</th>
           <% end %>
         </tr>
       </thead>
@@ -42,17 +42,16 @@
       <tbody>
         <% @software_records.each do |software_record| %>
           <tr>
-            <td style="padding-left: 40px; white-space: nowrap;"><%= software_record.title %></td>
-            <td><%= simple_format(software_record.road_map) %></td>
+            <td class="ps-5 text-nowrap" style="background-color: black ; color: white"><%= software_record.title %></td>
+            <td style="background-color: black ; color: white"><%= simple_format(software_record.road_map) %></td>
             <% if current_user.role.to_s == "viewer" %>
-              <td><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
+              <td style="background-color: black ; color: white"><%= link_to 'View', software_record, class: "btn btn-success action-btn" %></td>
             <% elsif current_user.role.to_s == "owner" %>
-              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
-"white-space: nowrap;" %></td>
+              <td style="background-color: black ; color: white"><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style:
+"white-space: nowrap;" %></td> 
             <% else %>
-              <td><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
+              <td style="background-color: black ; color: white"><%= link_to 'Edit Road Map', edit_road_map_software_record_path(software_record), class: "btn btn-primary action-btn", style: 
 "white-space: nowrap;" %></td>
-
             <% end %>
           </tr>
         <% end %>
@@ -63,3 +62,4 @@
 <% else %>
 <h3 class="text-center">No records found</h3>
 <% end %>
+

@@ -11,17 +11,17 @@
               <% end %>
             </div>
           <% end %>
-        <div class="form-group">
-          <%= form.label :title, 'Name' %>
+        <div class="mb-3">
+          <%= form.label :title, 'Name', class: 'text-white' %>
           <%= form.text_field :title, :class => "form-control" %>
         </div>
         
-        <div class="form-group">
-          <%= form.label :description %>
+        <div class="mb-3">
+          <%= form.label :description, class: 'text-white' %>
           <%= form.text_area :description, :class => "form-control" %>
         </div>
         <br/>
-        <div class="form-group <%= component %>" style= "text-align: center;">
+        <div class="mb-3 <%= component %>" style= "text-align: center;">
           <%= form.submit 'Save', class: "btn btn-primary" %>
           <% if component.to_s == "new" %>  
             <%= link_to 'Cancel', session[:previous], :class => "btn btn-danger" %>

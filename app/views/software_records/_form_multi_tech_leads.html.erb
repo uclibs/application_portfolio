@@ -1,13 +1,13 @@
 <!-- Multiple Tech Leads -->
 <% if current_user.role.to_s != "owner" %>
-  <div class="form-group" id="multiple_tech_leads">
+  <div class="mb-3" id="multiple_tech_leads">
     <%= form.label :tech_leads %>
     <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
     
     <% if component.to_s == "new" || @software_record.tech_leads.empty? %>
       <div class="input-group mt-2" id="tech_leads1">
         <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control" %>
-        <div class="input-group-append" id="btnRemove" onclick="remove('tech_leads1')">
+        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('tech_leads1')">
           <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
         </div>
       </div>
@@ -16,7 +16,7 @@
         <% @id = "tech_leads#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>">
           <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>
@@ -25,12 +25,12 @@
   </div>
 <% else %>
   <% if @software_record.tech_leads.any? %>
-    <div class="form-group" id="multiple_tech_leads">
+    <div class="mb-3" id="multiple_tech_leads">
       <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
         <% @id = "tech_leads#{index + 1}" %>
         <div class="input-group mt-2" id="<%= @id %>" style="display: none">
           <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-          <div class="input-group-append" id="btnRemove" onclick="remove('<%= @id %>')">
+          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>

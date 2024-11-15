@@ -1,23 +1,23 @@
-<section class="jumbotron text-center">
+<section class="text-center py-5">
   <div class="container">
-    <h1 class="jumbotron-heading display-4" style="text-align: center; color: black; font-family: Courier New, Lucida, Console">Hosting Environments</h1>
+    <h1 class="display-4" style="color: black; font-family: Courier New, Lucida, Console">Hosting Environments</h1>
     <em style="font-size: 14px; color: black">Contains list of all hosting environments available</em><br/><br/>
     <% if current_user.role.to_s == "root_admin" or current_user.role.to_s == "manager" %>
       <p>
-        <%= link_to 'Create a new hosting environment', new_hosting_environment_path, {:class => "mx-auto new-record btn btn-dark"} %>
+        <%= link_to 'Create a new hosting environment', new_hosting_environment_path, class: "mx-auto new-record btn btn-dark" %>
       </p>
-      <% end %> 
+    <% end %> 
   </div>
 </section>
-<hr style = "background-color: black; width: 54%;">
+<hr style="background-color: black; width: 54%;">
 
 <% if @hosting_env_counts != 0 %>
-  <div class="container animated fadeInUp" style="margin-bottom: 10rem;">
+  <div class="container" style="margin-bottom: 10rem;">
     <div class="row">
-      <table class="table text-center">
-        <thead>
+      <table class="table  text-center">
+        <thead class="table-light">
           <tr>
-            <th class="text-left" style="padding-left: 50px"><%= sortable "title", "Hosting Environment" %> 
+            <th class="text-start ps-5" style="background-color: black ; color: white"><%= sortable "title", "Hosting Environment" %> 
               <% if params[:direction] == "asc" || params[:direction] == nil %> 
                 <i class="fa fa-caret-up"></i>
               <% else %>
@@ -25,11 +25,11 @@
               <% end %>
             </th>
             <% if current_user.role.to_s == "viewer" %>
-              <th>Actions</th>
+              <th style="background-color: black ; color: white">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2">Actions</th>
+              <th colspan="2" style="background-color: black ; color: white">Actions</th>
             <% else %>
-              <th colspan="3">Actions</th>
+              <th colspan="3" style="background-color: black ; color: white">Actions</th>
             <% end %>
           </tr>
         </thead>
@@ -37,16 +37,16 @@
         <tbody>
           <% @hosting_environments.each do |hosting_environment| %>
             <tr>
-              <td class="text-left" style="padding-left: 50px"><%= hosting_environment.title %></td>
+              <td class="text-start ps-5" style="background-color: black ; color: white"><%= hosting_environment.title %></td>
               <% if current_user.role.to_s == "viewer" %>
-                <td><%= link_to 'View', hosting_environment , { :class => "btn btn-success" }%></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', hosting_environment, class: "btn btn-success" %></td>
               <% elsif current_user.role.to_s == "owner" %>
-                <td><%= link_to 'View', hosting_environment , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_hosting_environment_path(hosting_environment), { :class => "btn btn-primary" } %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', hosting_environment, class: "btn btn-success" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_hosting_environment_path(hosting_environment), class: "btn btn-primary" %></td>
               <% else %>
-                <td><%= link_to 'View', hosting_environment , { :class => "btn btn-success" }%></td>
-                <td><%= link_to 'Edit', edit_hosting_environment_path(hosting_environment), { :class => "btn btn-primary" } %></td>
-                <td><%= link_to 'Delete', hosting_environment, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'View', hosting_environment, class: "btn btn-success" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_hosting_environment_path(hosting_environment), class: "btn btn-primary" %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Delete', hosting_environment, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
               <% end %>
             </tr>
           <% end %>

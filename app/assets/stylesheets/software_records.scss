@@ -1,3 +1,5 @@
+$enable-responsive-font-sizes: false;
+
 @import "bootstrap";
 @import "gritter";
 
@@ -158,6 +160,10 @@ option {
 }
 
 #main {
+  display: flex; /* Flexbox for layout management */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  position: relative; /* For context for absolutely positioned children like the footer */
   transition: margin-left .5s;
 }
 
@@ -167,7 +173,7 @@ option {
 }
 
 #pillSideNav span {
-  position: absolute;
+  position: fixed;
   left: -117px;
   top: 100px;
   transition: 0.3s;
@@ -197,10 +203,6 @@ option {
   }
 }
 
-.card-deck{
-  font-size: 13px;
-}
-
 @media screen and (min-width: 1440px) {
   .btn-icons {
     font-size: 12px;
@@ -228,14 +230,26 @@ option {
 
 .table th {
   font-size: 14px;
+  border-color: white;
+}
+
+th a {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .table {
   margin: auto;
   color: white;
   width: 100% !important;
-  background-color: black;
+  background-color: transparent;
   border-radius: 5px;
+  border-color: black;
 }
 
 .table td, .table th {
