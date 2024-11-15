@@ -1,20 +1,20 @@
 <div class="container animated fadeIn" style="opacity: 0.9;">
-  <div class="card" style="width: 90%; margin-top: 40px; height: auto; background-color: white; color: white; margin-bottom: 10rem">
+  <div class="card" style="width: 90%; margin-top: 40px; height: auto; background-color: black; color: white; margin-bottom: 10rem">
     <div class="card-header text-center">
-      <h1 style="color: black; font-family: Courier New, Lucida, Console"><%= @user.first_name.to_s + ' ' + @user.last_name.to_s %></h1>
+      <h1 style="color: white; font-family: Courier New, Lucida, Console"><%= @user.first_name.to_s + ' ' + @user.last_name.to_s %></h1>
       <hr style="background-color: white">
     </div>
     <div class="card-body" style="padding-top: 1px;">
     	<dl>
-            <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-envelope"></i> Email</p></dt>
+            <dt><p style="font-weight: bold; margin: 0; color: white;"><i class="fas fa-envelope"></i> Email</p></dt>
             	<dd><ul><a href="mailto:<%= current_user.email %>?subject=" style="color: red"><%= @user.email %></a></ul></dd>
-           	<dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-user-tag"></i> Role</p></dt>
+           	<dt><p style="font-weight: bold; margin: 0; color: white;"><i class="fas fa-user-tag"></i> Role</p></dt>
             		<dd style="color: red"><ul><%= @user.role.to_s.camelize %></ul></dd>
-            <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-user-lock"></i> Status</p></dt>
+            <dt><p style="font-weight: bold; margin: 0; color: white;"><i class="fas fa-user-lock"></i> Status</p></dt>
                 <dd style="color: red"><ul><% if @user.active.to_s == "true" %> Active <% else %> In-Active <% end %></ul></dd>
-            <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-graduation-cap"></i> Job Title</p></dt>
+            <dt><p style="font-weight: bold; margin: 0; color: white;"><i class="fas fa-graduation-cap"></i> Job Title</p></dt>
             	<dd style="color: red"><ul><%= @user.title %></ul></dd>
-            <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-university"></i> Department</p></dt>
+            <dt><p style="font-weight: bold; margin: 0; color: white;"><i class="fas fa-university"></i> Department</p></dt>
             	<dd style="color: red"><ul><%= @user.department %></ul></dd>
         </dl>
         <br/>
