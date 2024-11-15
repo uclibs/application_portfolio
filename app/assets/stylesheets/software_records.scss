@@ -173,7 +173,7 @@ option {
 }
 
 #pillSideNav span {
-  position: absolute;
+  position: fixed;
   left: -117px;
   top: 100px;
   transition: 0.3s;
@@ -238,6 +238,7 @@ option {
   width: 100% !important;
   background-color: transparent;
   border-radius: 5px;
+  border-color: black;
 }
 
 .table td, .table th {
