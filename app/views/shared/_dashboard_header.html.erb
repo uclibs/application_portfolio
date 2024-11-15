@@ -18,10 +18,10 @@
        <%= nav_helper 'nav-link' %>
        <div class="drop" style="position: relative; display: inline-block; margin-left: 20px;">
        		<% if current_user %><a class="nav-link drop-btn"> <%= current_user.first_name.to_s+" "+current_user.last_name.to_s %><i class="fa fa-caret-down" style="margin: 5px 15px 0px 8px;"></i></a><% end %>
-       		<div class="dropdown-content">
-       			<a href="<%= myprofile_path %>">My Profile <i class="fa fa-user float-right"></i></a>
+       		<div class="dropdown-content bg-black">
+       			<a href="<%= myprofile_path %>" class="text-white">My Profile <i class="fa fa-user float-right"></i></a>
     			  <% if current_user %>
-              <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+              <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "text-white" %>
             <%end%>
        		</div>
        </div>
