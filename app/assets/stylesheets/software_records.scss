@@ -230,6 +230,17 @@ option {
 
 .table th {
   font-size: 14px;
+  border-color: white;
+}
+
+th a {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .table {
