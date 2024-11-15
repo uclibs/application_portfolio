@@ -25,15 +25,15 @@ RSpec.describe 'front/profile', type: :view do
 
   it 'displays an profile page' do
     render
-    expect(rendered).to have_text('Profile')
-    expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('admin@ucmail.uc.edu')
+    expect(rendered).to include('Profile')
+    expect(rendered).to include(' Email')
+    expect(rendered).to include('admin@ucmail.uc.edu')
   end
 
   it 'displays an user management tab' do
     render
-    expect(rendered).to have_text('User Management')
-    expect(rendered).to have_text('Admin Test')
+    expect(rendered).to include('User Management')
+    expect(rendered).to include('Admin Test')
   end
 end
 
@@ -60,15 +60,15 @@ RSpec.describe 'front/profile', type: :view do
 
   it 'displays an profile page' do
     render
-    expect(rendered).to have_text('Profile')
-    expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('viewer@uc.edu')
+    expect(rendered).to include('Profile')
+    expect(rendered).to include(' Email')
+    expect(rendered).to include('viewer@uc.edu')
   end
 
   it 'displays an user management tab' do
     render
-    expect(rendered).to have_text('User Management')
-    expect(rendered).to have_text("You don't have sufficient privileges to view this content !")
+    expect(rendered).to include('User Management')
+    expect(rendered.squish).to include("You don't have sufficient privileges to view this content!")
   end
 end
 
@@ -95,14 +95,14 @@ RSpec.describe 'front/profile', type: :view do
 
   it 'displays an profile page' do
     render
-    expect(rendered).to have_text('Profile')
-    expect(rendered).to have_text(' Email')
-    expect(rendered).to have_text('manager@mail.uc.edu')
+    expect(rendered).to include('Profile')
+    expect(rendered).to include(' Email')
+    expect(rendered).to include('manager@mail.uc.edu')
   end
 
   it 'displays an user management tab' do
     render
-    expect(rendered).to have_text('User Management')
-    expect(rendered).to have_text("You don't have sufficient privileges to view this content !")
+    expect(rendered).to include('User Management')
+    expect(rendered.squish).to include("You don't have sufficient privileges to view this content!")
   end
 end
