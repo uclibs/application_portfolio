@@ -22,7 +22,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Devise for authentication
 gem 'devise'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 2.7', '>= 2.7.2'
+gem 'uglifier', '~> 4.2', '>= 4.2.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
