@@ -22,7 +22,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Devise for authentication
 gem 'devise'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 2.7', '>= 2.7.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
@@ -121,7 +121,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+# Required by net-ssh for supporting ssh-ed25519 keys during deployment
 gem 'bcrypt_pbkdf', '~> 1.0', '>= 1.0.0'
 gem 'ed25519', '~> 1.2', '>= 1.2.4'
 gem 'net-ssh', '>= 6.0.0'
+
+# Required for mutex_m since Ruby 3.4.0 will not include it by default
+gem 'mutex_m'
 
