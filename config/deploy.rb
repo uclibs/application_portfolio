@@ -69,7 +69,7 @@ namespace :deploy do
   end
 end
 
-Rake::Task["deploy:assets:precompile"].clear_actions
+# Rake::Task["deploy:assets:precompile"].clear_actions
 
 # namespace :deploy do
 #   namespace :assets do
