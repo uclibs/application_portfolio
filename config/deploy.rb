@@ -69,24 +69,6 @@ namespace :deploy do
   end
 end
 
-# Rake::Task["deploy:assets:precompile"].clear_actions
-
-# namespace :deploy do
-#   namespace :assets do
-#     desc 'Precompile assets locally and then rsync to web servers'
-#     task :precompile do
-#       on roles(fetch(:assets_roles)) do
-#         within release_path do
-#           with rails_env: fetch(:rails_env) do
-#             execute :bundle, 'exec rake assets:precompile --trace'
-#           end
-#         end
-#       end
-#     end
-#   end
-# end
-
-
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:confirmation'
 end
