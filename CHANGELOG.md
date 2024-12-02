@@ -1,3 +1,9 @@
+1.5.0 12/05/2024
+* Updates Rails to version 6.1.7.10.
+* Update to Bootstrap 5.
+* Added drb gem.
+* Bundle Update.
+
 1.4.0 7/29/2024
 * Updates Ruby to version 3.3.3.
 * Updates Rails to version 6.1.7.8.
