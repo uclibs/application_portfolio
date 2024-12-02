@@ -6,7 +6,7 @@
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @indesign_count != 0 %>
-          <table class="table text-center w-25" style="padding-left: 20p; background-color: black">
+          <table class="table text-center w-25" style="padding-left: 20px; background-color: black">
             <thead>
               <tr>
                 <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
@@ -28,7 +28,7 @@
                   <i class="fa fa-caret-down float-none"></i>
                 <% end %></th>
                 <th class="align-left" style="padding-left: 20px; background-color: black ; color: white">Status</th>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white""><%= sortable "production_url", "URL" %>
+                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>

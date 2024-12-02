@@ -112,5 +112,13 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Change the Uglifier parsing engine
-  config.assets.js_compressor = Uglifier.new(harmony: true)
+  config.assets.js_compressor = Uglifier.new(
+    harmony: true,
+    mangle: false,
+    compress: false,
+    output: {
+      beautify: true,
+      comments: :all
+    }
+  )
 end
