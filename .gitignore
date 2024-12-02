@@ -41,7 +41,7 @@
 /coverage
 
 # Ignore yarn.lock auto-generated file
-yarn.lock
+#yarn.lock
 
 # Ignore .DS_Store files generated in MAC OS
 .DS_Store
@@ -51,3 +51,7 @@ yarn.lock
 
 #Ignore Rubymine files
 .idea/
+
+# Ignore production .env files
+.env.production
+.env.production.local

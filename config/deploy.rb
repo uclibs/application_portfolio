@@ -62,7 +62,7 @@ namespace :deploy do
     WARN
     ask :value, "Sure you want to continue deploying `#{branch}` on #{stage}? (Y)"
 
-    if fetch(:value) != 'Y'
+    if fetch(:value).to_s.downcase != 'y'
       puts "\nDeploy cancelled!"
       exit
     end
