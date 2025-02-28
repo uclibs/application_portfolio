@@ -8,9 +8,9 @@ class SoftwareRecord < ApplicationRecord
   belongs_to :hosting_environment
   has_many :change_request, dependent: :destroy
   validates :title, :description, :status, :created_by, presence: true
-  serialize :tech_leads, Array
-  serialize :developers, Array
-  serialize :product_owners, Array
-  serialize :admin_users, Array
-  serialize :departments, Array
+  serialize :tech_leads, type: Array, coder: YAML
+  serialize :developers, type: Array, coder: YAML
+  serialize :product_owners, type: Array, coder: YAML
+  serialize :admin_users, type: Array, coder: YAML
+  serialize :departments, type: Array, coder: YAML
 end

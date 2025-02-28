@@ -120,7 +120,7 @@ info.'
     elsif !user_signed_in? && !@software_record.save
       flash[:error] = 'All mandatory fields are required.'
       redirect_to request_new_path
-    elsif user_signed_in? && (current_user.role.to_s == 'owner' || current_user.role.to_s == 'viewer')
+    elsif user_signed_in? && %w[owner viewer].include?(current_user.role.to_s)
       flash[:error] = 'All mandatory fields are required.'
       redirect_to request_new_path
     else
