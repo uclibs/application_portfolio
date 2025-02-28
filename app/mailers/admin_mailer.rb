@@ -7,7 +7,7 @@ class AdminMailer < ApplicationMailer
   def new_software_request_mail(id, name)
     @id = id
     @name = name
-    @template = 'new_software_request_mail.html.erb'
+    @template = 'new_software_request_mail'
     @users = User.where(roles: 'root_admin')
     @users.each do |admin|
       mail(to: admin.email, subject: 'Software Requested for UCL Application Portfolio',

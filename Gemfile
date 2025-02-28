@@ -6,15 +6,21 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7.10'
+gem 'rails', '~> 7.2.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
+
+# Add mutex since it won't be part of rails in future
+gem 'mutex_m'
+
+# Deals with serialization deprecation in Rails 7.1
+gem 'globalize', '~> 7.0'
 
 # Needed for ruby 3.3.3 upgrade
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
 # Use nokogiri for java
-gem 'nokogiri', '>= 1.16.5'
+gem 'nokogiri', '>= 1.18.3'
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
 # Use SCSS for stylesheets
@@ -88,7 +94,7 @@ group :development, :test do
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
-  gem 'rspec-rails', '~>4.1.0'
+  gem 'rspec-rails', '~> 6.0'
   gem 'shoulda-matchers', '~> 4.0'
 end
 
@@ -98,11 +104,11 @@ group :development do
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-rvm', require: false
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '~> 3.5'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem 'spring'
+  # gem 'spring-watcher-listen'
 end
 
 group :production do
