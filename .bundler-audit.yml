@@ -1,0 +1,10 @@
+ignore:
+  #  rails-html-sanitizer - needs Rails 7 upgrade to fix
+  - CVE-2024-53989
+  - CVE-2024-53988
+  - CVE-2024-53987
+  - CVE-2024-53986
+  - CVE-2024-53985
+
+  # Nokogiri - servers don't have compatible GLIBC
+  - GHSA-vvfq-8hwr-qm4m

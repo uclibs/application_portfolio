@@ -20,7 +20,7 @@ gem 'globalize', '~> 7.0'
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
 # Use nokogiri for java
-gem 'nokogiri', '>= 1.18.3'
+gem 'nokogiri', '1.16.7'
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
 # Use SCSS for stylesheets
