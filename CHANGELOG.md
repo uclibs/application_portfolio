@@ -1,3 +1,9 @@
+1.6.0 3/5/2025
+* Updates Rails to version 7.2.2.1
+* Adds mutex_m and globalize gems.
+* Removes spring.
+* Bundle update
+
 1.5.0 12/05/2024
 * Updates Rails to version 6.1.7.10.
 * Update to Bootstrap 5.
