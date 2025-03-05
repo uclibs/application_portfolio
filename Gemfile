@@ -99,7 +99,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'capistrano', '3.17.1'
+  gem 'capistrano', '3.19.2'
   gem 'capistrano-bundler', '~> 1.6', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-rvm', require: false
