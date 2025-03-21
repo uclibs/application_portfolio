@@ -45,7 +45,7 @@
             <dt class="inline-block">Who is responsible?: <span style="color: white; font-weight: normal"><%= @software_record.who %></span></dt>
           <% end %>
           <% unless @software_record.semester.blank? %>
-            <dt class="inline-block">What semester is this scheduled for?: <span style="color: white; font-weight: normal"><%= @software_record.semester %></span></dt>
+            <dt class="inline-block">What is the planned date this is scheduled for?: <span style="color: white; font-weight: normal"><%= @software_record.semester %></span></dt>
           <% end %>
           <% unless @software_record.upgrade_docs.blank? %>
             <dt class="inline-block">Are there any ugprade links?: <span style="color: white; font-weight: normal"><%= @software_record.new_features %></span></dt>

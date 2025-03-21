@@ -144,7 +144,7 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Is this a priority/)
     expect(rendered).to match(/What is the status/)
     expect(rendered).to match(/Who is responsible/)
-    expect(rendered).to match(/What semester is this scheduled for/)
+    expect(rendered).to match(/What is the planned date this is scheduled for?/)
     expect(rendered).to match(/Are there any ugprade links/)
   end
 end
