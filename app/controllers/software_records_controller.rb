@@ -304,7 +304,6 @@ info.'
       :monitor_errors,
       :service,
       :installed_version,
-      :latest_version,
       :proposed_version,
       :road_map,
       :last_upgrade_date,
