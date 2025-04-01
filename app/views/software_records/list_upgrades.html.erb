@@ -93,7 +93,7 @@ onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
               <i class="fa fa-caret-down"></i>
             <% end %></th>
 
-          <th class="text-start ps-3" style="background-color: black ; color: white"><%= sortable "vulnerabilities_reported", "Vulnerabilities Reported" %>
+          <th class="text-start ps-3" style="background-color: black ; color: white"><%= sortable "date_of_upgrade", "Next Upgrade Date" %>
             <% if params[:direction] == "asc" || params[:direction] == nil %>
               <i class="fa fa-caret-up"></i>
             <% else %>
@@ -118,7 +118,7 @@ onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
             <td style="background-color: black ; color: white"><%= software_record.installed_version %></td>
             <td style="background-color: black ; color: white"><%= software_record.proposed_version %></td>
             <td style="background-color: black ; color: white"><%= software_record.last_upgrade_date %></td>
-            <td style="background-color: black ; color: white"><%= software_record.vulnerabilities_reported %></td>
+            <td style="background-color: black ; color: white"><%= software_record.date_of_upgrade %></td>
             <% if current_user.role.to_s == "viewer" %>
               <td style="background-color: black ; color: white"><%= link_to 'View', software_record , class: "btn btn-success" %></td>
             <% elsif current_user.role.to_s == "owner" %>
