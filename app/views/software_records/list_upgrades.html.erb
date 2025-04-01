@@ -72,7 +72,7 @@ onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
               <i class="fa fa-caret-down"></i>
             <% end %></th>
 
-          <th class="text-start ps-3" style="background-color: black ; color: white"><%= sortable "installed_version", "Current Version" %>
+          <th class="text-start ps-3" style="background-color: black ; color: white"><%= sortable "installed_version", "Installed Version" %>
             <% if params[:direction] == "asc" || params[:direction] == nil %>
               <i class="fa fa-caret-up"></i>
             <% else %>
