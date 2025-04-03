@@ -51,3 +51,7 @@ yarn.lock
 
 #Ignore Rubymine files
 .idea/
+
+# Ignore .env.production and .env.production.local
+.env.production
+.env.production.local
