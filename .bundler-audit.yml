@@ -6,5 +6,7 @@ ignore:
   - CVE-2024-53986
   - CVE-2024-53985
 
-  # Nokogiri - servers don't have compatible GLIBC
+  # Nokogiri - servers don't have compatible GLIBC. Wants
+  # an upgrade to version 1.18.4.
   - GHSA-vvfq-8hwr-qm4m
+  - GHSA-mrxw-mxhj-p664
