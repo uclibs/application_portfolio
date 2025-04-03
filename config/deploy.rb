@@ -72,3 +72,6 @@ end
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:confirmation'
 end
+
+after 'deploy:publishing', 'db:migrate'
+after 'deploy:publishing', 'assets:precompile'
