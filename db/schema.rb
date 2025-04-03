@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_240_521_135_737) do
+ActiveRecord::Schema[7.2].define(version: 20_250_321_143_122) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "software_record_id", null: false
     t.string "change_title"
@@ -37,37 +37,37 @@ ActiveRecord::Schema.define(version: 20_240_521_135_737) do
     t.integer "number_roles"
     t.boolean "authentication_needed", default: true
     t.boolean "custom_error_pages", default: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["software_record_id"], name: "index_change_requests_on_software_record_id"
   end
 
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "hosting_environments", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "software_records", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "software_type_id"
     t.integer "vendor_record_id"
-    t.string "departments"
+    t.json "departments"
     t.date "date_implemented"
     t.date "date_of_upgrade"
-    t.string "developers"
-    t.string "tech_leads"
-    t.string "product_owners"
+    t.json "developers"
+    t.json "tech_leads"
+    t.json "product_owners"
     t.string "languages_used"
     t.text "production_url"
     t.string "user_seats"
@@ -98,12 +98,11 @@ ActiveRecord::Schema.define(version: 20_240_521_135_737) do
     t.string "monitor_health"
     t.string "monitor_errors"
     t.string "authentication_type"
-    t.text "admin_users"
+    t.json "admin_users"
     t.boolean "themes"
     t.boolean "modules"
     t.string "service"
     t.string "installed_version"
-    t.string "latest_version"
     t.string "proposed_version"
     t.date "last_upgrade_date"
     t.boolean "upgrade_available"
@@ -132,25 +131,25 @@ ActiveRecord::Schema.define(version: 20_240_521_135_737) do
   create_table "software_types", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "statuses", force: :cascade do |t|
     t.string "title"
     t.string "status_type", default: "Other"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "roles", default: "viewer"
     t.string "first_name"
     t.string "last_name"
@@ -165,8 +164,8 @@ ActiveRecord::Schema.define(version: 20_240_521_135_737) do
   create_table "vendor_records", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   add_foreign_key "change_requests", "software_records"

@@ -131,7 +131,6 @@ RSpec.describe FrontController, type: :controller do
           hosting_environment_id: HostingEnvironment.first.id,
           service: 'App Service',
           installed_version: '4.5',
-          latest_version: '4.6',
           proposed_version: '4.4',
           last_upgrade_date: '2020-02-02',
           upgrade_available: true,

@@ -47,7 +47,6 @@ RSpec.describe 'software_records/show', type: :view do
                                                   monitor_errors: 'Yes',
                                                   service: 'App Service',
                                                   installed_version: '4.5',
-                                                  latest_version: '4.6',
                                                   proposed_version: '4.4',
                                                   last_upgrade_date: '2020-02-02',
                                                   upgrade_available: true,
@@ -131,7 +130,6 @@ RSpec.describe 'software_records/show', type: :view do
     render
     expect(rendered).to match(/Name of Service/)
     expect(rendered).to match(/Current Version/)
-    expect(rendered).to match(/Latest version available/)
     expect(rendered).to match(/Next Proposed version/)
     expect(rendered).to match(/Last Upgrade Date/)
     expect(rendered).to match(/Is there an upgrade available/)

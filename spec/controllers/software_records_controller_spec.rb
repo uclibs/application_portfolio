@@ -81,7 +81,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       hosting_environment_id: HostingEnvironment.first.id,
       service: 'App Service',
       installed_version: '4.5',
-      latest_version: '4.6',
       proposed_version: '4.4',
       last_upgrade_date: '2020-02-02',
       upgrade_available: true,
@@ -134,7 +133,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       hosting_environment_id: HostingEnvironment.first.id,
       service: 'App Service',
       installed_version: '4.5',
-      latest_version: '4.6',
       proposed_version: '4.4',
       last_upgrade_date: '2020-02-02',
       upgrade_available: true,
@@ -368,7 +366,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Admin2')
       expect(response.body).to have_content('App Service')
       expect(response.body).to have_content('4.5')
-      expect(response.body).to have_content('4.6')
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
@@ -440,7 +437,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           admin_users: %w[Admin Admin2],
           service: 'App Service',
           installed_version: '4.5',
-          latest_version: '4.6',
           proposed_version: '4.4',
           last_upgrade_date: '2020-02-02',
           upgrade_available: true,
@@ -480,7 +476,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.admin_users).to have_content('Admin2')
         expect(software_record.service).to have_content('App Service')
         expect(software_record.installed_version).to have_content('4.5')
-        expect(software_record.latest_version).to have_content('4.6')
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
@@ -588,7 +583,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       admin_users: %w[Admin1 Admin2],
       service: 'App Service',
       installed_version: '4.5',
-      latest_version: '4.6',
       proposed_version: '4.4',
       last_upgrade_date: '2020-02-02',
       upgrade_available: true,
@@ -663,7 +657,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Admin2')
       expect(response.body).to have_content('App Service')
       expect(response.body).to have_content('4.5')
-      expect(response.body).to have_content('4.6')
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
@@ -735,7 +728,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           admin_users: %w[Admin Admin2],
           service: 'App Service',
           installed_version: '4.5',
-          latest_version: '4.6',
           proposed_version: '4.4',
           last_upgrade_date: '2020-02-02',
           upgrade_available: true,
@@ -775,7 +767,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.admin_users).to have_content('Admin2')
         expect(software_record.service).to have_content('App Service')
         expect(software_record.installed_version).to have_content('4.5')
-        expect(software_record.latest_version).to have_content('4.6')
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
@@ -871,7 +862,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       admin_users: %w[Admin1 Admin2],
       service: 'App Service',
       installed_version: '4.5',
-      latest_version: '4.6',
       proposed_version: '4.4',
       last_upgrade_date: '2020-02-02',
       upgrade_available: true,
@@ -975,7 +965,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Admin2')
       expect(response.body).to have_content('App Service')
       expect(response.body).to have_content('4.5')
-      expect(response.body).to have_content('4.6')
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
@@ -1047,7 +1036,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           admin_users: %w[Admin Admin2],
           service: 'App Service',
           installed_version: '4.5',
-          latest_version: '4.6',
           proposed_version: '4.4',
           last_upgrade_date: '2020-02-02',
           upgrade_available: true,
@@ -1089,7 +1077,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.admin_users).to have_content('Admin2')
         expect(software_record.service).to have_content('App Service')
         expect(software_record.installed_version).to have_content('4.5')
-        expect(software_record.latest_version).to have_content('4.6')
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
@@ -1186,7 +1173,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       admin_users: %w[Admin1 Admin2],
       service: 'App Service',
       installed_version: '4.5',
-      latest_version: '4.6',
       proposed_version: '4.4',
       last_upgrade_date: '2020-02-02',
       upgrade_available: true,
@@ -1289,7 +1275,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('Admin2')
       expect(response.body).to have_content('App Service')
       expect(response.body).to have_content('4.5')
-      expect(response.body).to have_content('4.6')
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
@@ -1361,7 +1346,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           admin_users: %w[Admin Admin2],
           service: 'App Service',
           installed_version: '4.5',
-          latest_version: '4.6',
           proposed_version: '4.4',
           last_upgrade_date: '2020-02-02',
           upgrade_available: true,
@@ -1403,7 +1387,6 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.admin_users).to have_content('Admin2')
         expect(software_record.service).to have_content('App Service')
         expect(software_record.installed_version).to have_content('4.5')
-        expect(software_record.latest_version).to have_content('4.6')
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
