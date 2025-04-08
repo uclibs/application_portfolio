@@ -10,7 +10,7 @@
         <% end %>
         
         <% if !@software_record.date_of_upgrade.nil? && !@software_record.date_of_upgrade.to_s.empty? %>
-          <dt class="inline-block">Date of Last Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
+          <dt class="inline-block">Date of Upgrade: <span style="color: white; font-weight: normal"><%= @software_record.date_of_upgrade.to_date %></span></dt>
         <% end %>
         
         <% if !@software_record.software_type_id.nil? && !@software_record.software_type_id.to_s.empty? %>
