@@ -109,29 +109,33 @@ onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
           <% end %>
         </tr>
       </thead>
-
+   
       <tbody>
-        <% @software_records.each do |software_record| %>
-          <tr>
-            <td class="ps-5" style="background-color: black ; color: white"><%= software_record.title %></td>
-            <td style="background-color: black ; color: white"><%= software_record.priority %></td>
-            <td style="background-color: black ; color: white"><%= software_record.installed_version %></td>
-            <td style="background-color: black ; color: white"><%= software_record.proposed_version %></td>
-            <td style="background-color: black ; color: white"><%= software_record.last_upgrade_date %></td>
-            <td style="background-color: black ; color: white"><%= software_record.date_of_upgrade %></td>
-            <% if current_user.role.to_s == "viewer" %>
-              <td style="background-color: black ; color: white"><%= link_to 'View', software_record , class: "btn btn-success" %></td>
-            <% elsif current_user.role.to_s == "owner" %>
-              <td style="background-color: black ; color: white"><%= link_to 'View', software_record , class: "btn btn-success" %></td>
-              <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
-            <% else %>
-              <td style="background-color: black ; color: white"><%= link_to 'View', software_record , class: "btn btn-success" %></td>
-              <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
-              <td style="background-color: black ; color: white"><%= link_to 'Delete', software_record, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-          </tr>
+  <% @software_records.each do |software_record| %>
+    <% if software_record.priority.present? %>
+      <tr>
+        <td class="ps-5" style="background-color: black; color: white"><%= software_record.title %></td>
+        <td style="background-color: black; color: white"><%= software_record.priority %></td>
+        <td style="background-color: black; color: white"><%= software_record.installed_version %></td>
+        <td style="background-color: black; color: white"><%= software_record.proposed_version %></td>
+        <td style="background-color: black; color: white"><%= software_record.last_upgrade_date %></td>
+        <td style="background-color: black; color: white"><%= software_record.date_of_upgrade %></td>
+        <% if current_user.role.to_s == "viewer" %>
+          <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
+        <% elsif current_user.role.to_s == "owner" %>
+          <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
+          <td style="background-color: black; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
+        <% else %>
+          <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
+          <td style="background-color: black; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
+          <td style="background-color: black; color: white"><%= link_to 'Delete', software_record, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
         <% end %>
-      </tbody>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+
+
     </table>
   </div>
 </div>
