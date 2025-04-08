@@ -23,43 +23,8 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :upgrade_available %>
-    <%= form.check_box :upgrade_available %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :vulnerabilities_reported %>
-    <%= form.check_box :vulnerabilities_reported%>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :vulnerabilities_fixed %>
-    <%= form.check_box :vulnerabilities_fixed%>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :bug_fixes %>
-    <%= form.check_box :bug_fixes%>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :new_features %>
-    <%= form.check_box :new_features%>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :breaking_changes %>
-    <%= form.check_box :breaking_changes %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :end_of_life %>
-    <%= form.check_box :end_of_life %>
-  </div>
-
-  <div class="mb-3">
     <%= form.label :priority %>
-    <%= form.text_field :priority, :class => "form-control" %>
+    <%= form.select :priority, options_for_select([['', nil], ['High', 3], ['Medium', 2], ['Low', 1]], selected: form.object.priority), {}, class: "form-control" %>
   </div>
 
   <div class="mb-3">
@@ -81,4 +46,39 @@
   <div class="mb-3">
     <%= form.label :upgrade_docs %>
     <%= form.text_field :upgrade_docs, :class => "form-control" %>
+  </div>
+
+   <div class="mb-3">
+    <%= form.label :upgrade_available %>
+    <%= form.check_box :upgrade_available %>
+  </div>
+    
+  <div class="mb-3">
+    <%= form.label :vulnerabilities_reported %>
+    <%= form.check_box :vulnerabilities_reported%>
+  </div>
+    
+  <div class="mb-3">
+    <%= form.label :vulnerabilities_fixed %>
+    <%= form.check_box :vulnerabilities_fixed%>
+  </div>
+    
+  <div class="mb-3">
+    <%= form.label :bug_fixes %>
+    <%= form.check_box :bug_fixes%>
+  </div>
+    
+  <div class="mb-3">
+    <%= form.label :new_features %>
+    <%= form.check_box :new_features%>
+  </div>
+    
+  <div class="mb-3">
+    <%= form.label :breaking_changes %>
+    <%= form.check_box :breaking_changes %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :end_of_life %>
+    <%= form.check_box :end_of_life %>
   </div>

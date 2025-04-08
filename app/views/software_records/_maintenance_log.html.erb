@@ -33,7 +33,20 @@
             <dt class="inline-block">Is this an end of life version?: <span style="color: white; font-weight: normal"><%= @software_record.end_of_life %></span></dt>
           <% end %>
           <% unless @software_record.priority.blank? %>
-            <dt class="inline-block">Is this a priority: <span style="color: white; font-weight: normal"><%= @software_record.priority %></span></dt>
+            <dt class="inline-block">Is this a priority: 
+            <span style="color: white; font-weight: normal">
+            <% case @software_record.priority %>
+            <% when 3 %>
+            High
+            <% when 2 %>
+            Medium
+            <% when 1 %>
+            Low
+            <% else %>
+            <!-- Optionally handle unexpected values -->
+            <% end %>
+            </span>
+            </dt>
           <% end %>
           <% unless @software_record.upgrade_status.blank? %>
             <dt class="inline-block">What is the status?: <span style="color: white; font-weight: normal"><%= @software_record.upgrade_status %></span></dt>

@@ -40,7 +40,7 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
                priority: 10
              ),
              SoftwareRecord.create!(
-               title: 'Title',
+               title: 'Title 2',
                description: 'MyText',
                status_id: Status.first.id,
                hosting_environment_id: HostingEnvironment.first.id,
@@ -48,6 +48,17 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
                vendor_record_id: VendorRecord.first.id,
                software_type_id: SoftwareType.first.id,
                created_by: 'Test User'
+             ),
+             SoftwareRecord.create!(
+               title: 'Title 3',
+               description: 'MyText',
+               status_id: Status.first.id,
+               hosting_environment_id: HostingEnvironment.first.id,
+               date_implemented: '2020-12-12',
+               vendor_record_id: VendorRecord.first.id,
+               software_type_id: SoftwareType.first.id,
+               created_by: 'Test User',
+               priority: 10
              )
            ])
     assign(:vendor_records, VendorRecord.all)
@@ -57,9 +68,11 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
                                                                            FactoryBot.build(:admin)
                                                                          end)
   end
+
   it 'renders a list of software_records' do
     render
-    assert_select 'td:nth-child(1)', text: 'Title'.to_s, count: 2
+    assert_select 'td:nth-child(1)', text: 'Title'.to_s, count: 1
+    assert_select 'td:nth-child(1)', text: 'Title 3'.to_s, count: 1
     expect(rendered).to_not have_text('Status')
     expect(rendered).to have_text('Installed Version')
   end
@@ -67,5 +80,16 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
   it 'renders the expected list when filter is applied' do
     render
     expect(rendered).to have_text('Vendor Filter')
+  end
+
+  it 'displays the software record with priority' do
+    render
+    expect(rendered).to have_content('Title')
+    expect(rendered).to have_content('Title 3')
+  end
+
+  it 'does not display the software record without priority' do
+    render
+    expect(rendered).not_to have_content('Title 2')
   end
 end
