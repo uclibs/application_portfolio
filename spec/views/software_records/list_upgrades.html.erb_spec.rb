@@ -67,8 +67,7 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
                                                                            FactoryBot.build(:admin)
                                                                          end)
-
-    end
+  end
 
   it 'renders a list of software_records' do
     render
@@ -83,17 +82,14 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
     expect(rendered).to have_text('Vendor Filter')
   end
 
-
-  it "displays the software record with priority" do
-        render
-        expect(rendered).to have_content('Title')
-        expect(rendered).to have_content('Title 3')
+  it 'displays the software record with priority' do
+    render
+    expect(rendered).to have_content('Title')
+    expect(rendered).to have_content('Title 3')
   end
 
-
-  it "does not display the software record without priority" do
-        render
-        expect(rendered).not_to have_content('Title 2')
+  it 'does not display the software record without priority' do
+    render
+    expect(rendered).not_to have_content('Title 2')
   end
-
 end

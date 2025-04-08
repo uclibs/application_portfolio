@@ -115,7 +115,18 @@ onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
     <% if software_record.priority.present? %>
       <tr>
         <td class="ps-5" style="background-color: black; color: white"><%= software_record.title %></td>
-        <td style="background-color: black; color: white"><%= software_record.priority %></td>
+        <td style="background-color: black; color: white">
+          <% case software_record.priority %>
+          <% when 3 %>
+            High
+          <% when 2 %>
+            Medium
+          <% when 1 %>
+            Low
+          <% else %>
+            <!-- Blank output for other values -->
+          <% end %>
+        </td>
         <td style="background-color: black; color: white"><%= software_record.installed_version %></td>
         <td style="background-color: black; color: white"><%= software_record.proposed_version %></td>
         <td style="background-color: black; color: white"><%= software_record.last_upgrade_date %></td>

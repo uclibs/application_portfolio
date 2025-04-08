@@ -90,7 +90,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       new_features: true,
       breaking_changes: true,
       end_of_life: true,
-      priority: '10',
+      priority: '1',
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
@@ -142,7 +142,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       new_features: true,
       breaking_changes: true,
       end_of_life: true,
-      priority: '10',
+      priority: '1',
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
@@ -369,7 +369,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
-      expect(response.body).to have_content('10')
+      expect(response.body).to have_content('Low')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Road Map')
       expect(response.body).to have_content('Fall Quarter 2023')
@@ -446,7 +446,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           new_features: true,
           breaking_changes: true,
           end_of_life: true,
-          priority: '10',
+          priority: '1',
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
@@ -479,7 +479,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
-        expect(software_record.priority).to have_content('10')
+        expect(software_record.priority).to have_content('1')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.road_map).to have_content('Road Map')
@@ -592,7 +592,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       new_features: true,
       breaking_changes: true,
       end_of_life: true,
-      priority: '10',
+      priority: '1',
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
@@ -660,7 +660,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
-      expect(response.body).to have_content('10')
+      expect(response.body).to have_content('1')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
       expect(software_record.road_map).to have_content('Road Map')
@@ -737,7 +737,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           new_features: true,
           breaking_changes: true,
           end_of_life: true,
-          priority: '10',
+          priority: '1',
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
@@ -770,7 +770,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
-        expect(software_record.priority).to have_content('10')
+        expect(software_record.priority).to have_content('1')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.road_map).to have_content('Road Map')
@@ -871,7 +871,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       new_features: true,
       breaking_changes: true,
       end_of_life: true,
-      priority: '10',
+      priority: '1',
       upgrade_status: 'Review',
       who: 'Test Admin',
       semester: 'Fall Quarter 2023',
@@ -968,7 +968,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
-      expect(response.body).to have_content('10')
+      expect(response.body).to have_content('Low')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
       expect(response.body).to have_content('Road Map')
@@ -1045,7 +1045,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           new_features: true,
           breaking_changes: true,
           end_of_life: true,
-          priority: '10',
+          priority: '1',
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
@@ -1080,7 +1080,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
-        expect(software_record.priority).to have_content('10')
+        expect(software_record.priority).to have_content('1')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.road_map).to have_content('Road Map')
@@ -1182,7 +1182,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       new_features: true,
       breaking_changes: true,
       end_of_life: true,
-      priority: '10',
+      priority: '1',
       upgrade_status: 'Review',
       road_map: 'Road Map',
       who: 'Test Admin',
@@ -1278,7 +1278,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('4.4')
       expect(response.body).to have_content('2020-02-02')
       expect(response.body).to have_content('true')
-      expect(response.body).to have_content('10')
+      expect(response.body).to have_content('Low')
       expect(response.body).to have_content('Review')
       expect(response.body).to have_content('Fall Quarter 2023')
       expect(response.body).to have_content('Fall Quarter 2023')
@@ -1355,7 +1355,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           new_features: true,
           breaking_changes: true,
           end_of_life: true,
-          priority: '10',
+          priority: '1',
           upgrade_status: 'Review',
           who: 'Test Admin',
           semester: 'Fall Quarter 2023',
@@ -1390,7 +1390,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.proposed_version).to have_content('4.4')
         expect(software_record.last_upgrade_date).to have_content('2020-02-02')
         expect(software_record.upgrade_available).to have_content('true')
-        expect(software_record.priority).to have_content('10')
+        expect(software_record.priority).to have_content('1')
         expect(software_record.upgrade_status).to have_content('Review')
         expect(software_record.semester).to have_content('Fall Quarter 2023')
         expect(software_record.road_map).to have_content('Road Map')

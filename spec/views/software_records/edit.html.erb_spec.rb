@@ -114,7 +114,12 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'input[name=?]', 'software_record[installed_version]'
       assert_select 'input[name=?]', 'software_record[proposed_version]'
       assert_select 'input[name=?]', 'software_record[monitor_errors]'
-      assert_select 'input[name=?]', 'software_record[priority]'
+      assert_select 'select[name=?]', 'software_record[priority]' do
+        assert_select 'option[value=?]', '', text: ''
+        assert_select 'option[value=?]', '3', text: 'High'
+        assert_select 'option[value=?]', '2', text: 'Medium'
+        assert_select 'option[value=?]', '1', text: 'Low'
+      end
       assert_select 'input[name=?]', 'software_record[upgrade_status]'
       assert_select 'input[name=?]', 'software_record[who]'
       assert_select 'input[name=?]', 'software_record[semester]'
