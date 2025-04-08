@@ -74,7 +74,7 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
     assert_select 'td:nth-child(1)', text: 'Title'.to_s, count: 1
     assert_select 'td:nth-child(1)', text: 'Title 3'.to_s, count: 1
     expect(rendered).to_not have_text('Status')
-    expect(rendered).to have_text('Installed Version')
+    expect(rendered).to have_text('Planned Date')
   end
 
   it 'renders the expected list when filter is applied' do
