@@ -129,7 +129,7 @@ RSpec.describe 'software_records/show', type: :view do
   it 'renders maintenance log values' do
     render
     expect(rendered).to match(/Name of Service/)
-    expect(rendered).to match(/Current Version/)
+    expect(rendered).to match(/Installed Version/)
     expect(rendered).to match(/Next Proposed version/)
     expect(rendered).to match(/Last Upgrade Date/)
     expect(rendered).to match(/Is there an upgrade available/)

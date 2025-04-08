@@ -3,7 +3,7 @@
             <dt class="inline-block">Name of Service: <span style="color: white; font-weight: normal"><%= @software_record.service %></span></dt>
           <% end %>
           <% unless @software_record.installed_version.to_s.blank? %>
-            <dt class="inline-block">Current Version: <span style="color: white; font-weight: normal"><%= @software_record.installed_version %></span></dt>
+            <dt class="inline-block">Installed Version: <span style="color: white; font-weight: normal"><%= @software_record.installed_version %></span></dt>
           <% end %>
           <% unless @software_record.proposed_version.to_s.blank? %>
             <dt class="inline-block">Next Proposed version:<span style="color: white; font-weight: normal"><%= @software_record.proposed_version %></span></dt>
