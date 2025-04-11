@@ -46,7 +46,8 @@ RSpec.describe 'software_records/edit', type: :view do
                                                   upgrade_status: 'Review',
                                                   who: 'Test Admin',
                                                   semester: 'Fall Quarter 2023',
-                                                  upgrade_docs: 'www.example.com'
+                                                  upgrade_docs: 'www.example.com',
+                                                  maintenance_note: 'Maintain'
                                                 ))
     session[:previous] = dashboard_path
   end
@@ -124,6 +125,7 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'input[name=?]', 'software_record[who]'
       assert_select 'input[name=?]', 'software_record[semester]'
       assert_select 'input[name=?]', 'software_record[upgrade_docs]'
+      assert_select 'textarea[name=?]', 'software_record[maintenance_note]'
     end
   end
 end
