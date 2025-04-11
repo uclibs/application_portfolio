@@ -22,7 +22,7 @@ class SoftwareRecords < ApplicationRecord
       'Last Accessibility Scan', 'Last OGC Review', 'Last Infosec Review',
       'CM Stakeholders', 'CM Other Notes', 'QA URL', 'Dev_URL', 'Prod_URL',
       'Production Support Servers', 'Last Record Change', 'Track Uptime',
-      'Monitor Health', 'Monitor Errors'
+      'Monitor Health', 'Monitor Errors', 'Road Map'
     ]
 
     CSV.open(file, 'w', write_headers: true, headers:) do |writer|
@@ -53,7 +53,7 @@ class SoftwareRecords < ApplicationRecord
           software_record.qa_url, software_record.dev_url, software_record.prod_url,
           software_record.production_support_servers, software_record.last_record_change,
           software_record.track_uptime, software_record.monitor_health,
-          software_record.monitor_errors
+          software_record.monitor_errors, software_record.road_map
         ]
       end
     end
