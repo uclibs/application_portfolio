@@ -323,6 +323,7 @@ info.'
       :dev_support_servers,
       :date_cert_expires,
       :monitor_certificates,
+      :maintenance_note,
       tech_leads: [],
       developers: [],
       product_owners: [],

@@ -60,4 +60,9 @@
           <% unless @software_record.upgrade_docs.blank? %>
             <dt class="inline-block">Are there any ugprade links?: <span style="color: white; font-weight: normal"><%= @software_record.new_features %></span></dt>
           <% end %>
+           <% unless @software_record.maintenance_note.blank? %>
+            <dt class="inline-block">Maintenance Notes: <span style="color: white; font-weight: normal"><%= @software_record.maintenance_note %></span></dt>  
+          <% end %>
+
+
         </dl>

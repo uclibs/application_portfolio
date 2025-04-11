@@ -48,6 +48,11 @@
     <%= form.text_field :upgrade_docs, :class => "form-control" %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :maintenance_note, 'Maintenance Note' %>
+    <%= form.text_area :maintenance_note, :cols => 30, :rows => 7, :class => "form-control" %>
+  </div>
+
    <div class="mb-3">
     <%= form.label :upgrade_available %>
     <%= form.check_box :upgrade_available %>

@@ -68,7 +68,8 @@ RSpec.describe 'software_records/show', type: :view do
                                                   road_map: "Road one\nRoad two",
                                                   notes: "Line one\nLine two",
                                                   themes: true,
-                                                  modules: true
+                                                  modules: true,
+                                                  maintenance_note: 'Maintain'
                                                 ))
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) { FactoryBot.build(:viewer) })
     session[:previous] = dashboard_path
@@ -144,5 +145,6 @@ RSpec.describe 'software_records/show', type: :view do
     expect(rendered).to match(/Who is responsible/)
     expect(rendered).to match(/What is the planned date this is scheduled for?/)
     expect(rendered).to match(/Are there any ugprade links/)
+    expect(rendered).to match(/Maintenance Note/)
   end
 end

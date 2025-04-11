@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 20_250_321_143_122) do
+ActiveRecord::Schema[7.2].define(version: 20_250_411_175_006) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "software_record_id", null: false
     t.string "change_title"
@@ -62,12 +62,12 @@ ActiveRecord::Schema[7.2].define(version: 20_250_321_143_122) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "software_type_id"
     t.integer "vendor_record_id"
-    t.json "departments"
+    t.string "departments"
     t.date "date_implemented"
     t.date "date_of_upgrade"
-    t.json "developers"
-    t.json "tech_leads"
-    t.json "product_owners"
+    t.string "developers"
+    t.string "tech_leads"
+    t.string "product_owners"
     t.string "languages_used"
     t.text "production_url"
     t.string "user_seats"
@@ -98,7 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 20_250_321_143_122) do
     t.string "monitor_health"
     t.string "monitor_errors"
     t.string "authentication_type"
-    t.json "admin_users"
+    t.text "admin_users"
     t.boolean "themes"
     t.boolean "modules"
     t.string "service"
@@ -122,6 +122,7 @@ ActiveRecord::Schema[7.2].define(version: 20_250_321_143_122) do
     t.date "date_cert_expires"
     t.string "monitor_certificates"
     t.text "road_map"
+    t.text "maintenance_note"
     t.index ["hosting_environment_id"], name: "index_software_records_on_hosting_environment_id"
     t.index ["software_type_id"], name: "index_software_records_on_software_type_id"
     t.index ["status_id"], name: "index_software_records_on_status_id"

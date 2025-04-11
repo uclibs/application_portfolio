@@ -101,7 +101,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       date_cert_expires: '2020-01-01',
       monitor_certificates: 'yes',
       themes: true,
-      modules: true
+      modules: true,
+      maintenance_note: 'Maintain'
     }
   end
 
@@ -153,7 +154,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       date_cert_expires: '2020-01-01',
       monitor_certificates: 'yes',
       themes: true,
-      modules: true
+      modules: true,
+      maintenance_note: 'Maintain'
     }
   end
 
@@ -377,6 +379,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
       expect(response.body).to have_content('yes')
+      expect(response.body).to have_content('Maintain')
     end
   end
 
@@ -455,7 +458,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
           date_cert_expires: '2020-01-01',
-          monitor_certificates: 'yes'
+          monitor_certificates: 'yes',
+          maintenance_note: 'Maintain'
         }
       end
 
@@ -488,6 +492,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
         expect(software_record.date_cert_expires).to have_content('2020-01-01')
         expect(software_record.monitor_certificates).to have_content('yes')
+        expect(software_record.maintenance_note).to have_content('Maintain')
       end
 
       it 'redirects to the software_record' do
@@ -603,7 +608,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       date_cert_expires: '2020-01-01',
       monitor_certificates: 'yes',
       themes: true,
-      modules: true
+      modules: true,
+      maintenance_note: 'Maintain'
     }
   end
 
@@ -668,6 +674,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
       expect(response.body).to have_content('yes')
+      expect(response.body).to have_content('Maintain')
     end
   end
 
@@ -746,7 +753,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           qa_support_servers: 'server.example.com',
           dev_support_servers: 'dev.example.com',
           date_cert_expires: '2020-01-01',
-          monitor_certificates: 'yes'
+          monitor_certificates: 'yes',
+          maintenance_note: 'Maintain'
         }
       end
 
@@ -779,6 +787,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
         expect(software_record.date_cert_expires).to have_content('2020-01-01')
         expect(software_record.monitor_certificates).to have_content('yes')
+        expect(software_record.maintenance_note).to have_content('Maintain')
       end
 
       it 'redirects to the software_record' do
@@ -882,7 +891,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       date_cert_expires: '2020-01-01',
       monitor_certificates: 'yes',
       themes: true,
-      modules: true
+      modules: true,
+      maintenance_note: 'Maintain'
     }
   end
 
@@ -976,6 +986,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
       expect(response.body).to have_content('yes')
+      expect(response.body).to have_content('Maintain')
     end
   end
 
@@ -1056,7 +1067,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           date_cert_expires: '2020-01-01',
           monitor_certificates: 'yes',
           themes: true,
-          modules: true
+          modules: true,
+          maintenance_note: 'Maintain'
         }
       end
 
@@ -1089,6 +1101,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
         expect(software_record.date_cert_expires).to have_content('2020-01-01')
         expect(software_record.monitor_certificates).to have_content('yes')
+        expect(software_record.maintenance_note).to have_content('Maintain')
       end
 
       it 'redirects to the software_record' do
@@ -1193,7 +1206,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       date_cert_expires: '2020-01-01',
       monitor_certificates: 'yes',
       themes: true,
-      modules: true
+      modules: true,
+      maintenance_note: 'Maintain'
     }
   end
 
@@ -1286,6 +1300,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       expect(response.body).to have_content('dev.example.com')
       expect(response.body).to have_content('2020-01-01')
       expect(response.body).to have_content('yes')
+      expect(response.body).to have_content('Maintain')
     end
   end
 
@@ -1366,7 +1381,8 @@ RSpec.describe SoftwareRecordsController, type: :controller do
           date_cert_expires: '2020-01-01',
           monitor_certificates: 'yes',
           themes: true,
-          modules: true
+          modules: true,
+          maintenance_note: 'Maintain'
         }
       end
 
@@ -1399,6 +1415,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
         expect(software_record.dev_support_servers).to have_content('dev.example.com')
         expect(software_record.date_cert_expires).to have_content('2020-01-01')
         expect(software_record.monitor_certificates).to have_content('yes')
+        expect(software_record.maintenance_note).to have_content('Maintain')
       end
 
       it 'redirects to the software_record' do
