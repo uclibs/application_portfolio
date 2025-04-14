@@ -24,7 +24,7 @@
       <label class="form-check-label" for="vrecords">Vendor Records</label>
 
       <button type="button" class="btn btn-dark clear-filters ms-3" <% if @params["filter_by"].nil? %>style="display: none;" <% else %>style="display: inline;" <% end %> 
-onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
+onclick="clearFiltersAndRedirect('list_upgrades')">Clear all filters <i class="fas fa-times"></i></button>
     </div>
     <div class="mt-3"></div>
 

@@ -1,9 +1,9 @@
 // Specific to software_records.html.erb
-function clearFilters() {
-    document.getElementById("vendor-record-filter").style.display = "none";
-    document.getElementById("software-type-filter").style.display = "none";
-    var loaded = window.location.host;
-    window.location = "software_records";
+
+function clearFiltersAndRedirect(targetPath) {
+  document.getElementById("vendor-record-filter").style.display = "none";
+  document.getElementById("software-type-filter").style.display = "none";
+  window.location = targetPath;
 }
 
 function handleRadio(myRadio) {
