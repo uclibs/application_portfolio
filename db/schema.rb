@@ -12,11 +12,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 20_250_411_175_006) do
+ActiveRecord::Schema[7.2].define(version: 20_250_414_164_358) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "software_record_id", null: false
     t.string "change_title"
-    t.string "change_description"
+    t.text "change_description"
     t.date "change_submitted_date"
     t.boolean "change_completed", default: false
     t.date "change_scheduled_date"
