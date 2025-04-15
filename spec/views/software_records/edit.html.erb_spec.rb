@@ -112,8 +112,8 @@ RSpec.describe 'software_records/edit', type: :view do
     render
     assert_select 'form[action=?][method=?]', software_record_path(@software_record), 'post' do
       assert_select 'input[name=?]', 'software_record[service]'
-      assert_select 'input[name=?]', 'software_record[installed_version]'
-      assert_select 'input[name=?]', 'software_record[proposed_version]'
+      assert_select 'textarea[name=?]', 'software_record[installed_version]'
+      assert_select 'textarea[name=?]', 'software_record[proposed_version]'
       assert_select 'input[name=?]', 'software_record[monitor_errors]'
       assert_select 'select[name=?]', 'software_record[priority]' do
         assert_select 'option[value=?]', '', text: ''
