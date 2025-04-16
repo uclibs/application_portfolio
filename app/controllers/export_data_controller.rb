@@ -23,4 +23,10 @@ class ExportDataController < ApplicationController
     $export = `ruby exports/vendor_records.rb`
     send_file "#{Dir.pwd}/public/vendor_records.csv", disposition: 'attachment'
   end
+
+  def change_requests
+    system('cd../..')
+    $export = `ruby exports/change_requests.rb`
+    send_file "#{Dir.pwd}/public/change_requests.csv", disposition: 'attachment'
+  end
 end
