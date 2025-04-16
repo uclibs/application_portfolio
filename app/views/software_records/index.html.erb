@@ -21,7 +21,7 @@
         <label for="vrecords">Vendor Records</label>
 
         <button type="button" class="btn btn-dark clear-filters" <% if @params["filter_by"].nil? %>style="margin-left: 60px; display: none;" <% else %> style="margin-left: 60px; display: inline;" 
-<% end %> onclick="clearFilters()">Clear all filters <i class="fas fa-times"></i></button>
+<% end %> onclick="clearFiltersAndRedirect('software_records')">Clear all filters <i class="fas fa-times"></i></button>
       </div>
       <div style="margin-top: 13px;"></div>
 
