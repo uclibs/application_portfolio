@@ -1,42 +1,44 @@
-            <% if params[:id].nil? %>
-              <div class="mb-3">
-                <%= form.label :requires_cm, 'Requires Change Management review?' %><br/>
-                <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :requires_cm, "Yes" %>
-                <%= form.label :requires_cm, "No", :value => "No" %>
-                <%= form.radio_button :requires_cm, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="mb-3">
-                <%= form.label :requires_cm, 'Requires Change Management Review?' %><br/>
-                <%= form.label :requires_cm, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :requires_cm, "Yes", :checked => yes_no_toggle(:requires_cm) == "Yes" %>
-                <%= form.label :requires_cm, "No", :value => "No" %>
-                <%= form.radio_button :requires_cm, "No", :checked => yes_no_toggle(:requires_cm) == "No" %>
-              </div>
-            <% end %>
-            <div class="mb-3">
-              <%= form.label "last_security_scan" %>
-               <%= form.date_field :last_security_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="mb-3">
-              <%= form.label "last_accessibility_scan" %>
-               <%= form.date_field :last_accessibility_scan, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="mb-3">
-              <%= form.label "last_ogc_review" %>
-               <%= form.date_field :last_ogc_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-             <div class="mb-3">
-              <%= form.label "last_info_sec_review" %>
-               <%= form.date_field :last_info_sec_review, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
-            <div class="mb-3">
-              <%= form.label :cm_stakeholders %>
-              <%= form.text_area :cm_stakeholders, :class => "form-control" %>
-            </div>
-           <div class="mb-3">
-              <%= form.label :cm_other_notes %>
-              <%= form.text_area :cm_other_notes, :class => "form-control" %>
-            </div>
+<fieldset class="mb-3">
+  <legend>Requires Change Management Review?</legend>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :requires_cm, "Yes", id: "software_record_requires_cm_yes", class: "form-check-input", checked: (params[:id].nil? ? false : yes_no_toggle(:requires_cm) == "Yes") %>
+    <%= form.label :requires_cm_yes, "Yes", for: "software_record_requires_cm_yes", class: "form-check-label" %>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :requires_cm, "No", id: "software_record_requires_cm_no", class: "form-check-input", checked: (params[:id].nil? ? true : yes_no_toggle(:requires_cm) == "No") %>
+    <%= form.label :requires_cm_no, "No", for: "software_record_requires_cm_no", class: "form-check-label" %>
+  </div>
+</fieldset>
+
+<div class="mb-3">
+  <%= form.label :last_security_scan, "Last Security Scan", for: "software_record_last_security_scan" %>
+  <%= form.date_field :last_security_scan, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_security_scan" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :last_accessibility_scan, "Last Accessibility Scan", for: "software_record_last_accessibility_scan" %>
+  <%= form.date_field :last_accessibility_scan, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_accessibility_scan" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :last_ogc_review, "Last OGC Review", for: "software_record_last_ogc_review" %>
+  <%= form.date_field :last_ogc_review, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_ogc_review" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :last_info_sec_review, "Last InfoSec Review", for: "software_record_last_info_sec_review" %>
+  <%= form.date_field :last_info_sec_review, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_info_sec_review" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :cm_stakeholders, "Change Management Stakeholders", for: "software_record_cm_stakeholders" %>
+  <%= form.text_area :cm_stakeholders, class: "form-control", id: "software_record_cm_stakeholders" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :cm_other_notes, "Other Change Management Notes", for: "software_record_cm_other_notes" %>
+  <%= form.text_area :cm_other_notes, class: "form-control", id: "software_record_cm_other_notes" %>
+</div>
 

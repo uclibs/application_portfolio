@@ -1,22 +1,23 @@
-            <!-- Multiple Departments -->
+<!-- Multiple Departments -->
 <% if current_user.role.to_s == "root_admin" %>
   <div class="mb-3" id="multiple_departments">
-    <%= form.label :departments %>
-    <a class="float-right text-primary anchor-underline" id="btnAddDepartments">+ add more</a>
+    <%= form.label :departments, "Departments", for: "software_record_departments_1" %>
+    <button type="button" class="btn btn-sm btn-outline-primary float-right" id="btnAddDepartments">+ add more</button>
 
-    <% if component.to_s == "new" || @software_record.departments.empty? %>
-      <div class="input-group" id="departments1">
-        <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control" %>
-        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('departments1')">
+    <% if component.to_s == "new" || @software_record.departments.blank? %>
+      <div class="input-group mt-2" id="departments1">
+        <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control", id: "software_record_departments_1" %>
+        <div class="input-group-append ms-2" onclick="remove('departments1')">
           <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
         </div>
       </div>
     <% else %>
       <% @software_record.departments.each_with_index do |department, index| %>
-        <% @id = "departments#{index + 1}" %>
-        <div class="input-group mt-2" id="<%= @id %>">
-          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
-          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
+        <% input_id = "software_record_departments_#{index + 1}" %>
+        <% wrapper_id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= wrapper_id %>">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control", id: input_id %>
+          <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>
@@ -27,10 +28,11 @@
   <% if @software_record.departments.any? %>
     <div class="mb-3" id="multiple_departments">
       <% @software_record.departments.each_with_index do |department, index| %>
-        <% @id = "departments#{index + 1}" %>
-        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
-          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control" %>
-          <div class="input-group-append ms-2"" id="btnRemove" onclick="remove('<%= @id %>')">
+        <% input_id = "software_record_departments_#{index + 1}" %>
+        <% wrapper_id = "departments#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= wrapper_id %>" style="display: none;">
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control", id: input_id %>
+          <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
             <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
           </div>
         </div>
@@ -39,6 +41,4 @@
   <% end %>
 <% end %>
 <!-- Multiple Departments ends -->
-
-
 

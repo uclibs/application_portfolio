@@ -1,21 +1,22 @@
 <!-- Multiple Admin Users -->
 <div class="mb-3" id="multiple_admin_users">
-  <%= form.label "Admin Users" %>
-  <a class="float-right text-primary anchor-underline" id="btnAddAdminUsers">+ add more</a>
+  <%= form.label :admin_users, "Admin Users", for: "software_record_admin_users_1" %>
+  <button type="button" class="btn btn-sm btn-outline-primary float-right" id="btnAddAdminUsers">+ add more</button>
 
-  <% if component.to_s == "new" || @software_record.admin_users.empty? %>
+  <% if component.to_s == "new" || @software_record.admin_users.blank? %>
     <div class="input-group mt-2" id="admin_users1">
-      <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control" %>
-      <div class="input-group-append ms-2" id="btnRemove" onclick="remove('admin_users1')">
+      <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control", id: "software_record_admin_users_1" %>
+      <div class="input-group-append ms-2" onclick="remove('admin_users1')">
         <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
       </div>
     </div>
   <% else %>
     <% @software_record.admin_users.each_with_index do |admin_user, index| %>
-      <% @id = "admin_users#{index + 1}" %>
-      <div class="input-group mt-2" id="<%= @id %>">
-        <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control" %>
-        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
+      <% input_id = "software_record_admin_users_#{index + 1}" %>
+      <% wrapper_id = "admin_users#{index + 1}" %>
+      <div class="input-group mt-2" id="<%= wrapper_id %>">
+        <%= text_field_tag "software_record[admin_users][]", admin_user, required: true, class: "form-control", id: input_id %>
+        <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
           <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
         </div>
       </div>
@@ -23,5 +24,4 @@
   <% end %>
 </div>
 <!-- Multiple Admin Users ends -->
-
 

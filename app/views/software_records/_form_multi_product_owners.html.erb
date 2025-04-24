@@ -1,29 +1,29 @@
 <!-- Multiple Product Owners -->
 <div class="mb-3" id="multiple_product_owners">
-  <%= form.label "Product Lead/Contact" %>
-  <a class="float-right text-primary anchor-underline" id="btnAddProductOwners">+ add more</a>
-  
-  <% if component.to_s == "new" || @software_record.product_owners.empty? %>
+  <%= form.label :product_owners, "Product Lead/Contact", for: "software_record_product_owners_1" %>
+  <button type="button" class="btn btn-sm btn-outline-primary float-right" id="btnAddProductOwners">+ add more</button>
+
+  <% if component.to_s == "new" || @software_record.product_owners.blank? %>
     <div class="input-group mt-2" id="product_owners1">
-      <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control" %>
-      <div class="input-group-append ms-2" id="btnRemove" onclick="remove('product_owners1')">
-        <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+      <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control", id: "software_record_product_owners_1" %>
+      <div class="input-group-append ms-2" onclick="remove('product_owners1')">
+        <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
       </div>
     </div>
   <% else %>
     <% @software_record.product_owners.each_with_index do |product_owner, index| %>
-      <% @id = "product_owners#{index + 1}" %>
-      <div class="input-group mt-2" id="<%= @id %>">
-        <%= text_field_tag "software_record[product_owners][]", product_owner, required: true, class: "form-control" %>
-        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
-          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+      <% input_id = "software_record_product_owners_#{index + 1}" %>
+      <% wrapper_id = "product_owners#{index + 1}" %>
+      <div class="input-group mt-2" id="<%= wrapper_id %>">
+        <%= text_field_tag "software_record[product_owners][]", product_owner, required: true, class: "form-control", id: input_id %>
+        <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
+          <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
         </div>
       </div>
     <% end %>
   <% end %>
 </div>
 <!-- Multiple Product Owners ends -->
-
 
 
 
