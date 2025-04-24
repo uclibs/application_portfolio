@@ -143,11 +143,14 @@ onclick="clearFiltersAndRedirect('list_upgrades')">Clear all filters <i class="f
           <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
         <% elsif current_user.role.to_s == "owner" %>
           <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
-          <td style="background-color: black; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
+          <td style="background-color: black ; color: white"><%= link_to 'Edit', "#{edit_software_record_path(software_record)}#maintenance-log", class: "btn btn-primary", data: { turbo: false } 
+%></td>
         <% else %>
           <td style="background-color: black; color: white"><%= link_to 'View', software_record, class: "btn btn-success" %></td>
-          <td style="background-color: black; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), class: "btn btn-primary" %></td>
+          <td style="background-color: black ; color: white"><%= link_to 'Edit', "#{edit_software_record_path(software_record)}#maintenance-log", class: "btn btn-primary", data: { turbo: false } 
+%></td>
           <td style="background-color: black; color: white"><%= link_to 'Delete', software_record, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+
         <% end %>
       </tr>
     <% end %>
