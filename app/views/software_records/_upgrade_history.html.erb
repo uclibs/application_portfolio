@@ -6,10 +6,10 @@ Upgrade history (Completed Change Request)
       <table class="table text-center">
         <thead>
           <tr>
-            <th class="text-left" style="padding-left: 50px">Date Submitted</th>
-            <th class="text-left" style="padding-left: 50px">Change Requests</th>
-            <th class="text-left" style="padding-left: 50px">Version</th>
-            <th class="text-left" style="padding-left: 50px">Tech Lead</th>
+            <th class="text-left" style="padding-left: 50px; color: white">Date Submitted</th>
+            <th class="text-left" style="padding-left: 50px; color: white">Change Requests</th>
+            <th class="text-left" style="padding-left: 50px; color: white">Version</th>
+            <th class="text-left" style="padding-left: 50px; color: white">Tech Lead</th>
 
             <% if current_user.role.to_s == "viewer" %>
               <th>Actions</th>
@@ -24,10 +24,10 @@ Upgrade history (Completed Change Request)
         <tbody>
           <% software_records_upgrade_hash(@software_record.id).each do |change_request| %>
             <tr>
-              <td class="text-left" style="padding-left: 50px"><%= change_request.change_submitted_date %></td>
-              <td class="text-left" style="padding-left: 50px"><%= change_request.change_title %></td>
-              <td class="text-left" style="padding-left: 50px"><%= find_software_version(change_request.software_record_id) %></td>
-              <td class="text-left" width="250px" style="padding-left: 50px"><% find_tech_leads(change_request.software_record_id).each do |a| %><li><%= a %></li><% end %></td>
+              <td class="text-left" style="padding-left: 50px; color: white"><%= change_request.change_submitted_date %></td>
+              <td class="text-left" style="padding-left: 50px; color: white"><%= change_request.change_title %></td>
+              <td class="text-left" style="padding-left: 50px; color: white"><%= find_software_version(change_request.software_record_id) %></td>
+              <td class="text-left" width="250px" style="padding-left: 50px; color: white"><% find_tech_leads(change_request.software_record_id).each do |a| %><li><%= a %></li><% end %></td>
               <% if current_user.role.to_s == "viewer" %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
               <% elsif current_user.role.to_s == "owner" %>
