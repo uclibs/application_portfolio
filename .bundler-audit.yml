@@ -9,4 +9,6 @@ ignore:
   # Nokogiri - servers don't have compatible GLIBC. Wants
   # an upgrade to version 1.18.4.
   - GHSA-vvfq-8hwr-qm4m
+  - GHSA-5w6v-399v-w3cc
   - GHSA-mrxw-mxhj-p664
+  - GHSA-5w6v-399v-w3cc

@@ -17,10 +17,17 @@ gem 'mutex_m'
 gem 'globalize', '~> 7.0'
 
 # Needed for ruby 3.3.3 upgrade
+gem 'net-imap', '>= 0.5.7'
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
+
 # Use nokogiri for java
 gem 'nokogiri', '1.16.7'
+
+# Bundler Audit Update
+gem 'json', '>= 2.10.2'
+gem 'rack', '~> 2.2.13'
+
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
 # Use SCSS for stylesheets
