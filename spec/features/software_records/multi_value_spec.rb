@@ -8,8 +8,8 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
 
   before do
     visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'random1234'
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: 'random1234'
     click_button 'Login'
     visit edit_software_record_path(software_record)
   end
@@ -17,17 +17,15 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   scenario 'User can add and remove multiple developers' do
     within('#multiple_developers') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('a', text: '+ add more').click
-      find('a', text: '+ add more').click
+      find('button', text: '+ add more').click
+      find('button', text: '+ add more').click
 
-      # Fill in fields with identifiable values
       all('.input-group input').each_with_index do |input, index|
         input.set("Developer #{index + 1}")
       end
 
       expect(page).to have_selector('.input-group', count: 3)
 
-      # Delete 'Developer 2'
       all('.input-group-append')[1].click
       expect(page).to have_selector('.input-group', count: 2)
       expect(page).not_to have_field(with: 'Developer 2')
@@ -39,17 +37,15 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   scenario 'User can add and remove multiple tech leads' do
     within('#multiple_tech_leads') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('a', text: '+ add more').click
-      find('a', text: '+ add more').click
+      find('button', text: '+ add more').click
+      find('button', text: '+ add more').click
 
-      # Fill in fields with identifiable values
       all('.input-group input').each_with_index do |input, index|
         input.set("Tech Lead #{index + 1}")
       end
 
       expect(page).to have_selector('.input-group', count: 3)
 
-      # Delete 'Tech Lead 2'
       all('.input-group-append')[1].click
       expect(page).to have_selector('.input-group', count: 2)
       expect(page).not_to have_field(with: 'Tech Lead 2')
@@ -61,17 +57,15 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   scenario 'User can add and remove multiple departments' do
     within('#multiple_departments') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('a', text: '+ add more').click
-      find('a', text: '+ add more').click
+      find('button', text: '+ add more').click
+      find('button', text: '+ add more').click
 
-      # Fill in fields with identifiable values
       all('.input-group input').each_with_index do |input, index|
         input.set("Department #{index + 1}")
       end
 
       expect(page).to have_selector('.input-group', count: 3)
 
-      # Delete 'Department 2'
       all('.input-group-append')[1].click
       expect(page).to have_selector('.input-group', count: 2)
       expect(page).not_to have_field(with: 'Department 2')
@@ -83,17 +77,15 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   scenario 'User can add and remove multiple product owners' do
     within('#multiple_product_owners') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('a', text: '+ add more').click
-      find('a', text: '+ add more').click
+      find('button', text: '+ add more').click
+      find('button', text: '+ add more').click
 
-      # Fill in fields with identifiable values
       all('.input-group input').each_with_index do |input, index|
         input.set("Product Owner #{index + 1}")
       end
 
       expect(page).to have_selector('.input-group', count: 3)
 
-      # Delete 'Product Owner 2'
       all('.input-group-append')[1].click
       expect(page).to have_selector('.input-group', count: 2)
       expect(page).not_to have_field(with: 'Product Owner 2')
@@ -105,17 +97,15 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   scenario 'User can add and remove multiple admin users' do
     within('#multiple_admin_users') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('a', text: '+ add more').click
-      find('a', text: '+ add more').click
+      find('button', text: '+ add more').click
+      find('button', text: '+ add more').click
 
-      # Fill in fields with identifiable values
       all('.input-group input').each_with_index do |input, index|
         input.set("Admin User #{index + 1}")
       end
 
       expect(page).to have_selector('.input-group', count: 3)
 
-      # Delete 'Admin User 2'
       all('.input-group-append')[1].click
       expect(page).to have_selector('.input-group', count: 2)
       expect(page).not_to have_field(with: 'Admin User 2')
