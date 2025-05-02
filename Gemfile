@@ -26,7 +26,7 @@ gem 'nokogiri', '1.16.7'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
-gem 'rack', '~> 2.2.13'
+gem 'rack', '~> 2.2.14'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
