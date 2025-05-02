@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# !/bin/env ruby
+# !/usr/bin/env ruby
 require 'csv'
 require "#{Dir.pwd}/config/environment.rb"
 
 # Export SoftwareRecords Data
-class SoftwareRecords < ApplicationRecord
+class SoftwareRecords
   def software_records
     file = "#{Dir.pwd}/public/software_records.csv"
     #    software_records = SoftwareRecords.all
