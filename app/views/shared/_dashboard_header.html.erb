@@ -4,14 +4,17 @@
     <nav class="nav nav-masthead">
       <% if user_signed_in? %>
         <%= form_tag(search_path, :method => "get", class: "mt-1") do %>  
-          <div class="input-group">
-            <%= search_field_tag :search, params[:search], placeholder: "Search..", class: "form-control", style: "height: 27px;" %>  
-            <div class="input-group-btn input-group-append" style="height: 27px; ">
-              <button type="submit" class="btn search-btn" style="height: 27px; background-color: #E00122; color: white">
-                <i class="fa fa-search fa-xs" style="height: 27px; font-size: 14px; vertical-align: middle;"></i>
-              </button>
-            </div>
-          </div>
+
+          <div class="input-group" style="width: fit-content;">
+  <%= search_field_tag :search, params[:search], placeholder: "Search..", class: "form-control rounded-start", style: "height: 27px;" %>
+
+  <button type="submit" class="btn search-btn d-flex align-items-center justify-content-center rounded-end ms-2" style="height: 27px; width: 36px; background-color: #E00122; color: white; padding: 
+0;">
+    <i class="fa fa-search fa-xs" style="font-size: 14px;"></i>
+  </button>
+</div>
+
+
         <% end %>
       <% end %>
       <p class="ms-3"></p>
