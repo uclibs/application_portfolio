@@ -16,6 +16,13 @@ gem 'mutex_m'
 # Deals with serialization deprecation in Rails 7.1
 gem 'globalize', '~> 7.0'
 
+# Intergates UC_SSO gem
+gem 'uc_sso', git: 'https://git.uc.edu/UC-Libraries/uc_sso.git', branch: 'main'
+gem 'omniauth-openid'
+gem 'omniauth-shibboleth'
+gem 'rails-controller-testing'
+gem 'show_me_the_cookies'
+
 # Needed for ruby 3.3.3 upgrade
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'

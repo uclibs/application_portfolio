@@ -8,11 +8,12 @@ class User < ApplicationRecord
   ## The multiple option can be set to true if you need users to have multiple roles.       ##
   petergate(roles: %i[root_admin owner viewer manager], multiple: false) ##
   ############################################################################################
-  validates :first_name, :last_name, :email, presence: true
+  validates :first_name, :last_name, :email, :provider, :uid, :display_name, presence: true
   validate :allow_uc_domains
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :validatable, password_length: 10..128
 
   after_create :send_admin_mail
