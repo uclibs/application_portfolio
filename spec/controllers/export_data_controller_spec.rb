@@ -35,4 +35,11 @@ RSpec.describe ExportDataController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #change_requests' do
+    it 'returns http success' do
+      get :change_requests
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
