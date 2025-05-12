@@ -26,7 +26,7 @@ RSpec.describe SoftwareRecords do
         'Last Accessibility Scan', 'Last OGC Review', 'Last Infosec Review',
         'CM Stakeholders', 'CM Other Notes', 'QA URL', 'Dev_URL', 'Prod_URL',
         'Production Support Servers', 'Last Record Change', 'Track Uptime',
-        'Monitor Health', 'Monitor Errors'
+        'Monitor Health', 'Monitor Errors', 'Road Map'
       ]
 
       expect(CSV.parse(csv_content, headers: true).headers).to eq(headers)
