@@ -1,5 +1,5 @@
 # app/controllers/omniauth_callbacks_controller.rb
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class CallbacksController < Devise::OmniauthCallbacksController
   include UcSso::ControllerHooks
 
   def shibboleth

@@ -17,10 +17,11 @@ gem 'mutex_m'
 gem 'globalize', '~> 7.0'
 
 # Intergates UC_SSO gem
-gem 'uc_sso', git: 'https://git.uc.edu/UC-Libraries/uc_sso.git', branch: 'main'
+gem 'uc_sso', git: 'git@git.uc.edu:UC-Libraries/uc_sso.git'
+# gem 'uc_sso', git: 'https://git.uc.edu/UC-Libraries/uc_sso.git', branch: 'main'
 gem 'omniauth-openid'
 gem 'omniauth-shibboleth'
-gem 'rails-controller-testing'
+# gem 'rails-controller-testing'
 gem 'show_me_the_cookies'
 
 # Needed for ruby 3.3.3 upgrade
