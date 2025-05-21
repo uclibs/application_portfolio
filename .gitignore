@@ -8,8 +8,10 @@
 /.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
+/db/*.sqlite3           # Default SQLite database files
+/db/*.sqlite3-journal   # Journal files (pre-WAL mode)
+/db/*.sqlite3-wal       # Write-Ahead Log (WAL) files
+/db/*.sqlite3-shm       # Shared Memory files
 
 # Ignore all logfiles and tempfiles.
 /log/*
