@@ -1,23 +1,24 @@
 <!-- Multiple Tech Leads -->
 <% if current_user.role.to_s != "owner" %>
   <div class="mb-3" id="multiple_tech_leads">
-    <%= form.label :tech_leads %>
-    <a class="float-right text-primary anchor-underline" id="btnAddTechLeads">+ add more</a>
-    
-    <% if component.to_s == "new" || @software_record.tech_leads.empty? %>
+    <%= form.label :tech_leads, "Tech Leads", for: "software_record_tech_leads_1" %>
+    <button type="button" class="btn btn-sm btn-outline-primary float-right" id="btnAddTechLeads">+ add more</button>
+
+    <% if component.to_s == "new" || @software_record.tech_leads.blank? %>
       <div class="input-group mt-2" id="tech_leads1">
-        <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control" %>
-        <div class="input-group-append ms-2" id="btnRemove" onclick="remove('tech_leads1')">
-          <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control", id: "software_record_tech_leads_1" %>
+        <div class="input-group-append ms-2" onclick="remove('tech_leads1')">
+          <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
         </div>
       </div>
     <% else %>
       <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
-        <% @id = "tech_leads#{index + 1}" %>
-        <div class="input-group mt-2" id="<%= @id %>">
-          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
-            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        <% input_id = "software_record_tech_leads_#{index + 1}" %>
+        <% wrapper_id = "tech_leads#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= wrapper_id %>">
+          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control", id: input_id %>
+          <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
           </div>
         </div>
       <% end %>
@@ -27,11 +28,12 @@
   <% if @software_record.tech_leads.any? %>
     <div class="mb-3" id="multiple_tech_leads">
       <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
-        <% @id = "tech_leads#{index + 1}" %>
-        <div class="input-group mt-2" id="<%= @id %>" style="display: none">
-          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control" %>
-          <div class="input-group-append ms-2" id="btnRemove" onclick="remove('<%= @id %>')">
-            <span class="input-group-text"><i class="fas fa-minus remove"> Delete</i></span>
+        <% input_id = "software_record_tech_leads_#{index + 1}" %>
+        <% wrapper_id = "tech_leads#{index + 1}" %>
+        <div class="input-group mt-2" id="<%= wrapper_id %>" style="display: none;">
+          <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control", id: input_id %>
+          <div class="input-group-append ms-2" onclick="remove('<%= wrapper_id %>')">
+            <span class="input-group-text"><i class="fas fa-minus remove"></i> Delete</span>
           </div>
         </div>
       <% end %>
@@ -39,3 +41,4 @@
   <% end %>
 <% end %>
 <!-- Multiple Tech Leads ends -->
+

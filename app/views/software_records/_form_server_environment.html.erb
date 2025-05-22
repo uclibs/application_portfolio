@@ -1,123 +1,110 @@
-            <div class="mb-3">
-              <%= form.label :qa_url %>
-              <%= form.text_area :qa_url, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :qa_url, "QA URL", for: "software_record_qa_url" %>
+  <%= form.text_area :qa_url, class: "form-control", id: "software_record_qa_url" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :dev_url %>
-              <%= form.text_area :dev_url, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :dev_url, "Dev URL", for: "software_record_dev_url" %>
+  <%= form.text_area :dev_url, class: "form-control", id: "software_record_dev_url" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :prod_url %>
-              <%= form.text_area :prod_url, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :prod_url, "Production URL", for: "software_record_prod_url" %>
+  <%= form.text_area :prod_url, class: "form-control", id: "software_record_prod_url" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :themes %>
-              <%= form.check_box :themes %>
-            </div>
+<div class="mb-3">
+  <%= form.label :themes, "Themes", for: "software_record_themes" %>
+  <%= form.check_box :themes, id: "software_record_themes" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :modules %>
-              <%= form.check_box :modules %>
-            </div>
+<div class="mb-3">
+  <%= form.label :modules, "Modules", for: "software_record_modules" %>
+  <%= form.check_box :modules, id: "software_record_modules" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :production_support_servers %>
-              <%= form.text_area :production_support_servers, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :production_support_servers, "Production Support Servers", for: "software_record_production_support_servers" %>
+  <%= form.text_area :production_support_servers, class: "form-control", id: "software_record_production_support_servers" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :qa_support_servers %>
-              <%= form.text_area :qa_support_servers, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :qa_support_servers, "QA Support Servers", for: "software_record_qa_support_servers" %>
+  <%= form.text_area :qa_support_servers, class: "form-control", id: "software_record_qa_support_servers" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label :dev_support_servers %>
-              <%= form.text_area :dev_support_servers, :class => "form-control" %>
-            </div>
+<div class="mb-3">
+  <%= form.label :dev_support_servers, "Dev Support Servers", for: "software_record_dev_support_servers" %>
+  <%= form.text_area :dev_support_servers, class: "form-control", id: "software_record_dev_support_servers" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label "last_record_change" %>
-               <%= form.date_field :last_record_change, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
+<div class="mb-3">
+  <%= form.label :last_record_change, "Last Record Change", for: "software_record_last_record_change" %>
+  <%= form.date_field :last_record_change, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_record_change" %>
+</div>
 
-            <div class="mb-3">
-              <%= form.label "date_cert_expires" %>
-               <%= form.date_field :date_cert_expires, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
-            </div>
+<div class="mb-3">
+  <%= form.label :date_cert_expires, "Certificate Expiration", for: "software_record_date_cert_expires" %>
+  <%= form.date_field :date_cert_expires, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_date_cert_expires" %>
+</div>
 
-            <% if params[:id].nil? %>
-              <div class="mb-3">
-                <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
-                <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_certificates, "Yes" %>
-                <%= form.label :monitor_certificates, "No", :value => "No" %>
-                <%= form.radio_button :monitor_certificates, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="mb-3">
-                <%= form.label :monitor_certificates, 'Uses SSL Certificate?' %><br/>
-                <%= form.label :monitor_certificates, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_certificates, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
-                <%= form.label :monitor_certificates, "No", :value => "No" %>
-                <%= form.radio_button :monitor_certificates, "No", :checked => yes_no_toggle(:track_uptime) == "No" %>
-              </div>
-            <% end %>
+<fieldset class="mb-3">
+  <legend>Monitor Certificates?</legend>
 
-            <% if params[:id].nil? %>
-              <div class="mb-3">
-                <%= form.label :track_uptime, 'Track uptime?' %><br/>
-                <%= form.label :track_uptime, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :track_uptime, "Yes" %>
-                <%= form.label :track_uptime, "No", :value => "No" %>
-                <%= form.radio_button :track_uptime, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="mb-3">
-                <%= form.label :track_uptime, 'Track uptime?' %><br/>
-                <%= form.label :track_uptime, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :track_uptime, "Yes", :checked => yes_no_toggle(:track_uptime) == "Yes" %>
-                <%= form.label :track_uptime, "No", :value => "No" %>
-                <%= form.radio_button :track_uptime, "No", :checked => yes_no_toggle(:track_uptime) == "No" %>
-              </div>
-            <% end %>
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_certificates, "Yes", id: "software_record_monitor_certificates_yes", class: "form-check-input" %>
+    <%= form.label :monitor_certificates_yes, "Yes", for: "software_record_monitor_certificates_yes", class: "form-check-label" %>
+  </div>
 
-            <% if params[:id].nil? %>
-              <div class="mb-3">
-                <%= form.label :monitor_health, 'Monitor health?' %><br/>
-                <%= form.label :monitor_health, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_health, "Yes" %>
-                <%= form.label :monitor_health, "No", :value => "No" %>
-                <%= form.radio_button :monitor_health, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="mb-3">
-                <%= form.label :monitor_health, 'Monitor health?' %><br/>
-                <%= form.label :monitor_health, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_health, "Yes", :checked => yes_no_toggle(:monitor_health) == "Yes" %>
-                <%= form.label :monitor_health, "No", :value => "No" %>
-                <%= form.radio_button :monitor_health, "No", :checked => yes_no_toggle(:monitor_health) == "No" %>
-              </div>
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_certificates, "No", id: "software_record_monitor_certificates_no", class: "form-check-input" %>
+    <%= form.label :monitor_certificates_no, "No", for: "software_record_monitor_certificates_no", class: "form-check-label" %>
+  </div>
+</fieldset>
 
-            <% end %>
+<fieldset class="mb-3">
+  <legend>Track Uptime?</legend>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :track_uptime, "Yes", id: "software_record_track_uptime_yes", class: "form-check-input", checked: (params[:id].nil? ? false : yes_no_toggle(:track_uptime) == "Yes") %>
+    <%= form.label :track_uptime_yes, "Yes", for: "software_record_track_uptime_yes", class: "form-check-label" %>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :track_uptime, "No", id: "software_record_track_uptime_no", class: "form-check-input", checked: (params[:id].nil? ? true : yes_no_toggle(:track_uptime) == "No") %>
+    <%= form.label :track_uptime_no, "No", for: "software_record_track_uptime_no", class: "form-check-label" %>
+  </div>
+</fieldset>
 
 
-            <% if params[:id].nil? %>
-              <div class="mb-3">
-                <%= form.label :monitor_errors, 'Monitor errors?' %><br/>
-                <%= form.label :monitor_errors, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_errors, "Yes" %>
-                <%= form.label :monitor_errors, "No", :value => "No" %>
-                <%= form.radio_button :monitor_errors, "No", :checked => true %>
-              </div>
-            <% else %>
-              <div class="mb-3">
-                <%= form.label :monitor_errors, 'Monitor errors?' %><br/>
-                <%= form.label :monitor_errors, "Yes", :value => "Yes"  %>
-                <%= form.radio_button :monitor_errors, "Yes", :checked => yes_no_toggle(:monitor_errors) == "Yes" %>
-                <%= form.label :monitor_errors, "No", :value => "No" %>
-                <%= form.radio_button :monitor_errors, "No", :checked => yes_no_toggle(:monitor_errors) == "No" %>
-              </div>
-            <% end %>
+<fieldset class="mb-3">
+  <legend>Monitor Health?</legend>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_health, "Yes", id: "software_record_monitor_health_yes", class: "form-check-input", checked: (params[:id].nil? ? false : yes_no_toggle(:monitor_health) == "Yes") 
+%>
+    <%= form.label :monitor_health_yes, "Yes", for: "software_record_monitor_health_yes", class: "form-check-label" %>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_health, "No", id: "software_record_monitor_health_no", class: "form-check-input", checked: (params[:id].nil? ? true : yes_no_toggle(:monitor_health) == "No") %>
+    <%= form.label :monitor_health_no, "No", for: "software_record_monitor_health_no", class: "form-check-label" %>
+  </div>
+</fieldset>
+
+<fieldset class="mb-3">
+  <legend>Monitor Errors?</legend>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_errors, "Yes", id: "software_record_monitor_errors_yes", class: "form-check-input", checked: (params[:id].nil? ? false : yes_no_toggle(:monitor_errors) == "Yes") 
+%>
+    <%= form.label :monitor_errors_yes, "Yes", for: "software_record_monitor_errors_yes", class: "form-check-label" %>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <%= form.radio_button :monitor_errors, "No", id: "software_record_monitor_errors_no", class: "form-check-input", checked: (params[:id].nil? ? true : yes_no_toggle(:monitor_errors) == "No") %>
+    <%= form.label :monitor_errors_no, "No", for: "software_record_monitor_errors_no", class: "form-check-label" %>
+  </div>
+</fieldset>
+
+
