@@ -262,6 +262,36 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  config.omniauth :shibboleth,
+                  shib_session_id_field: "Shib-Session-ID",
+                  shib_application_id_field: "Shib-Application-ID",
+                  uid_field: "eppn",
+                  name_field: "displayName",
+                  debug: false,
+                  extra_fields: [
+                    :cn,
+                    :eppn,
+                    :givenName,
+                    :ou,
+                    :'persistent-id',
+                    :sn,
+                    :street,
+                    :title,
+                    :uceduAffiliation,
+                    :uceduPrimaryAffiliation,
+                    :uceduUCID,
+                    :mail,
+                    :affiliation,
+                    :remoteuser,
+                    :telephoneNumber,
+                    :uceduAcademicProgram,
+                    :uceduFERPACode,
+                    :uceduPrimaryCollege,
+                    :uceduSISPersonID
+                  ]
+
+
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

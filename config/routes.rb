@@ -7,8 +7,13 @@ Rails.application.routes.draw do
 
   get 'seed/new', to: 'file_uploads#new', as: 'file_uploads_new'
   get 'seed/create', to: 'file_uploads#create', as: 'file_uploads_create'
-#  devise_for :users
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  #  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'callbacks' }
+#  devise_for :users, controllers: { omniauth_callbacks: 'callbacks', registrations: "registrations" }
+#  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }  
+#  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'application_portfolio/users'
+
+
 
   resources :vendor_records
   resources :software_types
