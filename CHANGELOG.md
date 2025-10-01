@@ -1,3 +1,19 @@
+1.7.0 10/1/2025
+
+* Change Requestor Exporter
+* Adds Roadmap Field to export
+* Cleans up Bootstrap 5
+* Change Text boxes to Text area
+* Change Sememster to Planned
+* Add Maintenance Field
+* Add Plaaned Date
+* Bug Fixes
+  * Clear Filter
+  * Fix tab navigation
+  * Fixes accessibility errors with Javascript
+* Changed Current Installation Field
+* Adds Capistrano Tasks 
+
 1.6.0 3/5/2025
 * Updates Rails to version 7.2.2.1
 * Adds mutex_m and globalize gems.
