@@ -3,10 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.3'
+ruby '3.3.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.2.1'
+gem 'rails', '~> 7.2.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
@@ -22,11 +22,11 @@ gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
 
 # Use nokogiri for java
-gem 'nokogiri', '1.16.7'
+gem 'nokogiri', '>= 1.18.9'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
-gem 'rack', '~> 2.2.14'
+gem 'rack', '~> 2.2.18'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
