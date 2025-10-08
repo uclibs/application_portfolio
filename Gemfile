@@ -22,7 +22,7 @@ gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
 
 # Use nokogiri for java
-gem 'nokogiri', '1.16.7'
+gem 'nokogiri', '>= 1.18.9'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
