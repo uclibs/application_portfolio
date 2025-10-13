@@ -81,6 +81,9 @@ GEM
       execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    bcrypt_pbkdf (1.1.1)
+    bcrypt_pbkdf (1.1.1-arm64-darwin)
+    bcrypt_pbkdf (1.1.1-x86_64-darwin)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bindex (0.8.1)
@@ -146,6 +149,7 @@ GEM
       dotenv (= 3.1.7)
       railties (>= 6.1)
     drb (2.2.1)
+    ed25519 (1.4.0)
     erubi (1.13.1)
     execjs (2.10.0)
     factory_bot (6.5.1)
@@ -253,7 +257,7 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.18)
+    rack (2.2.20)
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.2.0)
@@ -451,6 +455,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt_pbkdf
   bigdecimal
   bootsnap (>= 1.1.0)
   bootstrap (~> 5.3.3)
@@ -469,6 +474,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   drb
+  ed25519
   factory_bot_rails
   globalize (~> 7.0)
   gritter
@@ -485,7 +491,7 @@ DEPENDENCIES
   nokogiri (>= 1.18.9)
   petergate
   puma (>= 6.4.3)
-  rack (~> 2.2.18)
+  rack (~> 2.2.20)
   rails (~> 7.2.2.2)
   rails-controller-testing
   rb-readline
