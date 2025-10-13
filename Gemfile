@@ -13,6 +13,9 @@ gem 'sqlite3', '~> 1.4'
 # Add mutex since it won't be part of rails in future
 gem 'mutex_m'
 
+gem 'bcrypt_pbkdf' # Password hashing library, required for ssh deployment
+gem 'ed25519' # Ed25519 elliptic curve public-key signature system
+
 # Deals with serialization deprecation in Rails 7.1
 gem 'globalize', '~> 7.0'
 
@@ -26,7 +29,7 @@ gem 'nokogiri', '>= 1.18.9'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
-gem 'rack', '~> 2.2.18'
+gem 'rack', '~> 2.2.20'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
