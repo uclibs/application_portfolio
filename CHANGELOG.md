@@ -13,6 +13,8 @@
   * Fixes accessibility errors with Javascript
 * Changed Current Installation Field
 * Adds Capistrano Tasks 
+* Updates Ruby to 3.3.9
+* Updates Rails to 7.2.2
 
 1.6.0 3/5/2025
 * Updates Rails to version 7.2.2.1
