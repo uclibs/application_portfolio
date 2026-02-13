@@ -10,19 +10,19 @@ RSpec.describe FileUploadsController, type: :controller do
   before { sign_in admin }
 
   describe 'GET #new' do
-    before { allow(controller).to receive(:render) } # avoid layout/asset pipeline in controller spec
-
     it 'returns http success' do
+      allow(controller).to receive(:render)
       get :new
       expect(response).to have_http_status(:success)
     end
 
-    it 'sets the page title' do
+    it 'sets the page title in the response' do
       get :new
-      expect($page_title).to eq('Import Seed Data | UCL Application Portfolio')
+      expect(response.body).to include('Import Seed Data | UCL Application Portfolio')
     end
 
     it 'assigns a new FileUpload as @file' do
+      allow(controller).to receive(:render)
       get :new
       expect(assigns(:file)).to be_a(FileUpload)
       expect(assigns(:file)).to be_new_record

@@ -8,7 +8,8 @@ RSpec.feature 'File uploads (seed import)', type: :feature do
 
   before do
     FileUtils.mkdir_p(Rails.root.join('public', 'uploads'))
-    allow(Kernel).to receive(:system).and_return(true)
+    # Stub system on the controller instance (receiver of system() in the action) so load_records.rb is not run
+    allow_any_instance_of(FileUploadsController).to receive(:system).and_return(true)
 
     visit new_user_session_path
     fill_in 'user_email', with: admin.email
