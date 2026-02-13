@@ -12,7 +12,6 @@ executors:
 
 orbs:
   browser-tools: circleci/browser-tools@1.5.0
-  coveralls: coveralls/coveralls@1.0.6
 
 jobs:
   build:
@@ -33,7 +32,6 @@ jobs:
       WORKING_PATH: /tmp
       UPLOAD_PATH: /tmp
       CACHE_PATH: /tmp/cache
-      COVERALLS_PARALLEL: true
 
     parallelism: 4
     working_directory: ~/application_portfolio
@@ -105,10 +103,6 @@ jobs:
 
       - store_artifacts:
           path: coverage
- 
-      - coveralls/upload:
-          parallel_finished: true
-          path_to_lcov: /home/circleci/application_portfolio/coverage/lcov/application_portfolio.lcov
 
 workflows:
     version: 2

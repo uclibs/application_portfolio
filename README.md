@@ -18,14 +18,14 @@ rails server
 Ruby 3.3.3
 
 ## Running the Tests
-The application portfolio has a test suite built with rspec, rubocop, and coveralls, running it is simple, just call the following in the project directory:
+The application portfolio has a test suite built with rspec, rubocop, and coveralls. Coverage is uploaded automatically from GitHub Actions. To run the tests locally:
 
 ```bash
-coveralls report
+bundle exec rspec
 ```
 
 ```bash
-rubocop -a
+bundle exec rubocop -a
 ```
 
 ## Database creation
