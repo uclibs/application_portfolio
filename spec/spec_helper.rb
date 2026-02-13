@@ -18,7 +18,6 @@
 require 'simplecov'
 
 SimpleCov.start 'rails' do
-  enable_coverage :branch
   if ENV['CI']
     require 'simplecov-lcov'
 
