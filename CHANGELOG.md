@@ -1,3 +1,7 @@
+1.7.1 2/13/2026
+
+* Updates Ruby to 3.4.7
+
 1.7.0 10/1/2025
 
 * Change Requestor Exporter

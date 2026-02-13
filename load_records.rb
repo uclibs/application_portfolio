@@ -368,31 +368,33 @@ class LoadRecords < ApplicationRecord
   end
 end
 
-args = ARGV[0]
-$filename = ARGV[1]
-$user = ARGV[2]
+if __FILE__ == $PROGRAM_NAME
+  args = ARGV[0]
+  $filename = ARGV[1]
+  $user = ARGV[2]
 
-case args
-when 'vendor'
-  LoadRecords.table_name = 'vendor_records'
-  l = LoadRecords.new
-  l.vendor_records
-when 'software'
-  LoadRecords.table_name = 'software_records'
-  l = LoadRecords.new
-  l.software_records
-when 'type'
-  LoadRecords.table_name = 'software_types'
-  l = LoadRecords.new
-  l.software_types
-when 'status'
-  LoadRecords.table_name = 'statuses'
-  l = LoadRecords.new
-  l.statuses
-when 'hosting_env'
-  LoadRecords.table_name = 'hosting_environments'
-  l = LoadRecords.new
-  l.hosting_envs
-else
-  puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data, \n 4) `status` to import status data, \n 5) `hosting_env` to import hosting_environment data"
+  case args
+  when 'vendor'
+    LoadRecords.table_name = 'vendor_records'
+    l = LoadRecords.new
+    l.vendor_records
+  when 'software'
+    LoadRecords.table_name = 'software_records'
+    l = LoadRecords.new
+    l.software_records
+  when 'type'
+    LoadRecords.table_name = 'software_types'
+    l = LoadRecords.new
+    l.software_types
+  when 'status'
+    LoadRecords.table_name = 'statuses'
+    l = LoadRecords.new
+    l.statuses
+  when 'hosting_env'
+    LoadRecords.table_name = 'hosting_environments'
+    l = LoadRecords.new
+    l.hosting_envs
+  else
+    puts "Invalid arguments...\nTry passing...\n 1) `vendor` to import vendor_records data, \n 2) `software` to import software_records data, \n 3) `type` to import software_types data, \n 4) `status` to import status data, \n 5) `hosting_env` to import hosting_environment data"
+  end
 end

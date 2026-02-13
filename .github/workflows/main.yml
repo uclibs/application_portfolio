@@ -12,12 +12,12 @@ jobs:
           - 4444:4444
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@v1.200.0
       with:
-        ruby-version: '3.3.9' # or your preferred Ruby version
+        ruby-version: '3.4.7'
         bundler-cache: true
 
     - name: Install dependencies
@@ -39,7 +39,7 @@ jobs:
         bundle exec rspec
 
     - name: Coveralls
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@v2.3.7
 
     - name: Brakeman linter
       run: bundle exec brakeman --no-exit-on-warn --no-exit-on-error
