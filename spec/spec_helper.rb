@@ -27,7 +27,12 @@ SimpleCov.start 'rails' do
       c.single_report_path = 'coverage/lcov.info'
     end
 
-    formatter SimpleCov::Formatter::LcovFormatter
+    formatter SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::LcovFormatter,
+      SimpleCov::Formatter::HTMLFormatter
+    ])
+  else
+    formatter SimpleCov::Formatter::HTMLFormatter
   end
 
   add_filter %w[version.rb initializer.rb]
