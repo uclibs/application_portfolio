@@ -4,7 +4,8 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # ubuntu-22.04: ruby/setup-ruby has 3.4.7; ubuntu-24.04 may not yet
+    runs-on: ubuntu-22.04
     services:
       selenium:
         image: selenium/standalone-chrome
@@ -15,7 +16,8 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1.200.0
+      # Use @v1 so latest action gets new Ruby versions (e.g. 3.4.7)
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.4.7'
         bundler-cache: true
