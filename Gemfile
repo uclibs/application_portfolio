@@ -7,8 +7,6 @@ ruby '3.4.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '>= 2.1'
 
 # Add mutex since it won't be part of rails in future
 gem 'mutex_m'
@@ -96,6 +94,8 @@ gem 'bigdecimal'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
+  # SQLite for local dev/test when not using MySQL (not loaded in production deploy)
+  gem 'sqlite3', '>= 2.1'
   # Call 'byebug' anywhere in the code to stop
   # execution and get a debugger console
   gem 'brakeman'
