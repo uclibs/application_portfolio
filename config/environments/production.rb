@@ -14,11 +14,32 @@ Rails.application.configure do
   # Full error reports are disabled.
   config.consider_all_requests_local = false
 
+  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  config.require_master_key = true
+
+  # Disable serving static files from the `/public` folder by default since
+  # Apache or NGINX already handles this.
+  config.public_file_server.enabled = true
+
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
   # Cache assets for far-future expiry since they are all digest stamped.
   config.public_file_server.headers = { 'cache-control' => "public, max-age=#{1.year.to_i}" }
+
+  # Compress JavaScripts and CSS. Precompile list is in config/initializers/assets.rb.
+  config.assets.css_compressor = :sass
+  config.assets.compile = true
+  config.assets.js_compressor = Uglifier.new(
+    harmony: true,
+    mangle: false,
+    compress: false,
+    output: {
+      beautify: true,
+      comments: :all
+    }
+  )
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -55,21 +76,19 @@ Rails.application.configure do
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: 'example.com' }
-
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
+  # Configure Secure Sendmail mailer
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
+  config.action_mailer.delivery_method = :smtp
+  # Store the base url from where request is received.
+  config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] }
+  config.action_mailer.smtp_settings = {
+    enable_starttls_auto: true,
+    address: ENV['MAIL_SMTP_ADDRESS'],
+    port: 25,
+    ca_file: '/etc/ssl/certs/sendmail.pem'
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

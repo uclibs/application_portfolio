@@ -34,14 +34,13 @@ Rails.application.configure do
   config.active_storage.service = :local
   config.active_storage.variant_processor = :disabled
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  # Make template changes take effect immediately.
+  # Store the base url from where request is received (e.g. APP_PORTFOLIO_PRODUCTION_MAILER_URL in .env).
+  config.action_mailer.default_url_options = { host: ENV['APP_PORTFOLIO_PRODUCTION_MAILER_URL'] || 'localhost', port: (ENV['PORT'] || 3000).to_i }
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_options = { from: 'uclappdev@uc.edu' }
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
-
-  # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
