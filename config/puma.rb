@@ -53,8 +53,5 @@ activate_control_app
 #
 # preload_app!
 
-# Allow puma to be restarted by `bin/rails restart` command.
+# Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
-
-# Run the Solid Queue supervisor inside of Puma for single-server deployments (Rails 8)
-plugin :solid_queue if ENV['SOLID_QUEUE_IN_PUMA']
