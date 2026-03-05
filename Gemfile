@@ -23,7 +23,7 @@ gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
 
 # Use nokogiri for java
-gem 'nokogiri', '1.16.7'
+gem 'nokogiri', '~> 1.19'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
@@ -47,6 +47,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
 gem 'rails-controller-testing'
+# Use Active Storage variant
+gem 'rails-html-sanitizer', '~> 1.7'
 # Use rubocop for static code analysis
 gem 'rubocop'
 # bundler audit

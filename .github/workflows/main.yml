@@ -27,7 +27,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y xvfb libnss3-dev
         gem install bundler
+        bundle config set force_ruby_platform true
         bundle install
+
+    - name: Run migrations
+      run: |
+        bundle exec rails db:migrate RAILS_ENV=test
  
     - name: Run rubocop
       run: |

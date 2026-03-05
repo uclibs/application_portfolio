@@ -26,7 +26,8 @@ end
 task :init_qp do
   on roles(:all) do
     execute 'gem install --user-install bundler'
-    execute "bundle config path 'vendor/bundle' --local"
+    execute "cd #{fetch(:release_path)} && bundle config path 'vendor/bundle' --local"
+    execute "cd #{fetch(:release_path)} && bundle config set force_ruby_platform true --local"
     execute "mkdir -p #{fetch(:deploy_to)}/static"
     execute "cp #{fetch(:deploy_to)}/static/.env.production #{fetch(:release_path)}/ || true"
   end
