@@ -17,11 +17,16 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FORCE_RUBY_PLATFORM: "1"   # If you need Nokogiri to compile for ruby platform
         with:
           ruby-version: '3.4.7'
-          bundler-cache: true               # uses deployment/frozen mode tied to Gemfile.lock
+          bundler-cache: true
+
+      - name: Force Ruby platform and install gems
+        run: |
+          bundle config set --local force_ruby_platform true
+          bundle install
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: "1"
 
       - name: Install system dependencies
         run: |
