@@ -53,9 +53,12 @@ jobs:
       - run:
           name: Configure Bundler
           command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            BUNDLER_LOCK=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d " ")
+            # Use Bundler 2.5.12+ on Ruby 3.4 to avoid Gem::Platform redefinition warnings
+            if [ "$BUNDLER_LOCK" = "2.5.11" ]; then BUNDLER_LOCK=2.5.12; fi
+            echo "export BUNDLER_VERSION=$BUNDLER_LOCK" >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+            gem install bundler -v "$BUNDLER_LOCK"
 
       - run:
           name: Install Dependencies

@@ -52,10 +52,10 @@ yarn.lock
 /public/*.csv
 
 # Ignore IDE/editor local configuration
-.idea/          # JetBrains / RubyMine
-.vscode/        # VS Code
-.fleet/         # JetBrains Fleet
-.cursor/        # Cursor
+.idea/
+.vscode/
+.fleet/
+.cursor
 *.sublime-project
 *.sublime-workspace
 
