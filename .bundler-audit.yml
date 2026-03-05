@@ -1,1 +1,21 @@
+<<<<<<< LIBAPPO1-80-update-nokogiri-to-1-19
 ignore: []
+=======
+ignore:
+  #  rails-html-sanitizer - needs Rails 7 upgrade to fix
+  - CVE-2024-53989
+  - CVE-2024-53988
+  - CVE-2024-53987
+  - CVE-2024-53986
+  - CVE-2024-53985
+
+  # Nokogiri - servers don't have compatible GLIBC. Wants
+  # an upgrade to version 1.18.4.
+  - GHSA-vvfq-8hwr-qm4m
+  - GHSA-5w6v-399v-w3cc
+  - GHSA-mrxw-mxhj-p664
+  - GHSA-5w6v-399v-w3cc
+  - GHSA-353f-x4gh-cqq8
+  - GHSA-wx95-c6cv-8532
+  
+>>>>>>> qa
