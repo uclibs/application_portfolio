@@ -156,6 +156,7 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    ffi (1.17.3)
     ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-arm-linux-gnu)
     ffi (1.17.3-arm64-darwin)
@@ -417,6 +418,8 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    sqlite3 (2.9.1)
+      mini_portile2 (~> 2.8.0)
     sqlite3 (2.9.1-aarch64-linux-gnu)
     sqlite3 (2.9.1-arm-linux-gnu)
     sqlite3 (2.9.1-arm64-darwin)
@@ -467,6 +470,7 @@ PLATFORMS
   aarch64-linux
   arm-linux
   arm64-darwin
+  ruby
   x86-linux
   x86_64-darwin
   x86_64-linux
