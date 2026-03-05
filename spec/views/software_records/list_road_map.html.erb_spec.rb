@@ -27,31 +27,34 @@ RSpec.describe 'software_records/list_road_map', type: :view do
       title: 'Test Env.',
       description: 'test env.'
     )
-    assign(:software_records, [
-             SoftwareRecord.create!(
-               title: 'Title',
-               description: 'MyText',
-               status_id: Status.first.id,
-               hosting_environment_id: HostingEnvironment.first.id,
-               date_implemented: '2020-12-12',
-               road_map: 'Road map 1',
-               vendor_record_id: VendorRecord.first.id,
-               software_type_id: SoftwareType.first.id,
-               created_by: 'Test User',
-               priority: 10
-             ),
-             SoftwareRecord.create!(
-               title: 'Title',
-               description: 'MyText',
-               road_map: 'Road map 2',
-               status_id: Status.first.id,
-               hosting_environment_id: HostingEnvironment.first.id,
-               date_implemented: '2020-12-12',
-               vendor_record_id: VendorRecord.first.id,
-               software_type_id: SoftwareType.first.id,
-               created_by: 'Test User'
-             )
-           ])
+    software_record1 = SoftwareRecord.create!(
+      title: 'Title',
+      description: 'MyText',
+      status_id: Status.first.id,
+      hosting_environment_id: HostingEnvironment.first.id,
+      date_implemented: '2020-12-12',
+      road_map: 'Road map 1',
+      vendor_record_id: VendorRecord.first.id,
+      software_type_id: SoftwareType.first.id,
+      created_by: 'Test User',
+      priority: 10
+    )
+
+    software_record2 = SoftwareRecord.create!(
+      title: 'Title',
+      description: 'MyText',
+      road_map: 'Road map 2',
+      status_id: Status.first.id,
+      hosting_environment_id: HostingEnvironment.first.id,
+      date_implemented: '2020-12-12',
+      vendor_record_id: VendorRecord.first.id,
+      software_type_id: SoftwareType.first.id,
+      created_by: 'Test User'
+    )
+
+    assign(:software_records, [software_record1, software_record2])
+    assign(:software_record1, software_record1)
+    assign(:software_record2, software_record2)
     assign(:vendor_records, VendorRecord.all)
     assign(:software_types, SoftwareType.all)
 
@@ -71,8 +74,8 @@ RSpec.describe 'software_records/list_road_map', type: :view do
 
     expect(rendered).to have_content('Title')
     expect(rendered).to have_content('Road Map')
-    expect(rendered).to have_link('Edit Road Map', href: edit_road_map_software_record_path(SoftwareRecord.first))
-    expect(rendered).to have_link('Edit Road Map', href: edit_road_map_software_record_path(SoftwareRecord.second))
+    expect(rendered).to have_link('Edit Road Map', href: edit_road_map_software_record_path(view.assigns[:software_record1]))
+    expect(rendered).to have_link('Edit Road Map', href: edit_road_map_software_record_path(view.assigns[:software_record2]))
   end
 
   it 'does not wrap the Edit Road Map button text' do

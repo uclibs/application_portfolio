@@ -51,9 +51,9 @@ RSpec.describe ChangeRequestsHelper, type: :helper do
 
   describe '#find_software_name' do
     it 'returns the software name for the given id' do
-      FactoryBot.create(:software_record, title: 'My Software', id: 1)
+      software_record = FactoryBot.create(:software_record, title: 'My Software')
 
-      name = find_software_name(1)
+      name = find_software_name(software_record.id)
 
       expect(name).to eq('My Software')
     end
@@ -61,9 +61,9 @@ RSpec.describe ChangeRequestsHelper, type: :helper do
 
   describe '#find_software_version' do
     it 'returns the software version for the given id' do
-      FactoryBot.create(:software_record, current_version: '1.0', id: 1)
+      software_record = FactoryBot.create(:software_record, current_version: '1.0')
 
-      version = find_software_version(1)
+      version = find_software_version(software_record.id)
 
       expect(version).to eq('1.0')
     end
@@ -85,9 +85,9 @@ RSpec.describe ChangeRequestsHelper, type: :helper do
 
   describe '#find_tech_leads' do
     it 'returns the tech leads for the given software record id' do
-      FactoryBot.create(:software_record, tech_leads: %w[John Jane], id: 1)
+      software_record = FactoryBot.create(:software_record, tech_leads: %w[John Jane])
 
-      tech_leads = find_tech_leads(1)
+      tech_leads = find_tech_leads(software_record.id)
 
       expect(tech_leads).to eq(%w[John Jane])
     end

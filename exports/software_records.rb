@@ -62,6 +62,8 @@ class SoftwareRecords
   private
 
   def clean_and_format(attribute)
+    return '' if attribute.blank?
+
     formatted_attribute = attribute.to_s.gsub('---', '').gsub("\n", '-')
     parts = formatted_attribute.split('- ').reject { |part| part == '-' }
     parts.map { |part| part.gsub('-', '').strip }.join(', ')
