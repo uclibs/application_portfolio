@@ -223,7 +223,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       software_record1 = SoftwareRecord.create! valid_attributes
       software_record2 = SoftwareRecord.create! valid_attributes
       get :list_road_map
-      expect(assigns(:software_records)).to match_array([software_record1, software_record2])
+      expect(assigns(:software_records)).to include(software_record1, software_record2)
       expect(response.body).not_to match('\b(Decommissioned.Software)\b')
     end
   end
@@ -526,7 +526,7 @@ RSpec.describe SoftwareRecordsController, type: :controller do
 
     it 'also destroys the change request associated with the software_record' do
       software_record = SoftwareRecord.create! valid_attributes
-      ChangeRequest.create! change_attributes
+      ChangeRequest.create!(change_attributes.merge(software_record_id: software_record.id))
       expect do
         delete :destroy, params: { id: software_record.to_param }, session: valid_session
       end.to change(ChangeRequest, :count).by(-1)

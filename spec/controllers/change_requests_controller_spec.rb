@@ -26,6 +26,9 @@ RSpec.describe ChangeRequestsController, type: :controller do
         title: 'Test Env.',
         description: 'test env.'
       )
+    end
+
+    let!(:software_record) do
       SoftwareRecord.create!(
         title: 'A Good Software',
         description: 'A Good description about the software',
@@ -47,7 +50,7 @@ RSpec.describe ChangeRequestsController, type: :controller do
       {
         change_title: 'A Good Software',
         change_description: 'A Good description about the software',
-        software_record_id: 1,
+        software_record_id: software_record.id,
         application_pages: 10,
         number_roles: 3,
         authentication_needed: true,
@@ -103,19 +106,6 @@ RSpec.describe ChangeRequestsController, type: :controller do
 
       it 'assigns @software_name' do
         change_request = ChangeRequest.create! valid_attributes
-        software_record = SoftwareRecord.create!(
-          title: 'A Good Software',
-          description: 'A Good description about the software',
-          status_id: Status.first.id,
-          software_type_id: SoftwareType.first.id,
-          vendor_record_id: VendorRecord.first.id,
-          hosting_environment_id: HostingEnvironment.first.id,
-          created_by: 'Test Manager',
-          developers: %w[Tester Random],
-          tech_leads: ['Lead 1'],
-          product_owners: %w[Owner1 Owner2],
-          admin_users: %w[Admin1 Admin2]
-        )
         get :show, params: { id: change_request.id }
         expect(assigns(:software_name)).to eq(software_record.title)
       end
