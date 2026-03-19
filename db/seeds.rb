@@ -51,10 +51,38 @@ software_types.each do |name, desc|
   SoftwareType.create(title: name, description: desc)
 end
 
-# Create test user and skip email validation
-test_user = User.new(first_name: 'Test', last_name: 'User', email: 'testuser1@example.com')
-test_user.save(validate: false)
-
+# Create development-only test users for each role
+if Rails.env.development?
+  User.find_or_create_by(email: 'admin@ucmail.uc.edu') do |user|
+    user.first_name = 'Admin'
+    user.last_name = 'User'
+    user.role = 'root_admin'
+    user.password = 'password123'
+    user.password_confirmation = 'password123'
+  end
+  User.find_or_create_by(email: 'owner@ucmail.uc.edu') do |user|
+    user.first_name = 'Owner'
+    user.last_name = 'User'
+    user.role = 'owner'
+    user.password = 'password123'
+    user.password_confirmation = 'password123'
+  end
+  User.find_or_create_by(email: 'viewer@ucmail.uc.edu') do |user|
+    user.first_name = 'Viewer'
+    user.last_name = 'User'
+    user.role = 'viewer'
+    user.password = 'password123'
+    user.password_confirmation = 'password123'
+  end
+  User.find_or_create_by(email: 'manager@ucmail.uc.edu') do |user|
+    user.first_name = 'Manager'
+    user.last_name = 'User'
+    user.role = 'manager'
+    user.password = 'password123'
+    user.password_confirmation = 'password123'
+  end
+else
+  puts "Skipping user creation in #{Rails.env} environment"
+end
 # Create Software record
-
 SoftwareRecord.create!(title: 'test', software_type: SoftwareType.find(1), vendor_record: VendorRecord.find(1), status: Status.find(1), hosting_environment: HostingEnvironment.first, description: 'test', created_by: 'test_user')
