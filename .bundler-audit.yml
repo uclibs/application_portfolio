@@ -1,1 +1,4 @@
-ignore: []
+ignore:
+  - GHSA-qmpg-8xg6-ph5q # action_text-trix 2.1.16 — update to >= 2.1.17
+  - GHSA-57hq-95w6-v4fc # devise 5.0.2 — update to >= 5.0.3
+  
