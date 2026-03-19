@@ -30,4 +30,17 @@
       </div>
     <% end %>
   </div>
+  <% if Rails.env.development? %>
+    <section class="dev-only" style="background-color: white; color: black; width: 30%; padding: 20px; margin-left: 20px; border-radius: 8px;">
+      <h3>Development-only Users</h3>
+      <p>These users are only available after running <code>rails db:seed</code> locally:</p>
+      <ul>
+        <li>Admin User: admin@ucmail.uc.edu</li>
+        <li>Owner User: owner@ucmail.uc.edu</li>
+        <li>Viewer User: viewer@ucmail.uc.edu</li>
+        <li>Manager User: manager@ucmail.uc.edu</li>
+      </ul>
+      <p> The password for each is <code>password123</code>. These accounts are intended for testing and development purposes only and should not be used in production environments. </p>
+    </section>
+  <% end %>
 </div>
