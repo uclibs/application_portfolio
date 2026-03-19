@@ -47,11 +47,40 @@
   <%= form.select :authentication_type, t('authentication_types'), {}, { class: "form-control", id: "software_record_authentication_type" } %>
 </div>
 
-<%= render 'form_multi_departments', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_developers', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_tech_leads', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_product_owners', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_admin_users', software_record: @software_record, component: component, form: form %>
+<%= render "software_records/multi_value_field",
+  form: form,
+  field: :departments,
+  label: "Departments",
+  values: @software_record&.departments
+%>
+
+<%= render "software_records/multi_value_field",
+  form: form,
+  field: :developers,
+  label: "Developers",
+  values: @software_record&.developers
+%>
+
+<%= render "software_records/multi_value_field",
+  form: form,
+  field: :tech_leads,
+  label: "Tech Leads",
+  values: @software_record&.tech_leads
+%>
+
+<%= render "software_records/multi_value_field",
+  form: form,
+  field: :product_owners,
+  label: "Product Lead/Contact",
+  values: @software_record&.product_owners
+%>
+
+<%= render "software_records/multi_value_field",
+  form: form,
+  field: :admin_users,
+  label: "Admin Users",
+  values: @software_record&.admin_users
+%>
 
 <% if current_user.role.to_s != "owner" %>
   <div class="mb-3">
