@@ -55,4 +55,4 @@ jobs:
         run: bundle exec brakeman --no-exit-on-warn --no-exit-on-error
 
       - name: Run Bundler Audit
-        run: bundle exec bundler-audit
+        run: bundle exec bundler-audit update && bundle exec bundler-audit check
