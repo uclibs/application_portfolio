@@ -12,16 +12,35 @@
   if (window.__multivalueinputs_bound) return;
   window.__multivalueinputs_bound = true;
 
-  const containerFor = (name) => document.getElementById(`multiple_${name}`);
+  const containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
 
-  const nextIndex = (container, name) =>
-    container.querySelectorAll(`input[name="software_record[${name}][]"]`).length + 1;
+  const inputsForField = (container, fieldName) => {
+    const expectedName = `software_record[${fieldName}][]`;
+    return Array.prototype.filter.call(
+      container.querySelectorAll("input"),
+      (input) => input.name === expectedName
+    );
+  };
 
-  function add(name, value = "") {
-    const container = containerFor(name);
+  const nextIndex = (container, fieldName) => {
+    const prefix = `software_record_${fieldName}_`;
+    const inputs = inputsForField(container, fieldName);
+    let max = 0;
+    inputs.forEach((input) => {
+      const id = input.id;
+      if (id && id.startsWith(prefix)) {
+        const n = parseInt(id.slice(prefix.length), 10);
+        if (!Number.isNaN(n) && n > max) max = n;
+      }
+    });
+    return max + 1;
+  };
+
+  function add(fieldName, value = "") {
+    const container = containerFor(fieldName);
     if (!container) return;
 
-    const index = nextIndex(container, name);
+    const index = nextIndex(container, fieldName);
 
     const row = document.createElement("div");
     row.className = "input-group mt-2";
@@ -30,8 +49,8 @@
     const input = document.createElement("input");
     input.type = "text";
     input.required = true; // keep existing behavior
-    input.name = `software_record[${name}][]`;
-    input.id = `software_record_${name}_${index}`;
+    input.name = `software_record[${fieldName}][]`;
+    input.id = `software_record_${fieldName}_${index}`;
     input.className = "form-control";
     input.value = value;
 
@@ -49,20 +68,24 @@
 
   // Delegated click handling: no per-page binding, no button IDs needed.
   document.addEventListener("click", (e) => {
-    const addBtn = e.target.closest(".js-add-multivalue");
+    const target =
+      e.target instanceof Element ? e.target : e.target.parentElement;
+    if (!target) return;
+
+    const addBtn = target.closest(".js-add-multivalue");
     if (addBtn) {
       e.preventDefault();
-      add(addBtn.dataset.fieldName, "");
+      const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
+      if (!fieldName) return;
+      add(fieldName, "");
       return;
     }
 
-    const removeBtn = e.target.closest(".js-remove-multivalue");
+    const removeBtn = target.closest(".js-remove-multivalue");
     if (removeBtn) {
       e.preventDefault();
-      removeBtn.closest(".input-group")?.remove();
+      const row = removeBtn.closest(".input-group");
+      if (row) row.remove();
     }
   });
-
-  // Optional: export add() for compatibility if other code still calls it.
-  window.addMultiValueInput = add;
 })();
