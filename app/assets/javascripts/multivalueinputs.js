@@ -1,6 +1,6 @@
 // app/assets/javascripts/multivalueinputs.js
 // Multi-value input add/remove (Bootstrap 5)
-// Works with markup from _multi_value_field.html.erb:
+// Works with markup from _form_multi_*.html.erb and front/new.html.erb (multi-value sections):
 // - container id:  multiple_<fieldName>
 // - add button:    .js-add-multivalue  data-field-name="<fieldName>"
 // - remove button: .js-remove-multivalue

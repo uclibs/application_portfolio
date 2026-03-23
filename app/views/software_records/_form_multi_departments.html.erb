@@ -1,0 +1,36 @@
+<!-- Multiple Departments -->
+<% if current_user.role.to_s == "root_admin" %>
+  <div class="mb-3" id="multiple_departments">
+    <div class="d-flex align-items-center gap-2">
+      <%= form.label :departments, "Departments", for: "software_record_departments_1", class: "form-label mb-0" %>
+      <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="departments">+ add more</button>
+    </div>
+
+    <% if component.to_s == "new" || @software_record.departments.blank? %>
+      <div class="input-group mt-2" data-multivalue-row>
+        <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control", id: "software_record_departments_1" %>
+        <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+      </div>
+    <% else %>
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% i = index + 1 %>
+        <div class="input-group mt-2" data-multivalue-row>
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control", id: "software_record_departments_#{i}" %>
+          <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <% if @software_record.departments.any? %>
+    <div class="mb-3" id="multiple_departments">
+      <% @software_record.departments.each_with_index do |department, index| %>
+        <% i = index + 1 %>
+        <div class="input-group mt-2" style="display: none;" data-multivalue-row>
+          <%= text_field_tag "software_record[departments][]", department, required: true, class: "form-control", id: "software_record_departments_#{i}" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<!-- Multiple Departments ends -->

@@ -1,0 +1,23 @@
+<!-- Multiple Product Owners -->
+<div class="mb-3" id="multiple_product_owners">
+  <div class="d-flex align-items-center gap-2">
+    <%= form.label :product_owners, "Product Lead/Contact", for: "software_record_product_owners_1", class: "form-label mb-0" %>
+    <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="product_owners">+ add more</button>
+  </div>
+
+  <% if component.to_s == "new" || @software_record.product_owners.blank? %>
+    <div class="input-group mt-2" data-multivalue-row>
+      <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control", id: "software_record_product_owners_1" %>
+      <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+    </div>
+  <% else %>
+    <% @software_record.product_owners.each_with_index do |product_owner, index| %>
+      <% i = index + 1 %>
+      <div class="input-group mt-2" data-multivalue-row>
+        <%= text_field_tag "software_record[product_owners][]", product_owner, required: true, class: "form-control", id: "software_record_product_owners_#{i}" %>
+        <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<!-- Multiple Product Owners ends -->
