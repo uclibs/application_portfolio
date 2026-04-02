@@ -47,11 +47,11 @@
   <%= form.select :authentication_type, t('authentication_types'), {}, { class: "form-control", id: "software_record_authentication_type" } %>
 </div>
 
-<%= render 'form_multi_departments', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_developers', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_tech_leads', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_product_owners', software_record: @software_record, component: component, form: form %>
-<%= render 'form_multi_admin_users', software_record: @software_record, component: component, form: form %>
+<%= render "form_multi_departments", software_record: @software_record, component: component, form: form %>
+<%= render "form_multi_developers", software_record: @software_record, component: component, form: form %>
+<%= render "form_multi_tech_leads", software_record: @software_record, component: component, form: form %>
+<%= render "form_multi_product_owners", software_record: @software_record, component: component, form: form %>
+<%= render "form_multi_admin_users", software_record: @software_record, component: component, form: form %>
 
 <% if current_user.role.to_s != "owner" %>
   <div class="mb-3">

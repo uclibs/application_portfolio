@@ -1,80 +1,91 @@
-window.onload = function () {
-  window.counts = {
-    developers: (window.counts && window.counts.developers) || 1,
-    tech_leads: (window.counts && window.counts.tech_leads) || 1,
-    departments: (window.counts && window.counts.departments) || 1,
-    product_owners: (window.counts && window.counts.product_owners) || 1,
-    admin_users: (window.counts && window.counts.admin_users) || 1
-  };
-};
+// app/assets/javascripts/multivalueinputs.js
+// Multi-value input add/remove (Bootstrap 5)
+// Works with markup from _form_multi_*.html.erb and front/new.html.erb (multi-value sections):
+// - container id:  multiple_<fieldName>
+// - add button:    .js-add-multivalue  data-field-name="<fieldName>"
+// - remove button: .js-remove-multivalue
 
-function add(name, value) {
-  var count = window.counts[name]++;
-  var elementId = name + count;
-  var inputId = "software_record_" + name + "_" + count;
+(() => {
+  "use strict";
 
-  var element = document.createElement("div");
-  element.className = "input-group mt-2";
-  element.id = elementId;
+  // Guard against double-including this asset (prevents duplicate event handlers)
+  if (window.__multivalueinputs_bound) return;
+  window.__multivalueinputs_bound = true;
 
-  var inputElement = document.createElement("input");
-  inputElement.type = "text";
-  inputElement.required = true;
-  inputElement.name = "software_record[" + name + "][]";
-  inputElement.id = inputId;
-  inputElement.className = "form-control";
-  if (value != "") {
-    inputElement.value = value;
-  }
-  element.appendChild(inputElement);
+  const containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
 
-  var inputGroupAppend = document.createElement("div");
-  inputGroupAppend.className = "input-group-append btnRemove";
-  element.appendChild(inputGroupAppend);
-
-  var spanElement = document.createElement("span");
-  spanElement.className = "input-group-text";
-  inputGroupAppend.appendChild(spanElement);
-
-  var removeButton = document.createElement("i");
-  removeButton.className = "fas fa-minus remove";
-  removeButton.innerHTML = "  Delete";
-  spanElement.appendChild(removeButton);
-
-  inputGroupAppend.onclick = function () {
-    element.remove();
+  const inputsForField = (container, fieldName) => {
+    const expectedName = `software_record[${fieldName}][]`;
+    return Array.prototype.filter.call(
+      container.querySelectorAll("input"),
+      (input) => input.name === expectedName
+    );
   };
 
-  var valued = "multiple_" + name;
-  var multiValued = document.getElementById(valued);
-  if (multiValued) {
-    multiValued.appendChild(element);
+  const nextIndex = (container, fieldName) => {
+    const prefix = `software_record_${fieldName}_`;
+    const inputs = inputsForField(container, fieldName);
+    let max = 0;
+    inputs.forEach((input) => {
+      const id = input.id;
+      if (id && id.startsWith(prefix)) {
+        const n = parseInt(id.slice(prefix.length), 10);
+        if (!Number.isNaN(n) && n > max) max = n;
+      }
+    });
+    return max + 1;
+  };
+
+  function add(fieldName, value = "") {
+    const container = containerFor(fieldName);
+    if (!container) return;
+
+    const index = nextIndex(container, fieldName);
+
+    const row = document.createElement("div");
+    row.className = "input-group mt-2";
+    row.dataset.multivalueRow = "true";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.required = true; // keep existing behavior
+    input.name = `software_record[${fieldName}][]`;
+    input.id = `software_record_${fieldName}_${index}`;
+    input.className = "form-control";
+    input.value = value;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "btn btn-outline-danger js-remove-multivalue";
+    removeBtn.textContent = "Delete";
+
+    row.appendChild(input);
+    row.appendChild(removeBtn);
+    container.appendChild(row);
+
+    input.focus();
   }
-}
 
-document.addEventListener("DOMContentLoaded", function () {
-  var buttons = [
-    ["btnAddProductOwners", "product_owners"],
-    ["btnAddAdminUsers", "admin_users"],
-    ["btnAddDepartments", "departments"],
-    ["btnAddDevelopers", "developers"],
-    ["btnAddTechLeads", "tech_leads"]
-  ];
+  // Delegated click handling: no per-page binding, no button IDs needed.
+  document.addEventListener("click", (e) => {
+    const target =
+      e.target instanceof Element ? e.target : e.target.parentElement;
+    if (!target) return;
 
-  buttons.forEach(function ([btnId, fieldName]) {
-    var button = document.getElementById(btnId);
-    if (button) {
-      button.onclick = function () {
-        add(fieldName, "");
-      };
+    const addBtn = target.closest(".js-add-multivalue");
+    if (addBtn) {
+      e.preventDefault();
+      const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
+      if (!fieldName) return;
+      add(fieldName, "");
+      return;
+    }
+
+    const removeBtn = target.closest(".js-remove-multivalue");
+    if (removeBtn) {
+      e.preventDefault();
+      const row = removeBtn.closest(".input-group");
+      if (row) row.remove();
     }
   });
-});
-
-function remove(id) {
-  var el = document.getElementById(id);
-  if (el) {
-    el.remove();
-  }
-}
-
+})();
