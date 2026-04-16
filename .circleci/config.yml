@@ -114,7 +114,7 @@ jobs:
  
       - coveralls/upload:
           parallel_finished: true
-          path_to_lcov: /home/circleci/application_portfolio/coverage/lcov/application_portfolio.lcov
+          path_to_lcov: /home/circleci/application_portfolio/coverage/lcov.info
 
 workflows:
     version: 2
