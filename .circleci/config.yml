@@ -96,6 +96,9 @@ jobs:
       #Rspec
       - run:
           name: Run rspec in parallel
+          environment:
+            CI: "true"
+            CHROME_BIN: /usr/bin/google-chrome
           command: |
             mkdir /tmp/test-results
             bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
