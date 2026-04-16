@@ -27,12 +27,14 @@ gem 'nokogiri', '~> 1.19'
 
 # Bundler Audit Update
 gem 'json', '>= 2.10.2'
-gem 'rack', '~> 2.2.20'
+gem 'rack', '~> 3.0'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
+# Asset pipeline dependencies for Rack 3.x compatibility
+gem 'sprockets', '~> 4.2', '>= 4.2.2'
 # Use Devise for authentication
 gem 'devise'
 # Use Uglifier as compressor for JavaScript assets

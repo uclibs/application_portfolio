@@ -17,10 +17,7 @@ class FileUploadsController < ApplicationController
     @file = FileUpload.new(file_upload_params)
     uploaded_io = params[:file_upload][:attachment]
 
-    # Sanitize the filename to remove any potentially malicious characters
     sanitized_filename = params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, '')
-
-    # Construct the safe path using Rails.root.join and the sanitized filename
     safe_path = File.join(Rails.root, 'public', 'uploads', sanitized_filename)
 
     File.open(safe_path, 'wb') do |file|
@@ -46,16 +43,6 @@ class FileUploadsController < ApplicationController
     when 'hosting_env'
       system('cd../..')
       $output = system('ruby', 'load_records.rb', 'hosting_env', filename, user)
-    end
-
-    # Sanitize the filename to remove any potentially malicious characters
-    sanitized_filename = params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, '')
-
-    # Construct the safe path using Rails.root.join and the sanitized filename
-    safe_path = File.join(Rails.root, 'public', 'uploads', sanitized_filename)
-
-    File.open(safe_path, 'wb') do |file|
-      file.write(uploaded_io.read)
     end
 
     File.delete(safe_path)
