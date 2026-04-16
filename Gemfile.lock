@@ -133,6 +133,10 @@ GEM
     connection_pool (3.0.2)
     crass (1.0.6)
     csv (3.3.5)
+    database_cleaner-active_record (2.2.2)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0)
+    database_cleaner-core (2.0.1)
     date (3.5.1)
     devise (5.0.3)
       bcrypt (~> 3.0)
@@ -476,6 +480,7 @@ DEPENDENCIES
   chartkick (~> 4.0, >= 4.0.4)
   coffee-rails (~> 4.2)
   csv
+  database_cleaner-active_record
   devise
   dotenv-rails
   drb
