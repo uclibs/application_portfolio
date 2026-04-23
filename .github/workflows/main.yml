@@ -43,6 +43,8 @@ jobs:
 
       - name: Run tests
         env:
+          CI: "true"
+          CHROME_BIN: /usr/bin/google-chrome
           DISPLAY: :99.0
         run: |
           Xvfb :99 -ac &

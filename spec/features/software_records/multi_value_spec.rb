@@ -7,11 +7,10 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
   let(:software_record) { FactoryBot.create(:software_record) }
 
   before do
-    visit new_user_session_path
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: 'random1234'
-    click_button 'Login'
+    login_as(user, scope: :user)
     visit edit_software_record_path(software_record)
+    expect(page).to have_current_path(edit_software_record_path(software_record))
+    expect(page).to have_selector('#software_record_title')
   end
 
   scenario 'User can add and remove multiple developers' do
