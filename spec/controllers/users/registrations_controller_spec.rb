@@ -14,7 +14,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     it 'updates profile fields without requiring a password' do
       put :update, params: { user: { title: 'Analyst' } }
 
-      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(dashboard_path)
       expect(user.reload.title).to eq('Analyst')
     end
   end

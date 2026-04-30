@@ -6,6 +6,10 @@ module Users
 
     private
 
+    def after_update_path_for(_resource)
+      dashboard_path
+    end
+
     def update_resource(resource, params)
       resource.update_without_password(params)
     end
