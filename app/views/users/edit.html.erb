@@ -5,12 +5,12 @@
     	<%= form_with do |form| %>
 	    	<div class="mb-3">
 	    	  <%= form.label "Name" %><br/>
-	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline", style: 'width: 49%', readonly: true %>
-              <%= form.text_field :last_name, :value => @user.last_name, class: "form-control d-inline", style: 'width: 50%', readonly: true %>
+	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline readonly-field", style: 'width: 49%', readonly: true, "aria-readonly": "true" %>
+              <%= form.text_field :last_name, :value => @user.last_name, class: "form-control d-inline readonly-field", style: 'width: 50%', readonly: true, "aria-readonly": "true" %>
 	    	</div>
 	    	<div class="mb-3">
 	    	  <%= form.label :email %>
-	    	  <%= form.text_field :email, :class => "form-control", :value => @user.email, readonly: true %>
+	    	  <%= form.text_field :email, :class => "form-control readonly-field", :value => @user.email, readonly: true, "aria-readonly": "true" %>
 	    	</div>
             <% if current_user.role.to_s == "root_admin" %>
 	    	    <div class="mb-3">

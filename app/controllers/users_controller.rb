@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   before_action :navigation, except: %i[edit update]
   before_action :ensure_self_or_admin, only: %i[edit update]
   access root_admin: :all,
-         manager: %i[edit update], owner: %i[edit update], viewer: %i[edit update],
+         manager: %i[edit update], owner: %i[edit update], viewer: %i[edit update], user: %i[edit update],
          message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   helper_method :sort_column, :sort_direction
 

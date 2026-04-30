@@ -52,6 +52,13 @@ a:hover {
 	padding-top: 10px;
 }
 
+.readonly-field {
+  background-color: #e9ecef;
+  color: #495057;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .gritter {
   right: -10px;
   top: 70px;
