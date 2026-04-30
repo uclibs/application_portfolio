@@ -15,22 +15,32 @@ class ApplicationController < ActionController::Base
   protected
 
   def require_profile_completion
-    return unless user_signed_in?
-    return unless Rails.configuration.x.auth.shibboleth_enabled
-    return if current_user.role.to_s == 'root_admin'
-    return if current_user.department.present? && current_user.title.present?
-    return if controller_name == 'users' && %w[edit update].include?(action_name)
-    return if devise_controller?
+    return if skip_profile_completion_check?
 
     redirect_to user_edit_path(current_user.id), alert: 'Please confirm your profile details before continuing.'
   end
 
+  def skip_profile_completion_check?
+    !user_signed_in? ||
+      !Rails.configuration.x.auth.shibboleth_enabled ||
+      current_user.role.to_s == 'root_admin' ||
+      profile_complete? ||
+      on_allowed_profile_page? ||
+      devise_controller?
+  end
+
+  def profile_complete?
+    current_user.department.present? && current_user.title.present?
+  end
+
+  def on_allowed_profile_page?
+    controller_name == 'users' && %w[edit update].include?(action_name)
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: %i[first_name last_name department title email password password_confirmation
-                                               current_password roles active])
+                                      keys: %i[first_name last_name department title email roles active])
     devise_parameter_sanitizer.permit(:account_update,
-                                      keys: %i[first_name last_name department title email password password_confirmation
-                                               current_password])
+                                      keys: %i[first_name last_name department title email])
   end
 end

@@ -34,28 +34,6 @@
             <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% end %>
           <br/>
-          <div class="field">
-            <%= f.label :password %> 
-            <i class="labels;" style="font-size: 10px; color: yellow;">(leave blank if you don't want to change it.
-              <% if @minimum_password_length %>
-                <em style="font-size: 10px;"><%= @minimum_password_length %> characters minimum !)</em>
-              <% end %>
-            </i>
-            <br/>
-            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-          </div>
-          <br/>
-          <div class="field">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
-          </div>
-          <br/>
-          <div class="field">
-            <%= f.label :current_password %> 
-            <i style="font-size: 10px; color: yellow;">(we need your current password to confirm your changes)</i><br />
-            <%= f.password_field :current_password, autocomplete: "current_password", :class => "form-control" %>
-          </div>
-          <br/>
           <div class="actions text-center">
             <%= f.submit "Update", {class: "btn btn-dark btn-md mx-auto action-btn"} %>
             <%= link_to "Back", :back, class: "btn btn-dark btn-md action-btn" %>

@@ -11,9 +11,7 @@ RSpec.describe NewUserSignupMailer, type: :mailer do
         email: 'tony.stark@uc.edu',
         roles: 'viewer',
         department: 'Robotics',
-        title: 'Iron Man',
-        password: 'jarvis_12345',
-        password_confirmation: 'jarvis_12345'
+        title: 'Iron Man'
       )
     end
     it 'sends an email on new software request' do

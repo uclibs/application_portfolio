@@ -18,8 +18,6 @@ RSpec.describe UsersController, type: :controller do
       first_name: 'Admin',
       last_name: 'Test',
       email: 'admin13@uc.edu',
-      password: 'admintest123',
-      password_confirmation: 'admintest123',
       roles: 'admin'
     }
   end
@@ -29,8 +27,6 @@ RSpec.describe UsersController, type: :controller do
       first_name: 'Admin 2',
       last_name: 'Test 2',
       email: 'admin13@uc.edu',
-      password: 'admintest123',
-      password_confirmation: 'admintest123',
       roles: 'user'
     }
   end
@@ -71,7 +67,7 @@ RSpec.describe UsersController, type: :controller do
     it 'updates the user' do
       new_user = User.create! new_attributes
       post :update, params: { id: User.second.id, first_name: new_attributes[:first_name], last_name: new_attributes[:last_name],
-                              email: new_attributes[:email], password: new_attributes[:password], password_confirmation: new_attributes[:password_confirmation], roles: new_attributes[:roles] }, session: valid_session
+                              email: new_attributes[:email], roles: new_attributes[:roles] }, session: valid_session
       new_user.reload
       expect(new_user.first_name).to eq('Admin 2')
       expect(new_user.last_name).to eq('Test 2')

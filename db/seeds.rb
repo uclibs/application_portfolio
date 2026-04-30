@@ -57,29 +57,21 @@ if Rails.env.development?
     user.first_name = 'Admin'
     user.last_name = 'User'
     user.role = 'root_admin'
-    user.password = 'password123'
-    user.password_confirmation = 'password123'
   end
   User.find_or_create_by(email: 'owner@ucmail.uc.edu') do |user|
     user.first_name = 'Owner'
     user.last_name = 'User'
     user.role = 'owner'
-    user.password = 'password123'
-    user.password_confirmation = 'password123'
   end
   User.find_or_create_by(email: 'viewer@ucmail.uc.edu') do |user|
     user.first_name = 'Viewer'
     user.last_name = 'User'
     user.role = 'viewer'
-    user.password = 'password123'
-    user.password_confirmation = 'password123'
   end
   User.find_or_create_by(email: 'manager@ucmail.uc.edu') do |user|
     user.first_name = 'Manager'
     user.last_name = 'User'
     user.role = 'manager'
-    user.password = 'password123'
-    user.password_confirmation = 'password123'
   end
 else
   puts "Skipping user creation in #{Rails.env} environment"

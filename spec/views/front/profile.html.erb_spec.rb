@@ -12,8 +12,6 @@ RSpec.describe 'front/profile', type: :view do
                first_name: 'Admin',
                last_name: 'Test',
                email: 'admin12@uc.edu',
-               password: 'admintest123',
-               password_confirmation: 'admintest123',
                roles: 'admin'
              )
            ])
@@ -47,8 +45,6 @@ RSpec.describe 'front/profile', type: :view do
                first_name: 'Viewer',
                last_name: 'Test',
                email: 'viewer@uc.edu',
-               password: 'viewertest',
-               password_confirmation: 'viewertest',
                roles: 'viewer'
              )
            ])
@@ -82,8 +78,6 @@ RSpec.describe 'front/profile', type: :view do
                first_name: 'Manager',
                last_name: 'Test',
                email: 'manager@mail.uc.edu',
-               password: 'managertest',
-               password_confirmation: 'managertest',
                roles: 'manager'
              )
            ])

@@ -28,21 +28,6 @@
             <%= f.text_field :title, autocomplete: "title", class: "form-control", placeholder: "Example: Student" %><br/>
           </div>
 
-          <div class="field">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-            <i class="labels;" style="font-size: 10px; color: yellow;">
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
-            </i>
-            <% end %>
-            <%= f.password_field :password, autocomplete: "new-password" , class: "form-control"%><br/>
-          </div>
-
-          <div class="field">
-            <%= f.label :password_confirmation %>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%><br/>
-          </div>
-
           <div class="actions">
             <button type="submit" name="commit" value="Sign up" class="btn btn-dark btn-lg mx-auto float-left action-btn" data-disable-with="Sign up">Sign up <i class="fas fa-angle-double-right"></i></button>
             <a class="navigation-links mt-1 float-right" href=<%= new_user_session_path %>>Existing User ?</a>

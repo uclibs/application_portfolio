@@ -80,11 +80,8 @@ gem 'chartkick', '~> 4.0', '>= 4.0.4'
 gem 'csv'
 gem 'groupdate'
 # Use recaptcha for bot protection
-gem 'recaptcha'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
 gem 'bigdecimal'
+gem 'recaptcha'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

@@ -7,9 +7,7 @@ RSpec.describe 'users/index.html.erb', type: :view do
     @user = assign(:user, [User.create!(
       first_name: 'Admin',
       last_name: 'Test',
-      email: 'admin1@example.com',
-      password: 'admintest',
-      password_confirmation: 'admintest',
+      email: 'admin1@uc.edu',
       roles: 'admin'
     )])
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do

@@ -11,9 +11,7 @@ RSpec.describe 'users/show.html.erb', type: :view do
              User.create!(
                first_name: 'Admin',
                last_name: 'Test',
-               email: 'admin3@example.com',
-               password: 'admintest',
-               password_confirmation: 'admintest',
+               email: 'admin3@uc.edu',
                roles: 'admin'
              )
            ])

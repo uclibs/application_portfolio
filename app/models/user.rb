@@ -14,8 +14,7 @@ class User < ApplicationRecord
   validate :allow_uc_domains
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, password_length: 10..128
+  devise :database_authenticatable, :registerable
 
   after_create :send_admin_mail
 
@@ -30,16 +29,12 @@ class User < ApplicationRecord
     existing_user = User.find_by(email: email)
     return existing_user if existing_user
 
-    random_password = Devise.friendly_token(32)
-
     User.create!(
       email: email,
       first_name: first_name,
       last_name: last_name,
       active: true,
-      roles: 'viewer',
-      password: random_password,
-      password_confirmation: random_password
+      roles: 'viewer'
     )
   end
 

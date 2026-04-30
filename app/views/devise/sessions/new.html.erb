@@ -15,20 +15,6 @@
              </span>
              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control email-input", placeholder: "Email" %>
           </div>
-
-          <div class="input-group mb-3" style="width: 90%; margin: auto;">
-            <span class="input-group-text">
-            <%= image_tag("password.png", width: '18px', height: '19px') %>
-            </span>
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control password-input", placeholder: "Password" %>
-          </div>
-
-          <% if devise_mapping.rememberable? %>
-            <div class="field" style="text-align: center; color: white">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </div>
-          <% end %><br/>
           <div class="actions" style="text-align: center">
             <button type="submit" name="commit" class="btn btn-dark btn-lg mx-auto action-btn" data-disable-with="Login">Login <i class="fas fa-sign-in-alt"></i></button>
           </div> <br/>
@@ -47,7 +33,7 @@
         <li>Viewer User: viewer@ucmail.uc.edu</li>
         <li>Manager User: manager@ucmail.uc.edu</li>
       </ul>
-      <p> The password for each is <code>password123</code>. These accounts are intended for testing and development purposes only and should not be used in production environments. </p>
+      <p>Enter any listed email to sign in locally in development. These accounts are intended for testing and development purposes only and should not be used in production environments.</p>
     </section>
   <% end %>
 </div>
