@@ -34,6 +34,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         expect(controller.current_user).to eq(existing_user)
         expect(existing_user.reload.role.to_s).to eq('root_admin')
+        expect(session[:require_profile_completion]).to be_nil
       end
 
       it 'creates a new viewer user for a first-time login' do
@@ -46,6 +47,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         created_user = User.find_by(email: 'admin@ucmail.uc.edu')
         expect(created_user.role.to_s).to eq('viewer')
         expect(created_user.active).to be(true)
+        expect(session[:require_profile_completion]).to eq(true)
       end
 
       it 'rejects login when required attributes are missing' do

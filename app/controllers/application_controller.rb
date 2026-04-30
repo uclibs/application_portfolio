@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   def require_profile_completion
     return if skip_profile_completion_check?
 
+    if profile_complete?
+      session.delete(:require_profile_completion)
+      return
+    end
+
     redirect_to user_edit_path(current_user.id, return_to: dashboard_path),
                 alert: 'Please confirm your profile details before continuing.'
   end
@@ -25,7 +30,7 @@ class ApplicationController < ActionController::Base
     !user_signed_in? ||
       !Rails.configuration.x.auth.shibboleth_enabled ||
       current_user.role.to_s == 'root_admin' ||
-      profile_complete? ||
+      !session[:require_profile_completion] ||
       on_allowed_profile_page? ||
       devise_controller?
   end

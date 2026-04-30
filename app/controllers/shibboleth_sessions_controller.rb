@@ -7,7 +7,10 @@ class ShibbolethSessionsController < ApplicationController
       return
     end
 
-    user = User.find_or_create_for_shibboleth!(identity_attributes)
+    attributes = identity_attributes
+    user_existed = User.exists?(email: attributes[:email].to_s.strip.downcase)
+    user = User.find_or_create_for_shibboleth!(attributes)
+    session[:require_profile_completion] = true unless user_existed
     sign_in(:user, user)
     redirect_to after_sign_in_path_for(user)
   rescue User::ShibbolethIdentityError => e
