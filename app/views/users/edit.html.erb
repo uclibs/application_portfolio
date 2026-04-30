@@ -3,7 +3,7 @@
     <h1 class= "text-center" style="color: white;">Edit User</h1>
     <div class = "card-body">
     	<%= form_with do |form| %>
-          <%= hidden_field_tag :return_to, params[:return_to] if params[:return_to].present? %>
+          <%= hidden_field_tag :return_to, @safe_return_to if @safe_return_to.present? %>
 	    	<div class="mb-3">
 	    	  <%= form.label "Name" %><br/>
 	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline readonly-field", style: 'width: 49%', readonly: true, "aria-readonly": "true" %>
@@ -41,7 +41,7 @@
 	    	</div>
 	    	<div class="text-center">
     			<%= form.submit "Save", class: "btn btn-primary" %>
-                <% cancel_path = params[:return_to].present? ? params[:return_to] : (current_user.id == @user.id ? myprofile_path : users_show_path(@user.id)) %>
+                <% cancel_path = @safe_return_to.presence || (current_user.id == @user.id ? myprofile_path : users_show_path(@user.id)) %>
                 <%= link_to "Cancel", cancel_path, class: "btn btn-secondary ms-2" %>
     		</div>
     	<%end%>

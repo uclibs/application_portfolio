@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def edit
     $page_title = 'Edit Users | UCL Application Portfolio'
+    @safe_return_to = safe_return_to_path
     render :edit
   end
 
@@ -93,10 +94,14 @@ class UsersController < ApplicationController
   end
 
   def redirect_target_after_update
-    return_to = params[:return_to].to_s
-    return return_to if return_to.start_with?('/')
+    return_to = safe_return_to_path
+    return return_to if return_to.present?
     return myprofile_path if current_user.id == @user.id
 
     users_show_path(params[:id])
+  end
+
+  def safe_return_to_path
+    url_from(params[:return_to])
   end
 end

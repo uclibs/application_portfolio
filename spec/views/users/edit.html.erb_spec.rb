@@ -23,7 +23,7 @@ RSpec.describe 'users/edit.html.erb', type: :view do
   end
 
   it 'renders locked identity fields and save/cancel controls' do
-    allow(view).to receive(:params).and_return(ActionController::Parameters.new({ return_to: '/myprofile' }))
+    assign(:safe_return_to, '/myprofile')
 
     render
 
