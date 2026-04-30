@@ -5,7 +5,7 @@
       <% if Rails.configuration.x.auth.shibboleth_enabled %>
         <p style="color: white; text-align: center;">Use University SSO to continue.</p>
         <div class="actions" style="text-align: center">
-          <%= link_to 'Sign in with University SSO', shibboleth_login_path, class: 'btn btn-dark btn-lg mx-auto action-btn' %>
+          <%= link_to 'Sign in with University SSO', shibboleth_force_authn_login_path, class: 'btn btn-dark btn-lg mx-auto action-btn' %>
         </div>
       <% else %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

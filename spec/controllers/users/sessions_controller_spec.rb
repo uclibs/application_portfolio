@@ -15,7 +15,7 @@ RSpec.describe Users::SessionsController, type: :controller do
       it 'redirects users to shibboleth login' do
         get :new
 
-        expect(response).to redirect_to(shibboleth_login_path)
+        expect(response).to redirect_to('/Shibboleth.sso/Login?target=%2Fauth%2Fshibboleth&forceAuthn=1')
       end
     end
 
