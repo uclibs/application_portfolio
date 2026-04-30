@@ -7,7 +7,9 @@ class UsersController < ApplicationController
   before_action :retrieve_user, only: %i[show edit update destroy user_status]
   before_action :authenticate_user!
   before_action :navigation, except: %i[edit update]
+  before_action :ensure_self_or_admin, only: %i[edit update]
   access root_admin: :all,
+         manager: %i[edit update], owner: %i[edit update], viewer: %i[edit update],
          message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   helper_method :sort_column, :sort_direction
 
@@ -24,13 +26,17 @@ class UsersController < ApplicationController
 
   def update
     $page_title = 'Edit Users | UCL Application Portfolio'
-    @user.first_name = params[:first_name]
-    @user.last_name = params[:last_name]
+    if current_user.role.to_s == 'root_admin'
+      @user.first_name = params[:first_name]
+      @user.last_name = params[:last_name]
+      @user.email = params[:email]
+      @user.roles = params[:roles]
+      @user.active = params[:active]
+    end
+
     @user.title = params[:title]
     @user.department = params[:department]
-    @user.email = params[:email]
-    @user.roles = params[:roles]
-    @user.active = params[:active]
+
     if !@user.changed? && @user.save
       redirect_to user_edit_path(params[:id]), alert: 'Please modify any field to update the User.'
     elsif @user.changed? && @user.save
@@ -78,5 +84,11 @@ class UsersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+
+  def ensure_self_or_admin
+    return if current_user.role.to_s == 'root_admin' || current_user.id == @user.id
+
+    redirect_to dashboard_path, alert: 'Permission Denied ! <br/> Please contact the administrator for more info.'
   end
 end

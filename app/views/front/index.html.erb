@@ -10,7 +10,6 @@
             <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-dark btn-lg action-btn mx-auto"%>
         <% else %>
             <%= link_to "Login", (Rails.configuration.x.auth.shibboleth_enabled ? shibboleth_force_authn_login_path : new_user_session_path), {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
-            <%=link_to "Sign up", new_user_registration_path, {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
         <% end %>
     </p>
 </div>

@@ -5,29 +5,31 @@
     	<%= form_with do |form| %>
 	    	<div class="mb-3">
 	    	  <%= form.label "Name" %><br/>
-	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline", style: 'width: 49%' %>
-              <%= form.text_field :last_name, :value => @user.last_name, class: "form-control d-inline", style: 'width: 50%' %>
+	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline", style: 'width: 49%', readonly: true %>
+              <%= form.text_field :last_name, :value => @user.last_name, class: "form-control d-inline", style: 'width: 50%', readonly: true %>
 	    	</div>
 	    	<div class="mb-3">
 	    	  <%= form.label :email %>
-	    	  <%= form.text_field :email, :class => "form-control", :value => @user.email %>
+	    	  <%= form.text_field :email, :class => "form-control", :value => @user.email, readonly: true %>
 	    	</div>
-	    	<div class="mb-3">
-	    	  <%= form.label :roles %>
-	    	  <select class="form-control" name="roles" id="roles" <%= :roles %>>
-	    	  	<option value="root_admin" <% if @user.role.to_s == "root_admin" %>selected="selected"<% end %> >Admin</option>
-	    	  	<option value="manager" <% if @user.role.to_s == "manager" %>selected="selected"<% end %> >Manager</option>
-	    	  	<option value="owner" <% if @user.role.to_s == "owner" %>selected="selected"<% end %> >Owner</option>
-	    	  	<option value="viewer" <% if @user.role.to_s == "viewer" %>selected="selected"<% end %> >Viewer</option>
-	    	  </select>
-	    	</div>
-	    	<div class="mb-3">
-	    	  <%= form.label "Status" %>
-	    	  <select class="form-control" name="active" id="active" <%= :active %>>
-	    	  	<option value="true" <% if @user.active.to_s == "true" %>selected="selected"<% end %> >Active</option>
-	    	  	<option value="false" <% if @user.active.to_s == "false" %>selected="selected"<% end %> >In-Active</option>
-	    	  </select>
-	    	</div>
+            <% if current_user.role.to_s == "root_admin" %>
+	    	    <div class="mb-3">
+	    	      <%= form.label :roles %>
+	    	      <select class="form-control" name="roles" id="roles" <%= :roles %>>
+	    	  	    <option value="root_admin" <% if @user.role.to_s == "root_admin" %>selected="selected"<% end %> >Admin</option>
+	    	  	    <option value="manager" <% if @user.role.to_s == "manager" %>selected="selected"<% end %> >Manager</option>
+	    	  	    <option value="owner" <% if @user.role.to_s == "owner" %>selected="selected"<% end %> >Owner</option>
+	    	  	    <option value="viewer" <% if @user.role.to_s == "viewer" %>selected="selected"<% end %> >Viewer</option>
+	    	      </select>
+	    	    </div>
+	    	    <div class="mb-3">
+	    	      <%= form.label "Status" %>
+	    	      <select class="form-control" name="active" id="active" <%= :active %>>
+	    	  	    <option value="true" <% if @user.active.to_s == "true" %>selected="selected"<% end %> >Active</option>
+	    	  	    <option value="false" <% if @user.active.to_s == "false" %>selected="selected"<% end %> >In-Active</option>
+	    	      </select>
+	    	    </div>
+            <% end %>
 	    	<div class="mb-3">
 	    	  <%= form.label :title %>
 	    	  <%= form.text_field :title, :class => "form-control", :value => @user.title %>

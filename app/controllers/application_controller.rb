@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   helper_method :navigation
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :require_profile_completion
   $deployed_at = Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')
   # Redirect to dashboard on user login
   def after_sign_in_path_for(_resource)
@@ -12,6 +13,17 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def require_profile_completion
+    return unless user_signed_in?
+    return unless Rails.configuration.x.auth.shibboleth_enabled
+    return if current_user.role.to_s == 'root_admin'
+    return if current_user.department.present? && current_user.title.present?
+    return if controller_name == 'users' && %w[edit update].include?(action_name)
+    return if devise_controller?
+
+    redirect_to user_edit_path(current_user.id), alert: 'Please confirm your profile details before continuing.'
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
