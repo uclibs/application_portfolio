@@ -61,6 +61,38 @@ cap prod deploy for production
 
 * Configuration
 
+## Shibboleth SSO (Apache/mod_shib)
+
+This application supports Shibboleth login for production deployments behind Apache with `mod_shib`.
+
+- Production mode: Shibboleth-only sign-in.
+- Development/test mode: local Devise sign-in remains available for seeded/default users.
+
+### Rails auth entrypoint
+
+- SSO login route: `/auth/shibboleth`
+- Local Devise route: `/users/sign_in` (development/test only)
+
+### Required identity attributes from Apache
+
+Apache must pass these Shibboleth attributes to Rails:
+
+- `mail` (preferred) or `eppn` (fallback) -> user email
+- `givenName` -> user first name
+- `sn` -> user last name
+
+If email or name attributes are missing, login is denied.
+
+### User provisioning and role behavior
+
+- Existing users are matched by email and keep their current role/active status.
+- First-time users are auto-created as active users with role `viewer`.
+
+### Apache hardening notes
+
+- Protect only the SSO route (for example `/auth/shibboleth`) with Shibboleth.
+- Do not trust client-supplied identity headers; ensure only Apache/mod_shib sets them.
+
 * Type of Roles
 
 There are 4 types of roles in the Application Portfolio.

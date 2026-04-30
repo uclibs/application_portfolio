@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  class ShibbolethIdentityError < StandardError; end
+
   ############################################################################################
   ## PeterGate Roles                                                                        ##
   ## The :user role is added by default and shouldn't be included in this list.             ##
@@ -16,6 +18,32 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, password_length: 10..128
 
   after_create :send_admin_mail
+
+  def self.find_or_create_for_shibboleth!(attributes)
+    email = attributes[:email].to_s.strip.downcase
+    first_name = attributes[:first_name].to_s.strip
+    last_name = attributes[:last_name].to_s.strip
+
+    raise ShibbolethIdentityError, 'Unable to sign in: missing required email from Shibboleth.' if email.blank?
+    if first_name.blank? || last_name.blank?
+      raise ShibbolethIdentityError, 'Unable to sign in: missing required name from Shibboleth.'
+    end
+
+    existing_user = User.find_by(email: email)
+    return existing_user if existing_user
+
+    random_password = Devise.friendly_token(32)
+
+    User.create!(
+      email: email,
+      first_name: first_name,
+      last_name: last_name,
+      active: true,
+      roles: 'viewer',
+      password: random_password,
+      password_confirmation: random_password
+    )
+  end
 
   def allow_uc_domains
     allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
