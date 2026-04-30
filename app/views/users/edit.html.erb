@@ -41,6 +41,8 @@
 	    	</div>
 	    	<div class="text-center">
     			<%= form.submit "Save", class: "btn btn-primary" %>
+                <% cancel_path = params[:return_to].present? ? params[:return_to] : (current_user.id == @user.id ? myprofile_path : users_show_path(@user.id)) %>
+                <%= link_to "Cancel", cancel_path, class: "btn btn-secondary ms-2" %>
     		</div>
     	<%end%>
     </div>
