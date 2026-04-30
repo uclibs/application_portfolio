@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     if !@user.changed? && @user.save
       redirect_to user_edit_path(params[:id]), alert: 'Please modify any field to update the User.'
     elsif @user.changed? && @user.save
-      redirect_to users_show_path(params[:id]), notice: 'User was successfully updated.'
+      redirect_to redirect_target_after_update, notice: 'User was successfully updated.'
     else
       render :edit
     end
@@ -90,5 +90,12 @@ class UsersController < ApplicationController
     return if current_user.role.to_s == 'root_admin' || current_user.id == @user.id
 
     redirect_to dashboard_path, alert: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  end
+
+  def redirect_target_after_update
+    return_to = params[:return_to].to_s
+    return return_to if return_to.start_with?('/')
+
+    users_show_path(params[:id])
   end
 end

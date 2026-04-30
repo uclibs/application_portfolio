@@ -74,6 +74,14 @@ RSpec.describe UsersController, type: :controller do
       expect(new_user.email).to eq('admin13@uc.edu')
       expect(new_user.roles).to eq([:user])
     end
+
+    it 'redirects to provided return_to path after successful update' do
+      new_user = User.create! new_attributes
+      post :update, params: { id: new_user.id, first_name: new_attributes[:first_name], last_name: new_attributes[:last_name],
+                              email: new_attributes[:email], roles: new_attributes[:roles], return_to: '/myprofile' }, session: valid_session
+
+      expect(response).to redirect_to('/myprofile')
+    end
   end
 
   describe 'DELETE #destroy' do

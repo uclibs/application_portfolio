@@ -36,7 +36,8 @@ color: white">
               </dl>
               <br/>
               <div style="margin-left: -20px;">
-                <a class="btn btn-dark" href="<%= edit_user_registration_path %>"><i class="fas fa-edit"></i> Edit Profile</a>
+                <% edit_profile_path = current_user&.id ? user_edit_path(current_user.id, return_to: myprofile_path) : edit_user_registration_path(return_to: myprofile_path) %>
+                <a class="btn btn-dark" href="<%= edit_profile_path %>"><i class="fas fa-edit"></i> Edit Profile</a>
                 <a class="btn btn-dark" href="<%= dashboard_path %>" style="margin: 20px"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
               </div>
             </div>

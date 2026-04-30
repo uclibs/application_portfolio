@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
   def require_profile_completion
     return if skip_profile_completion_check?
 
-    redirect_to user_edit_path(current_user.id), alert: 'Please confirm your profile details before continuing.'
+    redirect_to user_edit_path(current_user.id, return_to: dashboard_path),
+                alert: 'Please confirm your profile details before continuing.'
   end
 
   def skip_profile_completion_check?
