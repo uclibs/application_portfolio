@@ -3,6 +3,7 @@
     <h1 class= "text-center" style="color: white;">Edit User</h1>
     <div class = "card-body">
     	<%= form_with do |form| %>
+          <%= hidden_field_tag :return_to, params[:return_to] if params[:return_to].present? %>
 	    	<div class="mb-3">
 	    	  <%= form.label "Name" %><br/>
 	    	  <%= form.text_field :first_name, :value => @user.first_name, class: "form-control d-inline readonly-field", style: 'width: 49%', readonly: true, "aria-readonly": "true" %>

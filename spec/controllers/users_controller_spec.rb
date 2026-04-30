@@ -82,6 +82,16 @@ RSpec.describe UsersController, type: :controller do
 
       expect(response).to redirect_to('/myprofile')
     end
+
+    it 'redirects self-updates to profile when return_to is missing' do
+      viewer = FactoryBot.create(:viewer, title: 'Staff', department: 'Libraries')
+      sign_in viewer
+
+      post :update, params: { id: viewer.id, title: 'Analyst', department: 'Libraries' }, session: valid_session
+
+      expect(response).to redirect_to(myprofile_path)
+      expect(viewer.reload.title).to eq('Analyst')
+    end
   end
 
   describe 'DELETE #destroy' do

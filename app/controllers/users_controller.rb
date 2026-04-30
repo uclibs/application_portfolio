@@ -95,6 +95,7 @@ class UsersController < ApplicationController
   def redirect_target_after_update
     return_to = params[:return_to].to_s
     return return_to if return_to.start_with?('/')
+    return myprofile_path if current_user.id == @user.id
 
     users_show_path(params[:id])
   end
