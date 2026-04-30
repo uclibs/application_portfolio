@@ -25,9 +25,7 @@ class User < ApplicationRecord
     last_name = attributes[:last_name].to_s.strip
 
     raise ShibbolethIdentityError, 'Unable to sign in: missing required email from Shibboleth.' if email.blank?
-    if first_name.blank? || last_name.blank?
-      raise ShibbolethIdentityError, 'Unable to sign in: missing required name from Shibboleth.'
-    end
+    raise ShibbolethIdentityError, 'Unable to sign in: missing required name from Shibboleth.' if first_name.blank? || last_name.blank?
 
     existing_user = User.find_by(email: email)
     return existing_user if existing_user
