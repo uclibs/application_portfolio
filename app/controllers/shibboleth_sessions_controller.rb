@@ -15,6 +15,9 @@ class ShibbolethSessionsController < ApplicationController
     redirect_to after_sign_in_path_for(user)
   rescue User::ShibbolethIdentityError => e
     redirect_to root_path, alert: e.message
+  rescue ActiveRecord::RecordInvalid => e
+    @error_message = e.record.errors.full_messages.to_sentence
+    render :error, status: :unprocessable_entity
   end
 
   private

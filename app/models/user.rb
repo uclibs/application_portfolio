@@ -39,7 +39,7 @@ class User < ApplicationRecord
   end
 
   def allow_uc_domains
-    allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu']
+    allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu', 'qamail.uc.edu']
     errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? do |domain|
                                                                   email.end_with?(domain)
                                                                 end

@@ -30,6 +30,17 @@ RSpec.describe User, type: :model do
       expect(created_user.active).to be(true)
     end
 
+    it 'allows first-time users from qamail.uc.edu' do
+      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(email: 'manager@qamail.uc.edu')
+      )
+
+      expect(created_user.email).to eq('manager@qamail.uc.edu')
+      expect(created_user.role.to_s).to eq('viewer')
+    end
+
     it 'raises when required identity data is missing' do
       expect do
         User.find_or_create_for_shibboleth!(identity_attributes.merge(first_name: ''))

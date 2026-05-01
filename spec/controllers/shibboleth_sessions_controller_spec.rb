@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ShibbolethSessionsController, type: :controller do
+  render_views
+
   describe 'GET #create' do
     before do
       allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(shibboleth_enabled)
@@ -57,6 +59,19 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to include('missing required name')
+      end
+
+      it 'renders a validation error page with the exact message' do
+        invalid_user = User.new(email: 'manager@example.com', first_name: 'Manager', last_name: 'Example')
+        invalid_user.valid?
+
+        allow(User).to receive(:find_or_create_for_shibboleth!).and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
+
+        get :create
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to render_template(:error)
+        expect(response.body).to include('Email for Signup must be an UC email')
       end
     end
   end
