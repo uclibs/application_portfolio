@@ -18,7 +18,7 @@ RSpec.describe ShibbolethUserProvisioner, type: :service do
     end
 
     it 'returns existing users and preserves role' do
-      user = FactoryBot.create(:admin, email: 'viewer@uc.edu')
+      user = FactoryBot.create(:admin, email: 'viewer@uc.edu', eppn: 'viewer@uc.edu')
 
       found_user = described_class.find_or_create!(normalized(identity_attributes))
 

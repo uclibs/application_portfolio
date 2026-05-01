@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:admin)
+                                                                           FactoryBot.create(:admin)
                                                                          end)
     assign(:users, [
              User.create!(
@@ -38,7 +38,7 @@ end
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:viewer)
+                                                                           FactoryBot.create(:viewer)
                                                                          end)
     assign(:users, [
              User.create!(
@@ -71,7 +71,7 @@ end
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:manager)
+                                                                           FactoryBot.create(:manager)
                                                                          end)
     assign(:users, [
              User.create!(
