@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
       return
     end
 
+    # Prompt newly provisioned users once, but do not block dashboard access afterward.
+    session.delete(:require_profile_completion)
     redirect_to user_edit_path(current_user.id, return_to: dashboard_path),
                 alert: 'Please confirm your profile details before continuing.'
   end

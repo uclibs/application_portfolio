@@ -33,6 +33,7 @@ RSpec.describe ApplicationController, type: :controller do
     get :index
 
     expect(response).to redirect_to(user_edit_path(user.id, return_to: dashboard_path))
+    expect(session[:require_profile_completion]).to be_nil
   end
 
   it 'does not redirect existing users without first-login flag' do
