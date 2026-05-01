@@ -2,6 +2,8 @@
 
 class User < ApplicationRecord
   class ShibbolethIdentityError < StandardError; end
+  BLANK_FIRST_NAME = 'BlankFirstName'
+  BLANK_LAST_NAME = 'BlankLastName'
 
   ############################################################################################
   ## PeterGate Roles                                                                        ##
@@ -11,7 +13,6 @@ class User < ApplicationRecord
   petergate(roles: %i[root_admin owner viewer manager], multiple: false) ##
   ############################################################################################
   validates :first_name, :last_name, :email, presence: true
-  validate :allow_uc_domains
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable
@@ -19,12 +20,9 @@ class User < ApplicationRecord
   after_create :send_admin_mail
 
   def self.find_or_create_for_shibboleth!(attributes)
-    email = attributes[:email].to_s.strip.downcase
-    first_name = attributes[:first_name].to_s.strip
-    last_name = attributes[:last_name].to_s.strip
-
-    raise ShibbolethIdentityError, 'Unable to sign in: missing required email from Shibboleth.' if email.blank?
-    raise ShibbolethIdentityError, 'Unable to sign in: missing required name from Shibboleth.' if first_name.blank? || last_name.blank?
+    first_name = normalized_name(attributes[:first_name], BLANK_FIRST_NAME)
+    last_name = normalized_name(attributes[:last_name], BLANK_LAST_NAME)
+    email = normalized_email(attributes[:email], first_name, last_name)
 
     existing_user = User.find_by(email: email)
     return existing_user if existing_user
@@ -38,11 +36,16 @@ class User < ApplicationRecord
     )
   end
 
-  def allow_uc_domains
-    allowed_domains = ['uc.edu', 'mail.uc.edu', 'ucmail.uc.edu', 'qamail.uc.edu']
-    errors.add(:email, 'for Signup must be an UC email') unless allowed_domains.any? do |domain|
-                                                                  email.end_with?(domain)
-                                                                end
+  def self.normalized_name(value, fallback)
+    candidate = value.to_s.strip
+    candidate.present? ? candidate : fallback
+  end
+
+  def self.normalized_email(value, first_name, last_name)
+    candidate = value.to_s.strip
+    return candidate.downcase if candidate.present?
+
+    "#{first_name}.#{last_name}@uc.edu".downcase
   end
 
   def send_admin_mail

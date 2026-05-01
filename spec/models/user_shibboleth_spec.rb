@@ -30,21 +30,37 @@ RSpec.describe User, type: :model do
       expect(created_user.active).to be(true)
     end
 
-    it 'allows first-time users from qamail.uc.edu' do
+    it 'allows first-time users from non-uc domains' do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(email: 'manager@qamail.uc.edu')
+        identity_attributes.merge(email: 'manager@example.com')
       )
 
-      expect(created_user.email).to eq('manager@qamail.uc.edu')
+      expect(created_user.email).to eq('manager@example.com')
       expect(created_user.role.to_s).to eq('viewer')
     end
 
-    it 'raises when required identity data is missing' do
-      expect do
-        User.find_or_create_for_shibboleth!(identity_attributes.merge(first_name: ''))
-      end.to raise_error(User::ShibbolethIdentityError)
+    it 'builds a uc email from names when email is blank' do
+      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(email: nil, first_name: 'Jane', last_name: 'Doe')
+      )
+
+      expect(created_user.email).to eq('jane.doe@uc.edu')
+    end
+
+    it 'uses blank-name fallbacks when creating a fallback email' do
+      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(email: nil, first_name: nil, last_name: '')
+      )
+
+      expect(created_user.first_name).to eq('BlankFirstName')
+      expect(created_user.last_name).to eq('BlankLastName')
+      expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
     end
   end
 end

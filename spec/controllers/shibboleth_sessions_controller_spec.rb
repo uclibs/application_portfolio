@@ -52,18 +52,25 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         expect(session[:require_profile_completion]).to eq(true)
       end
 
-      it 'rejects login when required attributes are missing' do
+      it 'creates a user with fallback names when identity names are missing' do
+        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
         request.env['HTTP_GIVENNAME'] = nil
+        request.env['HTTP_SN'] = nil
+        request.env['HTTP_MAIL'] = nil
 
-        get :create
+        expect do
+          get :create
+        end.to change(User, :count).by(1)
 
-        expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to include('missing required name')
+        created_user = User.find_by(email: 'blankfirstname.blanklastname@uc.edu')
+        expect(response).to redirect_to(dashboard_path)
+        expect(created_user.first_name).to eq('BlankFirstName')
+        expect(created_user.last_name).to eq('BlankLastName')
       end
 
       it 'renders a validation error page with the exact message' do
         invalid_user = User.new(email: 'manager@example.com', first_name: 'Manager', last_name: 'Example')
-        invalid_user.valid?
+        invalid_user.errors.add(:base, 'Synthetic validation failure for troubleshooting')
 
         allow(User).to receive(:find_or_create_for_shibboleth!).and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
 
@@ -71,7 +78,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:error)
-        expect(response.body).to include('Email for Signup must be an UC email')
+        expect(response.body).to include('Synthetic validation failure for troubleshooting')
       end
     end
   end
