@@ -20,5 +20,4 @@ class ShibbolethSessionsController < ApplicationController
     @error_message = e.record.errors.full_messages.to_sentence
     render :error, status: :unprocessable_entity
   end
-
 end
