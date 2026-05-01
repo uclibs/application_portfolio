@@ -2,8 +2,6 @@
 
 class User < ApplicationRecord
   class ShibbolethIdentityError < StandardError; end
-  BLANK_FIRST_NAME = 'BlankFirstName'
-  BLANK_LAST_NAME = 'BlankLastName'
 
   ############################################################################################
   ## PeterGate Roles                                                                        ##
@@ -18,10 +16,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable
 
   def self.find_or_create_for_shibboleth!(attributes)
-    first_name = normalized_name(attributes[:first_name], BLANK_FIRST_NAME)
-    last_name = normalized_name(attributes[:last_name], BLANK_LAST_NAME)
-    email = normalized_email(attributes[:email], first_name, last_name)
-    eppn = normalized_eppn(attributes[:eppn], attributes[:email], first_name, last_name)
+    normalized_identity = ShibbolethIdentityNormalizer.new(attributes).normalized
+    first_name = normalized_identity[:first_name]
+    last_name = normalized_identity[:last_name]
+    email = normalized_identity[:email]
+    eppn = normalized_identity[:eppn]
 
     existing_user = User.find_by(eppn: eppn)
     return existing_user if existing_user
@@ -44,35 +43,6 @@ class User < ApplicationRecord
       active: true,
       roles: 'viewer'
     )
-  end
-
-  def self.normalized_name(value, fallback)
-    candidate = value.to_s.strip
-    return fallback if blankish_identity_value?(candidate)
-
-    candidate
-  end
-
-  def self.normalized_email(value, first_name, last_name)
-    candidate = value.to_s.strip
-    return candidate.downcase unless blankish_identity_value?(candidate)
-
-    "#{first_name}.#{last_name}@uc.edu".downcase
-  end
-
-  def self.normalized_eppn(value, email_value, first_name, last_name)
-    candidate = value.to_s.strip
-    return candidate.downcase unless blankish_identity_value?(candidate)
-
-    email_candidate = email_value.to_s.strip
-    return email_candidate.downcase unless blankish_identity_value?(email_candidate)
-
-    "#{first_name}.#{last_name}@uc.edu".downcase
-  end
-
-  def self.blankish_identity_value?(value)
-    candidate = value.to_s.strip.downcase
-    candidate.blank? || %w[nil null undefined (null)].include?(candidate)
   end
 
   def active_for_authentication?
