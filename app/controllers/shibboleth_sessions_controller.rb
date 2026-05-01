@@ -35,7 +35,21 @@ class ShibbolethSessionsController < ApplicationController
   end
 
   def shib_value(attribute_name)
-    header_key = "HTTP_#{attribute_name.upcase.tr('-', '_')}"
-    request.env[header_key].to_s.strip.presence
+    normalized = attribute_name.to_s.tr('-', '_')
+    canonical_header_key = "HTTP_#{normalized.upcase}"
+    trusted_keys = [
+      canonical_header_key,
+      "REDIRECT_#{canonical_header_key}",
+      attribute_name.to_s,
+      attribute_name.to_s.downcase,
+      attribute_name.to_s.upcase
+    ].uniq
+
+    trusted_keys.each do |key|
+      value = request.env[key].to_s.strip
+      return value if value.present?
+    end
+
+    nil
   end
 end
