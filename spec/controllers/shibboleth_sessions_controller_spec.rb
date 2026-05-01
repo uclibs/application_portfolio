@@ -83,6 +83,38 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         expect(response).to render_template(:error)
         expect(response.body).to include('Synthetic validation failure for troubleshooting')
       end
+
+      it 'ignores unscoped request.env values for identity headers' do
+        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+        request.env.delete('HTTP_EPPN')
+        request.env.delete('HTTP_MAIL')
+        request.env['eppn'] = 'spoofed-env@uc.edu'
+        request.env['mail'] = 'spoofed-env@uc.edu'
+        request.env['HTTP_GIVENNAME'] = nil
+        request.env['HTTP_SN'] = nil
+
+        get :create
+
+        created_user = User.find_by(eppn: 'blankfirstname.blanklastname@uc.edu')
+        expect(created_user).to be_present
+        expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
+      end
+
+      it 'ignores request.headers values when HTTP_* keys are missing' do
+        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+        request.env.delete('HTTP_EPPN')
+        request.env.delete('HTTP_MAIL')
+        request.headers['eppn'] = 'spoofed-header@uc.edu'
+        request.headers['mail'] = 'spoofed-header@uc.edu'
+        request.env['HTTP_GIVENNAME'] = nil
+        request.env['HTTP_SN'] = nil
+
+        get :create
+
+        created_user = User.find_by(eppn: 'blankfirstname.blanklastname@uc.edu')
+        expect(created_user).to be_present
+        expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
+      end
     end
   end
 end

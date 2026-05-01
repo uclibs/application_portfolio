@@ -35,11 +35,7 @@ class ShibbolethSessionsController < ApplicationController
   end
 
   def shib_value(attribute_name)
-    values = [
-      request.env["HTTP_#{attribute_name.upcase.tr('-', '_')}"],
-      request.env[attribute_name],
-      request.headers[attribute_name]
-    ]
-    values.compact.find(&:present?)&.strip
+    header_key = "HTTP_#{attribute_name.upcase.tr('-', '_')}"
+    request.env[header_key].to_s.strip.presence
   end
 end
