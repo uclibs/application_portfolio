@@ -43,6 +43,17 @@ RSpec.describe User, type: :model do
       expect(created_user.role.to_s).to eq('viewer')
     end
 
+    it 'uses email as eppn fallback when eppn is blank' do
+      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(eppn: nil, email: 'jane.doe@example.com', first_name: 'Jane', last_name: 'Doe')
+      )
+
+      expect(created_user.eppn).to eq('jane.doe@example.com')
+      expect(created_user.email).to eq('jane.doe@example.com')
+    end
+
     it 'builds fallback eppn/email from names when identity values are blank' do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
