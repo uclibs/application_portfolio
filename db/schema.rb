@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20_260_501_104_500) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_01_104500) do
   create_table "change_requests", force: :cascade do |t|
     t.integer "application_pages"
     t.boolean "authentication_needed", default: true
@@ -148,8 +146,8 @@ ActiveRecord::Schema[8.1].define(version: 20_260_501_104_500) do
     t.datetime "created_at", precision: nil, null: false
     t.string "department"
     t.string "email", default: "", null: false
-    t.string "eppn"
     t.string "encrypted_password", default: "", null: false
+    t.string "eppn"
     t.string "first_name"
     t.string "last_name"
     t.datetime "remember_created_at", precision: nil
