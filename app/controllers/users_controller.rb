@@ -38,9 +38,9 @@ class UsersController < ApplicationController
     @user.title = params[:title]
     @user.department = params[:department]
 
-    if !@user.changed? && @user.save
-      redirect_to user_edit_path(params[:id]), alert: 'Please modify any field to update the User.'
-    elsif @user.changed? && @user.save
+    if !@user.changed?
+      redirect_to redirect_target_after_update, notice: 'No changes were made.'
+    elsif @user.save
       redirect_to redirect_target_after_update, notice: 'User was successfully updated.'
     else
       render :edit

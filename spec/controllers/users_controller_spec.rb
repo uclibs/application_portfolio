@@ -92,6 +92,16 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(myprofile_path)
       expect(viewer.reload.title).to eq('Analyst')
     end
+
+    it 'allows no-op updates without raising an alert' do
+      viewer = FactoryBot.create(:viewer, title: 'Staff', department: 'Libraries')
+      sign_in viewer
+
+      post :update, params: { id: viewer.id, title: 'Staff', department: 'Libraries' }, session: valid_session
+
+      expect(response).to redirect_to(myprofile_path)
+      expect(flash[:notice]).to eq('No changes were made.')
+    end
   end
 
   describe 'DELETE #destroy' do
