@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   def self.blankish_identity_value?(value)
     candidate = value.to_s.strip.downcase
-    candidate.blank? || %w[nil null undefined].include?(candidate)
+    candidate.blank? || %w[nil null undefined (null)].include?(candidate)
   end
 
   def send_admin_mail

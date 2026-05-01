@@ -71,7 +71,7 @@ RSpec.describe User, type: :model do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(eppn: 'null', email: 'null', first_name: 'null', last_name: 'undefined')
+        identity_attributes.merge(eppn: '(null)', email: '(null)', first_name: 'null', last_name: 'undefined')
       )
 
       expect(created_user.first_name).to eq('BlankFirstName')
