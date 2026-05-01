@@ -15,8 +15,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable
 
-  def self.find_or_create_for_shibboleth!(attributes)
-    normalized_identity = ShibbolethIdentityNormalizer.new(attributes).normalized
+  def self.find_or_create_for_shibboleth!(attributes, normalized_identity = nil)
+    normalized_identity ||= ShibbolethIdentityNormalizer.new(attributes).normalized
     first_name = normalized_identity[:first_name]
     last_name = normalized_identity[:last_name]
     email = normalized_identity[:email]

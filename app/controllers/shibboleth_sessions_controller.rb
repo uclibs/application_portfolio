@@ -10,7 +10,7 @@ class ShibbolethSessionsController < ApplicationController
     attributes = ShibbolethAttributeReader.new(request.env).attributes
     normalized_identity = ShibbolethIdentityNormalizer.new(attributes).normalized
     user_existed = User.exists?(eppn: normalized_identity[:eppn])
-    user = User.find_or_create_for_shibboleth!(attributes)
+    user = User.find_or_create_for_shibboleth!(attributes, normalized_identity)
     session[:require_profile_completion] = true unless user_existed
     sign_in(:user, user)
     redirect_to after_sign_in_path_for(user)

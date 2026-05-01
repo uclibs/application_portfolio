@@ -39,6 +39,25 @@ RSpec.describe User, type: :model do
       expect(created_user.role.to_s).to eq('viewer')
     end
 
+    it 'uses provided normalized identity when supplied' do
+      normalized_identity = {
+        eppn: 'normalized@uc.edu',
+        email: 'normalized@uc.edu',
+        first_name: 'Normalized',
+        last_name: 'User'
+      }
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(eppn: '(null)', email: '(null)', first_name: nil, last_name: nil),
+        normalized_identity
+      )
+
+      expect(created_user.eppn).to eq('normalized@uc.edu')
+      expect(created_user.email).to eq('normalized@uc.edu')
+      expect(created_user.first_name).to eq('Normalized')
+      expect(created_user.last_name).to eq('User')
+    end
+
     it 'uses email as eppn fallback when eppn is blank' do
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: nil, email: 'jane.doe@example.com', first_name: 'Jane', last_name: 'Doe')
