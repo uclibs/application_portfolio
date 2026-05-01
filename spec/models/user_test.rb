@@ -20,21 +20,15 @@ class UserTest < ActiveSupport::TestCase
       user = User.new(first_name: 'Random', last_name: 'User')
       expect(user).to_not be_valid
     end
-    it 'is not valid without a UC domain' do
+    it 'is valid with a non-UC email when required fields are present' do
       user = User.new(first_name: 'Random', last_name: 'User', email: 'random@example.com')
-      expect(user).to_not be_valid
-    end
-    it 'is valid with allowed domains' do
-      user = User.new(first_name: 'Test', last_name: 'Admin', email: 'testadmin@uc.edu')
       expect(user).to be_valid
     end
-    it 'is valid with allowed domains' do
-      user = User.new(first_name: 'Test', last_name: 'Admin2', email: 'testadmin2@mail.uc.edu')
-      expect(user).to be_valid
-    end
-    it 'is valid with allowed domains' do
-      user = User.new(first_name: 'Test', last_name: 'Admin3', email: 'testadmin3@ucmail.uc.edu')
-      expect(user).to be_valid
+    it 'is valid with campus email domains' do
+      %w[testadmin@uc.edu testadmin2@mail.uc.edu testadmin3@ucmail.uc.edu].each do |email|
+        user = User.new(first_name: 'Test', last_name: 'User', email: email)
+        expect(user).to be_valid
+      end
     end
   end
 end

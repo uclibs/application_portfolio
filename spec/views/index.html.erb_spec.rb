@@ -4,9 +4,28 @@ require 'rails_helper'
 
 describe 'front/index' do
   context 'when user is not logged in' do
-    it 'displays a login link' do
-      render
-      expect(rendered).to have_link('Login', href: new_user_session_path)
+    context 'when Shibboleth is disabled' do
+      before do
+        allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(false)
+      end
+
+      it 'displays a login link to local Devise sign-in' do
+        render
+
+        expect(rendered).to have_link('Login', href: new_user_session_path)
+      end
+    end
+
+    context 'when Shibboleth is enabled' do
+      before do
+        allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(true)
+      end
+
+      it 'displays a login link to forced Shibboleth authentication' do
+        render
+
+        expect(rendered).to have_link('Login', href: %r{/Shibboleth\.sso/Login})
+      end
     end
   end
 end
