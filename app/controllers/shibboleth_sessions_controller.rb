@@ -8,7 +8,10 @@ class ShibbolethSessionsController < ApplicationController
     end
 
     attributes = identity_attributes
-    user_existed = User.exists?(email: attributes[:email].to_s.strip.downcase)
+    normalized_first_name = User.normalized_name(attributes[:first_name], User::BLANK_FIRST_NAME)
+    normalized_last_name = User.normalized_name(attributes[:last_name], User::BLANK_LAST_NAME)
+    normalized_email = User.normalized_email(attributes[:email], normalized_first_name, normalized_last_name)
+    user_existed = User.exists?(email: normalized_email)
     user = User.find_or_create_for_shibboleth!(attributes)
     session[:require_profile_completion] = true unless user_existed
     sign_in(:user, user)

@@ -62,5 +62,17 @@ RSpec.describe User, type: :model do
       expect(created_user.last_name).to eq('BlankLastName')
       expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
     end
+
+    it 'treats literal null-like identity values as missing for email fallback' do
+      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
+
+      created_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(email: 'null', first_name: 'null', last_name: 'undefined')
+      )
+
+      expect(created_user.first_name).to eq('BlankFirstName')
+      expect(created_user.last_name).to eq('BlankLastName')
+      expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
+    end
   end
 end

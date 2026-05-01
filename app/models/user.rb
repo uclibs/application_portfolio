@@ -38,14 +38,21 @@ class User < ApplicationRecord
 
   def self.normalized_name(value, fallback)
     candidate = value.to_s.strip
-    candidate.present? ? candidate : fallback
+    return fallback if blankish_identity_value?(candidate)
+
+    candidate
   end
 
   def self.normalized_email(value, first_name, last_name)
     candidate = value.to_s.strip
-    return candidate.downcase if candidate.present?
+    return candidate.downcase unless blankish_identity_value?(candidate)
 
     "#{first_name}.#{last_name}@uc.edu".downcase
+  end
+
+  def self.blankish_identity_value?(value)
+    candidate = value.to_s.strip.downcase
+    candidate.blank? || %w[nil null undefined].include?(candidate)
   end
 
   def send_admin_mail
