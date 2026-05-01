@@ -61,39 +61,13 @@ cap prod deploy for production
 
 * Configuration
 
-## Shibboleth SSO (Apache/mod_shib)
+## Shibboleth SSO
 
-This application supports Shibboleth login for production deployments behind Apache with `mod_shib`.
-
-- Production mode: Shibboleth-only sign-in.
-- Development/test mode: local Devise sign-in remains available for seeded/default users.
-
-### Rails auth entrypoint
-
-- SSO login route: `/auth/shibboleth`
-- Local Devise route: `/users/sign_in` (development/test only)
-
-### Required identity attributes from Apache
-
-Apache must pass these Shibboleth attributes to Rails:
-
-- `eppn` (preferred identity key) -> user login identity
-- `mail` (preferred) -> user email
-- `givenName` -> user first name
-- `sn` -> user last name
-
-If `eppn` or `mail` are missing/empty-like, Rails generates deterministic fallbacks as
-`firstname.lastname@uc.edu` (using `BlankFirstName`/`BlankLastName` when needed).
-
-### User provisioning and role behavior
-
-- Existing users are matched by eppn and keep their current role/active status.
-- First-time users are auto-created as active users with role `viewer`.
-
-### Apache hardening notes
-
-- Protect only the SSO route (for example `/auth/shibboleth`) with Shibboleth.
-- Do not trust client-supplied identity headers; ensure only Apache/mod_shib sets them.
+- **Routes:** SSO callback `/auth/shibboleth`; local Devise `/users/sign_in` (email-only, no password) when enabled.
+- **Environments:** Production uses SSO (`config.x.auth.shibboleth_enabled`). Local email sign-in is gated by `config.x.auth.allow_email_sign_in` (on in development/test, off in production — see `config/environments/*.rb`).
+- **Headers:** Rails trusts canonical Shibboleth headers only (`HTTP_EPPN`, `HTTP_MAIL`, `HTTP_GIVENNAME`, `HTTP_SN`, mapping SAML `eppn`, `mail`, `givenName`, `sn`). Enable `config.x.auth.allow_legacy_shibboleth_env_keys` only if Apache delivers `REDIRECT_HTTP_*` or other legacy env shapes and you need a temporary rollback.
+- **Provisioning:** Primary match on `eppn`; existing users may link by `email` when `eppn` was never set. Missing/null-like values fall back to deterministic `firstname.lastname@uc.edu` (with placeholder names when needed). First-time SSO users are active `viewer`s.
+- **Ops:** Protect the SSO route with mod_shib; identity must come from the server/IdP path, not the browser alone.
 
 * Type of Roles
 

@@ -4,6 +4,8 @@ require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.x.auth.shibboleth_enabled = true
+  config.x.auth.allow_email_sign_in = false
+  config.x.auth.allow_legacy_shibboleth_env_keys = false
 
   # Settings specified here will take precedence over those in config/application.rb.
 

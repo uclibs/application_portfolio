@@ -20,6 +20,11 @@ module Users
     def sign_in_with_email
       return if Rails.configuration.x.auth.shibboleth_enabled
 
+      unless Rails.configuration.x.auth.allow_email_sign_in
+        redirect_to new_user_session_path, alert: 'Local email sign-in is disabled in this environment.'
+        return
+      end
+
       user = User.find_by(email: params.dig(:user, :email).to_s.strip.downcase)
       if user.present?
         sign_in(:user, user)

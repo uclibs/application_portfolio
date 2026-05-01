@@ -8,6 +8,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
   describe 'GET #create' do
     before do
       allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(shibboleth_enabled)
+      allow(Rails.configuration.x.auth).to receive(:allow_legacy_shibboleth_env_keys).and_return(false)
     end
 
     context 'when shibboleth is disabled' do
@@ -81,7 +82,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         expect(response.body).to include('Synthetic validation failure for troubleshooting')
       end
 
-      it 'accepts trusted unscoped request.env values from shibboleth modules' do
+      it 'ignores unscoped env values in canonical-header mode' do
         request.env.delete('HTTP_EPPN')
         request.env.delete('HTTP_MAIL')
         request.env['eppn'] = 'spoofed-env@uc.edu'
@@ -91,12 +92,13 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         get :create
 
-        created_user = User.find_by(eppn: 'spoofed-env@uc.edu')
+        created_user = User.find_by(eppn: 'blankfirstname.blanklastname@uc.edu')
         expect(created_user).to be_present
-        expect(created_user.email).to eq('spoofed-env@uc.edu')
+        expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
       end
 
-      it 'accepts REDIRECT_HTTP_* values when canonical headers are rewritten' do
+      it 'can accept REDIRECT_HTTP_* values when rollback flag is enabled' do
+        allow(Rails.configuration.x.auth).to receive(:allow_legacy_shibboleth_env_keys).and_return(true)
         request.env.delete('HTTP_EPPN')
         request.env.delete('HTTP_MAIL')
         request.env.delete('HTTP_GIVENNAME')

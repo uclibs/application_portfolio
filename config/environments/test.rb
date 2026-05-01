@@ -7,6 +7,8 @@
 
 Rails.application.configure do
   config.x.auth.shibboleth_enabled = false
+  config.x.auth.allow_email_sign_in = true
+  config.x.auth.allow_legacy_shibboleth_env_keys = false
 
   # Settings specified here will take precedence over those in config/application.rb.
 

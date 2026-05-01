@@ -8,8 +8,9 @@ class ShibbolethAttributeReader
     last_name: 'sn'
   }.freeze
 
-  def initialize(env)
+  def initialize(env, allow_legacy_env_keys: false)
     @env = env || {}
+    @allow_legacy_env_keys = allow_legacy_env_keys
   end
 
   def attributes
@@ -26,13 +27,16 @@ class ShibbolethAttributeReader
   def value_for(attribute_name)
     normalized = attribute_name.to_s.tr('-', '_')
     canonical_header_key = "HTTP_#{normalized.upcase}"
-    trusted_keys = [
-      canonical_header_key,
-      "REDIRECT_#{canonical_header_key}",
-      attribute_name.to_s,
-      attribute_name.to_s.downcase,
-      attribute_name.to_s.upcase
-    ].uniq
+    trusted_keys = [canonical_header_key]
+    if @allow_legacy_env_keys
+      trusted_keys += [
+        "REDIRECT_#{canonical_header_key}",
+        attribute_name.to_s,
+        attribute_name.to_s.downcase,
+        attribute_name.to_s.upcase
+      ]
+    end
+    trusted_keys.uniq!
 
     trusted_keys.each do |key|
       value = @env[key].to_s.strip

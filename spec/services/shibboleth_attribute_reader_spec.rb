@@ -19,7 +19,7 @@ RSpec.describe ShibbolethAttributeReader, type: :model do
     expect(attributes[:last_name]).to eq('User')
   end
 
-  it 'supports REDIRECT_HTTP_* values when headers are rewritten' do
+  it 'ignores REDIRECT_HTTP_* values when canonical-only mode is enabled' do
     env = {
       'REDIRECT_HTTP_EPPN' => 'redirect@uc.edu',
       'REDIRECT_HTTP_MAIL' => 'redirect@uc.edu',
@@ -29,13 +29,13 @@ RSpec.describe ShibbolethAttributeReader, type: :model do
 
     attributes = described_class.new(env).attributes
 
-    expect(attributes[:eppn]).to eq('redirect@uc.edu')
-    expect(attributes[:email]).to eq('redirect@uc.edu')
-    expect(attributes[:first_name]).to eq('Redirect')
-    expect(attributes[:last_name]).to eq('User')
+    expect(attributes[:eppn]).to be_nil
+    expect(attributes[:email]).to be_nil
+    expect(attributes[:first_name]).to be_nil
+    expect(attributes[:last_name]).to be_nil
   end
 
-  it 'supports trusted unscoped env values used by some shibboleth modules' do
+  it 'ignores unscoped env values when canonical-only mode is enabled' do
     env = {
       'eppn' => 'env@uc.edu',
       'mail' => 'env@uc.edu',
@@ -45,9 +45,25 @@ RSpec.describe ShibbolethAttributeReader, type: :model do
 
     attributes = described_class.new(env).attributes
 
-    expect(attributes[:eppn]).to eq('env@uc.edu')
-    expect(attributes[:email]).to eq('env@uc.edu')
-    expect(attributes[:first_name]).to eq('Env')
+    expect(attributes[:eppn]).to be_nil
+    expect(attributes[:email]).to be_nil
+    expect(attributes[:first_name]).to be_nil
+    expect(attributes[:last_name]).to be_nil
+  end
+
+  it 'can accept legacy header variants when explicitly allowed for rollback' do
+    env = {
+      'REDIRECT_HTTP_EPPN' => 'redirect@uc.edu',
+      'REDIRECT_HTTP_MAIL' => 'redirect@uc.edu',
+      'REDIRECT_HTTP_GIVENNAME' => 'Redirect',
+      'REDIRECT_HTTP_SN' => 'User'
+    }
+
+    attributes = described_class.new(env, allow_legacy_env_keys: true).attributes
+
+    expect(attributes[:eppn]).to eq('redirect@uc.edu')
+    expect(attributes[:email]).to eq('redirect@uc.edu')
+    expect(attributes[:first_name]).to eq('Redirect')
     expect(attributes[:last_name]).to eq('User')
   end
 end

@@ -7,7 +7,10 @@ class ShibbolethSessionsController < ApplicationController
       return
     end
 
-    identity_resolver = ShibbolethIdentityResolver.new(env: request.env)
+    identity_resolver = ShibbolethIdentityResolver.new(
+      env: request.env,
+      allow_legacy_env_keys: Rails.configuration.x.auth.allow_legacy_shibboleth_env_keys
+    )
     normalized_identity = identity_resolver.normalized_identity
     user_existed = User.exists?(eppn: normalized_identity[:eppn])
     user = ShibbolethUserProvisioner.find_or_create!(normalized_identity)
