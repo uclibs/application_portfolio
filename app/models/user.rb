@@ -17,8 +17,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable
 
-  after_create :send_admin_mail
-
   def self.find_or_create_for_shibboleth!(attributes)
     first_name = normalized_name(attributes[:first_name], BLANK_FIRST_NAME)
     last_name = normalized_name(attributes[:last_name], BLANK_LAST_NAME)
@@ -27,6 +25,16 @@ class User < ApplicationRecord
 
     existing_user = User.find_by(eppn: eppn)
     return existing_user if existing_user
+
+    existing_user_by_email = User.find_by(email: email)
+    if existing_user_by_email
+      if existing_user_by_email.eppn.blank?
+        existing_user_by_email.update!(eppn: eppn)
+      elsif existing_user_by_email.eppn != eppn
+        raise ShibbolethIdentityError, 'Unable to sign in: account identity conflict. Please contact support.'
+      end
+      return existing_user_by_email
+    end
 
     User.create!(
       eppn: eppn,
@@ -65,10 +73,6 @@ class User < ApplicationRecord
   def self.blankish_identity_value?(value)
     candidate = value.to_s.strip.downcase
     candidate.blank? || %w[nil null undefined (null)].include?(candidate)
-  end
-
-  def send_admin_mail
-    NewUserSignupMailer.new_user_signup_mail(id, email, first_name, last_name).deliver_now
   end
 
   def active_for_authentication?

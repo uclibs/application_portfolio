@@ -41,8 +41,6 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
       end
 
       it 'creates a new viewer user for a first-time login' do
-        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
         expect do
           get :create
         end.to change(User, :count).by(1)
@@ -54,7 +52,6 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
       end
 
       it 'creates a user with fallback names when identity names are missing' do
-        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
         request.env['HTTP_GIVENNAME'] = nil
         request.env['HTTP_SN'] = nil
         request.env['HTTP_EPPN'] = nil
@@ -85,7 +82,6 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
       end
 
       it 'accepts trusted unscoped request.env values from shibboleth modules' do
-        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
         request.env.delete('HTTP_EPPN')
         request.env.delete('HTTP_MAIL')
         request.env['eppn'] = 'spoofed-env@uc.edu'
@@ -101,7 +97,6 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
       end
 
       it 'accepts REDIRECT_HTTP_* values when canonical headers are rewritten' do
-        allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
         request.env.delete('HTTP_EPPN')
         request.env.delete('HTTP_MAIL')
         request.env.delete('HTTP_GIVENNAME')

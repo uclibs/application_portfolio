@@ -23,8 +23,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'creates new users as active viewers' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(identity_attributes)
 
       expect(created_user.role.to_s).to eq('viewer')
@@ -32,8 +30,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'allows first-time users from non-uc domains' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: 'manager@example.com', email: 'manager@example.com')
       )
@@ -44,8 +40,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'uses email as eppn fallback when eppn is blank' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: nil, email: 'jane.doe@example.com', first_name: 'Jane', last_name: 'Doe')
       )
@@ -55,8 +49,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'builds fallback eppn/email from names when identity values are blank' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: nil, email: nil, first_name: 'Jane', last_name: 'Doe')
       )
@@ -66,8 +58,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'uses blank-name fallbacks when creating fallback eppn/email' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: nil, email: nil, first_name: nil, last_name: '')
       )
@@ -79,8 +69,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'treats null-like identity values as missing for eppn/email fallback' do
-      allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
-
       created_user = User.find_or_create_for_shibboleth!(
         identity_attributes.merge(eppn: '(null)', email: '(null)', first_name: 'null', last_name: 'undefined')
       )
@@ -100,6 +88,29 @@ RSpec.describe User, type: :model do
 
       expect(found_user.id).to eq(existing_user.id)
       expect(found_user.email).to eq('old@example.com')
+    end
+
+    it 'links legacy email-only users by assigning eppn on first shibboleth login' do
+      existing_user = FactoryBot.create(:viewer, eppn: nil, email: 'legacy@example.com')
+
+      found_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(eppn: 'legacy@uc.edu', email: 'legacy@example.com')
+      )
+
+      expect(found_user.id).to eq(existing_user.id)
+      expect(found_user.reload.eppn).to eq('legacy@uc.edu')
+    end
+
+    it 'raises a friendly error when email matches but eppn conflicts' do
+      existing_user = FactoryBot.create(:viewer, eppn: 'old@uc.edu', email: 'legacy@example.com')
+
+      expect do
+        User.find_or_create_for_shibboleth!(
+          identity_attributes.merge(eppn: 'new@uc.edu', email: 'legacy@example.com')
+        )
+      end.to raise_error(User::ShibbolethIdentityError, /identity conflict/)
+
+      expect(existing_user.reload.eppn).to eq('old@uc.edu')
     end
   end
 end
