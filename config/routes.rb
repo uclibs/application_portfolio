@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'seed/new', to: 'file_uploads#new', as: 'file_uploads_new'
   get 'seed/create', to: 'file_uploads#create', as: 'file_uploads_create'
-  devise_for :users, skip: [:passwords], controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
+  devise_for :users, skip: %i[passwords registrations], controllers: { sessions: 'users/sessions' }
   get 'auth/shibboleth', to: 'shibboleth_sessions#create', as: :shibboleth_login
 
   resources :vendor_records
