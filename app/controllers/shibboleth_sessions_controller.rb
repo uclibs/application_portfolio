@@ -23,8 +23,10 @@ class ShibbolethSessionsController < ApplicationController
     detail = e.record.errors.full_messages.to_sentence
     Rails.logger.warn("[ShibbolethSessions#create] account provisioning failed: #{detail}")
 
-    @validation_error_detail =
-      detail if Rails.configuration.x.auth.expose_shibboleth_validation_errors
+    if Rails.configuration.x.auth.expose_shibboleth_validation_errors
+      @validation_error_detail =
+        detail
+    end
 
     render :error, status: :unprocessable_entity
   end
