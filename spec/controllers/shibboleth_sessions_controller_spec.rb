@@ -24,13 +24,14 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
       let(:shibboleth_enabled) { true }
 
       before do
+        request.env['HTTP_EPPN'] = 'admin@ucmail.uc.edu'
         request.env['HTTP_MAIL'] = 'admin@ucmail.uc.edu'
         request.env['HTTP_GIVENNAME'] = 'Existing'
         request.env['HTTP_SN'] = 'Admin'
       end
 
       it 'signs in an existing user without changing their role' do
-        existing_user = FactoryBot.create(:admin, email: 'admin@ucmail.uc.edu')
+        existing_user = FactoryBot.create(:admin, eppn: 'admin@ucmail.uc.edu', email: 'admin@ucmail.uc.edu')
 
         get :create
 
@@ -46,7 +47,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
           get :create
         end.to change(User, :count).by(1)
 
-        created_user = User.find_by(email: 'admin@ucmail.uc.edu')
+        created_user = User.find_by(eppn: 'admin@ucmail.uc.edu')
         expect(created_user.role.to_s).to eq('viewer')
         expect(created_user.active).to be(true)
         expect(session[:require_profile_completion]).to eq(true)
@@ -56,16 +57,18 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
         request.env['HTTP_GIVENNAME'] = nil
         request.env['HTTP_SN'] = nil
+        request.env['HTTP_EPPN'] = nil
         request.env['HTTP_MAIL'] = nil
 
         expect do
           get :create
         end.to change(User, :count).by(1)
 
-        created_user = User.find_by(email: 'blankfirstname.blanklastname@uc.edu')
+        created_user = User.find_by(eppn: 'blankfirstname.blanklastname@uc.edu')
         expect(response).to redirect_to(dashboard_path)
         expect(created_user.first_name).to eq('BlankFirstName')
         expect(created_user.last_name).to eq('BlankLastName')
+        expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
       end
 
       it 'renders a validation error page with the exact message' do

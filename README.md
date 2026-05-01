@@ -77,15 +77,17 @@ This application supports Shibboleth login for production deployments behind Apa
 
 Apache must pass these Shibboleth attributes to Rails:
 
-- `mail` (preferred) or `eppn` (fallback) -> user email
+- `eppn` (preferred identity key) -> user login identity
+- `mail` (preferred) -> user email
 - `givenName` -> user first name
 - `sn` -> user last name
 
-If email or name attributes are missing, login is denied.
+If `eppn` or `mail` are missing/empty-like, Rails generates deterministic fallbacks as
+`firstname.lastname@uc.edu` (using `BlankFirstName`/`BlankLastName` when needed).
 
 ### User provisioning and role behavior
 
-- Existing users are matched by email and keep their current role/active status.
+- Existing users are matched by eppn and keep their current role/active status.
 - First-time users are auto-created as active users with role `viewer`.
 
 ### Apache hardening notes

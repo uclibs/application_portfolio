@@ -22,12 +22,14 @@ class User < ApplicationRecord
   def self.find_or_create_for_shibboleth!(attributes)
     first_name = normalized_name(attributes[:first_name], BLANK_FIRST_NAME)
     last_name = normalized_name(attributes[:last_name], BLANK_LAST_NAME)
+    eppn = normalized_eppn(attributes[:eppn], first_name, last_name)
     email = normalized_email(attributes[:email], first_name, last_name)
 
-    existing_user = User.find_by(email: email)
+    existing_user = User.find_by(eppn: eppn)
     return existing_user if existing_user
 
     User.create!(
+      eppn: eppn,
       email: email,
       first_name: first_name,
       last_name: last_name,
@@ -44,6 +46,13 @@ class User < ApplicationRecord
   end
 
   def self.normalized_email(value, first_name, last_name)
+    candidate = value.to_s.strip
+    return candidate.downcase unless blankish_identity_value?(candidate)
+
+    "#{first_name}.#{last_name}@uc.edu".downcase
+  end
+
+  def self.normalized_eppn(value, first_name, last_name)
     candidate = value.to_s.strip
     return candidate.downcase unless blankish_identity_value?(candidate)
 

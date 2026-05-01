@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   describe '.find_or_create_for_shibboleth!' do
     let(:identity_attributes) do
       {
+        eppn: 'viewer@uc.edu',
         email: 'viewer@uc.edu',
         first_name: 'Test',
         last_name: 'Viewer'
@@ -34,45 +35,60 @@ RSpec.describe User, type: :model do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(email: 'manager@example.com')
+        identity_attributes.merge(eppn: 'manager@example.com', email: 'manager@example.com')
       )
 
+      expect(created_user.eppn).to eq('manager@example.com')
       expect(created_user.email).to eq('manager@example.com')
       expect(created_user.role.to_s).to eq('viewer')
     end
 
-    it 'builds a uc email from names when email is blank' do
+    it 'builds fallback eppn/email from names when identity values are blank' do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(email: nil, first_name: 'Jane', last_name: 'Doe')
+        identity_attributes.merge(eppn: nil, email: nil, first_name: 'Jane', last_name: 'Doe')
       )
 
+      expect(created_user.eppn).to eq('jane.doe@uc.edu')
       expect(created_user.email).to eq('jane.doe@uc.edu')
     end
 
-    it 'uses blank-name fallbacks when creating a fallback email' do
+    it 'uses blank-name fallbacks when creating fallback eppn/email' do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(email: nil, first_name: nil, last_name: '')
+        identity_attributes.merge(eppn: nil, email: nil, first_name: nil, last_name: '')
       )
 
       expect(created_user.first_name).to eq('BlankFirstName')
       expect(created_user.last_name).to eq('BlankLastName')
+      expect(created_user.eppn).to eq('blankfirstname.blanklastname@uc.edu')
       expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
     end
 
-    it 'treats literal null-like identity values as missing for email fallback' do
+    it 'treats null-like identity values as missing for eppn/email fallback' do
       allow_any_instance_of(User).to receive(:send_admin_mail).and_return(true)
 
       created_user = User.find_or_create_for_shibboleth!(
-        identity_attributes.merge(email: 'null', first_name: 'null', last_name: 'undefined')
+        identity_attributes.merge(eppn: 'null', email: 'null', first_name: 'null', last_name: 'undefined')
       )
 
       expect(created_user.first_name).to eq('BlankFirstName')
       expect(created_user.last_name).to eq('BlankLastName')
+      expect(created_user.eppn).to eq('blankfirstname.blanklastname@uc.edu')
       expect(created_user.email).to eq('blankfirstname.blanklastname@uc.edu')
+    end
+
+    it 'finds existing users by eppn even when email differs' do
+      existing_user = FactoryBot.create(:viewer, eppn: 'manager@uc.edu', email: 'old@example.com')
+
+      found_user = User.find_or_create_for_shibboleth!(
+        identity_attributes.merge(eppn: 'manager@uc.edu', email: 'new@example.com')
+      )
+
+      expect(found_user.id).to eq(existing_user.id)
+      expect(found_user.email).to eq('old@example.com')
     end
   end
 end

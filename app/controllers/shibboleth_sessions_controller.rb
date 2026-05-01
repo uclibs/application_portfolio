@@ -10,8 +10,8 @@ class ShibbolethSessionsController < ApplicationController
     attributes = identity_attributes
     normalized_first_name = User.normalized_name(attributes[:first_name], User::BLANK_FIRST_NAME)
     normalized_last_name = User.normalized_name(attributes[:last_name], User::BLANK_LAST_NAME)
-    normalized_email = User.normalized_email(attributes[:email], normalized_first_name, normalized_last_name)
-    user_existed = User.exists?(email: normalized_email)
+    normalized_eppn = User.normalized_eppn(attributes[:eppn], normalized_first_name, normalized_last_name)
+    user_existed = User.exists?(eppn: normalized_eppn)
     user = User.find_or_create_for_shibboleth!(attributes)
     session[:require_profile_completion] = true unless user_existed
     sign_in(:user, user)
@@ -27,7 +27,8 @@ class ShibbolethSessionsController < ApplicationController
 
   def identity_attributes
     {
-      email: shib_value('mail') || shib_value('eppn'),
+      eppn: shib_value('eppn'),
+      email: shib_value('mail'),
       first_name: shib_value('givenName'),
       last_name: shib_value('sn')
     }
