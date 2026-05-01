@@ -25,6 +25,10 @@ RSpec.describe ApplicationController, type: :controller do
     allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(true)
   end
 
+  it 'includes profile completion gate concern' do
+    expect(ApplicationController.included_modules).to include(ProfileCompletionGate)
+  end
+
   it 'redirects users with first-login flag and incomplete profile' do
     user = FactoryBot.create(:viewer, department: nil, title: nil)
     sign_in user

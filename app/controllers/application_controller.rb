@@ -2,9 +2,10 @@
 
 # Application Controller
 class ApplicationController < ActionController::Base
+  include ProfileCompletionGate
+
   helper_method :navigation
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :require_profile_completion
   $deployed_at = Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')
   # Redirect to dashboard on user login
   def after_sign_in_path_for(_resource)
@@ -13,37 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def require_profile_completion
-    return if skip_profile_completion_check?
-
-    if profile_complete?
-      session.delete(:require_profile_completion)
-      return
-    end
-
-    # Prompt newly provisioned users once, but do not block dashboard access afterward.
-    session.delete(:require_profile_completion)
-    redirect_to user_edit_path(current_user.id, return_to: dashboard_path),
-                alert: 'Please confirm your profile details before continuing.'
-  end
-
-  def skip_profile_completion_check?
-    !user_signed_in? ||
-      !Rails.configuration.x.auth.shibboleth_enabled ||
-      current_user.role.to_s == 'root_admin' ||
-      !session[:require_profile_completion] ||
-      on_allowed_profile_page? ||
-      devise_controller?
-  end
-
-  def profile_complete?
-    current_user.department.present? && current_user.title.present?
-  end
-
-  def on_allowed_profile_page?
-    controller_name == 'users' && %w[edit update].include?(action_name)
-  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
