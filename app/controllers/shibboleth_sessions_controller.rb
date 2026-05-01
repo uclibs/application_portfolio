@@ -20,7 +20,12 @@ class ShibbolethSessionsController < ApplicationController
   rescue ShibbolethUserProvisioner::IdentityError => e
     redirect_to root_path, alert: e.message
   rescue ActiveRecord::RecordInvalid => e
-    @error_message = e.record.errors.full_messages.to_sentence
+    detail = e.record.errors.full_messages.to_sentence
+    Rails.logger.warn("[ShibbolethSessions#create] account provisioning failed: #{detail}")
+
+    @validation_error_detail =
+      detail if Rails.configuration.x.auth.expose_shibboleth_validation_errors
+
     render :error, status: :unprocessable_entity
   end
 end

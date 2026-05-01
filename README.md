@@ -68,6 +68,7 @@ cap prod deploy for production
 - **Headers:** Rails trusts canonical Shibboleth headers only (`HTTP_EPPN`, `HTTP_MAIL`, `HTTP_GIVENNAME`, `HTTP_SN`, mapping SAML `eppn`, `mail`, `givenName`, `sn`). Enable `config.x.auth.allow_legacy_shibboleth_env_keys` only if Apache delivers `REDIRECT_HTTP_*` or other legacy env shapes and you need a temporary rollback.
 - **Provisioning:** Primary match on `eppn`; existing users may link by `email` when `eppn` was never set. Missing/null-like values fall back to deterministic `firstname.lastname@uc.edu` (with placeholder names when needed). First-time SSO users are active `viewer`s.
 - **Ops:** Protect the SSO route with mod_shib; identity must come from the server/IdP path, not the browser alone.
+- **Error page:** Validation messages from failed account creation are not shown to users in production (they are logged). Turn on `config.x.auth.expose_shibboleth_validation_errors` only when you need on-screen details for debugging.
 
 * Type of Roles
 

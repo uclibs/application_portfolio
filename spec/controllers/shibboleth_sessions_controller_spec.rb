@@ -9,6 +9,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
     before do
       allow(Rails.configuration.x.auth).to receive(:shibboleth_enabled).and_return(shibboleth_enabled)
       allow(Rails.configuration.x.auth).to receive(:allow_legacy_shibboleth_env_keys).and_return(false)
+      allow(Rails.configuration.x.auth).to receive(:expose_shibboleth_validation_errors).and_return(true)
     end
 
     context 'when shibboleth is disabled' do
@@ -80,6 +81,22 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:error)
         expect(response.body).to include('Synthetic validation failure for troubleshooting')
+      end
+
+      it 'does not expose validation internals when troubleshooting details are disabled' do
+        allow(Rails.configuration.x.auth).to receive(:expose_shibboleth_validation_errors).and_return(false)
+
+        invalid_user = User.new(email: 'manager@example.com', first_name: 'Manager', last_name: 'Example')
+        invalid_user.errors.add(:base, 'Synthetic validation failure for troubleshooting')
+
+        allow(ShibbolethUserProvisioner).to receive(:find_or_create!).and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
+
+        get :create
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to render_template(:error)
+        expect(response.body).not_to include('Synthetic validation failure for troubleshooting')
+        expect(response.body).to include("couldn't finish setting up")
       end
 
       it 'ignores unscoped env values in canonical-header mode' do
