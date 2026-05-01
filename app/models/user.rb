@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  class ShibbolethIdentityError < StandardError; end
-
   ############################################################################################
   ## PeterGate Roles                                                                        ##
   ## The :user role is added by default and shouldn't be included in this list.             ##
@@ -14,35 +12,6 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable
-
-  def self.find_or_create_for_shibboleth!(normalized_identity)
-    first_name = normalized_identity.fetch(:first_name)
-    last_name = normalized_identity.fetch(:last_name)
-    email = normalized_identity.fetch(:email)
-    eppn = normalized_identity.fetch(:eppn)
-
-    existing_user = User.find_by(eppn: eppn)
-    return existing_user if existing_user
-
-    existing_user_by_email = User.find_by(email: email)
-    if existing_user_by_email
-      if existing_user_by_email.eppn.blank?
-        existing_user_by_email.update!(eppn: eppn)
-      elsif existing_user_by_email.eppn != eppn
-        raise ShibbolethIdentityError, 'Unable to sign in: account identity conflict. Please contact support.'
-      end
-      return existing_user_by_email
-    end
-
-    User.create!(
-      eppn: eppn,
-      email: email,
-      first_name: first_name,
-      last_name: last_name,
-      active: true,
-      roles: 'viewer'
-    )
-  end
 
   def active_for_authentication?
     super && active?

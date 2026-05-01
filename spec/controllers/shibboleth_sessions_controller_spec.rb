@@ -72,7 +72,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         invalid_user = User.new(email: 'manager@example.com', first_name: 'Manager', last_name: 'Example')
         invalid_user.errors.add(:base, 'Synthetic validation failure for troubleshooting')
 
-        allow(User).to receive(:find_or_create_for_shibboleth!).and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
+        allow(ShibbolethUserProvisioner).to receive(:find_or_create!).and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
 
         get :create
 

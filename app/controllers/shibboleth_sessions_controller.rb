@@ -10,11 +10,11 @@ class ShibbolethSessionsController < ApplicationController
     identity_resolver = ShibbolethIdentityResolver.new(env: request.env)
     normalized_identity = identity_resolver.normalized_identity
     user_existed = User.exists?(eppn: normalized_identity[:eppn])
-    user = User.find_or_create_for_shibboleth!(normalized_identity)
+    user = ShibbolethUserProvisioner.find_or_create!(normalized_identity)
     session[:require_profile_completion] = true unless user_existed
     sign_in(:user, user)
     redirect_to after_sign_in_path_for(user)
-  rescue User::ShibbolethIdentityError => e
+  rescue ShibbolethUserProvisioner::IdentityError => e
     redirect_to root_path, alert: e.message
   rescue ActiveRecord::RecordInvalid => e
     @error_message = e.record.errors.full_messages.to_sentence
