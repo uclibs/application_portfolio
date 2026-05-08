@@ -14,7 +14,6 @@ RSpec.feature 'File uploads (seed import)', type: :feature do
 
     visit new_user_session_path
     fill_in 'user_email', with: admin.email
-    fill_in 'user_password', with: 'random1234'
     click_button 'Login'
   end
 

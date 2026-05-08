@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 module ApplicationHelper
   def alerts
     if flash[:alert]
@@ -32,11 +34,17 @@ module ApplicationHelper
         (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
         (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
     else
+      login_path = Rails.configuration.x.auth.shibboleth_enabled ? shibboleth_force_authn_login_path : new_user_session_path
       (link_to 'Request Software', request_new_path, class: "#{style} #{active? request_new_path}") + ' '.html_safe +
-        (link_to 'Login', new_user_session_path, class: "#{style} #{active? new_user_session_path}") + ' '.html_safe +
+        (link_to 'Login', login_path, class: "#{style} #{active? new_user_session_path}") + ' '.html_safe +
         (link_to 'About', about_path, class: "#{style} #{active? about_path}") + ' '.html_safe +
         (link_to 'Contact', contact_path, class: "#{style} #{active? contact_path}")
     end
+  end
+
+  def shibboleth_force_authn_login_path
+    target_path = "#{request.script_name}/auth/shibboleth"
+    "/Shibboleth.sso/Login?target=#{CGI.escape(target_path)}&forceAuthn=1"
   end
 
   def active?(path)

@@ -5,8 +5,7 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Viewer' }
     email { 'viewer@uc.edu' }
-    password { 'random1234' }
-    password_confirmation { 'random1234' }
+    eppn { 'viewer@uc.edu' }
     roles { 'viewer' }
   end
 
@@ -14,8 +13,7 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Admin' }
     email { 'admin@ucmail.uc.edu' }
-    password { 'random1234' }
-    password_confirmation { 'random1234' }
+    eppn { 'admin@ucmail.uc.edu' }
     roles { 'root_admin' }
   end
 
@@ -23,8 +21,7 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Manager' }
     email { 'manager@mail.uc.edu' }
-    password { 'random1234' }
-    password_confirmation { 'random1234' }
+    eppn { 'manager@mail.uc.edu' }
     roles { 'manager' }
   end
 
@@ -32,8 +29,7 @@ FactoryBot.define do
     first_name { 'Random' }
     last_name { 'Owner' }
     email { 'owner@uc.edu' }
-    password { 'random1234' }
-    password_confirmation { 'random1234' }
+    eppn { 'owner@uc.edu' }
     roles { 'owner' }
   end
 end

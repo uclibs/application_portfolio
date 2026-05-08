@@ -6,6 +6,11 @@
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  config.x.auth.shibboleth_enabled = false
+  config.x.auth.allow_email_sign_in = true
+  config.x.auth.allow_legacy_shibboleth_env_keys = false
+  config.x.auth.expose_shibboleth_validation_errors = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # While tests run files are not watched, reloading is not necessary.

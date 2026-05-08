@@ -5,15 +5,13 @@ require 'rails_helper'
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:admin)
+                                                                           FactoryBot.build_stubbed(:admin)
                                                                          end)
     assign(:users, [
              User.create!(
                first_name: 'Admin',
                last_name: 'Test',
                email: 'admin12@uc.edu',
-               password: 'admintest123',
-               password_confirmation: 'admintest123',
                roles: 'admin'
              )
            ])
@@ -40,15 +38,13 @@ end
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:viewer)
+                                                                           FactoryBot.build_stubbed(:viewer)
                                                                          end)
     assign(:users, [
              User.create!(
                first_name: 'Viewer',
                last_name: 'Test',
                email: 'viewer@uc.edu',
-               password: 'viewertest',
-               password_confirmation: 'viewertest',
                roles: 'viewer'
              )
            ])
@@ -75,15 +71,13 @@ end
 RSpec.describe 'front/profile', type: :view do
   before(:each) do
     allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:manager)
+                                                                           FactoryBot.build_stubbed(:manager)
                                                                          end)
     assign(:users, [
              User.create!(
                first_name: 'Manager',
                last_name: 'Test',
                email: 'manager@mail.uc.edu',
-               password: 'managertest',
-               password_confirmation: 'managertest',
                roles: 'manager'
              )
            ])

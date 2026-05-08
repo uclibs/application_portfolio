@@ -18,8 +18,6 @@ RSpec.describe UsersController, type: :controller do
       first_name: 'Admin',
       last_name: 'Test',
       email: 'admin13@uc.edu',
-      password: 'admintest123',
-      password_confirmation: 'admintest123',
       roles: 'admin'
     }
   end
@@ -29,8 +27,6 @@ RSpec.describe UsersController, type: :controller do
       first_name: 'Admin 2',
       last_name: 'Test 2',
       email: 'admin13@uc.edu',
-      password: 'admintest123',
-      password_confirmation: 'admintest123',
       roles: 'user'
     }
   end
@@ -71,12 +67,40 @@ RSpec.describe UsersController, type: :controller do
     it 'updates the user' do
       new_user = User.create! new_attributes
       post :update, params: { id: User.second.id, first_name: new_attributes[:first_name], last_name: new_attributes[:last_name],
-                              email: new_attributes[:email], password: new_attributes[:password], password_confirmation: new_attributes[:password_confirmation], roles: new_attributes[:roles] }, session: valid_session
+                              email: new_attributes[:email], roles: new_attributes[:roles] }, session: valid_session
       new_user.reload
       expect(new_user.first_name).to eq('Admin 2')
       expect(new_user.last_name).to eq('Test 2')
       expect(new_user.email).to eq('admin13@uc.edu')
       expect(new_user.roles).to eq([:user])
+    end
+
+    it 'redirects to provided return_to path after successful update' do
+      new_user = User.create! new_attributes
+      post :update, params: { id: new_user.id, first_name: new_attributes[:first_name], last_name: new_attributes[:last_name],
+                              email: new_attributes[:email], roles: new_attributes[:roles], return_to: '/myprofile' }, session: valid_session
+
+      expect(response).to redirect_to('/myprofile')
+    end
+
+    it 'redirects self-updates to profile when return_to is missing' do
+      viewer = FactoryBot.create(:viewer, title: 'Staff', department: 'Libraries')
+      sign_in viewer
+
+      post :update, params: { id: viewer.id, title: 'Analyst', department: 'Libraries' }, session: valid_session
+
+      expect(response).to redirect_to(myprofile_path)
+      expect(viewer.reload.title).to eq('Analyst')
+    end
+
+    it 'allows no-op updates without raising an alert' do
+      viewer = FactoryBot.create(:viewer, title: 'Staff', department: 'Libraries')
+      sign_in viewer
+
+      post :update, params: { id: viewer.id, title: 'Staff', department: 'Libraries' }, session: valid_session
+
+      expect(response).to redirect_to(myprofile_path)
+      expect(flash[:notice]).to eq('No changes were made.')
     end
   end
 

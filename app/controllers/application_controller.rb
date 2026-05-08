@@ -2,6 +2,8 @@
 
 # Application Controller
 class ApplicationController < ActionController::Base
+  include ProfileCompletionGate
+
   helper_method :navigation
   before_action :configure_permitted_parameters, if: :devise_controller?
   $deployed_at = Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -15,10 +17,8 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: %i[first_name last_name department title email password password_confirmation
-                                               current_password roles active])
+                                      keys: %i[first_name last_name department title email roles active])
     devise_parameter_sanitizer.permit(:account_update,
-                                      keys: %i[first_name last_name department title email password password_confirmation
-                                               current_password])
+                                      keys: %i[first_name last_name department title email])
   end
 end

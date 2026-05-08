@@ -47,8 +47,7 @@ require 'devise'
 
 def sign_in(user)
   post user_session_path \
-    'user[email]' => user.email,
-    'user[password]' => user.password
+    'user[email]' => user.email
 end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

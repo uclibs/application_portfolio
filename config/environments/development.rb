@@ -3,6 +3,11 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.x.auth.shibboleth_enabled = false
+  config.x.auth.allow_email_sign_in = true
+  config.x.auth.allow_legacy_shibboleth_env_keys = false
+  config.x.auth.expose_shibboleth_validation_errors = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
