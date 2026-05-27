@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.7'
+ruby '3.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.0'
@@ -108,7 +108,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'capistrano', '3.19.2'
+  gem 'capistrano', '~> 3.20'
   gem 'capistrano-bundler', '~> 1.6', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-rvm', require: false
@@ -131,7 +131,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner-active_record'
-  gem 'selenium-webdriver', '~> 4.18.1'
+  gem 'selenium-webdriver', '>= 4.18.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
