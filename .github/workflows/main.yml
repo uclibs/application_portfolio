@@ -20,6 +20,11 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: Enable Yarn
+        run: |
+          corepack enable
+          yarn -v
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

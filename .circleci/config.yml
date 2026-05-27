@@ -41,6 +41,12 @@ jobs:
 
       - node/install:
           node-version: '24.16'
+          install-yarn: true
+          install-yarn-version: '1.22.22'
+
+      - run:
+          name: Verify Node and Yarn
+          command: node -v && yarn -v
 
       - restore_cache:
           keys:
