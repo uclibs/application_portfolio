@@ -55,6 +55,8 @@ yarn.lock
 .idea/
 .vscode/
 .fleet/
+# Node version is pinned in .nvmrc (nvm); ignore tool-generated .node-version
+.node-version
 # Cursor: ignore local IDE state, track shared project rules
 .cursor/*
 !.cursor/rules/

@@ -40,7 +40,7 @@ jobs:
       - checkout
 
       - node/install:
-          node-version: '24.16'
+          node-version: '24.16.0'
           install-yarn: true
           install-yarn-version: '1.22.22'
 
