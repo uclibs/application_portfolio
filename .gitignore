@@ -55,7 +55,10 @@ yarn.lock
 .idea/
 .vscode/
 .fleet/
-.cursor
+# Cursor: ignore local IDE state, track shared project rules
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 *.sublime-project
 *.sublime-workspace
 

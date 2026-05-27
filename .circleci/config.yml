@@ -3,12 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2.1
-executors:
-  docker-publisher:
-    environment:
-      IMAGE_NAME: application_portfolio
-    docker:
-      - image: docker:20.10.23
 
 orbs:
   browser-tools: circleci/browser-tools@1.5.0
