@@ -17,6 +17,8 @@ rails server
 
 Ruby 3.4.9
 
+Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
+
 ## Running the Tests
 The application portfolio has a test suite built with rspec, rubocop, and coveralls, running it is simple, just call the following in the project directory:
 

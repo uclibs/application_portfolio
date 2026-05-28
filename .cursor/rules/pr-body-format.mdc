@@ -7,6 +7,15 @@ alwaysApply: true
 
 When the user asks for a **PR body**, **pull request description**, or similar (e.g. "PR body for this branch", "write the PR description"):
 
+## Base branch (default)
+
+Unless the user specifies another base (e.g. `main`, `production`), assume the PR targets **`qa`**:
+
+- Compare the **current branch** to **`qa`** (`git log qa..HEAD`, `git diff qa...HEAD`) to summarize changes accurately.
+- Write the body for merging **current branch → `qa`** (title/description should reflect that scope).
+
+## Format
+
 1. Write the full body in **raw Markdown** (GitHub-ready: `## Summary`, `## Test plan`, checklists, etc.).
 2. Return it **only** inside a single **fenced code block** tagged `md` — do not render it as formatted prose outside the fence.
 3. Do not wrap the block in extra commentary before or after unless the user also asked for explanation; if context is needed, put it **outside** the fence in one short sentence max.

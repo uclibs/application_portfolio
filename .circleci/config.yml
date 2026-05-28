@@ -7,6 +7,7 @@ version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.5.0
   coveralls: coveralls/coveralls@1.0.6
+  node: circleci/node@7.1.0
 
 jobs:
   build:
@@ -37,6 +38,15 @@ jobs:
       - browser-tools/install-chrome
 
       - checkout
+
+      - node/install:
+          node-version: '24.16.0'
+          install-yarn: true
+          install-yarn-version: '1.22.22'
+
+      - run:
+          name: Verify Node and Yarn
+          command: node -v && yarn -v
 
       - restore_cache:
           keys:
