@@ -3,7 +3,7 @@
 require 'byebug'
 
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.19.2'
+lock '~> 3.20.1'
 
 set :application, 'application_portfolio'
 set :repo_url, 'https://github.com/uclibs/application_portfolio.git'

@@ -1,3 +1,22 @@
+2.0.0 5/29/2026
+
+* Implements Single Sign-On (SSO) via Shibboleth
+  * Adds Shibboleth session handling and user provisioning
+  * Adds EPPN field to users
+  * Removes local Devise registration, password reset, and signup mailer
+* Upgrades Rails to 8.1.3
+* Upgrades Rack to 3.2
+* Updates Ruby to 3.4.9
+* Updates Nokogiri to 1.19
+* Updates Node to 24
+* Updates Capistrano and Selenium dependencies
+* Removes unused Docker development tooling
+* Removes unused Application Cable boilerplate
+* Creates dev users only in the development environment
+* Bundle and yarn updates; adds bundler-audit to the GitHub workflow
+* Bug Fixes
+  * Fixes multi-value "add more" fields
+
 1.7.1 2/13/2026
 
 * Updates Ruby to 3.4.7
