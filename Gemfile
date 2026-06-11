@@ -106,7 +106,6 @@ group :development do
   # 2.x uses `bundler:config` (bundle config --local) before install; see config/deploy.rb.
   gem 'capistrano-bundler', '~> 2.2', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rvm', require: false
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '~> 3.5'
   gem 'web-console', '>= 3.3.0'

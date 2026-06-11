@@ -7,4 +7,5 @@ fi
 
 # Kill rails server if exists
 kill -9 $(lsof -i tcp:3000 -t) 2> /dev/null
+# Local cap deploy only: start Rails via RVM. QA/production use rbenv (check_ruby.sh) and systemd.
 source "$HOME/.rvm/scripts/rvm" && bundle exec rails server -p 3000 -b 0.0.0.0 -d

@@ -53,13 +53,21 @@ user.save
 ```
 * Deployment instructions
 
-We deploy this application to both qa and production using Capistrano.  You must make an IP tunnel to the deploy from your local workstation.
+We deploy this application to both qa and production using Capistrano. You must be on the library intranet to deploy from your local workstation.
 
 ```bash
-cap qa deploy for qa
-
-cap prod deploy for production
+cap qa deploy          # QA (libappstest)
+cap production deploy  # production (libapps)
 ```
+
+**Ruby version managers on deploy hosts**
+
+| Environment | Host | Ruby manager | Notes |
+|-------------|------|--------------|-------|
+| QA / production | libappstest, libapps | **rbenv** (user `apache`, `/home/apache/.rbenv`) | `scripts/check_ruby.sh` runs on deploy to install the version from `.ruby-version` when missing |
+| Local cap deploy | localhost | **RVM** (via `scripts/start_local.sh` only) | Optional dev workflow; Capistrano does not use the capistrano-rvm gem |
+
+Puma on QA/production is managed by systemd (`puma-appport.service`), not by Capistrano's Ruby plugin.
 
 * Configuration
 
