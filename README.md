@@ -7,11 +7,14 @@ This application tracks, monitors, and secures information on all of UCL's servi
 Provided that you have Ruby on Rails installed you can run this application on your local machine or server.
 
 ```bash
-git clone github.com/uclibs/application_profile
+git clone git@github.com:uclibs/application_portfolio.git
+cd application_portfolio
 bundle install
-rails db:migrate
-rails server
+bin/rails db:migrate
+bin/rails server
 ```
+
+Use Ruby **3.4.9** (see `.ruby-version`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
 
 ## Ruby version and System dependencies
 
@@ -20,14 +23,20 @@ Ruby 3.4.9
 Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 ## Running the Tests
-The application portfolio has a test suite built with rspec, rubocop, and coveralls, running it is simple, just call the following in the project directory:
+
+The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
+
+```bash
+bundle exec rspec
+bundle exec rubocop
+```
+
+The test environment is configured to **raise on Rails/Rack deprecations** (`config.active_support.deprecation = :raise`), so deprecation warnings fail the suite rather than printing to stderr.
+
+For Coveralls locally:
 
 ```bash
 coveralls report
-```
-
-```bash
-rubocop -a
 ```
 
 ## Database creation
@@ -44,7 +53,7 @@ rails console
 
 email_address = "user@example.com"
 
-user = User.find_by_email(email_address)
+user = User.find_by(email: email_address)
 
 user.roles = "root_admin"
 
