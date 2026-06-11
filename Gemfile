@@ -37,12 +37,6 @@ gem 'sass-rails', '~> 6.0'
 gem 'sprockets', '~> 4.2', '>= 4.2.2'
 # Use Devise for authentication
 gem 'devise'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.2', '>= 4.2.1'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -75,7 +69,7 @@ gem 'gritter'
 # Use bootstrap-datepicker-rails for datepicker
 gem 'bootstrap-datepicker-rails'
 # Use chartkick for data-visualization techniques
-gem 'chartkick', '~> 4.0', '>= 4.0.4'
+gem 'chartkick', '~> 5.2'
 # Use groupdate to group by dates
 gem 'csv'
 gem 'groupdate'
@@ -103,8 +97,8 @@ group :development, :test do
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
-  gem 'rspec-rails', '~> 6.0'
-  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rspec-rails', '~> 8.0'
+  gem 'shoulda-matchers', '~> 7.0'
 end
 
 group :development do
