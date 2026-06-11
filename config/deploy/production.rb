@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+# Production server (libapps.libraries.uc.edu)
+
 set :rails_env, :production
-set :bundle_without, %w[development test].join(' ')
+# Colon-separated groups; required by capistrano-bundler 2.x / Bundler 2.
+set :bundle_without, %w[development test].join(':')
 set :branch, 'main'
 set :default_env, path: '$PATH:/usr/local/bin'
+# Shared across releases; written by capistrano-bundler's bundler:config.
 set :bundle_path, -> { shared_path.join('vendor/bundle') }
 append :linked_dirs, 'tmp', 'log'
 ask(:username, nil)
