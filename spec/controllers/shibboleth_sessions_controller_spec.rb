@@ -78,7 +78,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         get :create
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response).to render_template(:error)
         expect(response.body).to include('Synthetic validation failure for troubleshooting')
       end
@@ -93,7 +93,7 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
 
         get :create
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response).to render_template(:error)
         expect(response.body).not_to include('Synthetic validation failure for troubleshooting')
         expect(response.body).to include("couldn't finish setting up")
