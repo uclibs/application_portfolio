@@ -28,6 +28,6 @@ class ShibbolethSessionsController < ApplicationController
         detail
     end
 
-    render :error, status: :unprocessable_entity
+    render :error, status: :unprocessable_content
   end
 end
