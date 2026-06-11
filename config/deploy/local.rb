@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Local Capistrano deploy to localhost (development SQLite, no init_qp).
+# App server start uses RVM in scripts/start_local.sh; Capistrano does not load capistrano-rvm.
 
 set :rails_env, :development
 # Colon-separated groups; required by capistrano-bundler 2.x / Bundler 2.

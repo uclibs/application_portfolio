@@ -48,6 +48,8 @@ task :start_qp do
   end
 end
 
+# Ensures the Ruby version in .ruby-version is installed via rbenv on QA/production.
+# Deploy hosts use rbenv under the apache user (/home/apache/.rbenv); see README.
 task :ruby_update_check do
   on roles(:all) do
     execute "cd #{fetch(:release_path)}/ && chmod a+x scripts/* && source scripts/check_ruby.sh"

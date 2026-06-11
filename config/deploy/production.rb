@@ -19,6 +19,7 @@ if fetch(:value) != 'Y'
   exit
 end
 set :deploy_to, '/opt/webapps/application_portfolio'
+# rbenv: ensure .ruby-version is installed before bundler:install (see check_ruby.sh).
 after 'deploy:updating', 'ruby_update_check'
 after 'deploy:updating', 'init_qp'
 before 'deploy:cleanup', 'start_qp'

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Note: Change this to be the version on ruby needed on the server.
-# Could change this to read the .ruby-version in the project
+# QA and production deploy hosts manage Ruby with rbenv (user apache, /home/apache/.rbenv).
+# Runs during cap deploy via ruby_update_check, before bundler:config/install.
+# Installs the version from .ruby-version when missing.
 RUBY_VERSION=$(cat .ruby-version | sed s/ruby-//)
 
 if rbenv versions | grep -q $RUBY_VERSION; then
