@@ -91,7 +91,8 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
   it 'links to edit maintenance log tab without disabling Turbo' do
     render
 
-    edit_href = "#{edit_software_record_path(assign(:software_records).first)}#maintenance-log"
+    software_record = SoftwareRecord.find_by!(title: 'Title')
+    edit_href = "#{edit_software_record_path(software_record)}#maintenance-log"
     assert_select 'a[href=?]', edit_href
     assert_select 'a[data-turbo="false"]', count: 0
   end
