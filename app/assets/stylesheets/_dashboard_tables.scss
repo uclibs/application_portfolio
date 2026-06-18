@@ -1,0 +1,43 @@
+// Shared table and link styles for dashboard list views.
+.software-records-table {
+  font-size: 13px;
+}
+
+.table th {
+  font-size: 14px;
+}
+
+.table {
+  margin: auto;
+  color: white;
+  width: 100% !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border-color: black;
+}
+
+.table td,
+.table th {
+  border-top: none;
+}
+
+.th-link {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 1480px) {
+  .software-records-table {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .table th {
+    font-size: 16px;
+  }
+}

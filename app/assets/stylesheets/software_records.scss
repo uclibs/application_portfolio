@@ -1,27 +1,13 @@
+// Dartsass entry point for the software_records layout (admin CRUD pages).
 @import "gem_dependencies";
+@import "dashboard_base";
+@import "theme_grey";
+@import "dashboard_shell";
+@import "dashboard_tables";
 
 html,
 body {
-  height: 100%;
-  background-color: #D3D3D3;
   overflow: scroll;
-}
-
-body {
-  color: #fff;
-  text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
-}
-
-/* Links */
-a,
-a:focus,
-a:hover {
-  color: #fff;
-}
-
-.navbar {
-  background-color: black;
-  margin-bottom: 0;
 }
 
 .jumbotron {
@@ -43,7 +29,7 @@ a:hover {
 }
 
 .album {
-  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  min-height: 50rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
   background-color: #D3D3D3;
@@ -91,7 +77,7 @@ footer p {
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255,255,255,.25);
+  border-bottom-color: rgba(255, 255, 255, 0.25);
 }
 
 .nav-masthead .nav-link + .nav-link {
@@ -108,96 +94,8 @@ footer p {
   font-size: 15px;
 }
 
-.form-control {
-  color: black;
-}
-
-option {
-  padding: 0 24px;
-}
-
-.gritter {
-  right: -10px;
-  top: 70px;
-}
-
-.sidenav {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 16px;
-  color:#E6E0E0;
-  transition: 0.3s;
-  display: block;
-  text-align: left;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  font-size: 36px;
-  margin-left: 45px;
-}
-
-#main {
-  display: flex; /* Flexbox for layout management */
-  flex-direction: column; /* Stack children vertically */
-  min-height: 100vh; /* Ensure it covers the full viewport height */
-  position: relative; /* For context for absolutely positioned children like the footer */
-  transition: margin-left .5s;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-#pillSideNav span {
-  position: fixed;
-  left: -117px;
-  top: 100px;
-  transition: 0.3s;
-  padding: 15px;
-  width: 150px;
-  text-decoration: none;
-  font-size: 19px;
-  color: black;
-  text-align: right;
-  border-radius: 0 5px 5px 0;
-}
-
-#pillSideNav span:hover {
-  left: 0;
-  cursor: pointer;
+.software-records-table th {
   text-align: center;
-}
-
-#pillSideNav #dashboard-open {
-  background-color: #FFFAFA;
-}
-
-.software-records-table {
-  font-size: 13px;
-  th {
-    text-align: center;
-  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -208,12 +106,7 @@ option {
 
 @media screen and (min-width: 1480px) {
   .software-records-table {
-    font-size: 16px;
-    width: 100%;
     word-break: initial;
-  }
-  .table th {
-    font-size: 16px;
   }
 
   a.action-btn {
@@ -226,7 +119,6 @@ option {
 }
 
 .table th {
-  font-size: 14px;
   border-color: white;
 }
 
@@ -240,18 +132,9 @@ th a {
   }
 }
 
-.table {
-  margin: auto;
-  color: white;
-  width: 100% !important;
-  background-color: transparent;
-  border-radius: 5px;
-  border-color: black;
-}
-
-.table td, .table th {
+.table td,
+.table th {
   vertical-align: top !important;
-  border-top: none;
 }
 
 .table tr {
@@ -260,21 +143,12 @@ th a {
   }
 }
 
-.th-link {
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   margin-left: -20px;
   font-size: 14px;
@@ -298,7 +172,7 @@ th a {
   display: block;
 }
 
-.drop:hover{
+.drop:hover {
   cursor: pointer;
 }
 
@@ -322,47 +196,8 @@ th a {
   margin-bottom: 4rem;
 }
 
-dt{
+dt {
   color: red;
-}
-
-.dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color:peachpuff;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-.dropdown-btn:hover {
-  color: #f1f1f1;
-}
-
-.dropdown-container a{
-  font-size: 15px;
-  text-align: right;
-}
-
-.dropdown-container{
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-.active {
-  background-color: #E00122;
-  color: white;
 }
 
 // style tabbed form
@@ -370,36 +205,13 @@ div.active.tab-pane {
   background-color: #000;
 }
 
-#btnAddDepartments:hover {
-  cursor: pointer;
-  .fa-plus {
-    color: red;
-  }
-}
-
-#btnAddProductOwners:hover {
-  cursor: pointer;
-  .fa-plus {
-    color: red;
-  }
-}
-
-#btnAddAdminUsers:hover {
-  cursor: pointer;
-  .fa-plus {
-    color: red;
-  }
-}
-
-#btnAddTechLeads:hover {
-  cursor: pointer;
-  .fa-plus {
-    color: red;
-  }
-}
-
+#btnAddDepartments:hover,
+#btnAddProductOwners:hover,
+#btnAddAdminUsers:hover,
+#btnAddTechLeads:hover,
 #btnAddDevelopers:hover {
   cursor: pointer;
+
   .fa-plus {
     color: red;
   }
@@ -430,21 +242,8 @@ input[type="radio"]:checked {
 
 .prod-data:hover {
   .prod-title {
-    color: #04446c; 
+    color: #04446c;
   }
-}
-
-.auth-role {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #f1f1f1;
-  display: block;
-  border: none;
-  background-color: #E00122;
-  width: 100%;
-  text-align: left;
-  outline: none;
 }
 
 a.anchor-underline:hover {
