@@ -15,12 +15,12 @@
 
 <div class="mb-3">
   <%= form.label :date_implemented, "Date Implemented", for: "software_record_date_implemented" %>
-  <%= form.date_field :date_implemented, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: 'form-control', id: "software_record_date_implemented" %>
+  <%= form.date_field :date_implemented, class: "form-control", id: "software_record_date_implemented" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :date_of_upgrade, "Date of Last Upgrade", for: "software_record_date_of_upgrade" %>
-  <%= form.date_field :date_of_upgrade, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: 'form-control', id: "software_record_date_of_upgrade" %>
+  <%= form.date_field :date_of_upgrade, class: "form-control", id: "software_record_date_of_upgrade" %>
 </div>
 
 <div class="mb-3">

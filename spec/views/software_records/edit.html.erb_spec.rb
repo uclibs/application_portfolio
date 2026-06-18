@@ -67,6 +67,14 @@ RSpec.describe 'software_records/edit', type: :view do
     end
   end
 
+  it 'renders native date inputs with ISO values' do
+    @software_record.update!(date_implemented: Date.new(2020, 12, 12), last_security_scan: Date.new(2021, 6, 15))
+    render
+
+    assert_select 'input#software_record_date_implemented[type=date][value=?]', '2020-12-12'
+    assert_select 'input#software_record_last_security_scan[type=date][value=?]', '2021-06-15'
+  end
+
   it 'renders form tab links' do
     render
 
@@ -114,6 +122,7 @@ RSpec.describe 'software_records/edit', type: :view do
       assert_select 'input[name=?]', 'software_record[service]'
       assert_select 'textarea[name=?]', 'software_record[installed_version]'
       assert_select 'textarea[name=?]', 'software_record[proposed_version]'
+      assert_select 'input[name=?][type=?]', 'software_record[last_upgrade_date]', 'date'
       assert_select 'input[name=?]', 'software_record[monitor_errors]'
       assert_select 'select[name=?]', 'software_record[priority]' do
         assert_select 'option[value=?]', '', text: ''
