@@ -66,8 +66,6 @@ gem 'dotenv-rails'
 gem 'petergate'
 # Use gritter for flash message
 gem 'gritter'
-# Use bootstrap-datepicker-rails for datepicker
-gem 'bootstrap-datepicker-rails'
 # Use chartkick for data-visualization techniques
 gem 'chartkick', '~> 5.2'
 # Use groupdate to group by dates
