@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+# Tests need freshly compiled CSS from app/assets/builds/. A leftover
+# public/assets manifest from assets:precompile pins stale digests and can
+# make stylesheet_link_tag serve outdated CSS (e.g. a runtime gritter @import
+# that resolves to Rails HTML).
+RSpec.configure do |config|
+  config.before(:suite) do
+    public_assets = Rails.public_path.join('assets')
+    FileUtils.rm_rf(public_assets) if public_assets.directory?
+
+    Rails.application.load_tasks
+    Rake::Task['dartsass:build'].reenable
+    Rake::Task['dartsass:build'].invoke
+  end
+end

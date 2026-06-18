@@ -1,8 +1,6 @@
-$enable-responsive-font-sizes: false;
-
-@import "bootstrap";
-@import "gritter";
-@import "**/*";
+@import "gem_dependencies";
+@import "vendor_records";
+@import "software_types";
 
 html,
 body {

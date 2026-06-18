@@ -67,3 +67,6 @@ yarn.lock
 # Ignore .env.production and .env.production.local
 .env.production
 .env.production.local
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

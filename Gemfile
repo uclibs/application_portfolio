@@ -31,10 +31,11 @@ gem 'rack', '~> 3.0'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 6.0'
+# Compile SCSS with Dart Sass (replaces deprecated sassc-rails / LibSass)
+gem 'dartsass-rails'
 # Asset pipeline dependencies for Rack 3.x compatibility
 gem 'sprockets', '~> 4.2', '>= 4.2.2'
+gem 'sprockets-rails'
 # Use Devise for authentication
 gem 'devise'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -59,7 +60,6 @@ gem 'simplecov-lcov', require: false
 # Use bootstrap css, jquery-rails gem for styling the components
 gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails'
-gem 'sassc-rails', '~> 2.1' # SASSC adapter for Rails, needed for Bootstrap 5
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
 # Use petergate for authorization
@@ -104,6 +104,7 @@ group :development do
   # 2.x uses `bundler:config` (bundle config --local) before install; see config/deploy.rb.
   gem 'capistrano-bundler', '~> 2.2', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
+  gem 'foreman'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '~> 3.5'
   gem 'web-console', '>= 3.3.0'
