@@ -25,6 +25,9 @@ jobs:
           corepack enable
           yarn -v
 
+      - name: Install JavaScript dependencies
+        run: yarn install
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

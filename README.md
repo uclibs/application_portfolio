@@ -24,7 +24,7 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 ### JavaScript (esbuild)
 
-JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101). The entry point is `app/javascript/application.js`; `yarn build` writes `app/assets/builds/application.js` (and source maps). **Sprockets still serves the legacy `app/assets/javascripts/` bundle until cutover ticket #12.**
+JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101). The entry point is `app/javascript/application.js`; `yarn build` (or `bin/rails javascript:build`) writes `app/assets/builds/application.js` and source maps. **Sprockets still serves the legacy `app/assets/javascripts/` bundle in the browser until cutover ticket #12** — use `yarn build` locally for build verification only, not day-to-day browsing.
 
 Compiled files under `app/assets/builds/` are not committed (see `.gitignore`). After changing JS dependencies or entry code:
 
@@ -32,8 +32,6 @@ Compiled files under `app/assets/builds/` are not committed (see `.gitignore`). 
 yarn install
 yarn build
 ```
-
-Until cutover ticket #12, Sprockets still serves `app/assets/javascripts/application.js` in the browser. The esbuild bundle in `app/assets/builds/application.js` is toolchain output for verification and deploy precompile; running `yarn build` locally while using the legacy Sprockets JS is supported for build checks only.
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch):
 
