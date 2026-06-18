@@ -1,8 +1,4 @@
-<!-- app/views/software_records/edit.html.erb -->
-
-<h1>Edit Software Record</h1>
-
-  <div class="mb-3">
+<div class="mb-3">
     <%= form.label :service %>
     <%= form.text_field :service, :class => "form-control" %>
   </div>
@@ -18,8 +14,8 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :last_upgrade_date %>
-    <%= form.date_field :last_upgrade_date, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), :class => "form-control" %>
+    <%= form.label :last_upgrade_date, for: "software_record_last_upgrade_date" %>
+    <%= form.date_field :last_upgrade_date, class: "form-control", id: "software_record_last_upgrade_date" %>
   </div>
 
   <div class="mb-3">

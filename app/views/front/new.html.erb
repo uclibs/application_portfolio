@@ -24,14 +24,14 @@
           <% if user_signed_in? && current_user.role.to_s == "owner" %>
             <div class="mb-3">
               <%= form.label :date_implemented %>
-              <%= form.date_field :date_implemented, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+              <%= form.date_field :date_implemented, class: "form-control" %>
             </div>
           <% end %>
 
           <% if user_signed_in? && current_user.role.to_s == "owner" %>
             <div class="mb-3">
               <%= form.label :date_of_upgrade %>
-              <%= form.date_field :date_of_upgrade, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+              <%= form.date_field :date_of_upgrade, class: "form-control" %>
             </div>
           <% end %>
 

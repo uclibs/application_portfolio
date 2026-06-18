@@ -14,22 +14,22 @@
 
 <div class="mb-3">
   <%= form.label :last_security_scan, "Last Security Scan", for: "software_record_last_security_scan" %>
-  <%= form.date_field :last_security_scan, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_security_scan" %>
+  <%= form.date_field :last_security_scan, class: "form-control", id: "software_record_last_security_scan" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :last_accessibility_scan, "Last Accessibility Scan", for: "software_record_last_accessibility_scan" %>
-  <%= form.date_field :last_accessibility_scan, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_accessibility_scan" %>
+  <%= form.date_field :last_accessibility_scan, class: "form-control", id: "software_record_last_accessibility_scan" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :last_ogc_review, "Last OGC Review", for: "software_record_last_ogc_review" %>
-  <%= form.date_field :last_ogc_review, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_ogc_review" %>
+  <%= form.date_field :last_ogc_review, class: "form-control", id: "software_record_last_ogc_review" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :last_info_sec_review, "Last InfoSec Review", for: "software_record_last_info_sec_review" %>
-  <%= form.date_field :last_info_sec_review, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_info_sec_review" %>
+  <%= form.date_field :last_info_sec_review, class: "form-control", id: "software_record_last_info_sec_review" %>
 </div>
 
 <div class="mb-3">

@@ -40,12 +40,12 @@
 
 <div class="mb-3">
   <%= form.label :last_record_change, "Last Record Change", for: "software_record_last_record_change" %>
-  <%= form.date_field :last_record_change, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_last_record_change" %>
+  <%= form.date_field :last_record_change, class: "form-control", id: "software_record_last_record_change" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :date_cert_expires, "Certificate Expiration", for: "software_record_date_cert_expires" %>
-  <%= form.date_field :date_cert_expires, as: :date, value: form.object.try(:strftime, "%m/%d/%Y"), class: "form-control", id: "software_record_date_cert_expires" %>
+  <%= form.date_field :date_cert_expires, class: "form-control", id: "software_record_date_cert_expires" %>
 </div>
 
 <fieldset class="mb-3">

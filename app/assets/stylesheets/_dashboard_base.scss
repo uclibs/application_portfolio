@@ -24,6 +24,11 @@ a:hover {
   color: black;
 }
 
+// Native date picker on dark dashboard forms: use a light calendar UI.
+input[type="date"].form-control {
+  color-scheme: light;
+}
+
 option {
   padding: 0 24px;
 }
