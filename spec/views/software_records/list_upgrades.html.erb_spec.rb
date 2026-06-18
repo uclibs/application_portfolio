@@ -88,6 +88,14 @@ RSpec.describe 'software_records/list_upgrades', type: :view do
     expect(rendered).to have_content('Title 3')
   end
 
+  it 'links to edit maintenance log tab without disabling Turbo' do
+    render
+
+    edit_href = "#{edit_software_record_path(assign(:software_records).first)}#maintenance-log"
+    assert_select 'a[href=?]', edit_href
+    assert_select 'a[data-turbo="false"]', count: 0
+  end
+
   it 'does not display the software record without priority' do
     render
     expect(rendered).not_to have_content('Title 2')

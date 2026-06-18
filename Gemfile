@@ -38,8 +38,8 @@ gem 'sprockets', '~> 4.2', '>= 4.2.2'
 gem 'sprockets-rails'
 # Use Devise for authentication
 gem 'devise'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# Hotwire Turbo for fast in-app navigation (replaces turbolinks)
+gem 'turbo-rails', '~> 2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
