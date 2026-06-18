@@ -7,7 +7,7 @@ Rails.application.config.assets.version = '1.0'
 
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
-# Add Yarn node_modules folder to the asset load path (used by future jsbundling; see LIBAPPO1-#17).
+# Add Yarn node_modules folder to the asset load path (esbuild / jsbundling; see LIBAPPO1-101).
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Compiled CSS from dartsass-rails lives in app/assets/builds/ (linked in manifest.js).
 Rails.application.config.assets.precompile += %w[software_records.css]

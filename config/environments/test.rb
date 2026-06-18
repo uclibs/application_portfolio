@@ -6,6 +6,10 @@
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  # Esbuild output in app/assets/builds/application.js duplicates Sprockets' logical
+  # path until #12; skip auto-build during tests (see spec/build/javascript_build_spec.rb).
+  ENV['SKIP_JS_BUILD'] = 'true'
+
   config.x.auth.shibboleth_enabled = false
   config.x.auth.allow_email_sign_in = true
   config.x.auth.allow_legacy_shibboleth_env_keys = false
