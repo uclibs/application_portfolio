@@ -10,11 +10,10 @@ RSpec.describe 'esbuild javascript build' do
     FileUtils.rm_f(Rails.root.join('app/assets/builds/application.js.map'))
   end
 
-  it 'javascript:build produces app/assets/builds/application.js' do
-    Rails.application.load_tasks
-    Rake::Task['javascript:install'].reenable
-    Rake::Task['javascript:build'].reenable
-    Rake::Task['javascript:build'].invoke
+  it 'yarn build produces app/assets/builds/application.js' do
+    skip 'Run `nvm use && yarn install` to install JavaScript dependencies' unless JavascriptBuild.dependencies_installed?
+
+    JavascriptBuild.run!
 
     bundle = Rails.root.join('app/assets/builds/application.js')
     expect(bundle).to exist

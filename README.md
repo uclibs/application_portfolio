@@ -44,6 +44,7 @@ bin/dev
 The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
 
 ```bash
+nvm use   # Node 24.x; required for yarn install if node_modules is missing
 bundle exec rspec
 bundle exec rubocop
 ```
