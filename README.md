@@ -40,6 +40,8 @@ nvm use
 bin/dev
 ```
 
+**Deploy:** QA and production `assets:precompile` skip the esbuild step (`SKIP_JS_BUILD` in `config/application.rb`) because deploy hosts do not have Node 24 yet and the bundle is not served until #12. Ticket #18 will add Node to deploy and remove that skip.
+
 ## Running the Tests
 
 The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
