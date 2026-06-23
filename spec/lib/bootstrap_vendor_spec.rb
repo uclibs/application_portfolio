@@ -65,6 +65,17 @@ RSpec.describe BootstrapVendor do
       end
       FileUtils.rm_rf(backup)
     end
+
+    it 'aborts when bootstrap scss is missing from node_modules' do
+      missing_root = root.join('tmp/bootstrap_vendor_scss_missing')
+      FileUtils.mkdir_p(missing_root)
+
+      expect do
+        described_class.copy_stylesheets!(missing_root)
+      end.to output("Run yarn install first; bootstrap package not found in node_modules\n").to_stderr.and raise_error(SystemExit)
+    ensure
+      FileUtils.rm_rf(missing_root)
+    end
   end
 
   describe '.vendor!' do
@@ -83,6 +94,30 @@ RSpec.describe BootstrapVendor do
   describe '.stylesheets_path' do
     it 'prefers the vendored bootstrap scss directory when present' do
       expect(described_class.stylesheets_path).to eq(scss_destination)
+    end
+
+    it 'falls back to node_modules bootstrap scss when the vendored copy is missing' do
+      skip 'run yarn install first' unless scss_source.directory?
+
+      tmp_root = root.join('tmp/bootstrap_vendor_stylesheets_path')
+      FileUtils.rm_rf(tmp_root)
+      FileUtils.mkdir_p(tmp_root.join('node_modules/bootstrap'))
+      FileUtils.cp_r(scss_source, tmp_root.join('node_modules/bootstrap/scss'))
+
+      expect(described_class.stylesheets_path(tmp_root)).to eq(tmp_root.join('node_modules/bootstrap/scss'))
+    ensure
+      FileUtils.rm_rf(tmp_root)
+    end
+
+    it 'aborts when bootstrap scss is missing from both vendor and node_modules' do
+      missing_root = root.join('tmp/bootstrap_vendor_stylesheets_missing')
+      FileUtils.mkdir_p(missing_root)
+
+      expect do
+        described_class.stylesheets_path(missing_root)
+      end.to output("Bootstrap SCSS not found. Run yarn install and rake bootstrap:vendor.\n").to_stderr.and raise_error(SystemExit)
+    ensure
+      FileUtils.rm_rf(missing_root)
     end
   end
 
