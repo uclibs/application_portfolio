@@ -1,5 +1,6 @@
 // Dartsass entry point for the software_records layout (admin CRUD pages).
 @import "dashboard_core";
+@import "dashboard_contrast";
 
 html,
 body {
@@ -106,6 +107,15 @@ dt {
 // style tabbed form
 div.active.tab-pane {
   background-color: #000;
+  color: #fff;
+
+  label,
+  .form-label,
+  .col-form-label,
+  legend,
+  .form-check-label {
+    color: #fff;
+  }
 }
 
 #btnAddDepartments:hover,
