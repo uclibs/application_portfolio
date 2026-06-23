@@ -26,14 +26,14 @@ RSpec.describe BootstrapVendor do
     end
 
     it 'aborts when the bootstrap bundle is missing from node_modules' do
-      skip 'run yarn install first' unless source.exist?
+      missing_root = root.join('tmp/bootstrap_vendor_spec')
+      FileUtils.mkdir_p(missing_root)
 
-      backup = source.sub_ext('.bak')
-      FileUtils.mv(source, backup)
-
-      expect { described_class.copy_bundle! }.to raise_error(SystemExit, /Run yarn install first/)
+      expect do
+        described_class.copy_bundle!(missing_root)
+      end.to output("Run yarn install first; bootstrap bundle not found in node_modules\n").to_stderr.and raise_error(SystemExit)
     ensure
-      FileUtils.mv(backup, source) if backup.exist?
+      FileUtils.rm_rf(missing_root)
     end
   end
 
