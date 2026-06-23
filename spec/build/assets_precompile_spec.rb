@@ -33,6 +33,7 @@ RSpec.describe 'assets pipeline' do
     expect(bundle).to match(/turbo/i)
     expect(bundle).to match(/chartkick|Chartkick/i)
     expect(bundle).to include('js-add-multivalue')
+    expect(bundle).to match(/Dropdown|data-bs-toggle/i)
     expect(bundle).not_to include('@rails/ujs')
   end
 

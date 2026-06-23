@@ -1,7 +1,7 @@
-import { Toast } from "bootstrap";
+import bootstrap from "./bootstrap_setup"
 
 document.addEventListener("turbo:load", function () {
   document.querySelectorAll(".flash-toast").forEach(function (element) {
-    Toast.getOrCreateInstance(element).show();
-  });
-});
+    bootstrap.Toast.getOrCreateInstance(element).show()
+  })
+})

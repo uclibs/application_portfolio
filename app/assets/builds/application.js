@@ -27566,132 +27566,22 @@ function autostart() {
 }
 setTimeout(autostart, 1);
 
-// app/javascript/navigation.js
-function sidenavElement() {
-  return document.getElementById("mySidenav");
-}
-function openNav() {
-  const sidenav = sidenavElement();
-  if (!sidenav) return;
-  sidenav.style.visibility = "visible";
-  sidenav.style.width = "250px";
-}
-function closeNav() {
-  const sidenav = sidenavElement();
-  if (!sidenav) return;
-  sidenav.style.visibility = "hidden";
-  sidenav.style.width = "0";
-}
-function resetMainLayout() {
-  const main2 = document.getElementById("main");
-  if (!main2) return;
-  main2.style.marginLeft = "";
-}
-document.addEventListener("turbo:load", resetMainLayout);
-document.addEventListener("turbo:before-cache", resetMainLayout);
-window.openNav = openNav;
-window.closeNav = closeNav;
-
-// app/javascript/filtermanagement.js
-function clearFiltersAndRedirect(targetPath) {
-  const vendorFilter = document.getElementById("vendor-record-filter");
-  const softwareTypeFilter = document.getElementById("software-type-filter");
-  if (vendorFilter) vendorFilter.style.display = "none";
-  if (softwareTypeFilter) softwareTypeFilter.style.display = "none";
-  window.location = targetPath;
-}
-function handleRadio(myRadio) {
-  const vendorFilter = document.getElementById("vendor-record-filter");
-  const softwareTypeFilter = document.getElementById("software-type-filter");
-  if (!vendorFilter || !softwareTypeFilter) return;
-  if (myRadio.value === "vendor_records") {
-    vendorFilter.style.display = "block";
-    softwareTypeFilter.style.display = "none";
-  } else {
-    vendorFilter.style.display = "none";
-    softwareTypeFilter.style.display = "block";
-  }
-}
-window.clearFiltersAndRedirect = clearFiltersAndRedirect;
-window.handleRadio = handleRadio;
-
-// app/javascript/inputsanitization.js
-document.addEventListener("turbo:load", function() {
-  const createdbyfield = document.getElementsByClassName("regex-createdby")[0];
-  if (!createdbyfield) return;
-  createdbyfield.onkeyup = function() {
-    createdbyfield.value = createdbyfield.value.replace(/[^a-zA-Z0-9 ]/g, "");
-  };
+// node_modules/bootstrap/dist/js/bootstrap.esm.js
+var bootstrap_esm_exports = {};
+__export(bootstrap_esm_exports, {
+  Alert: () => Alert,
+  Button: () => Button,
+  Carousel: () => Carousel,
+  Collapse: () => Collapse,
+  Dropdown: () => Dropdown,
+  Modal: () => Modal,
+  Offcanvas: () => Offcanvas,
+  Popover: () => Popover,
+  ScrollSpy: () => ScrollSpy,
+  Tab: () => Tab,
+  Toast: () => Toast,
+  Tooltip: () => Tooltip2
 });
-
-// app/javascript/multivalueinputs.js
-(() => {
-  "use strict";
-  if (window.__multivalueinputs_bound) return;
-  window.__multivalueinputs_bound = true;
-  const containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
-  const inputsForField = (container, fieldName) => {
-    const expectedName = `software_record[${fieldName}][]`;
-    return Array.prototype.filter.call(
-      container.querySelectorAll("input"),
-      (input) => input.name === expectedName
-    );
-  };
-  const nextIndex = (container, fieldName) => {
-    const prefix = `software_record_${fieldName}_`;
-    const inputs = inputsForField(container, fieldName);
-    let max2 = 0;
-    inputs.forEach((input) => {
-      const id2 = input.id;
-      if (id2 && id2.startsWith(prefix)) {
-        const n = parseInt(id2.slice(prefix.length), 10);
-        if (!Number.isNaN(n) && n > max2) max2 = n;
-      }
-    });
-    return max2 + 1;
-  };
-  function add(fieldName, value = "") {
-    const container = containerFor(fieldName);
-    if (!container) return;
-    const index2 = nextIndex(container, fieldName);
-    const row = document.createElement("div");
-    row.className = "input-group mt-2";
-    row.dataset.multivalueRow = "true";
-    const input = document.createElement("input");
-    input.type = "text";
-    input.required = true;
-    input.name = `software_record[${fieldName}][]`;
-    input.id = `software_record_${fieldName}_${index2}`;
-    input.className = "form-control";
-    input.value = value;
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button";
-    removeBtn.className = "btn btn-outline-danger js-remove-multivalue";
-    removeBtn.textContent = "Delete";
-    row.appendChild(input);
-    row.appendChild(removeBtn);
-    container.appendChild(row);
-    input.focus();
-  }
-  document.addEventListener("click", (e) => {
-    const target = e.target instanceof Element ? e.target : e.target.parentElement;
-    if (!target) return;
-    const addBtn = target.closest(".js-add-multivalue");
-    if (addBtn) {
-      e.preventDefault();
-      const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
-      if (!fieldName) return;
-      add(fieldName, "");
-      return;
-    }
-    const removeBtn = target.closest(".js-remove-multivalue");
-    if (removeBtn) {
-      e.preventDefault();
-      const row = removeBtn.closest(".input-group");
-      if (row) row.remove();
-    }
-  });
-})();
 
 // node_modules/@popperjs/core/lib/index.js
 var lib_exports = {};
@@ -32852,6 +32742,137 @@ var Toast = class _Toast extends BaseComponent {
 enableDismissTrigger(Toast);
 defineJQueryPlugin(Toast);
 
+// app/javascript/bootstrap_setup.js
+window.bootstrap = bootstrap_esm_exports;
+var bootstrap_setup_default = bootstrap_esm_exports;
+
+// app/javascript/navigation.js
+function sidenavElement() {
+  return document.getElementById("mySidenav");
+}
+function openNav() {
+  const sidenav = sidenavElement();
+  if (!sidenav) return;
+  sidenav.style.visibility = "visible";
+  sidenav.style.width = "250px";
+}
+function closeNav() {
+  const sidenav = sidenavElement();
+  if (!sidenav) return;
+  sidenav.style.visibility = "hidden";
+  sidenav.style.width = "0";
+}
+function resetMainLayout() {
+  const main2 = document.getElementById("main");
+  if (!main2) return;
+  main2.style.marginLeft = "";
+}
+document.addEventListener("turbo:load", resetMainLayout);
+document.addEventListener("turbo:before-cache", resetMainLayout);
+window.openNav = openNav;
+window.closeNav = closeNav;
+
+// app/javascript/filtermanagement.js
+function clearFiltersAndRedirect(targetPath) {
+  const vendorFilter = document.getElementById("vendor-record-filter");
+  const softwareTypeFilter = document.getElementById("software-type-filter");
+  if (vendorFilter) vendorFilter.style.display = "none";
+  if (softwareTypeFilter) softwareTypeFilter.style.display = "none";
+  window.location = targetPath;
+}
+function handleRadio(myRadio) {
+  const vendorFilter = document.getElementById("vendor-record-filter");
+  const softwareTypeFilter = document.getElementById("software-type-filter");
+  if (!vendorFilter || !softwareTypeFilter) return;
+  if (myRadio.value === "vendor_records") {
+    vendorFilter.style.display = "block";
+    softwareTypeFilter.style.display = "none";
+  } else {
+    vendorFilter.style.display = "none";
+    softwareTypeFilter.style.display = "block";
+  }
+}
+window.clearFiltersAndRedirect = clearFiltersAndRedirect;
+window.handleRadio = handleRadio;
+
+// app/javascript/inputsanitization.js
+document.addEventListener("turbo:load", function() {
+  document.querySelectorAll(".regex-createdby").forEach(function(field) {
+    field.addEventListener("keyup", function() {
+      field.value = field.value.replace(/[^a-zA-Z0-9 ]/g, "");
+    });
+  });
+});
+
+// app/javascript/multivalueinputs.js
+(() => {
+  "use strict";
+  if (window.__multivalueinputs_bound) return;
+  window.__multivalueinputs_bound = true;
+  const containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
+  const inputsForField = (container, fieldName) => {
+    const expectedName = `software_record[${fieldName}][]`;
+    return Array.prototype.filter.call(
+      container.querySelectorAll("input"),
+      (input) => input.name === expectedName
+    );
+  };
+  const nextIndex = (container, fieldName) => {
+    const prefix = `software_record_${fieldName}_`;
+    const inputs = inputsForField(container, fieldName);
+    let max2 = 0;
+    inputs.forEach((input) => {
+      const id2 = input.id;
+      if (id2 && id2.startsWith(prefix)) {
+        const n = parseInt(id2.slice(prefix.length), 10);
+        if (!Number.isNaN(n) && n > max2) max2 = n;
+      }
+    });
+    return max2 + 1;
+  };
+  function add(fieldName, value = "") {
+    const container = containerFor(fieldName);
+    if (!container) return;
+    const index2 = nextIndex(container, fieldName);
+    const row = document.createElement("div");
+    row.className = "input-group mt-2";
+    row.dataset.multivalueRow = "true";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.required = true;
+    input.name = `software_record[${fieldName}][]`;
+    input.id = `software_record_${fieldName}_${index2}`;
+    input.className = "form-control";
+    input.value = value;
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "btn btn-outline-danger js-remove-multivalue";
+    removeBtn.textContent = "Delete";
+    row.appendChild(input);
+    row.appendChild(removeBtn);
+    container.appendChild(row);
+    input.focus();
+  }
+  document.addEventListener("click", (e) => {
+    const target = e.target instanceof Element ? e.target : e.target.parentElement;
+    if (!target) return;
+    const addBtn = target.closest(".js-add-multivalue");
+    if (addBtn) {
+      e.preventDefault();
+      const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
+      if (!fieldName) return;
+      add(fieldName, "");
+      return;
+    }
+    const removeBtn = target.closest(".js-remove-multivalue");
+    if (removeBtn) {
+      e.preventDefault();
+      const row = removeBtn.closest(".input-group");
+      if (row) row.remove();
+    }
+  });
+})();
+
 // app/javascript/show_tab.js
 document.addEventListener("turbo:load", function() {
   const hash3 = window.location.hash;
@@ -32860,13 +32881,13 @@ document.addEventListener("turbo:load", function() {
   if (!tabList) return;
   const tabTrigger = tabList.querySelector(`a[href="${hash3}"]`);
   if (!tabTrigger) return;
-  Tab.getOrCreateInstance(tabTrigger).show();
+  bootstrap_setup_default.Tab.getOrCreateInstance(tabTrigger).show();
 });
 
 // app/javascript/flash_toasts.js
 document.addEventListener("turbo:load", function() {
   document.querySelectorAll(".flash-toast").forEach(function(element) {
-    Toast.getOrCreateInstance(element).show();
+    bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
   });
 });
 
