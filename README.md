@@ -29,8 +29,8 @@ JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101
 Compiled files under `app/assets/builds/` are not committed (see `.gitignore`). After changing JS dependencies or entry code:
 
 ```bash
-yarn install
-yarn build
+nvm use
+bin/rails javascript:build   # or: yarn install && yarn build
 ```
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch):
