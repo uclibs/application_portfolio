@@ -49,7 +49,7 @@ bin/dev
 
 Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS (and the committed JS bundle) must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh vendor SCSS and rebuild JS:
+Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh vendor SCSS and rebuild JS:
 
 ```bash
 nvm use

@@ -19,11 +19,10 @@ RSpec.describe 'Turbo layout integration', type: :request do
     application_scripts = script_tags.select { |src| src.include?('/application') }
 
     expect(application_scripts.length).to eq(1)
-    expect(response.body).to match(
-      %r{<script[^>]+src="[^"]*/application[^"]*"[^>]+type="module"[^>]+defer}
-    ).or match(
-      %r{<script[^>]+defer[^>]+type="module"[^>]+src="[^"]*/application}
-    )
+
+    application_tag = response.body[%r{<script[^>]*src="[^"]*/application[^"]*"[^>]*>}]
+    expect(application_tag).to include('type="module"')
+    expect(application_tag).to include('defer')
     expect(script_tags).not_to include(a_string_matching(%r{/turbo\.}i))
     expect(script_tags).not_to include(a_string_matching(/jquery/i))
   end

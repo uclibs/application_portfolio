@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Tests need freshly compiled CSS from app/assets/builds/. A leftover
+# Tests need freshly compiled assets from app/assets/builds/. A leftover
 # public/assets manifest from assets:precompile pins stale digests and can
 # make stylesheet_link_tag serve outdated CSS from a previous assets:precompile run.
 RSpec.configure do |config|
@@ -11,5 +11,13 @@ RSpec.configure do |config|
     Rails.application.load_tasks
     Rake::Task['dartsass:build'].reenable
     Rake::Task['dartsass:build'].invoke
+
+    js_bundle = Rails.root.join('app/assets/builds/application.js')
+    next if js_bundle.exist?
+
+    %w[javascript:prepare_node_path javascript:install javascript:build].each do |name|
+      Rake::Task[name].reenable
+    end
+    Rake::Task['javascript:build'].invoke
   end
 end
