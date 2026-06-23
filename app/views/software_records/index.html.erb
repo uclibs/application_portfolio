@@ -113,7 +113,7 @@ generate_path(software_record.production_url) %> target="_blank" ><%= clean_url(
               <% else %>
                 <td style="background-color: black ; color: white"><%= link_to 'View', software_record , { :class => "btn btn-success action-btn" }%></td>
                 <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary action-btn" } %></td>
-                <td style="background-color: black ; color: white"><%= link_to 'Delete', software_record, class: "btn btn-danger action-btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= delete_link 'Delete', software_record, class: "btn btn-danger action-btn" %></td>
               <% end %>
             </tr>
           <% end %>

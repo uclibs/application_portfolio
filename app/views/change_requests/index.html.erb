@@ -54,7 +54,7 @@
               <% else %>
                 <td style="background-color: black ; color: white"><%= link_to 'View', change_request, class: "btn btn-success" %></td>
                 <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_change_request_path(change_request), class: "btn btn-primary" %></td>
-                <td style="background-color: black ; color: white"><%= link_to 'Delete', change_request, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= delete_link 'Delete', change_request, class: "btn btn-danger" %></td>
               <% end %>
             </tr>
           <% end %>

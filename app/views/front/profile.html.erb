@@ -72,7 +72,7 @@ btn-success" %></td>
 btn-info" %></td>
                     <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to @status, user_status_path(user.id), class: 
 @class %></td>
-                    <td style="padding-left: 20px; background-color: black ; color: white"><%= link_to 'Delete', user_destroy_path(user.id), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                    <td style="padding-left: 20px; background-color: black ; color: white"><%= delete_link 'Delete', user_destroy_path(user.id), class: "btn btn-danger" %></td>
                   </tr>
                 <% end %>
               </tbody>

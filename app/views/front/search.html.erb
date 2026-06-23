@@ -39,7 +39,7 @@
               <% else %>
                 <td><%= link_to 'View', software_record , { :class => "btn btn-success actions" }%></td>
                 <td><%= link_to 'Edit', edit_software_record_path(software_record), { :class => "btn btn-primary actions" } %></td>
-                <td><%= link_to 'Delete', software_record, class: "btn btn-danger actions", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                <td><%= delete_link 'Delete', software_record, class: "btn btn-danger actions" %></td>
               <% end %>
             </tr>
           <% end %>
@@ -78,7 +78,7 @@
               <% else %>
                 <td><%= link_to 'View', software_type , { :class => "btn btn-success actions" }%></td>
                 <td><%= link_to 'Edit', edit_software_type_path(software_type), { :class => "btn btn-primary actions" } %></td>
-                <td><%= link_to 'Delete', software_type, class: "btn btn-danger actions", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                <td><%= delete_link 'Delete', software_type, class: "btn btn-danger actions" %></td>
               <% end %>
             </tr>
           <% end %>
@@ -116,7 +116,7 @@
               <% else %>
                 <td><%= link_to 'View', vendor_record , { :class => "btn btn-success actions" }%></td>
                 <td><%= link_to 'Edit', edit_vendor_record_path(vendor_record), { :class => "btn btn-primary actions" } %></td>
-                <td><%= link_to 'Delete', vendor_record, class: "btn btn-danger actions", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+                <td><%= delete_link 'Delete', vendor_record, class: "btn btn-danger actions" %></td>
               <% end %>
             </tr>
           <% end %>
