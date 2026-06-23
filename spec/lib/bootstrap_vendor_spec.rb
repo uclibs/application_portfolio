@@ -4,24 +4,26 @@ require 'rails_helper'
 
 RSpec.describe BootstrapVendor do
   let(:root) { Rails.root }
-  let(:source) { root.join('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }
-  let(:destination) { root.join('app/assets/javascripts/vendor/bootstrap.bundle.js') }
+  let(:js_source) { root.join('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }
+  let(:js_destination) { root.join('app/assets/javascripts/vendor/bootstrap.bundle.js') }
+  let(:scss_source) { root.join('node_modules/bootstrap/scss') }
+  let(:scss_destination) { root.join('app/assets/stylesheets/vendor/bootstrap/scss') }
 
   describe '.copy_bundle!' do
     it 'copies the bootstrap bundle from node_modules into vendor assets' do
-      skip 'run yarn install first' unless source.exist?
+      skip 'run yarn install first' unless js_source.exist?
 
-      original = destination.exist? ? destination.read : nil
+      original = js_destination.exist? ? js_destination.read : nil
 
       result = described_class.copy_bundle!
 
-      expect(result).to eq(destination)
-      expect(destination.read).to eq(source.read)
+      expect(result).to eq(js_destination)
+      expect(js_destination.read).to eq(js_source.read)
     ensure
       if original
-        destination.write(original)
+        js_destination.write(original)
       else
-        FileUtils.rm_f(destination)
+        FileUtils.rm_f(js_destination)
       end
     end
 
@@ -31,7 +33,89 @@ RSpec.describe BootstrapVendor do
 
       expect do
         described_class.copy_bundle!(missing_root)
-      end.to output("Run yarn install first; bootstrap bundle not found in node_modules\n").to_stderr.and raise_error(SystemExit)
+      end.to output("Run yarn install first; bootstrap package not found in node_modules\n").to_stderr.and raise_error(SystemExit)
+    ensure
+      FileUtils.rm_rf(missing_root)
+    end
+  end
+
+  describe '.copy_stylesheets!' do
+    it 'copies bootstrap scss from node_modules into vendor assets' do
+      skip 'run yarn install first' unless scss_source.directory?
+
+      backup = root.join('tmp/bootstrap_vendor_scss_backup')
+      if scss_destination.directory?
+        FileUtils.rm_rf(backup)
+        FileUtils.cp_r(scss_destination, backup)
+      end
+      original_existed = scss_destination.directory?
+
+      result = described_class.copy_stylesheets!
+
+      expect(result).to eq(scss_destination)
+      expect(scss_destination.join('bootstrap.scss')).to exist
+      expect(scss_destination.join('_variables.scss')).to exist
+    ensure
+      if original_existed && backup.directory?
+        FileUtils.rm_rf(scss_destination)
+        FileUtils.mkdir_p(scss_destination.parent)
+        FileUtils.cp_r(backup, scss_destination)
+      elsif !original_existed
+        FileUtils.rm_rf(scss_destination.parent)
+      end
+      FileUtils.rm_rf(backup)
+    end
+
+    it 'aborts when bootstrap scss is missing from node_modules' do
+      missing_root = root.join('tmp/bootstrap_vendor_scss_missing')
+      FileUtils.mkdir_p(missing_root)
+
+      expect do
+        described_class.copy_stylesheets!(missing_root)
+      end.to output("Run yarn install first; bootstrap package not found in node_modules\n").to_stderr.and raise_error(SystemExit)
+    ensure
+      FileUtils.rm_rf(missing_root)
+    end
+  end
+
+  describe '.vendor!' do
+    it 'copies both bootstrap js and scss into vendor assets' do
+      skip 'run yarn install first' unless js_source.exist? && scss_source.directory?
+
+      result = described_class.vendor!
+
+      expect(result[:js]).to eq(js_destination)
+      expect(result[:scss]).to eq(scss_destination)
+      expect(js_destination).to exist
+      expect(scss_destination.join('bootstrap.scss')).to exist
+    end
+  end
+
+  describe '.stylesheets_path' do
+    it 'prefers the vendored bootstrap scss directory when present' do
+      expect(described_class.stylesheets_path).to eq(scss_destination)
+    end
+
+    it 'falls back to node_modules bootstrap scss when the vendored copy is missing' do
+      skip 'run yarn install first' unless scss_source.directory?
+
+      tmp_root = root.join('tmp/bootstrap_vendor_stylesheets_path')
+      FileUtils.rm_rf(tmp_root)
+      FileUtils.mkdir_p(tmp_root.join('node_modules/bootstrap'))
+      FileUtils.cp_r(scss_source, tmp_root.join('node_modules/bootstrap/scss'))
+
+      expect(described_class.stylesheets_path(tmp_root)).to eq(tmp_root.join('node_modules/bootstrap/scss'))
+    ensure
+      FileUtils.rm_rf(tmp_root)
+    end
+
+    it 'aborts when bootstrap scss is missing from both vendor and node_modules' do
+      missing_root = root.join('tmp/bootstrap_vendor_stylesheets_missing')
+      FileUtils.mkdir_p(missing_root)
+
+      expect do
+        described_class.stylesheets_path(missing_root)
+      end.to output("Bootstrap SCSS not found. Run yarn install and rake bootstrap:vendor.\n").to_stderr.and raise_error(SystemExit)
     ensure
       FileUtils.rm_rf(missing_root)
     end
@@ -51,12 +135,14 @@ RSpec.describe BootstrapVendor do
   end
 
   describe 'bootstrap:vendor rake task' do
-    it 'prints the updated destination path' do
+    it 'prints the updated vendor paths' do
       Rails.application.load_tasks
       task = Rake::Task['bootstrap:vendor']
       task.reenable
 
-      expect { task.invoke }.to output(%r{Updated app/assets/javascripts/vendor/bootstrap\.bundle\.js}).to_stdout
+      expect { task.invoke }.to output(
+        %r{Updated app/assets/javascripts/vendor/bootstrap\.bundle\.js\nUpdated app/assets/stylesheets/vendor/bootstrap/scss}
+      ).to_stdout
     ensure
       task.reenable
     end

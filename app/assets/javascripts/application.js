@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// Bootstrap 5 dropdowns/tooltips need Popper; the gem's `require bootstrap` Sprockets build does not include it.
+// Bootstrap 5 dropdowns/tooltips need Popper; vendored from npm via bootstrap:vendor (see lib/bootstrap_vendor.rb).
 //= require vendor/bootstrap.bundle
 //= require activestorage
 //= require chartkick

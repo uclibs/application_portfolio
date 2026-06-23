@@ -1,10 +1,6 @@
 // Dartsass entry point for the application layout (front/dashboard, Devise, users).
-@import "gem_dependencies";
-@import "dashboard_base";
-@import "theme_grey";
-@import "dashboard_shell";
+@import "dashboard_core";
 @import "dashboard_contrast";
-@import "dashboard_tables";
 
 .navbar {
   position: sticky;

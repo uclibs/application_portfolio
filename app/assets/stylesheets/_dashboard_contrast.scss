@@ -48,12 +48,45 @@ a {
 .card-detail[style*="background-color: black"] {
   color: #fff;
 
-  a:not(.btn) {
+  .tab-content,
+  .tab-pane {
+    color: #fff;
+  }
+
+  label,
+  .form-label,
+  .col-form-label,
+  legend,
+  .form-check-label {
+    color: #fff;
+  }
+
+  a:not(.btn):not(.nav-link) {
     color: #fff;
 
     &:hover,
     &:focus {
       color: #fff;
+    }
+  }
+
+  .nav-tabs .nav-link {
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
+
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    color: #212529;
+    background-color: #fff;
+
+    &:hover,
+    &:focus {
+      color: #212529;
     }
   }
 }
