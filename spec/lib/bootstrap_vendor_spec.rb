@@ -43,11 +43,40 @@ RSpec.describe BootstrapVendor do
     it 'copies bootstrap scss from node_modules into vendor assets' do
       skip 'run yarn install first' unless scss_source.directory?
 
+      backup = root.join('tmp/bootstrap_vendor_scss_backup')
+      if scss_destination.directory?
+        FileUtils.rm_rf(backup)
+        FileUtils.cp_r(scss_destination, backup)
+      end
+      original_existed = scss_destination.directory?
+
       result = described_class.copy_stylesheets!
 
       expect(result).to eq(scss_destination)
       expect(scss_destination.join('bootstrap.scss')).to exist
       expect(scss_destination.join('_variables.scss')).to exist
+    ensure
+      if original_existed && backup.directory?
+        FileUtils.rm_rf(scss_destination)
+        FileUtils.mkdir_p(scss_destination.parent)
+        FileUtils.cp_r(backup, scss_destination)
+      elsif !original_existed
+        FileUtils.rm_rf(scss_destination.parent)
+      end
+      FileUtils.rm_rf(backup)
+    end
+  end
+
+  describe '.vendor!' do
+    it 'copies both bootstrap js and scss into vendor assets' do
+      skip 'run yarn install first' unless js_source.exist? && scss_source.directory?
+
+      result = described_class.vendor!
+
+      expect(result[:js]).to eq(js_destination)
+      expect(result[:scss]).to eq(scss_destination)
+      expect(js_destination).to exist
+      expect(scss_destination.join('bootstrap.scss')).to exist
     end
   end
 

@@ -8,8 +8,9 @@ module BootstrapVendor
   module_function
 
   def vendor!(root = default_root)
-    copy_bundle!(root)
-    copy_stylesheets!(root)
+    js = copy_bundle!(root)
+    scss = copy_stylesheets!(root)
+    { js: js, scss: scss }
   end
 
   def copy_bundle!(root = default_root)

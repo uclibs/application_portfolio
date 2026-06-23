@@ -1,4 +1,4 @@
-// Bootstrap SCSS vendored from npm (see lib/bootstrap_vendor.rb and dartsass load path).
+// Bootstrap SCSS vendored from npm (see lib/bootstrap_vendor.rb and README).
 $enable-responsive-font-sizes: false;
 
-@import "bootstrap";
+@import "vendor/bootstrap/scss/bootstrap";

@@ -31,7 +31,7 @@ RSpec.describe 'assets pipeline' do
     expect(vendor_bundle).to include("Bootstrap v#{minor_release}")
   end
 
-  it 'compiles Bootstrap SCSS from node_modules into dartsass builds' do
+  it 'compiles vendored Bootstrap SCSS into dartsass builds' do
     css = Rails.root.join('app/assets/builds/application.css').read
 
     expect(css).to include('--bs-')

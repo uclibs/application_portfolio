@@ -42,6 +42,20 @@ bin/dev
 
 **Deploy:** QA and production `assets:precompile` skip the esbuild step (`SKIP_JS_BUILD` in `config/application.rb`) because deploy hosts do not have Node 24 yet and the bundle is not served until #12. Ticket #18 will add Node to deploy and remove that skip.
 
+### Bootstrap (npm + vendored assets)
+
+Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. Sprockets serves the vendored `app/assets/javascripts/vendor/bootstrap.bundle.js` until the esbuild cutover (#12); esbuild imports Bootstrap JS from `node_modules` for local verification.
+
+Deploy hosts do not run `yarn` until #18, so vendored Bootstrap JS and SCSS must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh the vendor copies:
+
+```bash
+nvm use
+yarn install
+bundle exec rake bootstrap:vendor
+```
+
+Commit `package.json`, `yarn.lock`, and the updated files under `app/assets/javascripts/vendor/` and `app/assets/stylesheets/vendor/bootstrap/`.
+
 ## Running the Tests
 
 The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
