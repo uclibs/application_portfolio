@@ -58,7 +58,8 @@ jobs:
           command: |
             yarn install --frozen-lockfile
             yarn build
-            git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map
+            git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
+              app/assets/builds/application.js.sources.sha256
 
       - save_cache:
           paths:

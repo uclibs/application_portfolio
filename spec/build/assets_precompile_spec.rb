@@ -43,7 +43,10 @@ RSpec.describe 'assets pipeline' do
 
   it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
     expect(esbuild_bundle).to exist
-    stale_message = 'Run yarn install && bin/rails javascript:build and commit app/assets/builds/application.js'
+    expect(EsbuildBundleExpectations.sources_digest_path).to exist
+
+    stale_message = 'Run yarn install && yarn build and commit app/assets/builds/application.js ' \
+                    'and application.js.sources.sha256'
     expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
   end
 

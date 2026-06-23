@@ -34,7 +34,7 @@ yarn install
 bin/rails javascript:build
 ```
 
-Commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` when present). Run `yarn install` locally after pulling dependency changes.
+Commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `yarn install` locally after pulling dependency changes.
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:
 

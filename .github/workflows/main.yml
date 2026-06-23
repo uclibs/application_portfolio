@@ -29,6 +29,12 @@ jobs:
       - name: Install JavaScript dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Verify committed JavaScript bundle is current
+        run: |
+          yarn build
+          git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
+            app/assets/builds/application.js.sources.sha256
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

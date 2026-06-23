@@ -5,7 +5,7 @@
     "node": ">=24.0.0 <25"
   },
   "scripts": {
-    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets && node bin/javascript-sources-digest.cjs"
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",

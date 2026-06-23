@@ -69,3 +69,4 @@ db/*.sqlite3-shm
 !/app/assets/builds/.keep
 !/app/assets/builds/application.js
 !/app/assets/builds/application.js.map
+!/app/assets/builds/application.js.sources.sha256
