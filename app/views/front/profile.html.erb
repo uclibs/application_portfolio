@@ -13,25 +13,24 @@ aria-controls="nav-usermanagement" aria-selected="false">
           </a>
         </div>
       </nav>
-      <div class="tab-content" id="nav-tabContent" style="background-color: white;">
-        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="background-color: white; 
-color: white">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
           <div class="row">
             <div class="col-6">
               <%= image_tag("UC Libraries.jpg") %>
             </div>
-            <div class="col-6" style="color: black;">
+            <div class="col-6">
               <dl>
-                <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-user-tag"></i> Name</p></dt>
+                <dt><p style="font-weight: bold; margin: 0;"><i class="fas fa-user-tag"></i> Name</p></dt>
                 <dd style="color: red"><ul><%= current_user.first_name.to_s + " " + current_user.last_name.to_s %></ul></dd>
 
-                <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-envelope"></i> Email</p></dt>
+                <dt><p style="font-weight: bold; margin: 0;"><i class="fas fa-envelope"></i> Email</p></dt>
                 <dd><ul><a href="mailto:<%= current_user.email %>?subject=" style="color: red"><%= current_user.email %></a></ul></dd>
 
-                <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-graduation-cap"></i> Job Title</p></dt>
+                <dt><p style="font-weight: bold; margin: 0;"><i class="fas fa-graduation-cap"></i> Job Title</p></dt>
                 <dd style="color: red"><ul><%= current_user.title.to_s %></ul></dd>
 
-                <dt><p style="font-weight: bold; margin: 0; color: black;"><i class="fas fa-university"></i> Department</p></dt>
+                <dt><p style="font-weight: bold; margin: 0;"><i class="fas fa-university"></i> Department</p></dt>
                 <dd style="color: red"><ul><%= current_user.department.to_s %></ul></dd>
               </dl>
               <br/>
@@ -43,8 +42,7 @@ color: white">
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-usermanagement" role="tabpanel" aria-labelledby="nav-usermanagement-tab" style="background-color: white; 
-color: white">
+        <div class="tab-pane fade" id="nav-usermanagement" role="tabpanel" aria-labelledby="nav-usermanagement-tab">
           <% if current_user.role.to_s == "root_admin" %>
             <table class="table text-center w-25" style="padding-left: 20p; background-color: black">
               <thead>

@@ -25,11 +25,11 @@
               <% end %>
             </th>
             <% if current_user.role.to_s == "viewer" %>
-              <th class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% elsif current_user.role.to_s == "owner" %>
-              <th colspan="2" class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+              <th colspan="2" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% else %>
-              <th colspan="3" class="text-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+              <th colspan="3" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
             <% end %>
           </tr>
         </thead>

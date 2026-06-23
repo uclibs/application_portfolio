@@ -1,56 +1,56 @@
-<div class = "container mt-5" style="margin-left: 150px; margin-right: 150px;">
+<div class="container dashboard-page mt-5">
   <div class="row mb-3 text-center design-data">
-    <div class="card w-100 mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: 500px">
+    <div class="card w-100 mb-4 shadow animated fadeInLeft" style="width: 33.33%; height: 500px">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-capitalize design-title">My Apps In Development <i class="fa fa-wrench"></i></h3>
+        <h3 class="my-0 fw-normal text-capitalize design-title">My Apps In Development <i class="fa fa-wrench"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @indesign_count != 0 %>
           <table class="table text-center w-25" style="padding-left: 20px; background-color: black">
             <thead>
               <tr>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
+                <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
+                <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
+                <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white">Status</th>
-                <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
+                <th class="text-start" style="padding-left: 20px; background-color: black ; color: white">Status</th>
+                <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
                 <% if current_user.role.to_s == "viewer" %>
-                  <th class="align-left" style="padding-left: 20px; background-color: black ; color: white">Action</th>
+                  <th class="text-start" style="padding-left: 20px; background-color: black ; color: white">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="2" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="3" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
               <% @softwarerecords_indesign.each do |record_indesign| %>
                 <tr>
-                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_indesign.title %></td>
-                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
-                  <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
+                  <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= record_indesign.title %></td>
+                  <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_indesign.vendor_record_id).title %></td>
+                  <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><% if record_indesign.current_version.to_s.empty? %>N/A<% else %><%= record_indesign.current_version %><% end %></td>
                   <td class="text-start" style="padding-left: 20px; background-color: transparent ; color: white"><%= pills record_indesign.status.title %></td>
-                  <td style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white" class="align-left">
+                  <td style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white" class="text-start">
                     <% if record_indesign.production_url.to_s.empty? %>
                       -
                     <% else %>
@@ -85,45 +85,45 @@ btn-icons", title: "Edit" }%></td>
   </div>
 
   <div class="row mb-3 text-center prod-data" style="color: black;">
-    <div class="card w-100 mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
+    <div class="card w-100 mb-4 shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Production <i class="fa fa-bolt"></i></h3>
+        <h3 class="my-0 fw-normal text-camelcase prod-title">My Apps In Production <i class="fa fa-bolt"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @production_count != 0 %>
         <table class="table text-center">
           <thead>
             <tr>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
               <% if current_user.role.to_s == "viewer" %>
-                  <th class="align-left" style="padding-left: 20px">Action</th>
+                  <th class="text-start" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="2" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="3" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
             </tr>
           </thead>
@@ -131,15 +131,15 @@ btn-icons", title: "Edit" }%></td>
           <tbody>
             <% @softwarerecords_production.each do |record_production| %>
               <tr>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
 record_production.current_version %><% end %></td>
-                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white">
+                <td class="text-start" style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a class="align-left; background-color: black ; color: white" href=<%= generate_path(record_production.production_url) %> 
+                      <a class="text-start text-white" style="background-color: black" href=<%= generate_path(record_production.production_url) %> 
 target="_blank" ><%= clean_url(record_production.production_url) %></a>
                     <% end %>
                   </td>
@@ -172,45 +172,45 @@ btn-icons", title: "Edit" }%></td>
   <br/>
 
   <div class="row mb-3 text-center prod-data" style="color: black;">
-    <div class="card w-100 mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
+    <div class="card w-100 mb-4 shadow animated fadeInRight" style="width: 33.33%; height: 500px;">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-camelcase prod-title">My Apps In Change Management <i class="fa fa-bolt"></i></h3>
+        <h3 class="my-0 fw-normal text-camelcase prod-title">My Apps In Change Management <i class="fa fa-bolt"></i></h3>
       </div>
       <div class="card-body" style="overflow: scroll; height: 10%; background-color: black ; color: white">
         <% if @inchange_count != 0 and @softwarerecords_inchange.present?%>
         <table class="table text-center">
           <thead>
             <tr>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "title", "Software Record" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "vendor_record_id", "Vendor" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "current_version", "Current Version" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
-              <th class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
+              <th class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= sortable "production_url", "URL" %>
                 <% if params[:direction] == "asc" || params[:direction] == nil %>
                   <i class="fa fa-caret-up"></i>
                 <% else %>
-                  <i class="fa fa-caret-down float-none"></i>
+                  <i class="fa fa-caret-down"></i>
                 <% end %></th>
               <% if current_user.role.to_s == "viewer" %>
-                  <th class="align-left" style="padding-left: 20px">Action</th>
+                  <th class="text-start" style="padding-left: 20px">Action</th>
                 <% elsif current_user.role.to_s == "owner" %>
-                  <th colspan="2" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="2" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% else %>
-                  <th colspan="3" class="align-left" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
+                  <th colspan="3" class="text-start" style="padding-left: 20px; background-color: black ; color: white">Actions</th>
                 <% end %>
             </tr>
           </thead>
@@ -218,15 +218,15 @@ btn-icons", title: "Edit" }%></td>
           <tbody>
             <% @softwarerecords_inchange.each do |record_production| %>
               <tr>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
-                <td class="align-left" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= record_production.title %></td>
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><%= VendorRecord.find(record_production.vendor_record_id).title %></td>
+                <td class="text-start" style="padding-left: 20px; background-color: black ; color: white"><% if record_production.current_version.to_s.empty? %>N/A<% else %><%= 
 record_production.current_version %><% end %></td>
-                <td class="align-left" style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white">
+                <td class="text-start" style="table-layout:fixed; width: 300px; word-break:break-all; background-color: black ; color: white">
                     <% if record_production.production_url.to_s.empty? %>
                       No URL
                     <% else %>
-                      <a class="align-left; background-color: black ; color: white" href=<%= generate_path(record_production.production_url) %> 
+                      <a class="text-start text-white" style="background-color: black" href=<%= generate_path(record_production.production_url) %> 
 target="_blank" ><%= clean_url(record_production.production_url) %></a>
                     <% end %>
                   </td>
@@ -259,49 +259,49 @@ btn-icons", title: "Edit" }%></td>
   <br/>
 
   <div class="row mb-3 justify-content-center" style="color: black; display: flex; flex-wrap: nowrap;">
-  <div class="card mb-4 box-shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
+  <div class="card mb-4 shadow animated fadeInLeft" style="width: 33.33%; height: auto;">
     <div class="card-header">
-      <h3 class="my-0 font-weight-normal text-uppercase">Users</h3>
+      <h3 class="my-0 fw-normal text-uppercase">Users</h3>
     </div>
     <div class="card-body">
       <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", 
 "#E8DE0D"], legend: "bottom"%><br/>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='users'">View</button>
+      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='users'">View</button>
     </div>
   </div>
 
-  <div class="card mb-4 box-shadow animated fadeInRight" style="width: 33.33%; height: auto;">
+  <div class="card mb-4 shadow animated fadeInRight" style="width: 33.33%; height: auto;">
     <div class="card-header">
-      <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
+      <h3 class="my-0 fw-normal text-uppercase">Software Records</h3>
     </div>
     <div class="card-body">
       <%= pie_chart software_records_status_hash, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" 
 %><br/>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='software_records'">View</button>
+      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='software_records'">View</button>
     </div>
   </div>
 
-  <div class="card mb-4 box-shadow animated fadeInUp" style="width: 33.33%; height: auto;">
+  <div class="card mb-4 shadow animated fadeInUp" style="width: 33.33%; height: auto;">
     <div class="card-header">
-      <h3 class="my-0 font-weight-normal text-uppercase">Vendor Records</h3>
+      <h3 class="my-0 fw-normal text-uppercase">Vendor Records</h3>
     </div>
     <div class="card-body">
       <%= pie_chart vendor_piechart, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, 
 legend: {position: "none"} %><br/>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='vendor_records'">View</button>
+      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='vendor_records'">View</button>
     </div>
   </div>
 </div>
 
 
   <div class="row mb-3 text-center" style="color: black">
-    <div class="card w-100 mb-4 box-shadow animated fadeInDown" style="width: 50.33%; height: auto">
+    <div class="card w-100 mb-4 shadow animated fadeInDown" style="width: 50.33%; height: auto">
       <div class="card-header">
-        <h3 class="my-0 font-weight-normal text-uppercase">Software Records</h3>
+        <h3 class="my-0 fw-normal text-uppercase">Software Records</h3>
       </div>
       <div class="card-body">
         <%= line_chart generate_software_records_series, legend: "bottom", colors: ["#c20849"] %> <br/>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick = "location.href='software_records'">View</button>
+        <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick = "location.href='software_records'">View</button>
       </div>
     </div>
   </div>

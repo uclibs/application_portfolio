@@ -5,88 +5,88 @@
         <% if current_user.role.to_s == "root_admin" %>
             <div class="auth-role"><i class="fa fa-user-secret"></i> Admin</div>
             <div class="sidenav-menu">
-                <a href="<%= new_software_record_path %>"><i class="fas fa-book float-right"></i> Create Software Record</a>
-                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends float-right"></i> Create Vendor Record</a>
-                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt float-right"></i> Create Software Type</a>
-                <a href="<%= new_status_path %>"><i class="far fa-file-alt float-right"></i> Create Status</a>
-                <a href="<%= new_hosting_environment_path %>"><i class="fab fa-envira float-right"></i> Create Host Environment</a>
-                <a href="<%= new_change_request_path %>"><i class="fab fa-envira float-right"></i> Create Change Request</a>
+                <a href="<%= new_software_record_path %>"><i class="fas fa-book float-end"></i> Create Software Record</a>
+                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends float-end"></i> Create Vendor Record</a>
+                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt float-end"></i> Create Software Type</a>
+                <a href="<%= new_status_path %>"><i class="far fa-file-alt float-end"></i> Create Status</a>
+                <a href="<%= new_hosting_environment_path %>"><i class="fab fa-envira float-end"></i> Create Host Environment</a>
+                <a href="<%= new_change_request_path %>"><i class="fab fa-envira float-end"></i> Create Change Request</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
-                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
-                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Host Envs</a>
-                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-right"></i> View all Change Requests</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-end"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-end"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-end"></i> View all Software Types</a>
+                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-end"></i> View all Status</a>
+                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-end"></i> View all Host Envs</a>
+                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-end"></i> View all Change Requests</a>
                 <hr style="background-color: white">
-                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Maintenance List</a>
-                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-right"></i> Road Map List</a>
-                <a href="<%= list_decommissioned_path %>"><i class="fas fa-users float-right"></i> Decommissioned List</a> 
-                <a href="<%= users_path %>"><i class="fas fa-users float-right"></i> Manage all Users</a>
-                <a href="<%= file_uploads_new_path %>"><i class="fas fa-file-import float-right"></i> Import Data</a>
+                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-end"></i> Maintenance List</a>
+                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-end"></i> Road Map List</a>
+                <a href="<%= list_decommissioned_path %>"><i class="fas fa-users float-end"></i> Decommissioned List</a> 
+                <a href="<%= users_path %>"><i class="fas fa-users float-end"></i> Manage all Users</a>
+                <a href="<%= file_uploads_new_path %>"><i class="fas fa-file-import float-end"></i> Import Data</a>
                 <hr style="background-color: white">
-                <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-right"></i> Export Software Records</a>
-                <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-right"></i> Export Software Types</a>
-                <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-right"></i> Export Vendor Records</a>
-                <a href="<%= export_change_requests_path %>"><i class="fas fa-file-export float-right"></i> Export Change Request</a>
+                <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-end"></i> Export Software Records</a>
+                <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-end"></i> Export Software Types</a>
+                <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-end"></i> Export Vendor Records</a>
+                <a href="<%= export_change_requests_path %>"><i class="fas fa-file-export float-end"></i> Export Change Request</a>
             </div>
             <br/>
             <% end %>
             <% if current_user.role.to_s == "manager" %>
             <div class="auth-role"><i class="fas fa-user-cog"></i> Manager</div>
             <div class="sidenav-menu">
-                <a href="<%= new_software_record_path %>"><i class="fas fa-book float-right"></i> Create Software Record</a>
-                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends float-right"></i> Create Vendor Record</a>
-                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt float-right"></i> Create Software Type</a>
-                <a href="<%= new_hosting_environment_path %>"><i class="fab fa-envira float-right"></i> Create Host Environment</a>
-                <a href="<%= new_status_path %>"><i class="far fa-file-alt float-right"></i> Create Status</a>
-                <a href="<%= new_change_request_path %>"><i class="fab fa-envira float-right"></i> Create Change Request</a>
+                <a href="<%= new_software_record_path %>"><i class="fas fa-book float-end"></i> Create Software Record</a>
+                <a href="<%= new_vendor_record_path %>"><i class="fas fa-user-friends float-end"></i> Create Vendor Record</a>
+                <a href="<%= new_software_type_path %>"><i class="fas fa-file-alt float-end"></i> Create Software Type</a>
+                <a href="<%= new_hosting_environment_path %>"><i class="fab fa-envira float-end"></i> Create Host Environment</a>
+                <a href="<%= new_status_path %>"><i class="far fa-file-alt float-end"></i> Create Status</a>
+                <a href="<%= new_change_request_path %>"><i class="fab fa-envira float-end"></i> Create Change Request</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
-                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
-                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Host Envs</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-end"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-end"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-end"></i> View all Software Types</a>
+                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-end"></i> View all Status</a>
+                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-end"></i> View all Host Envs</a>
                 <hr style="background-color: white">
-                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Maintenance List</a>
-                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-right"></i> Road Map List</a>
-             <a href="<%= change_requests_path %>"><i class="fab fa-envira float-right"></i> Change Request List</a>
+                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-end"></i> Maintenance List</a>
+                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-end"></i> Road Map List</a>
+             <a href="<%= change_requests_path %>"><i class="fab fa-envira float-end"></i> Change Request List</a>
             </div>
             <br/>
             <% end %>
             <% if current_user.role.to_s == "owner" %>
             <div class="auth-role"><i class="fas fa-user-tie"></i> Owner</div>
             <div class="sidenav-menu">
-                <a href="<%= request_new_path %>"><i class="fas fa-book float-right"></i> Request Software Record</a>
+                <a href="<%= request_new_path %>"><i class="fas fa-book float-end"></i> Request Software Record</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
-                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
-                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Host Envs</a>
-                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-right"></i> View all Change Request</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-end"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-end"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-end"></i> View all Software Types</a>
+                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-end"></i> View all Status</a>
+                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-end"></i> View all Host Envs</a>
+                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-end"></i> View all Change Request</a>
                 <hr style="background-color: white">
-                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-right"></i> Maintenance List</a>
-                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-right"></i> Road Map List</a>
+                <a href="<%= list_upgrades_path %>"><i class="fas fa-users float-end"></i> Maintenance List</a>
+                <a href="<%= list_road_map_path %>"><i class="fas fa-users float-end"></i> Road Map List</a>
                 <hr style="background-color: white">
-                <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-right"></i> Export Software Records</a>
-                <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-right"></i> Export Software Types</a>
-                <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-right"></i> Export Vendor Records</a>
-                <a href="<%= export_change_requests_path %>"><i class="fas fa-file-export float-right"></i> Export Change Records</a>
+                <a href="<%= export_software_records_path %>"><i class="fas fa-file-export float-end"></i> Export Software Records</a>
+                <a href="<%= export_software_types_path %>"><i class="fas fa-file-export float-end"></i> Export Software Types</a>
+                <a href="<%= export_vendor_records_path %>"><i class="fas fa-file-export float-end"></i> Export Vendor Records</a>
+                <a href="<%= export_change_requests_path %>"><i class="fas fa-file-export float-end"></i> Export Change Records</a>
             </div>
             <br/>
             <% end %>
             <% if current_user.role.to_s == "viewer" %>
             <div class="auth-role"><i class="fas fa-user-graduate"></i> Viewer</div>
             <div class="sidenav-menu">
-                <a href="<%= request_new_path %>"><i class="fas fa-book float-right"></i> Request Software Record</a>
+                <a href="<%= request_new_path %>"><i class="fas fa-book float-end"></i> Request Software Record</a>
                 <hr style="background-color: white">
-                <a href="<%= software_records_path %>"><i class="fas fa-book float-right"></i> View all Software Records</a>
-                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-right"></i> View all Vendor Records</a>
-                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-right"></i> View all Software Types</a>
-                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-right"></i> View all Status</a>
-                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-right"></i> View all Host Envs</a>
-                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-right"></i> View all Change Requests</a>
+                <a href="<%= software_records_path %>"><i class="fas fa-book float-end"></i> View all Software Records</a>
+                <a href="<%= vendor_records_path %>"><i class="fas fa-user-friends float-end"></i> View all Vendor Records</a>
+                <a href="<%= software_types_path %>"><i class="fas fa-file-alt float-end"></i> View all Software Types</a>
+                <a href="<%= statuses_path %>"><i class="far fa-file-alt float-end"></i> View all Status</a>
+                <a href="<%= hosting_environments_path %>"><i class="fab fa-envira float-end"></i> View all Host Envs</a>
+                <a href="<%= change_requests_path %>"><i class="fab fa-envira float-end"></i> View all Change Requests</a>
              </div>
             <br/>
         <% end %>

@@ -62,13 +62,7 @@ info.'
   end
 
   def self.inchange_dashboard(user)
-    SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
-
-    inchange_complete = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
     inchange_filter = SoftwareRecord.joins(:change_request).where(change_request: { change_completed: false })
-    inchange_complete.each do |_change|
-      inchange_filter = inchange_filter.or(SoftwareRecord.where(change_request: { change_completed: false }))
-    end
 
     developer_filter = SoftwareRecord.where('developers like ?', "%#{user}%")
     tech_leads_filter = SoftwareRecord.where('tech_leads like ?', "%#{user}%")
@@ -157,7 +151,6 @@ info.'
   end
 
   def check_and_decrypt(sensitive_data)
-    # Encrypt 'Sensitive Information' field before saving into db if it's not empty.
     decrypt sensitive_data if sensitive_data.to_s.present?
   end
 

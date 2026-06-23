@@ -2,7 +2,6 @@
 
 class ChangeRequestsController < ApplicationController
   layout 'software_records'
-  helper_method :sort_column, :sort_direction
   include ApplicationHelper
   include SoftwareRecordsHelper
   before_action :authenticate_user!, except: %i[new create show]

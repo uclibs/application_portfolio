@@ -4,42 +4,26 @@ require 'rails_helper'
 
 RSpec.describe ExportDataController, type: :controller do
   include Devise::Test::ControllerHelpers
-  render_views
 
   before do
-    admin = FactoryBot.create(:admin)
-    sign_in_user(admin)
+    sign_in FactoryBot.create(:admin)
+    allow(controller).to receive(:system)
+    allow(controller).to receive(:`).and_return('')
+    allow(controller).to receive(:send_file) { controller.head :ok }
   end
 
-  def sign_in_user(admin)
-    sign_in admin
-  end
+  %i[software_records vendor_records software_types change_requests].each do |export_action|
+    describe "GET ##{export_action}" do
+      it 'runs the export script and sends the CSV file' do
+        get export_action
 
-  describe 'GET #software_records' do
-    it 'returns http success' do
-      get :software_records
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET #vendor_records' do
-    it 'returns http success' do
-      get :vendor_records
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET #software_types' do
-    it 'returns http success' do
-      get :software_types
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET #change_requests' do
-    it 'returns http success' do
-      get :change_requests
-      expect(response).to have_http_status(:success)
+        expect(controller).to have_received(:`).with("ruby exports/#{export_action}.rb")
+        expect(controller).to have_received(:send_file).with(
+          "#{Dir.pwd}/public/#{export_action}.csv",
+          disposition: 'attachment'
+        )
+        expect(response).to have_http_status(:success)
+      end
     end
   end
 end

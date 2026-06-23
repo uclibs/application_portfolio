@@ -3,6 +3,10 @@
 require 'cgi'
 
 module ApplicationHelper
+  def user_display_name(user = current_user)
+    [user&.first_name, user&.last_name].compact_blank.join(' ')
+  end
+
   def nav_helper(style)
     if current_user
       (link_to 'Dashboard', dashboard_path, class: "#{style} #{active? dashboard_path}") + ' '.html_safe +

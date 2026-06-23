@@ -2,22 +2,23 @@
 
 # SoftwareRecords Helper method
 module SoftwareRecordsHelper
+  STATUS_BADGE_CLASSES = [
+    %w[design text-bg-dark],
+    %w[development text-bg-info],
+    %w[upgrade text-bg-warning],
+    %w[production text-bg-primary],
+    %w[available text-bg-success],
+    %w[decomission text-bg-danger]
+  ].freeze
+
+  DEFAULT_STATUS_BADGE_CLASS = 'text-bg-light'
+
   def pills(status)
-    if status.to_s.downcase.include?('design')
-      tag.span(status, class: 'badge badge-pill badge-dark')
-    elsif status.to_s.downcase.include?('development')
-      tag.span(status, class: 'badge badge-pill badge-info')
-    elsif status.to_s.downcase.include?('upgrade')
-      tag.span(status, class: 'badge badge-pill badge-warning')
-    elsif status.to_s.downcase.include?('production')
-      tag.span(status, class: 'badge badge-pill badge-primary')
-    elsif status.to_s.downcase.include?('available')
-      tag.span(status, class: 'badge badge-pill badge-success')
-    elsif status.to_s.downcase.include?('decomission')
-      tag.span(status, class: 'badge badge-pill badge-danger')
-    else
-      tag.span(status, class: 'badge badge-pill badge-light')
-    end
+    normalized_status = status.to_s.downcase
+    badge_class = STATUS_BADGE_CLASSES.find { |matcher, _| normalized_status.include?(matcher) }&.last ||
+                  DEFAULT_STATUS_BADGE_CLASS
+
+    tag.span(status, class: "badge rounded-pill #{badge_class}")
   end
 
   def sort_column

@@ -3,7 +3,7 @@
   height: 100%;
   width: 250px;
   position: fixed;
-  z-index: 1;
+  z-index: 1040;
   top: 0;
   left: 0;
   background-color: #111;
@@ -39,7 +39,30 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
-  transition: margin-left 0.5s;
+  width: 100%;
+  margin-left: 0;
+
+  > hr,
+  section hr {
+    background-color: black;
+    width: min(54%, 48rem);
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+  }
+}
+
+.dashboard-page.container {
+  max-width: min(1400px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+
+  > .row {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    --bs-gutter-x: 0;
+  }
 }
 
 @media screen and (max-height: 450px) {
@@ -76,43 +99,66 @@
   background-color: #FFFAFA;
 }
 
-.dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #E6E0E0;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-.dropdown-btn:hover {
-  color: #f1f1f1;
-}
-
-.dropdown-container a {
-  font-size: 15px;
-  text-align: right;
-}
-
-.dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-.fa-caret-down {
-  float: right;
-  padding-right: 8px;
-}
-
-.active {
-  background-color: #E00122;
+.nav-masthead .nav-link {
+  padding: .25rem 0;
+  font-size: 14px;
   color: white;
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 20px;
+}
+
+.nav-masthead .nav-link.active {
+  color: #fff;
+  background-color: transparent;
+  border-bottom-color: #fff;
+}
+
+.nav-masthead .dropdown-toggle {
+  color: rgba(255, 255, 255, 0.5);
+
+  &.show,
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.nav-masthead .dropdown-menu {
+  min-width: 10rem;
+}
+
+.nav-masthead .header-search-form {
+  flex: 0 0 auto;
+  margin: 0 0.75rem;
+}
+
+.nav-masthead .header-search-group {
+  width: 12rem;
+  flex-wrap: nowrap;
+
+  .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.nav-masthead .header-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .auth-role {
