@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'esbuild javascript build' do
+RSpec.describe 'esbuild javascript build', :build do
   around do |example|
     example.run
   ensure

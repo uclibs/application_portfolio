@@ -18,6 +18,7 @@
 require 'simplecov'
 
 SimpleCov.start 'rails' do
+  enable_coverage :branch
   # Distinguish coverage from each CI shard so reports can be merged correctly.
   if ENV['CI']
     ci_node =
