@@ -22,6 +22,7 @@ RSpec.describe 'Turbo layout integration', type: :request do
     expect(turbo_position).to be_present
     expect(application_position).to be_present
     expect(turbo_position).to be < application_position
+    expect(script_sources).not_to include(a_string_matching(/jquery/i))
   end
 
   it 'renders software_records layout with data-turbo-track assets' do
@@ -31,5 +32,8 @@ RSpec.describe 'Turbo layout integration', type: :request do
     expect(response.body).to include('data-turbo-track="reload"')
     expect(response.body).to include('type="module"')
     expect(response.body).not_to include('data-turbolinks-track')
+
+    script_sources = response.body.scan(/<script[^>]+src="([^"]+)"/).flatten
+    expect(script_sources).not_to include(a_string_matching(/jquery/i))
   end
 end
