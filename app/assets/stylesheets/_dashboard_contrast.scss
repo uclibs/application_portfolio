@@ -1,0 +1,59 @@
+// Readable copy on the grey dashboard background and on explicit light/dark surfaces.
+body {
+  color: #212529;
+  text-shadow: none;
+}
+
+a {
+  color: #0d6efd;
+
+  &:hover,
+  &:focus {
+    color: #0a58ca;
+  }
+}
+
+.navbar,
+.sidenav,
+.sidenav a,
+.nav-masthead .nav-link,
+.nav-masthead .dropdown-toggle {
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.tab-content,
+.tab-pane,
+.bg-white,
+.bg-light {
+  color: #212529;
+
+  a:not(.btn) {
+    color: #0d6efd;
+
+    &:hover,
+    &:focus {
+      color: #0a58ca;
+    }
+  }
+}
+
+[style*="background-color: black"],
+[style*="background-color: #000"],
+.card[style*="background-color: black"],
+.card-detail[style*="background-color: black"] {
+  color: #fff;
+
+  a:not(.btn) {
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
+}

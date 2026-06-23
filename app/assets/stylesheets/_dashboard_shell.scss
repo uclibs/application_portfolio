@@ -136,6 +136,31 @@
   min-width: 10rem;
 }
 
+.nav-masthead .header-search-form {
+  flex: 0 0 auto;
+  margin: 0 0.75rem;
+}
+
+.nav-masthead .header-search-group {
+  width: 12rem;
+  flex-wrap: nowrap;
+
+  .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.nav-masthead .header-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .auth-role {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
