@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Verify committed JavaScript bundle is current
           command: |
-            yarn install
+            yarn install --frozen-lockfile
             yarn build
             git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map
 

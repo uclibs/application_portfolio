@@ -12,6 +12,9 @@ RSpec.configure do |config|
     Rake::Task['dartsass:build'].reenable
     Rake::Task['dartsass:build'].invoke
 
+    # Test and production deploy use the committed bundle (SKIP_JS_BUILD in config/application.rb).
+    next if ENV['SKIP_JS_BUILD'] == 'true'
+
     js_bundle = Rails.root.join('app/assets/builds/application.js')
     js_sources = Rails.root.join('app/javascript/**/*.js')
     next unless EsbuildBundleExpectations.stale_sources?(js_bundle, js_sources)

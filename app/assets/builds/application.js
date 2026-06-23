@@ -32743,7 +32743,6 @@ enableDismissTrigger(Toast);
 defineJQueryPlugin(Toast);
 
 // app/javascript/bootstrap_setup.js
-window.bootstrap = bootstrap_esm_exports;
 var bootstrap_setup_default = bootstrap_esm_exports;
 
 // app/javascript/navigation.js
@@ -32776,16 +32775,20 @@ window.openNav = openNav;
 window.closeNav = closeNav;
 
 // app/javascript/filtermanagement.js
+function filterElements() {
+  return {
+    vendorFilter: document.getElementById("vendor-record-filter"),
+    softwareTypeFilter: document.getElementById("software-type-filter")
+  };
+}
 function clearFiltersAndRedirect(targetPath) {
-  const vendorFilter = document.getElementById("vendor-record-filter");
-  const softwareTypeFilter = document.getElementById("software-type-filter");
+  const { vendorFilter, softwareTypeFilter } = filterElements();
   if (vendorFilter) vendorFilter.style.display = "none";
   if (softwareTypeFilter) softwareTypeFilter.style.display = "none";
   window.location = targetPath;
 }
 function handleRadio(myRadio) {
-  const vendorFilter = document.getElementById("vendor-record-filter");
-  const softwareTypeFilter = document.getElementById("software-type-filter");
+  const { vendorFilter, softwareTypeFilter } = filterElements();
   if (!vendorFilter || !softwareTypeFilter) return;
   if (myRadio.value === "vendor_records") {
     vendorFilter.style.display = "block";
@@ -32872,7 +32875,7 @@ document.addEventListener("click", (event) => {
 });
 
 // app/javascript/show_tab.js
-document.addEventListener("turbo:load", function() {
+document.addEventListener("turbo:load", () => {
   const hash3 = window.location.hash;
   if (!hash3) return;
   const tabList = document.querySelector("#softwareRecordTab, #SoftwareRecordsTab");
@@ -32885,8 +32888,8 @@ document.addEventListener("turbo:load", function() {
 });
 
 // app/javascript/flash_toasts.js
-document.addEventListener("turbo:load", function() {
-  document.querySelectorAll(".flash-toast").forEach(function(element) {
+document.addEventListener("turbo:load", () => {
+  document.querySelectorAll(".flash-toast").forEach((element) => {
     if (element.classList.contains("show")) return;
     bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
   });

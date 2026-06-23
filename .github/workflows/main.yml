@@ -26,7 +26,7 @@ jobs:
           yarn -v
 
       - name: Install JavaScript dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1

@@ -1,6 +1,6 @@
 import bootstrap from "./bootstrap_setup"
 
-document.addEventListener("turbo:load", function () {
+document.addEventListener("turbo:load", () => {
   const hash = window.location.hash
   if (!hash) return
 

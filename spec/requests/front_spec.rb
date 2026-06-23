@@ -37,7 +37,7 @@ RSpec.describe 'FrontController', type: :request do
 
   describe 'GET /profile' do
     it 'requests profile page' do
-      get dashboard_path
+      get myprofile_path
       expect(response).to have_http_status(200)
     end
   end

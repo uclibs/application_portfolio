@@ -13,7 +13,7 @@ module EsbuildBundleExpectations
     return true unless bundle_path.exist?
 
     bundle_mtime = File.mtime(bundle_path)
-    Dir.glob(source_glob).any? { |path| File.mtime(path) > bundle_mtime }
+    Dir.glob(source_glob.to_s).any? { |path| File.mtime(path) > bundle_mtime }
   end
 end
 
