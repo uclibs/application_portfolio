@@ -12,7 +12,6 @@
 //
 //= require jquery3
 //= require bootstrap
-//= require gritter
 //= require activestorage
 //= require chartkick
 //= require Chart.bundle

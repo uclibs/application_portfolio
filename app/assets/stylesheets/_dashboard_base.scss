@@ -33,7 +33,8 @@ option {
   padding: 0 24px;
 }
 
-.gritter {
-  right: -10px;
+.flash-toast-container {
   top: 70px;
+  right: 10px;
+  z-index: 1100;
 }

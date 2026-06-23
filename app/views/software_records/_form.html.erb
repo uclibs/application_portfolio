@@ -36,13 +36,7 @@
       </ul>
 
       <div class="card-body">
-        <% if software_record.errors.any? %>
-          <div id="error_explanation">
-            <% software_record.errors.full_messages.each do |message| %>
-              <%= alert_generator message, "error" %>
-            <% end %>
-          </div>
-        <% end %>
+          <%= render 'shared/form_errors', object: software_record %>
         <div class="tab-content" id="softwareRecordsTabContent">
           <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
             <%= render 'form_general', software_record: @software_record, component: component, form: form %>

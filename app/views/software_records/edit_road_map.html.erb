@@ -5,16 +5,7 @@
     <h1 class="text-center" style="color: white;">Edit Road Map</h1>
 
     <%= form_with(model: @software_record, url: update_road_map_software_record_path(@software_record), local: true, class: 'mt-4') do |form| %>
-      <% if @software_record.errors.any? %>
-        <div id="error_explanation" class="alert alert-danger">
-          <h2><%= pluralize(@software_record.errors.count, "error") %> prohibited this road map from being saved:</h2>
-          <ul>
-            <% @software_record.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= render 'shared/form_errors', object: @software_record %>
 
       <% if !@software_record.title.nil? && !@software_record.title.to_s.empty? %> 
         <div class="mb-3">
