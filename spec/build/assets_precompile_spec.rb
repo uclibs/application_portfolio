@@ -38,6 +38,12 @@ RSpec.describe 'assets pipeline' do
     expect(css).to include('.btn')
   end
 
+  it 'vendors Bootstrap SCSS for deploy hosts without node_modules' do
+    scss = Rails.root.join('app/assets/stylesheets/vendor/bootstrap/scss/bootstrap.scss')
+
+    expect(scss).to exist
+  end
+
   describe 'assets:precompile task' do
     it 'does not auto-run javascript:build in test (deploy uses production env too)' do
       Rails.application.load_tasks

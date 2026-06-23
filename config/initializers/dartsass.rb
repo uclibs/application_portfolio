@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require Rails.root.join('lib/bootstrap_vendor')
+
 # Entry-point SCSS files compiled to app/assets/builds/ by dartsass-rails.
-# Bootstrap SCSS comes from the npm package (see package.json).
+# Bootstrap SCSS is vendored from npm (see lib/bootstrap_vendor.rb); deploy hosts
+# do not run yarn until #18.
 #
 # --quiet-deps and --silence-deprecation=import suppress Dart Sass @import warnings
 # (vendor + app SCSS). Remove when SCSS is migrated to @use/@forward (follow-up ticket).
-bootstrap_scss = Rails.root.join('node_modules/bootstrap/scss')
+bootstrap_scss = BootstrapVendor.stylesheets_path
 
 Rails.application.config.dartsass.build_options ||= []
 Rails.application.config.dartsass.build_options << '--quiet-deps'

@@ -1,4 +1,4 @@
-// Bootstrap SCSS from node_modules (see config/initializers/dartsass.rb load path).
+// Bootstrap SCSS vendored from npm (see lib/bootstrap_vendor.rb and dartsass load path).
 $enable-responsive-font-sizes: false;
 
 @import "bootstrap";
