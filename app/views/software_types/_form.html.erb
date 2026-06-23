@@ -4,13 +4,7 @@
     <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Software Type<% else %>Edit Software Type<% end %></h1>
     <div class = "card-body">
         <%= form_with(model: software_type, local: true) do |form| %>
-          <% if software_type.errors.any? %>
-            <div id="error_explanation">
-              <% software_type.errors.full_messages.each do |message| %>
-                <%= form_error_alert(message) %>
-              <% end %>
-            </div>
-          <% end %>
+            <%= render 'shared/form_errors', object: software_type %>
         <div class="mb-3">
           <%= form.label :title, 'Software Type', class: 'text-white' %>
           <%= form.text_field :title, :class => "form-control" %>

@@ -43,6 +43,29 @@ RSpec.describe FlashMessagesHelper, type: :helper do
 
       expect(rendered).to have_css('.flash-toast', count: 2)
     end
+
+    it 'renders type-specific toast icons' do
+      flash[:notice] = 'Saved.'
+      flash[:error] = 'Failed.'
+      alerts
+
+      expect(rendered).to have_css('.fa-info-circle.text-info')
+      expect(rendered).to have_css('.fa-times-circle.text-danger')
+    end
+  end
+
+  describe '#flash_message_body' do
+    it 'allows br tags in flash copy' do
+      expect(flash_message_body('Line one<br/>Line two')).to include('<br>')
+      expect(flash_message_body('Line one<br/>Line two')).to include('Line one')
+    end
+
+    it 'strips disallowed HTML tags' do
+      body = flash_message_body('<script>alert("x")</script>Safe text')
+
+      expect(body).not_to include('<script>')
+      expect(body).to include('Safe text')
+    end
   end
 
   describe '#form_error_alert' do

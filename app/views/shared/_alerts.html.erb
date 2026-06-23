@@ -1,17 +1,16 @@
-<% if flash_messages.any? %>
+<% if flash_toasts.any? %>
   <div class="toast-container flash-toast-container position-fixed end-0 p-3" aria-live="polite" aria-atomic="true">
-    <% flash_messages.each do |type, message| %>
-      <% options = flash_toast_style(type) %>
+    <% flash_toasts.each do |toast| %>
       <div class="toast flash-toast text-bg-dark border-0 mb-2" role="alert"
            data-bs-autohide="true" data-bs-delay="<%= toast_delay %>"
            aria-live="assertive" aria-atomic="true">
         <div class="toast-header text-bg-dark border-secondary">
-          <i class="fas <%= options[:icon] %> <%= options[:header_class] %> me-2" aria-hidden="true"></i>
+          <i class="fas <%= toast[:icon] %> <%= toast[:header_class] %> me-2" aria-hidden="true"></i>
           <strong class="me-auto"><%= app_title %></strong>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-          <%= flash_message_body(message) %>
+          <%= flash_message_body(toast[:message]) %>
         </div>
       </div>
     <% end %>

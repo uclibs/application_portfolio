@@ -14,11 +14,11 @@ module FlashMessagesHelper
   }.freeze
 
   def alerts
-    messages = flash_toast_messages
-    return if messages.empty?
+    toasts = flash_toast_entries
+    return if toasts.empty?
 
     render 'shared/alerts',
-           flash_messages: messages,
+           flash_toasts: toasts,
            app_title: FLASH_APP_TITLE,
            toast_delay: FLASH_TOAST_DELAY_MS
   end
@@ -31,13 +31,14 @@ module FlashMessagesHelper
     sanitize(message.to_s, tags: FLASH_ALLOWED_TAGS)
   end
 
-  def flash_toast_style(type)
-    FLASH_TOAST_TYPES.fetch(type)
-  end
-
   private
 
-  def flash_toast_messages
-    FLASH_TOAST_TYPES.filter_map { |type, _| [type, flash[type]] if flash[type].present? }
+  def flash_toast_entries
+    FLASH_TOAST_TYPES.filter_map do |type, style|
+      message = flash[type]
+      next if message.blank?
+
+      style.merge(message: message)
+    end
   end
 end
