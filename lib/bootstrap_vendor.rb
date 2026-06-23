@@ -3,7 +3,7 @@
 require 'pathname'
 
 # Copies Bootstrap SCSS from node_modules into a committed vendor path for dartsass.
-# Deploy hosts do not run yarn (#18); vendored files must be in git.
+# Deploy hosts do not run yarn until Node is installed on deploy; vendored files must be in git.
 # Bootstrap JS is bundled via esbuild (app/javascript/application.js).
 module BootstrapVendor
   module_function

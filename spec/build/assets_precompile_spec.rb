@@ -22,9 +22,17 @@ RSpec.describe 'assets pipeline' do
   end
 
   it 'does not use Sprockets require directives in app javascript sources' do
-    Dir.glob(js_sources).each do |path|
+    Dir.glob(js_sources.to_s).each do |path|
       expect(File.read(path)).not_to match(%r{//= require})
     end
+  end
+
+  it 'locks @popperjs/core in package.json and yarn.lock for reproducible esbuild installs' do
+    package_json = JSON.parse(Rails.root.join('package.json').read)
+    yarn_lock = Rails.root.join('yarn.lock').read
+
+    expect(package_json.fetch('dependencies')).to include('@popperjs/core')
+    expect(yarn_lock).to include('@popperjs/core@')
   end
 
   it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
@@ -35,7 +43,7 @@ RSpec.describe 'assets pipeline' do
 
   it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
     expect(esbuild_bundle).to exist
-    stale_message = 'Run bin/rails javascript:build and commit app/assets/builds/application.js'
+    stale_message = 'Run yarn install && bin/rails javascript:build and commit app/assets/builds/application.js'
     expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
   end
 
@@ -53,7 +61,7 @@ RSpec.describe 'assets pipeline' do
   end
 
   describe 'assets:precompile task' do
-    it 'does not auto-run javascript:build in test (deploy uses committed bundle until #18)' do
+    it 'does not auto-run javascript:build in test (deploy uses committed bundle until Node is on deploy hosts)' do
       Rails.application.load_tasks
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')

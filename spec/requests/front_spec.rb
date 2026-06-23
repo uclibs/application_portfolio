@@ -3,13 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'FrontController', type: :request do
-  def sign_in_user(admin)
-    sign_in admin
-  end
-
   before do
-    admin = FactoryBot.create(:admin)
-    sign_in_user(admin)
+    sign_in FactoryBot.create(:admin)
   end
 
   describe 'GET /about' do
@@ -38,7 +33,9 @@ RSpec.describe 'FrontController', type: :request do
   describe 'GET /profile' do
     it 'requests profile page' do
       get myprofile_path
+
       expect(response).to have_http_status(200)
+      expect(response.body).to include('nav-profile')
     end
   end
 end

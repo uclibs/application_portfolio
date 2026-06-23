@@ -26,7 +26,7 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 JavaScript is bundled with **esbuild** via `jsbundling-rails` (LIBAPPO1-101, LIBAPPO1-108). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. Layouts load that bundle as a single deferred ES module (Turbo, Bootstrap, Chartkick, Active Storage, and app scripts).
 
-`app/assets/builds/application.js` is **committed** so QA/production `assets:precompile` works without Node until #18 (`SKIP_JS_BUILD` in `config/application.rb`). After changing JS dependencies or source files:
+`app/assets/builds/application.js` is **committed** so QA/production `assets:precompile` works without Node until deploy hosts have Node (`SKIP_JS_BUILD` in `config/application.rb`). After changing JS dependencies or source files:
 
 ```bash
 nvm use
@@ -43,13 +43,13 @@ nvm use
 bin/dev
 ```
 
-**Deploy:** `assets:precompile` skips the esbuild step on deploy hosts without Node; the committed bundle is fingerprinted like other assets. Ticket #18 will add Node to deploy and remove `SKIP_JS_BUILD`.
+**Deploy:** `assets:precompile` skips the esbuild step on deploy hosts without Node; the committed bundle is fingerprinted like other assets. A follow-up deploy ticket will add Node and remove `SKIP_JS_BUILD`.
 
 ### Bootstrap (npm + vendored assets)
 
 Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS:
+Deploy hosts do not run `yarn` until Node is on deploy, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS:
 
 ```bash
 nvm use
@@ -58,7 +58,7 @@ bundle exec rake bootstrap:vendor
 bin/rails javascript:build
 ```
 
-Commit `package.json`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
 
 ## Running the Tests
 

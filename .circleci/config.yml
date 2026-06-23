@@ -48,12 +48,22 @@ jobs:
           name: Verify Node and Yarn
           command: node -v && yarn -v
 
+      - restore_cache:
+          keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+            - v1-yarn-
+
       - run:
           name: Verify committed JavaScript bundle is current
           command: |
             yarn install --frozen-lockfile
             yarn build
             git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-yarn-{{ checksum "yarn.lock" }}
 
       - restore_cache:
           keys:
