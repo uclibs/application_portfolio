@@ -7,7 +7,7 @@
         <% if change_request.errors.any? %>
           <div id="error_explanation">
             <% change_request.errors.full_messages.each do |message| %>
-              <%= alert_generator message, "error" %>
+              <%= form_error_alert(message) %>
             <% end %>
           </div>
         <% end %>

@@ -184,7 +184,6 @@ GEM
     google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    gritter (1.2.0)
     groupdate (6.8.0)
       activesupport (>= 7.2)
     i18n (1.15.1)
@@ -500,7 +499,6 @@ DEPENDENCIES
   factory_bot_rails
   foreman
   globalize (~> 7.0)
-  gritter
   groupdate
   jbuilder (~> 2.5)
   jquery-rails

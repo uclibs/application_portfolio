@@ -2,8 +2,7 @@
 
 # Tests need freshly compiled CSS from app/assets/builds/. A leftover
 # public/assets manifest from assets:precompile pins stale digests and can
-# make stylesheet_link_tag serve outdated CSS (e.g. a runtime gritter @import
-# that resolves to Rails HTML).
+# make stylesheet_link_tag serve outdated CSS from a previous assets:precompile run.
 RSpec.configure do |config|
   config.before(:suite) do
     public_assets = Rails.public_path.join('assets')

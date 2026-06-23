@@ -156,8 +156,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
                      session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
-        expect(response.body).to have_content("Title can\\'t be blank")
-        expect(response.body).to have_content("Description can\\'t be blank")
+        expect(response.body).to have_content("Title can't be blank")
+        expect(response.body).to have_content("Description can't be blank")
       end
     end
   end
@@ -310,8 +310,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
                      session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
-        expect(response.body).to have_content("Title can\\'t be blank")
-        expect(response.body).to have_content("Description can\\'t be blank")
+        expect(response.body).to have_content("Title can't be blank")
+        expect(response.body).to have_content("Description can't be blank")
       end
     end
   end
@@ -464,8 +464,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
                      session: valid_session
         expect(response).to be_successful
         expect(response).to render_template(:edit)
-        expect(response.body).to have_content("Title can\\'t be blank")
-        expect(response.body).to have_content("Description can\\'t be blank")
+        expect(response.body).to have_content("Title can't be blank")
+        expect(response.body).to have_content("Description can't be blank")
       end
     end
   end
@@ -618,8 +618,8 @@ RSpec.describe SoftwareTypesController, type: :controller do
                      session: valid_session
         expect(response).to_not be_successful
         expect(response).to_not render_template(:edit)
-        expect(response.body).to_not have_content("Title can\\'t be blank")
-        expect(response.body).to_not have_content("Description can\\'t be blank")
+        expect(response.body).to_not have_content("Title can't be blank")
+        expect(response.body).to_not have_content("Description can't be blank")
       end
     end
   end

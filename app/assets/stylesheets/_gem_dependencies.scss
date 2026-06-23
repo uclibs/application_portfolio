@@ -1,10 +1,4 @@
-// Shared Bootstrap + gritter imports for dartsass entry points.
-//
-// The gritter gem names its stylesheet gritter.css.scss — use that exact import
-// path so Dart Sass inlines it at compile time. @import "gritter.css" emits a
-// runtime CSS @import that Sprockets cannot resolve (the browser loads Rails
-// HTML as CSS and layout breaks).
+// Shared Bootstrap imports for dartsass entry points.
 $enable-responsive-font-sizes: false;
 
-@import "gritter.css.scss";
 @import "bootstrap";

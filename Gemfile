@@ -66,8 +66,6 @@ gem 'jquery-rails'
 gem 'dotenv-rails'
 # Use petergate for authorization
 gem 'petergate'
-# Use gritter for flash message
-gem 'gritter'
 # Use chartkick for data-visualization techniques
 gem 'chartkick', '~> 5.2'
 # Use groupdate to group by dates
