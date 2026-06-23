@@ -17,6 +17,7 @@ RSpec.describe 'esbuild javascript build', :build do
     expect(content).to match(/turbo/i)
     expect(content).to match(/chartkick|Chartkick/i)
     expect(content).to include('js-add-multivalue')
+    expect(content).to match(/Dropdown|data-bs-toggle/i)
     expect(content).not_to include('@rails/ujs')
   end
 end

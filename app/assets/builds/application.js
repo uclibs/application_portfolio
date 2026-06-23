@@ -32796,12 +32796,11 @@ window.clearFiltersAndRedirect = clearFiltersAndRedirect;
 window.handleRadio = handleRadio;
 
 // app/javascript/inputsanitization.js
-document.addEventListener("turbo:load", function() {
-  document.querySelectorAll(".regex-createdby").forEach(function(field) {
-    field.addEventListener("keyup", function() {
-      field.value = field.value.replace(/[^a-zA-Z0-9 ]/g, "");
-    });
-  });
+document.addEventListener("input", function(event) {
+  const field = event.target;
+  if (!(field instanceof HTMLInputElement)) return;
+  if (!field.classList.contains("regex-createdby")) return;
+  field.value = field.value.replace(/[^a-zA-Z0-9 ]/g, "");
 });
 
 // app/javascript/multivalueinputs.js
@@ -32879,7 +32878,9 @@ document.addEventListener("turbo:load", function() {
   if (!hash3) return;
   const tabList = document.querySelector("#softwareRecordTab, #SoftwareRecordsTab");
   if (!tabList) return;
-  const tabTrigger = tabList.querySelector(`a[href="${hash3}"]`);
+  const tabTrigger = Array.from(tabList.querySelectorAll('a[href^="#"]')).find(
+    (link) => link.getAttribute("href") === hash3
+  );
   if (!tabTrigger) return;
   bootstrap_setup_default.Tab.getOrCreateInstance(tabTrigger).show();
 });
@@ -32887,6 +32888,7 @@ document.addEventListener("turbo:load", function() {
 // app/javascript/flash_toasts.js
 document.addEventListener("turbo:load", function() {
   document.querySelectorAll(".flash-toast").forEach(function(element) {
+    if (element.classList.contains("show")) return;
     bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
   });
 });

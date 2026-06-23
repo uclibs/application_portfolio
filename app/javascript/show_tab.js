@@ -7,7 +7,9 @@ document.addEventListener("turbo:load", function () {
   const tabList = document.querySelector("#softwareRecordTab, #SoftwareRecordsTab")
   if (!tabList) return
 
-  const tabTrigger = tabList.querySelector(`a[href="${hash}"]`)
+  const tabTrigger = Array.from(tabList.querySelectorAll('a[href^="#"]')).find(
+    (link) => link.getAttribute("href") === hash
+  )
   if (!tabTrigger) return
 
   bootstrap.Tab.getOrCreateInstance(tabTrigger).show()
