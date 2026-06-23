@@ -3,6 +3,9 @@
 
 APP_ROOT = File.expand_path('..', __dir__)
 Dir.chdir(APP_ROOT) do
+  require File.expand_path('../lib/javascript_build_env', __dir__)
+  JavascriptBuildEnv.apply!
+
   exec 'yarnpkg', *ARGV
 rescue Errno::ENOENT
   warn 'Yarn executable was not detected in the system.'

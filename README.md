@@ -33,9 +33,10 @@ nvm use
 bin/rails javascript:build   # or: yarn install && yarn build
 ```
 
-For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch):
+For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:
 
 ```bash
+nvm use
 bin/dev
 ```
 
