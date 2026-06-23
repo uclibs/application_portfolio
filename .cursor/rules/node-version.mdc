@@ -1,0 +1,33 @@
+---
+description: Use the project Node version (nvm) before yarn, esbuild, or other Node commands
+alwaysApply: true
+---
+
+# Node version (nvm)
+
+This project requires **Node 24.x** (see `.nvmrc` and `package.json` `engines`). The default shell often has an older Node, which breaks `yarn install` and JS builds.
+
+## Before Node or yarn commands
+
+From the project root, activate nvm **in the same shell** as the command that follows:
+
+```bash
+source ~/.nvm/nvm.sh 2>/dev/null; nvm use
+```
+
+Use this prefix (or equivalent) before:
+
+- `yarn` / `yarn install` / `bin/yarn`
+- `node`
+- `bin/rails javascript:build` / `javascript:install`
+- `bin/dev` (Foreman runs yarn)
+- Any esbuild or npm script
+
+## Examples
+
+```bash
+source ~/.nvm/nvm.sh 2>/dev/null; nvm use && yarn install
+source ~/.nvm/nvm.sh 2>/dev/null; nvm use && bundle exec rails javascript:build
+```
+
+Non-interactive shells do not load nvm automatically; `source ~/.nvm/nvm.sh` is required, not only `nvm use`.

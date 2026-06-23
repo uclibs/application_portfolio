@@ -87,8 +87,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.24.6)
       msgpack (~> 1.2)
-    bootstrap (5.3.8)
-      popper_js (>= 2.11.8, < 3)
     brakeman (8.0.5)
       racc
     builder (3.3.0)
@@ -263,7 +261,6 @@ GEM
       racc
     petergate (3.0.1)
       activerecord (> 4.0.0)
-    popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -476,7 +473,6 @@ DEPENDENCIES
   bcrypt_pbkdf
   bigdecimal
   bootsnap (>= 1.1.0)
-  bootstrap (~> 5.3.3)
   brakeman
   bundler-audit
   byebug

@@ -59,8 +59,6 @@ gem 'rubocop-rspec', require: false
 # Use simplecov to generate the coveralls report in .html format
 gem 'simplecov', require: false
 gem 'simplecov-lcov', require: false
-# Use bootstrap for styling components
-gem 'bootstrap', '~> 5.3.3'
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
 # Use petergate for authorization

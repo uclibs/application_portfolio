@@ -14,6 +14,10 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to include('jquery-rails')
   end
 
+  it 'does not list the bootstrap gem in Gemfile.lock' do
+    expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
+  end
+
   it 'requires the Bootstrap bundle with Popper for Sprockets' do
     expect(sprockets_manifest).to include('require vendor/bootstrap.bundle')
     expect(sprockets_manifest).not_to match(%r{//= require bootstrap\s*$})
@@ -25,6 +29,13 @@ RSpec.describe 'assets pipeline' do
     minor_release = package.fetch('dependencies').fetch('bootstrap').match(/(\d+\.\d+)/)[1]
 
     expect(vendor_bundle).to include("Bootstrap v#{minor_release}")
+  end
+
+  it 'compiles Bootstrap SCSS from node_modules into dartsass builds' do
+    css = Rails.root.join('app/assets/builds/application.css').read
+
+    expect(css).to include('--bs-')
+    expect(css).to include('.btn')
   end
 
   describe 'assets:precompile task' do
