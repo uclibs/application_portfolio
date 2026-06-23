@@ -24,13 +24,13 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 ### JavaScript (esbuild)
 
-JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101). The entry point is `app/javascript/application.js`; `yarn build` (or `bin/rails javascript:build`) writes `app/assets/builds/application.js` and source maps. **Sprockets still serves the legacy `app/assets/javascripts/` bundle in the browser until cutover ticket #12** — use `yarn build` locally for build verification only, not day-to-day browsing.
+JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. **Sprockets still serves the legacy `app/assets/javascripts/` bundle in the browser until cutover ticket #12** — use a local build for verification only, not day-to-day browsing.
 
 Compiled files under `app/assets/builds/` are not committed (see `.gitignore`). After changing JS dependencies or entry code:
 
 ```bash
 nvm use
-bin/rails javascript:build   # or: yarn install && yarn build
+bin/rails javascript:build   # runs bin/yarn install then bin/yarn build
 ```
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:

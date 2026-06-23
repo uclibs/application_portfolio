@@ -27,7 +27,7 @@ module JavascriptBuildEnv
   end
 
   def default_root
-    if defined?(Rails) && Rails.application
+    if defined?(Rails) && Rails.application&.initialized?
       Rails.root
     else
       Pathname.new(File.expand_path('..', __dir__))

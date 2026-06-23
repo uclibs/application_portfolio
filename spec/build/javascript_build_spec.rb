@@ -6,8 +6,7 @@ RSpec.describe 'esbuild javascript build' do
   around do |example|
     example.run
   ensure
-    FileUtils.rm_f(Rails.root.join('app/assets/builds/application.js'))
-    FileUtils.rm_f(Rails.root.join('app/assets/builds/application.js.map'))
+    EsbuildBuildArtifacts.remove!
   end
 
   it 'javascript:build produces app/assets/builds/application.js' do
