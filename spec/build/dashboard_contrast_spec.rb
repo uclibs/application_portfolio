@@ -12,6 +12,12 @@ RSpec.describe 'dashboard contrast styles' do
     expect(contrast_scss).to match(/\.card-detail\[style\*="background-color: black"\][\s\S]*label[\s\S]*color:\s*#fff/)
   end
 
+  it 'keeps active tab labels readable on black card surfaces' do
+    expect(contrast_scss).to match(/\.nav-tabs \.nav-link\.active[\s\S]*color:\s*#212529/)
+    expect(contrast_scss).to match(/\.nav-tabs \.nav-link\.active[\s\S]*background-color:\s*#fff/)
+    expect(contrast_scss).to match(/\.nav-tabs \.nav-link[\s\S]*color:\s*#fff/)
+  end
+
   it 'loads contrast rules in the software_records stylesheet entry point' do
     expect(software_records_scss).to include('@import "dashboard_contrast"')
     expect(software_records_scss).to match(/div\.active\.tab-pane[\s\S]*label[\s\S]*color:\s*#fff/)
