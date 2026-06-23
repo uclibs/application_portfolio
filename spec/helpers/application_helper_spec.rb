@@ -3,6 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
+  describe '#user_display_name' do
+    let(:user) { FactoryBot.build(:admin, first_name: 'Admin', last_name: 'User') }
+
+    it 'joins the user first and last name' do
+      expect(helper.user_display_name(user)).to eq('Admin User')
+    end
+
+    it 'omits blank name parts' do
+      user.last_name = ''
+      expect(helper.user_display_name(user)).to eq('Admin')
+    end
+  end
+
   describe 'generate_software_records_series' do
     let(:status) { FactoryBot.create(:status) }
     let(:hosting_environment) { FactoryBot.create(:hosting_environment) }

@@ -20,7 +20,9 @@ function closeNav() {
 
 function resetMainLayout() {
   const main = document.getElementById("main");
-  if (main) main.style.marginLeft = "";
+  if (!main) return;
+
+  main.style.marginLeft = "";
 }
 
 document.addEventListener("turbo:load", resetMainLayout);

@@ -4,13 +4,18 @@ require 'rails_helper'
 
 RSpec.describe SoftwareRecordsHelper, type: :helper do
   describe '#pills' do
-    it 'renders Bootstrap 5 status badges' do
-      expect(helper.pills('In Design')).to eq('<span class="badge rounded-pill text-bg-dark">In Design</span>')
-      expect(helper.pills('In Development')).to eq('<span class="badge rounded-pill text-bg-info">In Development</span>')
-      expect(helper.pills('Production')).to eq('<span class="badge rounded-pill text-bg-primary">Production</span>')
-      expect(helper.pills('Available')).to eq('<span class="badge rounded-pill text-bg-success">Available</span>')
-      expect(helper.pills('To be decomissioned')).to eq('<span class="badge rounded-pill text-bg-danger">To be decomissioned</span>')
-      expect(helper.pills('Something')).to eq('<span class="badge rounded-pill text-bg-light">Something</span>')
+    {
+      'In Design' => 'text-bg-dark',
+      'In Development' => 'text-bg-info',
+      'In Upgrade' => 'text-bg-warning',
+      'Production' => 'text-bg-primary',
+      'Available' => 'text-bg-success',
+      'To be decomissioned' => 'text-bg-danger',
+      'Something' => 'text-bg-light'
+    }.each do |status, badge_class|
+      it "renders #{badge_class} for #{status}" do
+        expect(helper.pills(status)).to eq(%(<span class="badge rounded-pill #{badge_class}">#{status}</span>))
+      end
     end
   end
 
