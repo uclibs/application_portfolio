@@ -27,9 +27,11 @@ RSpec.describe 'FrontController', type: :request do
   end
 
   describe 'GET /dashboard' do
-    it 'requests dashboard page' do
+    it 'requests dashboard page with chartkick chart markup' do
       get dashboard_path
+
       expect(response).to have_http_status(200)
+      expect(response.body.scan(/id="chart-\d+"/).size).to be >= 4
     end
   end
 

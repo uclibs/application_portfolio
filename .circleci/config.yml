@@ -48,6 +48,13 @@ jobs:
           name: Verify Node and Yarn
           command: node -v && yarn -v
 
+      - run:
+          name: Verify committed JavaScript bundle is current
+          command: |
+            yarn install
+            yarn build
+            git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
