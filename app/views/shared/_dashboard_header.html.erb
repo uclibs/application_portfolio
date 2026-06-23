@@ -19,17 +19,17 @@
       <% end %>
       <p class="ms-3"></p>
        <%= nav_helper 'nav-link' %>
-       <div class="dropdown ms-3">
-       		<% if current_user %>
-            <a class="nav-link dropdown-toggle drop-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= current_user.first_name.to_s + " " + current_user.last_name.to_s %>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-              <li><%= link_to "My Profile", myprofile_path, class: "dropdown-item" %></li>
-              <li><%= logout_link "Logout", destroy_user_session_path, class: "dropdown-item" %></li>
-            </ul>
-          <% end %>
-       </div>
+       <% if user_signed_in? %>
+         <div class="dropdown ms-3">
+           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             <%= [current_user.first_name, current_user.last_name].compact_blank.join(' ') %>
+           </a>
+           <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+             <li><%= link_to 'My Profile', myprofile_path, class: 'dropdown-item' %></li>
+             <li><%= logout_link 'Logout', destroy_user_session_path, class: 'dropdown-item' %></li>
+           </ul>
+         </div>
+       <% end %>
     </nav>
   </div>
 </div>

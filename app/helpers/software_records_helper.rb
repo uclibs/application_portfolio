@@ -4,19 +4,19 @@
 module SoftwareRecordsHelper
   def pills(status)
     if status.to_s.downcase.include?('design')
-      tag.span(status, class: 'badge badge-pill badge-dark')
+      tag.span(status, class: 'badge rounded-pill text-bg-dark')
     elsif status.to_s.downcase.include?('development')
-      tag.span(status, class: 'badge badge-pill badge-info')
+      tag.span(status, class: 'badge rounded-pill text-bg-info')
     elsif status.to_s.downcase.include?('upgrade')
-      tag.span(status, class: 'badge badge-pill badge-warning')
+      tag.span(status, class: 'badge rounded-pill text-bg-warning')
     elsif status.to_s.downcase.include?('production')
-      tag.span(status, class: 'badge badge-pill badge-primary')
+      tag.span(status, class: 'badge rounded-pill text-bg-primary')
     elsif status.to_s.downcase.include?('available')
-      tag.span(status, class: 'badge badge-pill badge-success')
+      tag.span(status, class: 'badge rounded-pill text-bg-success')
     elsif status.to_s.downcase.include?('decomission')
-      tag.span(status, class: 'badge badge-pill badge-danger')
+      tag.span(status, class: 'badge rounded-pill text-bg-danger')
     else
-      tag.span(status, class: 'badge badge-pill badge-light')
+      tag.span(status, class: 'badge rounded-pill text-bg-light')
     end
   end
 

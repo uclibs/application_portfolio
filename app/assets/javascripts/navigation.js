@@ -1,16 +1,26 @@
+function sidenavElement() {
+  return document.getElementById("mySidenav");
+}
+
 function openNav() {
-  document.getElementById("mySidenav").style.visibility = "visible";
-  document.getElementById("mySidenav").style.width = "250px";
+  const sidenav = sidenavElement();
+  if (!sidenav) return;
+
+  sidenav.style.visibility = "visible";
+  sidenav.style.width = "250px";
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.visibility = "hidden";
-  document.getElementById("mySidenav").style.width = "0";
+  const sidenav = sidenavElement();
+  if (!sidenav) return;
+
+  sidenav.style.visibility = "hidden";
+  sidenav.style.width = "0";
 }
 
 function resetMainLayout() {
-  var main = document.getElementById("main");
-  if (main) main.style.marginLeft = "0";
+  const main = document.getElementById("main");
+  if (main) main.style.marginLeft = "";
 }
 
 document.addEventListener("turbo:load", resetMainLayout);
