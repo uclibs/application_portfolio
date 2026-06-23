@@ -46,7 +46,7 @@
               <% else %>
                 <td style="background-color: black ; color: white"><%= link_to 'View', hosting_environment, class: "btn btn-success" %></td>
                 <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_hosting_environment_path(hosting_environment), class: "btn btn-primary" %></td>
-                <td style="background-color: black ; color: white"><%= link_to 'Delete', hosting_environment, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= delete_link 'Delete', hosting_environment, class: "btn btn-danger" %></td>
               <% end %>
             </tr>
           <% end %>

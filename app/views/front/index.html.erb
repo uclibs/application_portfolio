@@ -7,7 +7,7 @@
     <p class="lead">
         <% if current_user %>
             <p style="color: white">Logged in as <%= current_user.email %></p>
-            <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-dark btn-lg action-btn mx-auto"%>
+            <%= logout_link "Logout", destroy_user_session_path, class: "btn btn-dark btn-lg action-btn mx-auto" %>
         <% else %>
             <%= link_to "Login", (Rails.configuration.x.auth.shibboleth_enabled ? shibboleth_force_authn_login_path : new_user_session_path), {:class => "btn btn-dark btn-lg mx-auto action-btn"} %>
         <% end %>

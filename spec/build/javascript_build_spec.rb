@@ -20,5 +20,6 @@ RSpec.describe 'esbuild javascript build' do
     expect(bundle).to exist
     expect(bundle.size).to be > 1000
     expect(bundle.read).to match(/turbo/i)
+    expect(bundle.read).not_to include('@rails/ujs')
   end
 end

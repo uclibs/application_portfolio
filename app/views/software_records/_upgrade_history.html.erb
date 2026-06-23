@@ -36,7 +36,7 @@ Upgrade history (Completed Change Request)
               <% else %>
                 <td><%= link_to 'View', change_request , { :class => "btn btn-success" }%></td>
                 <td><%= link_to 'Edit', edit_change_request_path(change_request), { :class => "btn btn-primary" } %></td>
-                <td><%= link_to 'Delete', change_request, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td><%= delete_link 'Delete', change_request, class: "btn btn-danger" %></td>
               <% end %>
             </tr>
           <% end %>
