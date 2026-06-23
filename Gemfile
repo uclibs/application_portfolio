@@ -33,7 +33,7 @@ gem 'rack', '~> 3.0'
 gem 'puma', '>= 6.4.3'
 # Compile SCSS with Dart Sass (replaces deprecated sassc-rails / LibSass)
 gem 'dartsass-rails'
-# Bundle JavaScript with esbuild (scaffold; Sprockets still serves legacy JS until #12)
+# Bundle JavaScript with esbuild (served from app/assets/builds/application.js)
 gem 'jsbundling-rails', '~> 1.3'
 # Asset pipeline dependencies for Rack 3.x compatibility
 gem 'sprockets', '~> 4.2', '>= 4.2.2'

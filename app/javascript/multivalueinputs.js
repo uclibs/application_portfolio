@@ -1,4 +1,3 @@
-// app/assets/javascripts/multivalueinputs.js
 // Multi-value input add/remove (Bootstrap 5)
 // Works with markup from _form_multi_*.html.erb and front/new.html.erb (multi-value sections):
 // - container id:  multiple_<fieldName>
@@ -8,7 +7,6 @@
 (() => {
   "use strict";
 
-  // Guard against double-including this asset (prevents duplicate event handlers)
   if (window.__multivalueinputs_bound) return;
   window.__multivalueinputs_bound = true;
 
@@ -48,7 +46,7 @@
 
     const input = document.createElement("input");
     input.type = "text";
-    input.required = true; // keep existing behavior
+    input.required = true;
     input.name = `software_record[${fieldName}][]`;
     input.id = `software_record_${fieldName}_${index}`;
     input.className = "form-control";
@@ -66,7 +64,6 @@
     input.focus();
   }
 
-  // Delegated click handling: no per-page binding, no button IDs needed.
   document.addEventListener("click", (e) => {
     const target =
       e.target instanceof Element ? e.target : e.target.parentElement;

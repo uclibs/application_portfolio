@@ -24,14 +24,17 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 ### JavaScript (esbuild)
 
-JavaScript is being migrated to **esbuild** via `jsbundling-rails` (LIBAPPO1-101). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. **Sprockets still serves the legacy `app/assets/javascripts/` bundle in the browser until cutover ticket #12** — use a local build for verification only, not day-to-day browsing.
+JavaScript is bundled with **esbuild** via `jsbundling-rails` (LIBAPPO1-101, LIBAPPO1-108). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. Layouts load that bundle as a single deferred ES module (Turbo, Bootstrap, Chartkick, Active Storage, and app scripts).
 
-Compiled files under `app/assets/builds/` are not committed (see `.gitignore`). After changing JS dependencies or entry code:
+`app/assets/builds/application.js` is **committed** so QA/production `assets:precompile` works without Node until #18 (`SKIP_JS_BUILD` in `config/application.rb`). After changing JS dependencies or source files:
 
 ```bash
 nvm use
-bin/rails javascript:build   # runs bin/yarn install then bin/yarn build
+yarn install
+bin/rails javascript:build
 ```
+
+Commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` when present).
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:
 
@@ -40,21 +43,22 @@ nvm use
 bin/dev
 ```
 
-**Deploy:** QA and production `assets:precompile` skip the esbuild step (`SKIP_JS_BUILD` in `config/application.rb`) because deploy hosts do not have Node 24 yet and the bundle is not served until #12. Ticket #18 will add Node to deploy and remove that skip.
+**Deploy:** `assets:precompile` skips the esbuild step on deploy hosts without Node; the committed bundle is fingerprinted like other assets. Ticket #18 will add Node to deploy and remove `SKIP_JS_BUILD`.
 
 ### Bootstrap (npm + vendored assets)
 
-Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. Sprockets serves the vendored `app/assets/javascripts/vendor/bootstrap.bundle.js` until the esbuild cutover (#12); esbuild imports Bootstrap JS from `node_modules` for local verification.
+Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` until #18, so vendored Bootstrap JS and SCSS must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh the vendor copies:
+Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS (and the committed JS bundle) must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh vendor SCSS and rebuild JS:
 
 ```bash
 nvm use
 yarn install
 bundle exec rake bootstrap:vendor
+bin/rails javascript:build
 ```
 
-Commit `package.json`, `yarn.lock`, and the updated files under `app/assets/javascripts/vendor/` and `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
 
 ## Running the Tests
 

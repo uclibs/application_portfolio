@@ -1,3 +1,5 @@
+import { Tab } from "bootstrap";
+
 document.addEventListener("turbo:load", function () {
   const hash = window.location.hash;
   if (!hash) return;
@@ -6,8 +8,7 @@ document.addEventListener("turbo:load", function () {
   if (!tabList) return;
 
   const tabTrigger = tabList.querySelector(`a[href="${hash}"]`);
-  if (tabTrigger) {
-    const tab = new bootstrap.Tab(tabTrigger);
-    tab.show();
-  }
+  if (!tabTrigger) return;
+
+  Tab.getOrCreateInstance(tabTrigger).show();
 });

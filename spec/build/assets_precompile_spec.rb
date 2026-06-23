@@ -3,12 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'assets pipeline' do
-  let(:sprockets_manifest) { Rails.root.join('app/assets/javascripts/application.js').read }
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
-
-  it 'does not require jquery in the Sprockets manifest' do
-    expect(sprockets_manifest).not_to match(/require jquery/i)
-  end
+  let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
+  let(:manifest) { Rails.root.join('app/assets/config/manifest.js').read }
 
   it 'does not list jquery-rails in Gemfile.lock' do
     expect(gemfile_lock).not_to include('jquery-rails')
@@ -18,17 +15,25 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
   end
 
-  it 'requires the Bootstrap bundle with Popper for Sprockets' do
-    expect(sprockets_manifest).to include('require vendor/bootstrap.bundle')
-    expect(sprockets_manifest).not_to match(%r{//= require bootstrap\s*$})
+  it 'does not link the legacy Sprockets javascripts directory in the asset manifest' do
+    expect(manifest).not_to include('link_directory ../javascripts')
+    expect(manifest).to include('link_tree ../builds')
   end
 
-  it 'vendors a Bootstrap bundle aligned with package.json' do
-    package = JSON.parse(Rails.root.join('package.json').read)
-    vendor_bundle = Rails.root.join('app/assets/javascripts/vendor/bootstrap.bundle.js').read
-    minor_release = package.fetch('dependencies').fetch('bootstrap').match(/(\d+\.\d+)/)[1]
+  it 'does not use Sprockets require directives in app javascript sources' do
+    Dir.glob(Rails.root.join('app/javascript/**/*.js')).each do |path|
+      expect(File.read(path)).not_to match(%r{//= require})
+    end
+  end
 
-    expect(vendor_bundle).to include("Bootstrap v#{minor_release}")
+  it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
+    expect(esbuild_bundle).to exist
+
+    bundle = esbuild_bundle.read
+    expect(bundle).to match(/turbo/i)
+    expect(bundle).to match(/chartkick|Chartkick/i)
+    expect(bundle).to include('js-add-multivalue')
+    expect(bundle).not_to include('@rails/ujs')
   end
 
   it 'compiles vendored Bootstrap SCSS into dartsass builds' do
@@ -45,7 +50,7 @@ RSpec.describe 'assets pipeline' do
   end
 
   describe 'assets:precompile task' do
-    it 'does not auto-run javascript:build in test (deploy uses production env too)' do
+    it 'does not auto-run javascript:build in test (deploy uses committed bundle until #18)' do
       Rails.application.load_tasks
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')

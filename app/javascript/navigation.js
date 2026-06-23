@@ -27,3 +27,6 @@ function resetMainLayout() {
 
 document.addEventListener("turbo:load", resetMainLayout);
 document.addEventListener("turbo:before-cache", resetMainLayout);
+
+window.openNav = openNav;
+window.closeNav = closeNav;

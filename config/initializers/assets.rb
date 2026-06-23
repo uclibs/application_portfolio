@@ -5,19 +5,8 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-# Add additional assets to the asset load path.
-# Rails.application.config.assets.paths << Emoji.images_path
-# node_modules is not on the Sprockets path until #12 (esbuild cutover).
-# Compiled CSS from dartsass-rails lives in app/assets/builds/ (linked in manifest.js).
+# Compiled CSS/JS from dartsass-rails and esbuild live in app/assets/builds/ (linked in manifest.js).
 Rails.application.config.assets.precompile += %w[software_records.css]
-# Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in the app/assets
-# folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w[navigation.js]
-Rails.application.config.assets.precompile += %w[filtermanagement.js]
-Rails.application.config.assets.precompile += %w[inputsanitization.js]
-Rails.application.config.assets.precompile += %w[multivalueinputs.js]
 
 # Sprockets 4 always registers a built-in CoffeeScript transformer, which lazily
 # requires the `coffee_script` library when resolving any JavaScript asset. Since
