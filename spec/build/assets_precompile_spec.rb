@@ -6,6 +6,7 @@ RSpec.describe 'assets pipeline' do
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
   let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
   let(:manifest) { Rails.root.join('app/assets/config/manifest.js').read }
+  let(:js_sources) { Rails.root.join('app/javascript/**/*.js') }
 
   it 'does not list jquery-rails in Gemfile.lock' do
     expect(gemfile_lock).not_to include('jquery-rails')
@@ -21,7 +22,7 @@ RSpec.describe 'assets pipeline' do
   end
 
   it 'does not use Sprockets require directives in app javascript sources' do
-    Dir.glob(Rails.root.join('app/javascript/**/*.js')).each do |path|
+    Dir.glob(js_sources).each do |path|
       expect(File.read(path)).not_to match(%r{//= require})
     end
   end
@@ -29,12 +30,13 @@ RSpec.describe 'assets pipeline' do
   it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
     expect(esbuild_bundle).to exist
 
-    bundle = esbuild_bundle.read
-    expect(bundle).to match(/turbo/i)
-    expect(bundle).to match(/chartkick|Chartkick/i)
-    expect(bundle).to include('js-add-multivalue')
-    expect(bundle).to match(/Dropdown|data-bs-toggle/i)
-    expect(bundle).not_to include('@rails/ujs')
+    expect_core_bundle_content!(esbuild_bundle.read)
+  end
+
+  it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
+    expect(esbuild_bundle).to exist
+    stale_message = 'Run bin/rails javascript:build and commit app/assets/builds/application.js'
+    expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
   end
 
   it 'compiles vendored Bootstrap SCSS into dartsass builds' do

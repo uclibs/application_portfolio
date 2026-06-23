@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",
-    "@popperjs/core": "^2.11.8",
     "@rails/activestorage": "^8.0.200",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.8",

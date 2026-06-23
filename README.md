@@ -34,7 +34,7 @@ yarn install
 bin/rails javascript:build
 ```
 
-Commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` when present).
+Commit `package.json` and `app/assets/builds/application.js` (+ `.map` when present). Run `yarn install` locally after pulling dependency changes (`yarn.lock` is gitignored in this repo).
 
 For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:
 
@@ -49,7 +49,7 @@ bin/dev
 
 Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json` / `yarn.lock`, refresh vendor SCSS and rebuild JS:
+Deploy hosts do not run `yarn` until #18, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS:
 
 ```bash
 nvm use
@@ -58,7 +58,7 @@ bundle exec rake bootstrap:vendor
 bin/rails javascript:build
 ```
 
-Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
 
 ## Running the Tests
 

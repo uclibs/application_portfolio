@@ -8064,7 +8064,7 @@ function resolve(inputs, context, index2, info) {
 function _addGrace(minmax, grace, beginAtZero) {
   const { min: min2, max: max2 } = minmax;
   const change = toDimension(grace, (max2 - min2) / 2);
-  const keepZero = (value, add) => beginAtZero && value === 0 ? 0 : value + add;
+  const keepZero = (value, add2) => beginAtZero && value === 0 ? 0 : value + add2;
   return {
     min: keepZero(min2, -Math.abs(change)),
     max: keepZero(max2, change)
@@ -32768,7 +32768,10 @@ function resetMainLayout() {
   main2.style.marginLeft = "";
 }
 document.addEventListener("turbo:load", resetMainLayout);
-document.addEventListener("turbo:before-cache", resetMainLayout);
+document.addEventListener("turbo:before-cache", () => {
+  resetMainLayout();
+  closeNav();
+});
 window.openNav = openNav;
 window.closeNav = closeNav;
 
@@ -32800,77 +32803,73 @@ document.addEventListener("input", function(event) {
   const field = event.target;
   if (!(field instanceof HTMLInputElement)) return;
   if (!field.classList.contains("regex-createdby")) return;
-  field.value = field.value.replace(/[^a-zA-Z0-9 ]/g, "");
+  const sanitized = field.value.replace(/[^a-zA-Z0-9 ]/g, "");
+  if (sanitized !== field.value) field.value = sanitized;
 });
 
 // app/javascript/multivalueinputs.js
-(() => {
-  "use strict";
-  if (window.__multivalueinputs_bound) return;
-  window.__multivalueinputs_bound = true;
-  const containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
-  const inputsForField = (container, fieldName) => {
-    const expectedName = `software_record[${fieldName}][]`;
-    return Array.prototype.filter.call(
-      container.querySelectorAll("input"),
-      (input) => input.name === expectedName
-    );
-  };
-  const nextIndex = (container, fieldName) => {
-    const prefix = `software_record_${fieldName}_`;
-    const inputs = inputsForField(container, fieldName);
-    let max2 = 0;
-    inputs.forEach((input) => {
-      const id2 = input.id;
-      if (id2 && id2.startsWith(prefix)) {
-        const n = parseInt(id2.slice(prefix.length), 10);
-        if (!Number.isNaN(n) && n > max2) max2 = n;
-      }
-    });
-    return max2 + 1;
-  };
-  function add(fieldName, value = "") {
-    const container = containerFor(fieldName);
-    if (!container) return;
-    const index2 = nextIndex(container, fieldName);
-    const row = document.createElement("div");
-    row.className = "input-group mt-2";
-    row.dataset.multivalueRow = "true";
-    const input = document.createElement("input");
-    input.type = "text";
-    input.required = true;
-    input.name = `software_record[${fieldName}][]`;
-    input.id = `software_record_${fieldName}_${index2}`;
-    input.className = "form-control";
-    input.value = value;
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button";
-    removeBtn.className = "btn btn-outline-danger js-remove-multivalue";
-    removeBtn.textContent = "Delete";
-    row.appendChild(input);
-    row.appendChild(removeBtn);
-    container.appendChild(row);
-    input.focus();
-  }
-  document.addEventListener("click", (e) => {
-    const target = e.target instanceof Element ? e.target : e.target.parentElement;
-    if (!target) return;
-    const addBtn = target.closest(".js-add-multivalue");
-    if (addBtn) {
-      e.preventDefault();
-      const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
-      if (!fieldName) return;
-      add(fieldName, "");
-      return;
-    }
-    const removeBtn = target.closest(".js-remove-multivalue");
-    if (removeBtn) {
-      e.preventDefault();
-      const row = removeBtn.closest(".input-group");
-      if (row) row.remove();
+var containerFor = (fieldName) => document.getElementById(`multiple_${fieldName}`);
+var inputsForField = (container, fieldName) => {
+  const expectedName = `software_record[${fieldName}][]`;
+  return Array.prototype.filter.call(
+    container.querySelectorAll("input"),
+    (input) => input.name === expectedName
+  );
+};
+var nextIndex = (container, fieldName) => {
+  const prefix = `software_record_${fieldName}_`;
+  const inputs = inputsForField(container, fieldName);
+  let max2 = 0;
+  inputs.forEach((input) => {
+    const id2 = input.id;
+    if (id2 && id2.startsWith(prefix)) {
+      const n = parseInt(id2.slice(prefix.length), 10);
+      if (!Number.isNaN(n) && n > max2) max2 = n;
     }
   });
-})();
+  return max2 + 1;
+};
+function add(fieldName, value = "") {
+  const container = containerFor(fieldName);
+  if (!container) return;
+  const index2 = nextIndex(container, fieldName);
+  const row = document.createElement("div");
+  row.className = "input-group mt-2";
+  row.dataset.multivalueRow = "true";
+  const input = document.createElement("input");
+  input.type = "text";
+  input.required = true;
+  input.name = `software_record[${fieldName}][]`;
+  input.id = `software_record_${fieldName}_${index2}`;
+  input.className = "form-control";
+  input.value = value;
+  const removeBtn = document.createElement("button");
+  removeBtn.type = "button";
+  removeBtn.className = "btn btn-outline-danger js-remove-multivalue";
+  removeBtn.textContent = "Delete";
+  row.appendChild(input);
+  row.appendChild(removeBtn);
+  container.appendChild(row);
+  input.focus();
+}
+document.addEventListener("click", (event) => {
+  const target = event.target instanceof Element ? event.target : event.target.parentElement;
+  if (!target) return;
+  const addBtn = target.closest(".js-add-multivalue");
+  if (addBtn) {
+    event.preventDefault();
+    const fieldName = (addBtn.getAttribute("data-field-name") || "").trim();
+    if (!fieldName) return;
+    add(fieldName, "");
+    return;
+  }
+  const removeBtn = target.closest(".js-remove-multivalue");
+  if (removeBtn) {
+    event.preventDefault();
+    const row = removeBtn.closest(".input-group");
+    if (row) row.remove();
+  }
+});
 
 // app/javascript/show_tab.js
 document.addEventListener("turbo:load", function() {

@@ -13,11 +13,6 @@ RSpec.describe 'esbuild javascript build', :build do
     bundle = Rails.root.join('app/assets/builds/application.js')
     expect(bundle).to exist
     expect(bundle.size).to be > 1000
-    content = bundle.read
-    expect(content).to match(/turbo/i)
-    expect(content).to match(/chartkick|Chartkick/i)
-    expect(content).to include('js-add-multivalue')
-    expect(content).to match(/Dropdown|data-bs-toggle/i)
-    expect(content).not_to include('@rails/ujs')
+    expect_core_bundle_content!(bundle.read)
   end
 end

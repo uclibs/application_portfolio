@@ -13,7 +13,8 @@ RSpec.configure do |config|
     Rake::Task['dartsass:build'].invoke
 
     js_bundle = Rails.root.join('app/assets/builds/application.js')
-    next if js_bundle.exist?
+    js_sources = Rails.root.join('app/javascript/**/*.js')
+    next unless EsbuildBundleExpectations.stale_sources?(js_bundle, js_sources)
 
     %w[javascript:prepare_node_path javascript:install javascript:build].each do |name|
       Rake::Task[name].reenable

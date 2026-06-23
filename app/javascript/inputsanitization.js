@@ -3,5 +3,6 @@ document.addEventListener("input", function (event) {
   if (!(field instanceof HTMLInputElement)) return
   if (!field.classList.contains("regex-createdby")) return
 
-  field.value = field.value.replace(/[^a-zA-Z0-9 ]/g, "")
+  const sanitized = field.value.replace(/[^a-zA-Z0-9 ]/g, "")
+  if (sanitized !== field.value) field.value = sanitized
 })
