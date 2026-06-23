@@ -47,6 +47,7 @@ describe 'front/index' do
     it 'displays a logout link' do
       render
       expect(rendered).to have_link('Logout', href: destroy_user_session_path)
+      assert_select 'a[data-turbo-method=delete]', text: 'Logout'
     end
   end
 end

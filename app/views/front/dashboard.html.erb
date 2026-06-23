@@ -70,8 +70,7 @@ btn-icons", title: "Edit" }%></td>
 }%></td>
                     <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_indesign) , { :class => "btn btn-primary 
 btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_indesign, method: :delete, :class => "btn btn-danger btn-icons", data: 
-{ confirm: 'Are you sure?' }, title: "Delete" %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_indesign, class: "btn btn-danger btn-icons", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, title: "Delete" %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -157,8 +156,7 @@ btn-icons", title: "Edit" }%></td>
 }%></td>
                     <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary 
 btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", 
-title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, class: "btn btn-danger btn-icons", title: "Delete", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>
@@ -245,8 +243,7 @@ btn-icons", title: "Edit" }%></td>
 }%></td>
                     <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Edit', edit_software_record_path(record_production) , { :class => "btn btn-primary 
 btn-icons", title: "Edit" }%></td>
-                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, method: :delete, :class => "btn btn-danger btn-icons", 
-title: "Delete", data: { confirm: 'Are you sure?' } %></td>
+                    <td style="padding: 6px 3px 6px 3px; background-color: black ; color: white"><%= link_to 'Delete', record_production, class: "btn btn-danger btn-icons", title: "Delete", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
                   <% end %>
               </tr>
             <% end %>

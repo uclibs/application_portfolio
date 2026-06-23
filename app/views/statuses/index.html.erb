@@ -46,7 +46,7 @@
               <% else %>
                 <td style="background-color: black ; color: white"><%= link_to 'View', status, class: "btn btn-success" %></td>
                 <td style="background-color: black ; color: white"><%= link_to 'Edit', edit_status_path(status), class: "btn btn-primary" %></td>
-                <td style="background-color: black ; color: white"><%= link_to 'Delete', status, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+                <td style="background-color: black ; color: white"><%= link_to 'Delete', status, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
               <% end %>
             </tr>
           <% end %>

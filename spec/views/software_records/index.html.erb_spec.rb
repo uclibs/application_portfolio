@@ -66,4 +66,10 @@ RSpec.describe 'software_records/index', type: :view do
     render
     expect(rendered).to have_text('Vendor Filter')
   end
+
+  it 'renders delete links with Turbo method and confirm' do
+    render
+
+    assert_select 'a.btn-danger[data-turbo-method=delete][data-turbo-confirm]', minimum: 1
+  end
 end
