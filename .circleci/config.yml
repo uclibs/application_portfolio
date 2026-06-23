@@ -50,6 +50,24 @@ jobs:
 
       - restore_cache:
           keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+            - v1-yarn-
+
+      - run:
+          name: Verify committed JavaScript bundle is current
+          command: |
+            yarn install --frozen-lockfile
+            yarn build
+            git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
+              app/assets/builds/application.js.sources.sha256
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+
+      - restore_cache:
+          keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-

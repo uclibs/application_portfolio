@@ -3,13 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'FrontController', type: :request do
-  def sign_in_user(admin)
-    sign_in admin
-  end
-
   before do
-    admin = FactoryBot.create(:admin)
-    sign_in_user(admin)
+    sign_in FactoryBot.create(:admin)
   end
 
   describe 'GET /about' do
@@ -27,16 +22,20 @@ RSpec.describe 'FrontController', type: :request do
   end
 
   describe 'GET /dashboard' do
-    it 'requests dashboard page' do
+    it 'requests dashboard page with chartkick chart markup' do
       get dashboard_path
+
       expect(response).to have_http_status(200)
+      expect(response.body.scan(/id="chart-\d+"/).size).to be >= 4
     end
   end
 
   describe 'GET /profile' do
     it 'requests profile page' do
-      get dashboard_path
+      get myprofile_path
+
       expect(response).to have_http_status(200)
+      expect(response.body).to include('nav-profile')
     end
   end
 end

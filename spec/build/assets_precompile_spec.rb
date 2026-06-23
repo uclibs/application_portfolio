@@ -3,12 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'assets pipeline' do
-  let(:sprockets_manifest) { Rails.root.join('app/assets/javascripts/application.js').read }
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
-
-  it 'does not require jquery in the Sprockets manifest' do
-    expect(sprockets_manifest).not_to match(/require jquery/i)
-  end
+  let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
+  let(:manifest) { Rails.root.join('app/assets/config/manifest.js').read }
+  let(:js_sources) { Rails.root.join('app/javascript/**/*.js') }
 
   it 'does not list jquery-rails in Gemfile.lock' do
     expect(gemfile_lock).not_to include('jquery-rails')
@@ -18,17 +16,38 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
   end
 
-  it 'requires the Bootstrap bundle with Popper for Sprockets' do
-    expect(sprockets_manifest).to include('require vendor/bootstrap.bundle')
-    expect(sprockets_manifest).not_to match(%r{//= require bootstrap\s*$})
+  it 'does not link the legacy Sprockets javascripts directory in the asset manifest' do
+    expect(manifest).not_to include('link_directory ../javascripts')
+    expect(manifest).to include('link_tree ../builds')
   end
 
-  it 'vendors a Bootstrap bundle aligned with package.json' do
-    package = JSON.parse(Rails.root.join('package.json').read)
-    vendor_bundle = Rails.root.join('app/assets/javascripts/vendor/bootstrap.bundle.js').read
-    minor_release = package.fetch('dependencies').fetch('bootstrap').match(/(\d+\.\d+)/)[1]
+  it 'does not use Sprockets require directives in app javascript sources' do
+    Dir.glob(js_sources.to_s).each do |path|
+      expect(File.read(path)).not_to match(%r{//= require})
+    end
+  end
 
-    expect(vendor_bundle).to include("Bootstrap v#{minor_release}")
+  it 'locks @popperjs/core in package.json and yarn.lock for reproducible esbuild installs' do
+    package_json = JSON.parse(Rails.root.join('package.json').read)
+    yarn_lock = Rails.root.join('yarn.lock').read
+
+    expect(package_json.fetch('dependencies')).to include('@popperjs/core')
+    expect(yarn_lock).to include('@popperjs/core@')
+  end
+
+  it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
+    expect(esbuild_bundle).to exist
+
+    expect_core_bundle_content!(esbuild_bundle.read)
+  end
+
+  it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
+    expect(esbuild_bundle).to exist
+    expect(EsbuildBundleExpectations.sources_digest_path).to exist
+
+    stale_message = 'Run yarn install && yarn build and commit app/assets/builds/application.js ' \
+                    'and application.js.sources.sha256'
+    expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
   end
 
   it 'compiles vendored Bootstrap SCSS into dartsass builds' do
@@ -45,7 +64,7 @@ RSpec.describe 'assets pipeline' do
   end
 
   describe 'assets:precompile task' do
-    it 'does not auto-run javascript:build in test (deploy uses production env too)' do
+    it 'does not auto-run javascript:build in test (deploy uses committed bundle until Node is on deploy hosts)' do
       Rails.application.load_tasks
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')

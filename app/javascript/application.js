@@ -1,4 +1,15 @@
-// Entry point for esbuild (LIBAPPO1-101). Sprockets still serves legacy JS until #12.
+// Esbuild entry point (LIBAPPO1-108). Served from app/assets/builds/application.js.
 import "@hotwired/turbo-rails"
-import "bootstrap/dist/js/bootstrap.bundle"
 import "chart.js/auto"
+import "chartkick/chart.js"
+import * as ActiveStorage from "@rails/activestorage"
+
+import "./bootstrap_setup"
+import "./navigation"
+import "./filtermanagement"
+import "./inputsanitization"
+import "./multivalueinputs"
+import "./show_tab"
+import "./flash_toasts"
+
+ActiveStorage.start()

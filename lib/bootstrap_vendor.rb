@@ -2,26 +2,15 @@
 
 require 'pathname'
 
-# Copies Bootstrap assets from node_modules into committed vendor paths for Sprockets
-# and dartsass. Deploy hosts do not run yarn (#18); vendored files must be in git.
+# Copies Bootstrap SCSS from node_modules into a committed vendor path for dartsass.
+# Deploy hosts do not run yarn until Node is installed on deploy; vendored files must be in git.
+# Bootstrap JS is bundled via esbuild (app/javascript/application.js).
 module BootstrapVendor
   module_function
 
   def vendor!(root = default_root)
-    js = copy_bundle!(root)
     scss = copy_stylesheets!(root)
-    { js: js, scss: scss }
-  end
-
-  def copy_bundle!(root = default_root)
-    source = root.join('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
-    destination = root.join('app/assets/javascripts/vendor/bootstrap.bundle.js')
-
-    abort missing_npm_message unless source.exist?
-
-    FileUtils.mkdir_p(destination.dirname)
-    FileUtils.cp(source, destination)
-    destination
+    { scss: scss }
   end
 
   def copy_stylesheets!(root = default_root)

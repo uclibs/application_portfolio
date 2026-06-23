@@ -5,13 +5,15 @@
     "node": ">=24.0.0 <25"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets && node bin/javascript-sources-digest.cjs"
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",
     "@popperjs/core": "^2.11.8",
+    "@rails/activestorage": "^8.0.200",
     "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.8"
+    "chart.js": "^4.4.8",
+    "chartkick": "^5.0.1"
   },
   "devDependencies": {
     "esbuild": "^0.25.0"

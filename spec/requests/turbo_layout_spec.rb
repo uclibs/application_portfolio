@@ -7,34 +7,38 @@ RSpec.describe 'Turbo layout integration', type: :request do
     sign_in FactoryBot.create(:admin)
   end
 
-  it 'renders application layout with data-turbo-track assets' do
+  it 'renders application layout with a single esbuild module bundle' do
     get root_path
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include('data-turbo-track="reload"')
-    expect(response.body).to match(%r{<script[^>]+src="[^"]*/turbo[^"]*"[^>]+type="module"})
     expect(response.body).not_to include('data-turbolinks-track')
     expect(response.body).not_to include('turbolinks')
 
-    script_sources = response.body.scan(/<script[^>]+src="([^"]+)"/).flatten
-    turbo_position = script_sources.index { |src| src.include?('/turbo') }
-    application_position = script_sources.index { |src| src.include?('/application') }
-    expect(turbo_position).to be_present
-    expect(application_position).to be_present
-    expect(turbo_position).to be < application_position
-    expect(script_sources).not_to include(a_string_matching(/jquery/i))
+    script_tags = response.body.scan(/<script[^>]*src="([^"]+)"[^>]*>/).flatten
+    application_scripts = script_tags.select { |src| src.include?('/application') }
+
+    expect(application_scripts.length).to eq(1)
+
+    application_tag = response.body[%r{<script[^>]*src="[^"]*/application[^"]*"[^>]*>}]
+    expect(application_tag).to include('type="module"')
+    expect(application_tag).to include('defer')
+    expect(script_tags).not_to include(a_string_matching(%r{/turbo\.}i))
+    expect(script_tags).not_to include(a_string_matching(/jquery/i))
   end
 
-  it 'renders software_records layout with data-turbo-track assets' do
+  it 'renders software_records layout with a single esbuild module bundle' do
     get software_records_path
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include('data-turbo-track="reload"')
     expect(response.body).to include('type="module"')
+    expect(response.body).to include('defer="defer"')
     expect(response.body).not_to include('data-turbolinks-track')
 
-    script_sources = response.body.scan(/<script[^>]+src="([^"]+)"/).flatten
-    expect(script_sources).not_to include(a_string_matching(/jquery/i))
+    script_tags = response.body.scan(/<script[^>]*src="([^"]+)"[^>]*>/).flatten
+    expect(script_tags).not_to include(a_string_matching(%r{/turbo\.}i))
+    expect(script_tags).not_to include(a_string_matching(/jquery/i))
   end
 
   it 'renders a Bootstrap click dropdown for the signed-in user menu' do
