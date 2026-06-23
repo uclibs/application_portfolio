@@ -2,7 +2,8 @@
 
 # Esbuild output at app/assets/builds/application.js collides with Sprockets'
 # legacy logical path until #12. Remove stale artifacts so feature specs keep
-# using app/assets/javascripts/application.js.
+# using app/assets/javascripts/application.js. SKIP_JS_BUILD is set in
+# config/application.rb before rake tasks load.
 module EsbuildBuildArtifacts
   module_function
 
