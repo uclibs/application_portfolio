@@ -3,7 +3,7 @@
   height: 100%;
   width: 250px;
   position: fixed;
-  z-index: 1;
+  z-index: 1040;
   top: 0;
   left: 0;
   background-color: #111;
@@ -39,7 +39,31 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  width: 100%;
+  margin-left: 0;
   transition: margin-left 0.5s;
+
+  > hr,
+  section hr {
+    background-color: black;
+    width: min(54%, 48rem);
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+  }
+
+  .container > .row {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    --bs-gutter-x: 0;
+  }
+}
+
+.dashboard-page.container {
+  max-width: min(1400px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media screen and (max-height: 450px) {
@@ -131,6 +155,20 @@
   color: #fff;
   background-color: transparent;
   border-bottom-color: #fff;
+}
+
+.nav-masthead .dropdown-toggle.drop-btn {
+  color: rgba(255, 255, 255, 0.5);
+
+  &.show,
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.nav-masthead .dropdown-menu {
+  min-width: 10rem;
 }
 
 .auth-role {

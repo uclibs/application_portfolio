@@ -14,6 +14,11 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to include('jquery-rails')
   end
 
+  it 'requires the Bootstrap bundle with Popper for Sprockets' do
+    expect(sprockets_manifest).to include('require vendor/bootstrap.bundle')
+    expect(sprockets_manifest).not_to match(%r{//= require bootstrap\s*$})
+  end
+
   describe 'assets:precompile task' do
     it 'does not auto-run javascript:build in test (deploy uses production env too)' do
       Rails.application.load_tasks

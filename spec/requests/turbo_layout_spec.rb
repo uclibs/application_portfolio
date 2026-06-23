@@ -36,4 +36,13 @@ RSpec.describe 'Turbo layout integration', type: :request do
     script_sources = response.body.scan(/<script[^>]+src="([^"]+)"/).flatten
     expect(script_sources).not_to include(a_string_matching(/jquery/i))
   end
+
+  it 'renders a Bootstrap click dropdown for the signed-in user menu' do
+    get root_path
+
+    expect(response.body).to include('data-bs-toggle="dropdown"')
+    expect(response.body).to include('dropdown-menu')
+    expect(response.body).to include('class="dropdown-item" href="/myprofile">My Profile')
+    expect(response.body).not_to include('dropdown-content')
+  end
 end

@@ -121,51 +121,6 @@ th a {
   }
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin-left: -20px;
-  font-size: 14px;
-  border-radius: 10px;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  color: white;
-  background-color: green;
-  border-radius: 10px;
-}
-
-.drop:hover .dropdown-content {
-  display: block;
-}
-
-.drop:hover {
-  cursor: pointer;
-}
-
-.drop-btn {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.drop:hover .drop-btn {
-  color: white !important;
-}
-
-.drop:hover .nav-link {
-  border-bottom-color: #fff !important;
-}
-
 .card-detail {
   border: 0;
   border-radius: 5px;
