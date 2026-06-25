@@ -6,9 +6,13 @@ Dir.chdir(APP_ROOT) do
   require File.expand_path('../lib/javascript_build_env', __dir__)
   JavascriptBuildEnv.apply!
 
-  exec 'yarnpkg', *ARGV
+  if system({ out: File::NULL, err: File::NULL }, 'which', 'corepack')
+    system('corepack', 'enable', out: File::NULL, err: File::NULL)
+  end
+
+  exec 'yarn', *ARGV
 rescue Errno::ENOENT
   warn 'Yarn executable was not detected in the system.'
-  warn 'Download Yarn at https://yarnpkg.com/en/docs/install'
+  warn 'Enable Corepack (Node 24+): corepack enable'
   exit 1
 end

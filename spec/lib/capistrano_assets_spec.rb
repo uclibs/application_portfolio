@@ -23,6 +23,8 @@ RSpec.describe 'Capistrano asset deploy tasks' do
     expect(check_node_sh).to include('nvm which')
     expect(check_node_sh).to include('process.versions.node')
     expect(check_node_sh).to include('export PATH')
+    expect(check_node_sh).to include('corepack enable')
+    expect(check_node_sh).to include('corepack prepare')
     expect(check_node_sh).to include('command -v yarn')
   end
 end

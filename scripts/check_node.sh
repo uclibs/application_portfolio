@@ -48,10 +48,16 @@ if [[ "$ACTIVE_NODE" != "$NODE_VERSION"* ]]; then
   die "Active Node ${ACTIVE_NODE} does not match .nvmrc (${NODE_VERSION})"
 fi
 
-if ! command -v yarn >/dev/null 2>&1 && command -v corepack >/dev/null 2>&1; then
+if command -v corepack >/dev/null 2>&1; then
   corepack enable
+  if [ -f package.json ]; then
+    PACKAGE_MANAGER="$(node -p "require('./package.json').packageManager" 2>/dev/null || true)"
+    if [ -n "$PACKAGE_MANAGER" ]; then
+      corepack prepare "$PACKAGE_MANAGER" --activate
+    fi
+  fi
 fi
 
 if ! command -v yarn >/dev/null 2>&1; then
-  die "yarn not found after activating Node ${NODE_VERSION}; install yarn or enable corepack on deploy hosts"
+  die "yarn not found after activating Node ${NODE_VERSION}; enable corepack on deploy hosts"
 fi

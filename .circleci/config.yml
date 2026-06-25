@@ -41,22 +41,23 @@ jobs:
 
       - node/install:
           node-version: '24.16.0'
-          install-yarn: true
-          install-yarn-version: '1.22.22'
 
       - run:
-          name: Verify Node and Yarn
-          command: node -v && yarn -v
+          name: Enable Yarn 4 via Corepack
+          command: |
+            corepack enable
+            corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+            node -v && yarn -v
 
       - restore_cache:
           keys:
-            - v1-yarn-{{ checksum "yarn.lock" }}
-            - v1-yarn-
+            - v2-yarn-4-{{ checksum "yarn.lock" }}
+            - v2-yarn-4-
 
       - run:
           name: Verify committed JavaScript bundle is current
           command: |
-            yarn install --frozen-lockfile
+            yarn install --immutable
             yarn build
             git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
               app/assets/builds/application.js.sources.sha256
@@ -64,7 +65,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-yarn-{{ checksum "yarn.lock" }}
+          key: v2-yarn-4-{{ checksum "yarn.lock" }}
 
       - restore_cache:
           keys:

@@ -29,6 +29,8 @@ db/*.sqlite3-shm
 
 /node_modules
 /yarn-error.log
+.yarn/install-state.gz
+.yarn/cache
 
 /public/assets
 .byebug_history

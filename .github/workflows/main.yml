@@ -21,13 +21,14 @@ jobs:
           node-version-file: '.nvmrc'
           cache: yarn
 
-      - name: Enable Yarn
+      - name: Enable Yarn 4 via Corepack
         run: |
           corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
           yarn -v
 
       - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Verify committed JavaScript bundle is current
         run: |
