@@ -2,10 +2,10 @@
 
 require 'logger'
 
-# Test-only helpers for dartsass, esbuild, and Sprockets precompile.
+# Test-only helpers for dartsass, esbuild, and Propshaft precompile.
 #
 # suppress_output reopens stdout/stderr file descriptors so shell-outs (yarn, esbuild)
-# and Sprockets' rake logger stay quiet; assigning $stdout alone does not affect system().
+# and Propshaft's rake logger stay quiet; assigning $stdout alone does not affect system().
 module QuietTestBuilds
   PRECOMPILE_TASKS = %w[dartsass:build assets:precompile].freeze
   JAVASCRIPT_BUILD_TASKS = %w[javascript:prepare_node_path javascript:install javascript:build].freeze
