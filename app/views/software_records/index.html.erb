@@ -9,49 +9,7 @@
         <%= link_to 'Create a new software record', new_software_record_path, {:class => "mx-auto new-record btn btn-dark"} %>
       </p>
     <% end %>
-    <form data-controller="filter-management" data-filter-management-clear-path-value="software_records">
-      <p style="font-size: 20px; color: black; display: inline;">Filter based on: </p>
-      <div style="color: black; display: inline;">
-        <input type="radio" id="stypes" name="filter_by" value="software_types" data-action="change->filter-management#togglePanels" style="margin-left: 30px;" <% if @params["filter_by"].to_s == "software_types" 
-%>checked<% end %>>
-        <label for="stypes">Software Types</label>
-
-        <input type="radio" id="vrecords" name="filter_by" value="vendor_records" data-action="change->filter-management#togglePanels" style="margin-left: 30px;" <% if @params["filter_by"].to_s == "vendor_records" 
-%>checked<% end %>>
-        <label for="vrecords">Vendor Records</label>
-
-        <button type="button" class="btn btn-dark clear-filters" <% if @params["filter_by"].nil? %>style="margin-left: 60px; display: none;" <% else %> style="margin-left: 60px; display: inline;" 
-<% end %> data-action="click->filter-management#clearAndRedirect">Clear all filters <i class="fas fa-times"></i></button>
-      </div>
-      <div style="margin-top: 13px;"></div>
-
-      <div id="vendor-record-filter" data-filter-management-target="vendorFilter" <% if @params["filter_by"].to_s == "vendor_records" %> style="display: block;" <% else %>style="display: none"<% end %>>
-        <p style="font-size: 17px; color: black; display: inline;">Search/Filter value:
-        <select name="vendor_record_filter" onchange="this.form.submit()">
-          <option value="">None</option>
-          <% @vendor_records.each do |vendor| %>
-            <% if vendor.id.to_s == @params["vendor_record_filter"].to_s %>
-              <option value="<%= vendor.id %>" selected><%= vendor.title %></option>
-            <% else %>
-              <option value="<%= vendor.id %>"><%= vendor.title %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </div>
-      <div id="software-type-filter" data-filter-management-target="softwareTypeFilter" <% if @params["filter_by"].to_s == "software_types" %> style="display: block;" <% else %>style="display: none"<% end %>>
-        <p style="font-size: 17px; color: black; display: inline;">Search/Filter value:
-        <select name="software_type_filter" onchange="this.form.submit()">
-          <option value="">None</option>
-          <% @software_types.each do |type| %>
-            <% if type.id.to_s == @params["software_type_filter"].to_s %>
-              <option value="<%= type.id %>" selected><%= type.title %></option>
-            <% else %>
-              <option value="<%= type.id %>"><%= type.title %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </div>
-    </form>
+    <%= render 'filter_form', clear_path: software_records_path %>
   </div>
   <br/>
   <hr style="background-color: black; width: 54%;">

@@ -35331,20 +35331,26 @@ var show_tab_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/controllers/flash_toast_controller.js
+var flash_toast_controller_default = class extends Controller {
+  connect() {
+    this.showToasts();
+  }
+  showToasts() {
+    this.element.querySelectorAll(".flash-toast").forEach((element) => {
+      if (element.classList.contains("show")) return;
+      bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
+    });
+  }
+};
+
 // app/javascript/controllers/index.js
 application.register("filter-management", filter_management_controller_default);
+application.register("flash-toast", flash_toast_controller_default);
 application.register("input-sanitization", input_sanitization_controller_default);
 application.register("multi-value-inputs", multi_value_inputs_controller_default);
 application.register("navigation", navigation_controller_default);
 application.register("show-tab", show_tab_controller_default);
-
-// app/javascript/flash_toasts.js
-document.addEventListener("turbo:load", () => {
-  document.querySelectorAll(".flash-toast").forEach((element) => {
-    if (element.classList.contains("show")) return;
-    bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
-  });
-});
 
 // app/javascript/application.js
 start2();

@@ -6,6 +6,5 @@ import * as ActiveStorage from "@rails/activestorage"
 
 import "./bootstrap_setup"
 import "./controllers"
-import "./flash_toasts"
 
 ActiveStorage.start()

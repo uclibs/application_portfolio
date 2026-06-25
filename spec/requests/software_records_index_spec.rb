@@ -16,6 +16,7 @@ RSpec.describe 'Software records index filters', type: :request do
     expect(response.body).to include('data-filter-management-target="vendorFilter"')
     expect(response.body).to include('data-filter-management-target="softwareTypeFilter"')
     expect(response.body).to include('data-action="click->filter-management#clearAndRedirect"')
+    expect(response.body).to include("data-filter-management-clear-path-value=\"#{software_records_path}\"")
   end
 
   it 'shows the vendor filter panel when filtering by vendor records' do

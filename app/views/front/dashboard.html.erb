@@ -266,7 +266,7 @@ btn-icons", title: "Edit" }%></td>
     <div class="card-body">
       <%= pie_chart User.group(:roles).count, messages: {empty: "No data"}, download: {filename: "Users"}, dataset: {borderWidth: 3, borderColor: "transparent"}, colors: ["#0DE1E8", "#E8880D", 
 "#E8DE0D"], legend: "bottom"%><br/>
-      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='users'">View</button>
+      <%= link_to 'View', users_path, class: 'btn btn-lg w-100 btn-outline-primary' %>
     </div>
   </div>
 
@@ -277,7 +277,7 @@ btn-icons", title: "Edit" }%></td>
     <div class="card-body">
       <%= pie_chart software_records_status_hash, messages: {empty: "No data"}, download: {filename: "SoftwareRecords"}, dataset: {borderWidth: 3, borderColor: "transparent"}, legend: "bottom" 
 %><br/>
-      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='software_records'">View</button>
+      <%= link_to 'View', software_records_path, class: 'btn btn-lg w-100 btn-outline-primary' %>
     </div>
   </div>
 
@@ -288,7 +288,7 @@ btn-icons", title: "Edit" }%></td>
     <div class="card-body">
       <%= pie_chart vendor_piechart, messages: {empty: "No data"}, download: {filename: "Software Records grouped by Vendor Records"}, dataset: {borderWidth: 3, borderColor: "transparent"}, 
 legend: {position: "none"} %><br/>
-      <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick="location.href='vendor_records'">View</button>
+      <%= link_to 'View', vendor_records_path, class: 'btn btn-lg w-100 btn-outline-primary' %>
     </div>
   </div>
 </div>
