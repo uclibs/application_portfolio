@@ -12,15 +12,16 @@ git clone git@github.com:uclibs/application_portfolio.git
 cd application_portfolio
 nvm install    # Node 24.x per .nvmrc
 nvm use
-bin/setup      # bundle, yarn, JS/CSS builds, db:setup
+corepack enable   # once per machine; activates Yarn 4 from package.json
+bin/setup      # bundle, yarn install, JS/CSS builds, db:setup
 bin/dev        # Rails + esbuild watch + dartsass watch (recommended)
 ```
 
 Or run the server only after setup: `bin/rails server`.
 
-Use Ruby **3.4.9** (see `.ruby-version`), **Rails 8.1**, and **Node.js 24.x** (see `.nvmrc`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
+Use Ruby **3.4.9** (see `.ruby-version`), **Rails 8.1**, **Node.js 24.x** (see `.nvmrc`), and **Yarn 4.x** (see `packageManager` in `package.json`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
 
-After pulling changes: `bin/update` (bundle, yarn, rebuild assets, migrate).
+After pulling changes: `bin/update` (bundle, `yarn install`, rebuild assets, migrate). Run `corepack enable` once if `yarn` is not found.
 
 ## System dependencies
 
@@ -29,7 +30,9 @@ After pulling changes: `bin/update` (bundle, yarn, rebuild assets, migrate).
 | Ruby | 3.4.9 (`.ruby-version`) |
 | Rails | 8.1 |
 | Node.js | 24.x (`.nvmrc`; `nvm install` in project root) |
-| Yarn | 1.22.x via Corepack (`packageManager` in `package.json`) |
+| Yarn | 4.x via Corepack (`packageManager` in `package.json`; `nodeLinker: node-modules` in `.yarnrc.yml`) |
+
+Do **not** install Yarn Classic globally. Node 24 includes Corepack; run `corepack enable` once, then `bin/yarn` (or `yarn`) uses the version pinned in `package.json`. CI and deploy use `yarn install --immutable` (Yarn 4’s equivalent of `--frozen-lockfile`).
 
 ## Asset pipeline
 
@@ -49,19 +52,26 @@ Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle
 
 ### Local commands
 
+First-time setup (after `corepack enable`):
+
 ```bash
 nvm use
-bundle install
-bin/yarn install
-bin/setup                    # first-time: db:setup + asset builds
-bin/update                   # after pull: migrate + rebuild assets
+bin/setup                    # bundle, yarn install, JS/CSS builds, db:setup
+```
+
+Day-to-day and manual asset commands:
+
+```bash
+nvm use
+bin/update                   # after pull: bundle, yarn install, rebuild assets, migrate
 bin/dev                      # Foreman: Rails + esbuild watch + dartsass watch
-bin/rails javascript:build   # or: bin/yarn build
+bin/yarn install             # or: bin/yarn install --immutable (CI-style)
+bin/yarn build               # same as bin/rails javascript:build
 bin/rails dartsass:build
 bin/rails assets:precompile  # JS + CSS builds + Propshaft digest (dev/production)
 ```
 
-After changing JS dependencies or source files, commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `bin/yarn install` after pulling dependency changes.
+After changing JS dependencies or source files, commit `package.json`, `.yarnrc.yml`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `bin/yarn install` after pulling dependency changes.
 
 The **test** environment sets `SKIP_JS_BUILD` (`config/application.rb`); `assets:precompile` runs `dartsass:build` only and uses the committed JS bundle.
 
@@ -69,12 +79,12 @@ The **test** environment sets `SKIP_JS_BUILD` (`config/application.rb`); `assets
 
 QA and production both use `RAILS_ENV=production` on deploy hosts. Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) runs `scripts/assets_precompile.sh`:
 
-1. Source `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed)
+1. Source `scripts/check_node.sh` (nvm + `.nvmrc`, Yarn 4 via Corepack from `packageManager`)
 2. `bundle exec rails assets:precompile` — `javascript:build`, `dartsass:build`, then Propshaft copies digested assets to `public/assets/`
 
 Production sets far-future `cache-control` headers for static files (`max-age=1.year`) because filenames include content hashes.
 
-**CI:** `bin/yarn install --frozen-lockfile`, `bin/yarn build`, and `bundle exec rails dartsass:build` run before RSpec (CircleCI and GitHub Actions).
+**CI:** `corepack enable`, `yarn install --immutable`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec (CircleCI and GitHub Actions).
 
 ### Bootstrap (npm + vendored assets)
 
@@ -84,20 +94,22 @@ Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vend
 
 ```bash
 nvm use
+corepack enable
 bin/yarn install
 bundle exec rake bootstrap:vendor
-bin/rails javascript:build
+bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
 
 ## Running the Tests
 
 The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
 
 ```bash
-nvm use   # Node 24.x; required for bin/yarn if node_modules is missing
+nvm use
+corepack enable   # Yarn 4; required if node_modules is missing
 bundle exec rspec
 bundle exec rubocop
 ```
@@ -147,7 +159,7 @@ cap production deploy  # production (libapps)
 | Environment | Host | Ruby manager | Notes |
 |-------------|------|--------------|-------|
 | QA / production | libappstest, libapps | **rbenv** (user `apache`, `/home/apache/.rbenv`) | `scripts/check_ruby.sh` runs on deploy to install the version from `.ruby-version` when missing |
-| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/assets_precompile.sh` sources `check_node.sh` during `deploy:assets:precompile` |
+| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/assets_precompile.sh` sources `check_node.sh` (Node from `.nvmrc`, Yarn 4 via Corepack) during `deploy:assets:precompile` |
 | Local cap deploy | localhost | **RVM** (via `scripts/start_local.sh` only) | Optional dev workflow; Capistrano does not use the capistrano-rvm gem |
 
 Puma on QA/production is managed by systemd (`puma-appport.service`), not by Capistrano's Ruby plugin.

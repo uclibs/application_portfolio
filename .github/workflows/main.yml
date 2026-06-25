@@ -15,19 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: yarn
 
-      - name: Enable Yarn
+      - name: Prepare Yarn 4
         run: |
           corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
           yarn -v
 
       - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Verify committed JavaScript bundle is current
         run: |

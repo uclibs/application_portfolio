@@ -20,7 +20,7 @@ chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
 
   # Install JavaScript dependencies and rebuild asset builds after gem updates.
-  system!('bin/yarn install --frozen-lockfile')
+  system!('bin/yarn install --immutable')
   system!('bin/rails javascript:build')
   system!('bin/rails dartsass:build')
 

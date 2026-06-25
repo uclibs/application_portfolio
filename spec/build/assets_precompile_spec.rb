@@ -54,6 +54,17 @@ RSpec.describe 'assets pipeline' do
     expect(yarn_lock).to include('@popperjs/core@')
   end
 
+  it 'pins Yarn 4 via Corepack with node-modules linking and without weakened security defaults' do
+    package_json = JSON.parse(Rails.root.join('package.json').read)
+    yarnrc = Rails.root.join('.yarnrc.yml').read
+
+    expect(package_json['packageManager']).to start_with('yarn@4.')
+    expect(yarnrc).to include('nodeLinker: node-modules')
+    expect(yarnrc).to include('enableScripts: true')
+    expect(yarnrc).not_to include('npmMinimalAgeGate')
+    expect(yarnrc).not_to include('approvedGitRepositories')
+  end
+
   it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
     expect(esbuild_bundle).to exist
 

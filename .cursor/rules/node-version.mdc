@@ -17,7 +17,7 @@ source ~/.nvm/nvm.sh 2>/dev/null; nvm use
 
 Use this prefix (or equivalent) before:
 
-- `yarn` / `yarn install` / `bin/yarn`
+- `yarn` / `yarn install` / `bin/yarn` (Yarn 4 via Corepack; run `corepack enable` once per machine)
 - `node`
 - `bin/rails javascript:build` / `javascript:install`
 - `bin/dev` (Foreman runs yarn)

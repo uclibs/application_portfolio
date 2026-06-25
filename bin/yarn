@@ -1,14 +1,38 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'json'
+
 APP_ROOT = File.expand_path('..', __dir__)
+
+def activate_corepack!(root)
+  return unless system('which', 'corepack', out: File::NULL, err: File::NULL)
+
+  unless system('corepack', 'enable', out: File::NULL, err: File::NULL)
+    warn 'Warning: corepack enable failed; yarn may not be available.'
+    return
+  end
+
+  package_json_path = File.join(root, 'package.json')
+  return unless File.file?(package_json_path)
+
+  package_manager = JSON.parse(File.read(package_json_path))['packageManager']
+  return if package_manager.to_s.empty?
+
+  return if system('corepack', 'prepare', package_manager, '--activate', out: File::NULL, err: File::NULL)
+
+  warn 'Warning: corepack prepare failed; yarn may not match package.json.'
+end
+
 Dir.chdir(APP_ROOT) do
   require File.expand_path('../lib/javascript_build_env', __dir__)
   JavascriptBuildEnv.apply!
 
-  exec 'yarnpkg', *ARGV
+  activate_corepack!(APP_ROOT)
+
+  exec 'yarn', *ARGV
 rescue Errno::ENOENT
   warn 'Yarn executable was not detected in the system.'
-  warn 'Download Yarn at https://yarnpkg.com/en/docs/install'
+  warn 'Enable Corepack (Node 24+): corepack enable'
   exit 1
 end
