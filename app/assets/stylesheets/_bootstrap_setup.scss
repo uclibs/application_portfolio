@@ -1,4 +1,5 @@
-// Bootstrap SCSS vendored from npm (see lib/bootstrap_vendor.rb and README).
-$enable-responsive-font-sizes: false;
+// Bootstrap CSS vendored from npm (see lib/bootstrap_vendor.rb and README).
+// Precompiled CSS avoids Bootstrap 5.3 SCSS legacy import deprecations during dartsass builds.
+@use "sass:meta";
 
-@import "vendor/bootstrap/scss/bootstrap";
+@include meta.load-css("vendor/bootstrap/dist/bootstrap.min.css");

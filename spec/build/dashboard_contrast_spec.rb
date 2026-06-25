@@ -19,7 +19,7 @@ RSpec.describe 'dashboard contrast styles' do
   end
 
   it 'loads contrast rules in the software_records stylesheet entry point' do
-    expect(software_records_scss).to include('@import "dashboard_contrast"')
+    expect(software_records_scss).to include('@use "dashboard_contrast"')
     expect(software_records_scss).to match(/div\.active\.tab-pane[\s\S]*label[\s\S]*color:\s*#fff/)
   end
 end

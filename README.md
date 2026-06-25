@@ -44,6 +44,8 @@ JS   (app/javascript/)          →  javascript:build →  app/assets/builds/app
 builds/ + images/               →  assets:precompile →  public/assets/ (+ .manifest.json)
 ```
 
+App-owned SCSS uses `@use` / `@forward` (not legacy `@import`). Dart Sass builds run without deprecation-silencing flags.
+
 **Propshaft** serves digest-stamped files from `public/assets/`. Layouts still use `stylesheet_link_tag` and `javascript_include_tag`; Propshaft resolves logical names (`application.css`, `application.js`) via the manifest. Source SCSS under `app/assets/stylesheets/` is excluded from Propshaft load paths (only compiled CSS in `builds/` is published).
 
 Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Custom UI behaviors use **Stimulus** controllers under `app/javascript/controllers/` (register new controllers in `controllers/index.js`). Flash toasts use the `flash-toast` Stimulus controller, not gritter.
@@ -88,9 +90,9 @@ Production sets far-future `cache-control` headers for static files (`max-age=1.
 
 ### Bootstrap (npm + vendored assets)
 
-Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
+Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses the Sass module system (`@use` / `@forward`); Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss` (Bootstrap 5.3 SCSS still relies on deprecated `@import` internally). JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS locally:
+Deploy hosts do not run `yarn` for Bootstrap vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor assets and rebuild JS locally:
 
 ```bash
 nvm use

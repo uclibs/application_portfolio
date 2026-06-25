@@ -1,6 +1,6 @@
 // Shared dashboard styles for dartsass entry points (application + software_records).
-@import "bootstrap_setup";
-@import "dashboard_base";
-@import "theme_grey";
-@import "dashboard_shell";
-@import "dashboard_tables";
+@use "bootstrap_setup";
+@use "dashboard_base";
+@use "theme_grey";
+@use "dashboard_shell";
+@use "dashboard_tables";
