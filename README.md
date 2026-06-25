@@ -47,7 +47,7 @@ bin/dev
 
 **CI:** `yarn install --frozen-lockfile`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec.
 
-**Deploy:** Capistrano runs `source scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) in the same shell as `bundle exec rails assets:precompile`, which runs `javascript:build` (yarn) and `dartsass:build` before fingerprinting assets.
+**Deploy:** Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) sources `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) in the same shell as `bundle exec rails assets:precompile`, which runs `javascript:build` (yarn) and `dartsass:build` before fingerprinting assets.
 
 ### Bootstrap (npm + vendored assets)
 
@@ -117,7 +117,7 @@ cap production deploy  # production (libapps)
 | Environment | Host | Ruby manager | Notes |
 |-------------|------|--------------|-------|
 | QA / production | libappstest, libapps | **rbenv** (user `apache`, `/home/apache/.rbenv`) | `scripts/check_ruby.sh` runs on deploy to install the version from `.ruby-version` when missing |
-| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/check_node.sh` is sourced during `assets:precompile` to install Node from `.nvmrc` when missing |
+| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/check_node.sh` is sourced during `deploy:assets:precompile` to install Node from `.nvmrc` when missing |
 | Local cap deploy | localhost | **RVM** (via `scripts/start_local.sh` only) | Optional dev workflow; Capistrano does not use the capistrano-rvm gem |
 
 Puma on QA/production is managed by systemd (`puma-appport.service`), not by Capistrano's Ruby plugin.
