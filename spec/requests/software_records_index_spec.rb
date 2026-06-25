@@ -7,14 +7,15 @@ RSpec.describe 'Software records index filters', type: :request do
 
   before { sign_in admin }
 
-  it 'renders filter UI wired to filtermanagement.js globals' do
+  it 'renders filter UI wired to filter-management Stimulus controller' do
     get software_records_path
 
     expect(response).to have_http_status(:ok)
-    expect(response.body).to include('onclick="handleRadio(this);"')
-    expect(response.body).to include('id="vendor-record-filter"')
-    expect(response.body).to include('id="software-type-filter"')
-    expect(response.body).to include("clearFiltersAndRedirect('software_records')")
+    expect(response.body).to include('data-controller="filter-management"')
+    expect(response.body).to include('data-action="change->filter-management#togglePanels"')
+    expect(response.body).to include('data-filter-management-target="vendorFilter"')
+    expect(response.body).to include('data-filter-management-target="softwareTypeFilter"')
+    expect(response.body).to include('data-action="click->filter-management#clearAndRedirect"')
   end
 
   it 'shows the vendor filter panel when filtering by vendor records' do

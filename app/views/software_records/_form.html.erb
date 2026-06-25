@@ -12,7 +12,7 @@
     <hr style="background-color: white">
 
     <%= form_with(model: software_record, local: true) do |form| %>
-      <ul class="nav nav-tabs" id="softwareRecordTab" role="tablist">
+      <ul class="nav nav-tabs" id="softwareRecordTab" role="tablist" data-controller="show-tab">
         <li class="nav-item">
           <a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general"
             aria-selected="true">General</a>

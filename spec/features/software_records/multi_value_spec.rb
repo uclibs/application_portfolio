@@ -10,7 +10,7 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
-  # multivalueinputs.js drives every _form_multi_* partial the same way (data-field-name only).
+  # multi-value-inputs Stimulus controller drives every _form_multi_* partial.
   scenario 'User can add and remove multiple values in a multi-value field' do
     visit edit_software_record_path(software_record)
     expect(page).to have_selector('#software_record_title')

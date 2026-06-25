@@ -1,5 +1,5 @@
-<div id="mySidenav" class="sidenav" style="background-color: black; visibility: hidden;">
-	<a href="javascript:void(0)" class="closebtn" style="margin-top: 15%;" onclick="closeNav()">&times;</a>
+<div id="mySidenav" class="sidenav" data-navigation-target="sidenav" style="background-color: black; visibility: hidden;">
+	<a href="javascript:void(0)" class="closebtn" style="margin-top: 15%;" data-action="click->navigation#close">&times;</a>
     <br/><br/>
     <% if user_signed_in? %>
         <% if current_user.role.to_s == "root_admin" %>
