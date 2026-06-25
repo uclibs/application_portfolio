@@ -25,6 +25,7 @@ RSpec.feature 'Dashboard navigation menu', type: :feature, js: true do
     find('#dashboard-open').click
     expect(page.evaluate_script("document.getElementById('mySidenav').style.visibility")).to eq('visible')
 
+    wait_for_turbo
     page.execute_script("Turbo.visit('#{software_records_path}')")
     expect(page).to have_current_path(software_records_path, ignore_query: true, wait: 10)
     expect(page.evaluate_script("document.getElementById('mySidenav').style.visibility")).to eq('hidden')
