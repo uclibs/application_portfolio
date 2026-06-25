@@ -4,7 +4,6 @@
 require 'spec_helper'
 require 'database_cleaner/active_record'
 require 'factory_bot_rails'
-require 'shoulda/matchers'
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -91,12 +90,5 @@ RSpec.configure do |config|
 
   config.after(:each, type: :feature) do
     Warden.test_reset!
-  end
-end
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
   end
 end
