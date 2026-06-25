@@ -12,8 +12,8 @@ Bundler.require(*Rails.groups)
 Dotenv::Rails.load
 
 # jsbundling-rails reads SKIP_JS_BUILD when rake tasks load (before initializers).
-# Deploy hosts lack Node 24 until Node is installed on deploy; committed app/assets/builds/application.js is used instead.
-ENV['SKIP_JS_BUILD'] = 'true' if %w[production test].include?(ENV['RAILS_ENV'])
+# Test uses the committed JS bundle (CI verifies freshness); production deploy builds via assets:precompile.
+ENV['SKIP_JS_BUILD'] = 'true' if ENV['RAILS_ENV'] == 'test'
 
 module ApplicationPortfolio
   class Application < Rails::Application

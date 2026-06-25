@@ -86,4 +86,6 @@ Capistrano::DSL.stages.each do |stage|
 end
 
 after 'deploy:publishing', 'db:migrate'
+# assets:precompile sources scripts/check_node.sh (nvm + yarn) then runs dartsass:build and
+# javascript:build (yarn install + yarn build) before fingerprinting assets.
 after 'deploy:publishing', 'assets:precompile'
