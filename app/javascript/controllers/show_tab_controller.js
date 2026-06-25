@@ -3,7 +3,7 @@ import bootstrap from "../bootstrap_setup"
 
 export default class extends Controller {
   connect() {
-    this.showHashTab()
+    requestAnimationFrame(() => this.showHashTab())
   }
 
   showHashTab() {

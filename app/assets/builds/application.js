@@ -35210,11 +35210,27 @@ var filter_management_controller_default = class extends Controller {
       this.softwareTypeFilterTarget.style.display = "block";
     }
   }
+  submitForm() {
+    this.element.requestSubmit();
+  }
   clearAndRedirect(event) {
     event.preventDefault();
     if (this.hasVendorFilterTarget) this.vendorFilterTarget.style.display = "none";
     if (this.hasSoftwareTypeFilterTarget) this.softwareTypeFilterTarget.style.display = "none";
-    window.location = this.clearPathValue;
+    visit(this.clearPathValue);
+  }
+};
+
+// app/javascript/controllers/flash_toast_controller.js
+var flash_toast_controller_default = class extends Controller {
+  connect() {
+    this.showToasts();
+  }
+  showToasts() {
+    this.element.querySelectorAll(".flash-toast").forEach((element) => {
+      if (element.classList.contains("show")) return;
+      bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
+    });
   }
 };
 
@@ -35257,8 +35273,12 @@ var multi_value_inputs_controller_default = class extends Controller {
   }
   remove(event) {
     event.preventDefault();
+    if (this.inputGroupCount() <= 1) return;
     const row = event.target.closest(".input-group");
     if (row) row.remove();
+  }
+  inputGroupCount() {
+    return this.element.querySelectorAll(".input-group").length;
   }
   nextIndex(fieldName) {
     const prefix = `software_record_${fieldName}_`;
@@ -35318,7 +35338,7 @@ var navigation_controller_default = class extends Controller {
 // app/javascript/controllers/show_tab_controller.js
 var show_tab_controller_default = class extends Controller {
   connect() {
-    this.showHashTab();
+    requestAnimationFrame(() => this.showHashTab());
   }
   showHashTab() {
     const hash3 = window.location.hash;
@@ -35328,19 +35348,6 @@ var show_tab_controller_default = class extends Controller {
     );
     if (!tabTrigger) return;
     bootstrap_setup_default.Tab.getOrCreateInstance(tabTrigger).show();
-  }
-};
-
-// app/javascript/controllers/flash_toast_controller.js
-var flash_toast_controller_default = class extends Controller {
-  connect() {
-    this.showToasts();
-  }
-  showToasts() {
-    this.element.querySelectorAll(".flash-toast").forEach((element) => {
-      if (element.classList.contains("show")) return;
-      bootstrap_setup_default.Toast.getOrCreateInstance(element).show();
-    });
   }
 };
 

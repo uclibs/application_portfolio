@@ -13,10 +13,21 @@ RSpec.describe 'Software records index filters', type: :request do
     expect(response).to have_http_status(:ok)
     expect(response.body).to include('data-controller="filter-management"')
     expect(response.body).to include('data-action="change->filter-management#togglePanels"')
+    expect(response.body).to include('data-action="change->filter-management#submitForm"')
+    expect(response.body).not_to include('onchange="this.form.submit()"')
     expect(response.body).to include('data-filter-management-target="vendorFilter"')
     expect(response.body).to include('data-filter-management-target="softwareTypeFilter"')
     expect(response.body).to include('data-action="click->filter-management#clearAndRedirect"')
     expect(response.body).to include("data-filter-management-clear-path-value=\"#{software_records_path}\"")
+  end
+
+  it 'renders the shared filter form on list upgrades with the correct clear path' do
+    get list_upgrades_path
+
+    expect(response).to have_http_status(:ok)
+    expect(response.body).to include('data-controller="filter-management"')
+    expect(response.body).to include("data-filter-management-clear-path-value=\"#{list_upgrades_path}\"")
+    expect(response.body).not_to include('onchange="this.form.submit()"')
   end
 
   it 'shows the vendor filter panel when filtering by vendor records' do

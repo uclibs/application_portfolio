@@ -33,4 +33,14 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
       expect(page).to have_field(with: 'Developer 3')
     end
   end
+
+  scenario 'does not remove the last remaining multi-value row' do
+    visit edit_software_record_path(software_record)
+
+    within('#multiple_developers') do
+      expect(page).to have_selector('.input-group', count: 1)
+      find('button.js-remove-multivalue', text: 'Delete').click
+      expect(page).to have_selector('.input-group', count: 1)
+    end
+  end
 end

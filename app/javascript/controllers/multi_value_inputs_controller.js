@@ -36,8 +36,14 @@ export default class extends Controller {
   remove(event) {
     event.preventDefault()
 
+    if (this.inputGroupCount() <= 1) return
+
     const row = event.target.closest(".input-group")
     if (row) row.remove()
+  }
+
+  inputGroupCount() {
+    return this.element.querySelectorAll(".input-group").length
   }
 
   nextIndex(fieldName) {

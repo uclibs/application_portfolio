@@ -32,6 +32,10 @@
   right: 15px;
   font-size: 36px;
   margin-left: 20px;
+  background: transparent;
+  border: none;
+  color: #818181;
+  cursor: pointer;
 }
 
 #main {
@@ -75,28 +79,24 @@
   }
 }
 
-#pillSideNav span {
+#pillSideNav #dashboard-open {
   position: fixed;
   left: -117px;
   top: 100px;
   transition: 0.3s;
   padding: 15px;
   width: 150px;
-  text-decoration: none;
   font-size: 19px;
   color: black;
   text-align: right;
   border-radius: 0 5px 5px 0;
-}
-
-#pillSideNav span:hover {
-  left: 0;
   cursor: pointer;
-  text-align: center;
+  background-color: #FFFAFA;
 }
 
-#pillSideNav #dashboard-open {
-  background-color: #FFFAFA;
+#pillSideNav #dashboard-open:hover {
+  left: 0;
+  text-align: center;
 }
 
 .nav-masthead .nav-link {

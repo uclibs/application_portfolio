@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { visit } from "@hotwired/turbo"
 
 export default class extends Controller {
   static targets = ["vendorFilter", "softwareTypeFilter"]
@@ -16,11 +17,15 @@ export default class extends Controller {
     }
   }
 
+  submitForm() {
+    this.element.requestSubmit()
+  }
+
   clearAndRedirect(event) {
     event.preventDefault()
 
     if (this.hasVendorFilterTarget) this.vendorFilterTarget.style.display = "none"
     if (this.hasSoftwareTypeFilterTarget) this.softwareTypeFilterTarget.style.display = "none"
-    window.location = this.clearPathValue
+    visit(this.clearPathValue)
   }
 }

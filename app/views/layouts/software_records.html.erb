@@ -18,7 +18,8 @@ crossorigin="anonymous">
       <%= render 'shared/dashboard_header' %>
       <% if current_user %>
         <div id="pillSideNav">
-          <span id="dashboard-open" data-action="click->navigation#open" style="background-color: #E00122; color: white;">Menu &#9776;</span>
+          <button type="button" id="dashboard-open" data-action="click->navigation#open" aria-label="Open menu"
+                  style="background-color: #E00122; color: white; border: none;">Menu &#9776;</button>
         </div>
       <% end %>
       <%= yield %>

@@ -26,7 +26,8 @@
   <div id="vendor-record-filter" data-filter-management-target="vendorFilter"
        <% if @params["filter_by"].to_s == "vendor_records" %>style="display: block;"<% else %>style="display: none"<% end %>>
     <p class="d-inline" style="font-size: 17px; color: black;">Search/Filter value:</p>
-    <select name="vendor_record_filter" class="form-select d-inline w-auto" onchange="this.form.submit()">
+    <select name="vendor_record_filter" class="form-select d-inline w-auto"
+            data-action="change->filter-management#submitForm">
       <option value="">None</option>
       <% @vendor_records.each do |vendor| %>
         <option value="<%= vendor.id %>" <% if vendor.id.to_s == @params["vendor_record_filter"].to_s %>selected<% end %>>
@@ -39,7 +40,8 @@
   <div id="software-type-filter" data-filter-management-target="softwareTypeFilter"
        <% if @params["filter_by"].to_s == "software_types" %>style="display: block;"<% else %>style="display: none"<% end %>>
     <p class="d-inline" style="font-size: 17px; color: black;">Search/Filter value:</p>
-    <select name="software_type_filter" class="form-select d-inline w-auto" onchange="this.form.submit()">
+    <select name="software_type_filter" class="form-select d-inline w-auto"
+            data-action="change->filter-management#submitForm">
       <option value="">None</option>
       <% @software_types.each do |type| %>
         <option value="<%= type.id %>" <% if type.id.to_s == @params["software_type_filter"].to_s %>selected<% end %>>
