@@ -16,9 +16,18 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
   end
 
-  it 'does not link the legacy Sprockets javascripts directory in the asset manifest' do
+  it 'does not register vestigial Sprockets precompile paths or CoffeeScript workarounds' do
+    source = Rails.root.join('config/initializers/assets.rb').read
+
+    expect(source).not_to include('config.assets.precompile')
+    expect(source).not_to include('coffee_free_transformers')
+    expect(source).not_to include('node_modules')
+  end
+
+  it 'links builds and images via the Sprockets manifest until Propshaft' do
     expect(manifest).not_to include('link_directory ../javascripts')
     expect(manifest).to include('link_tree ../builds')
+    expect(manifest).to include('link_tree ../images')
   end
 
   it 'does not use Sprockets require directives in app javascript sources' do
