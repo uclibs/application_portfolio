@@ -44,7 +44,7 @@ JS   (app/javascript/)          →  javascript:build →  app/assets/builds/app
 builds/ + images/               →  assets:precompile →  public/assets/ (+ .manifest.json)
 ```
 
-App-owned SCSS uses `@use` / `@forward` (not legacy `@import`). Dart Sass builds run without deprecation-silencing flags.
+App-owned SCSS uses `@use` (not legacy `@import`). Dart Sass builds run without deprecation-silencing flags.
 
 **Propshaft** serves digest-stamped files from `public/assets/`. Layouts still use `stylesheet_link_tag` and `javascript_include_tag`; Propshaft resolves logical names (`application.css`, `application.js`) via the manifest. Source SCSS under `app/assets/stylesheets/` is excluded from Propshaft load paths (only compiled CSS in `builds/` is published).
 
@@ -90,7 +90,7 @@ Production sets far-future `cache-control` headers for static files (`max-age=1.
 
 ### Bootstrap (npm + vendored assets)
 
-Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses the Sass module system (`@use` / `@forward`); Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss` (Bootstrap 5.3 SCSS still relies on deprecated `@import` internally). JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
+Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses `@use`; Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss` (Bootstrap 5.3 SCSS still relies on deprecated `@import` internally, so we ship the compiled CSS instead). JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
 Deploy hosts do not run `yarn` for Bootstrap vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor assets and rebuild JS locally:
 
@@ -103,7 +103,7 @@ bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css`.
 
 ## Running the Tests
 

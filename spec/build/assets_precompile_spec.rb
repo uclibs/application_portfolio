@@ -104,6 +104,13 @@ RSpec.describe 'assets pipeline' do
       expect(File.read(path)).not_to match(/@import\b/), "#{path} still uses @import"
     end
 
+    %w[application.scss software_records.scss _dashboard_core.scss].each do |filename|
+      expect(File.read(stylesheets.join(filename))).to match(/@use\b/), "#{filename} should use @use"
+    end
+
+    bootstrap_setup = Rails.root.join('app/assets/stylesheets/_bootstrap_setup.scss').read
+    expect(bootstrap_setup).to include('meta.load-css')
+
     dartsass_rb = Rails.root.join('config/initializers/dartsass.rb').read
     expect(dartsass_rb).not_to include('--quiet-deps')
     expect(dartsass_rb).not_to include('--silence-deprecation')

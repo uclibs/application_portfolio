@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Entry-point SCSS files compiled to app/assets/builds/ by dartsass-rails.
-# App styles use @use/@forward. Bootstrap CSS is vendored as precompiled
+# App styles use @use. Bootstrap CSS is vendored as precompiled
 # bootstrap.min.css (see lib/bootstrap_vendor.rb) and loaded via meta.load-css.
 Rails.application.config.dartsass.build_options ||= []
 
