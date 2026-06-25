@@ -5,6 +5,7 @@ module StylesheetExpectations
   ENTRY_POINTS = %w[application.scss software_records.scss].freeze
   DASHBOARD_CORE = '_dashboard_core.scss'
   BOOTSTRAP_SETUP = '_bootstrap_setup.scss'
+  VENDOR_BOOTSTRAP_SCSS_DIR = 'vendor/bootstrap/scss'
 
   module_function
 

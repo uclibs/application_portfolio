@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'dashboard contrast styles' do
-  let(:contrast_scss) { Rails.root.join('app/assets/stylesheets/_dashboard_contrast.scss').read }
-  let(:software_records_scss) { Rails.root.join('app/assets/stylesheets/software_records.scss').read }
+  let(:contrast_scss) { read_relative('_dashboard_contrast.scss') }
+  let(:software_records_scss) { read_relative('software_records.scss') }
+  let(:dashboard_core_scss) { read_relative(StylesheetExpectations::DASHBOARD_CORE) }
 
   it 'keeps form labels readable on black card-detail surfaces' do
     expect(contrast_scss).to include('.card-detail[style*="background-color: black"]')
@@ -18,9 +19,7 @@ RSpec.describe 'dashboard contrast styles' do
     expect(contrast_scss).to match(/\.nav-tabs \.nav-link[\s\S]*color:\s*#fff/)
   end
 
-  it 'loads contrast rules in the software_records stylesheet entry point' do
-    dashboard_core_scss = Rails.root.join('app/assets/stylesheets/_dashboard_core.scss').read
-
+  it 'loads contrast rules through the dashboard core barrel' do
     expect(dashboard_core_scss).to include('@use "dashboard_contrast"')
     expect(software_records_scss).to include('@use "dashboard_core"')
     expect(software_records_scss).to match(/div\.active\.tab-pane[\s\S]*label[\s\S]*color:\s*#fff/)

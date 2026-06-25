@@ -57,6 +57,27 @@ RSpec.describe BootstrapVendor do
     end
   end
 
+  describe '.stale_vendored_css?' do
+    it 'returns false when the vendored file matches node_modules' do
+      skip 'run yarn install first' unless described_class.npm_css_path.file?
+
+      with_vendored_bootstrap_css_backup do
+        described_class.vendor!
+
+        expect(described_class.stale_vendored_css?).to be(false)
+      end
+    end
+
+    it 'returns false when node_modules is absent' do
+      missing_root = Rails.root.join('tmp/bootstrap_vendor_stale_missing')
+      FileUtils.mkdir_p(missing_root)
+
+      expect(described_class.stale_vendored_css?(missing_root)).to be(false)
+    ensure
+      FileUtils.rm_rf(missing_root)
+    end
+  end
+
   describe 'bootstrap:vendor rake task' do
     it 'prints the updated vendor css path' do
       Rails.application.load_tasks

@@ -61,6 +61,8 @@ jobs:
             yarn build
             git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
               app/assets/builds/application.js.sources.sha256
+            cmp node_modules/bootstrap/dist/css/bootstrap.min.css \
+              app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css
 
       - save_cache:
           paths:

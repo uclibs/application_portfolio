@@ -89,10 +89,18 @@ RSpec.describe 'assets pipeline' do
 
   it 'vendors Bootstrap CSS for deploy hosts without node_modules' do
     bootstrap_css = BootstrapVendor.vendor_css_path
-    bootstrap_scss = Rails.root.join('app/assets/stylesheets/vendor/bootstrap/scss')
+    bootstrap_scss = stylesheets_root.join(StylesheetExpectations::VENDOR_BOOTSTRAP_SCSS_DIR)
 
     expect(bootstrap_css).to exist
     expect(bootstrap_scss).not_to exist
+  end
+
+  it 'ships vendored Bootstrap CSS that matches node_modules when present' do
+    skip 'run yarn install first' unless BootstrapVendor.npm_css_path.file?
+
+    stale_message = 'Run bin/rails bootstrap:vendor and commit ' \
+                    "#{BootstrapVendor::VENDOR_CSS_RELATIVE}"
+    expect(BootstrapVendor.stale_vendored_css?).to be(false), stale_message
   end
 
   it 'uses @use in app-owned SCSS and does not silence Dart Sass deprecations' do

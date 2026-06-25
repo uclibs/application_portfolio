@@ -98,12 +98,12 @@ Deploy hosts do not run `yarn` for Bootstrap vendoring (use `bootstrap:vendor` l
 nvm use
 corepack enable
 bin/yarn install
-bundle exec rake bootstrap:vendor
+bin/rails bootstrap:vendor
 bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bundle exec rake bootstrap:vendor`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bin/rails bootstrap:vendor`.
 
 ## Running the Tests
 

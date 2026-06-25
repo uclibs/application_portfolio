@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'digest'
+require 'fileutils'
 require 'pathname'
 
 # Copies Bootstrap CSS from node_modules into committed vendor paths for dartsass.
@@ -23,6 +25,16 @@ module BootstrapVendor
     FileUtils.mkdir_p(destination.parent)
     FileUtils.cp(source, destination)
     destination
+  end
+
+  def stale_vendored_css?(root = default_root)
+    source = npm_css_path(root)
+    destination = vendor_css_path(root)
+
+    return false unless source.file?
+    return true unless destination.file?
+
+    Digest::SHA256.file(source).hexdigest != Digest::SHA256.file(destination).hexdigest
   end
 
   def vendor_css_path(root = default_root)

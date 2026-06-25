@@ -2,4 +2,6 @@
 // Precompiled CSS avoids Bootstrap 5.3 SCSS deprecation noise during dartsass builds.
 @use "sass:meta";
 
-@include meta.load-css("vendor/bootstrap/dist/bootstrap.min.css");
+$bootstrap-vendor-css-path: "vendor/bootstrap/dist/bootstrap.min.css";
+
+@include meta.load-css($bootstrap-vendor-css-path);
