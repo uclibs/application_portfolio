@@ -1,6 +1,5 @@
 // Dartsass entry point for the application layout (front/dashboard, Devise, users).
 @use "dashboard_core";
-@use "dashboard_contrast";
 
 .navbar {
   position: sticky;

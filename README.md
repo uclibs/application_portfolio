@@ -90,7 +90,7 @@ Production sets far-future `cache-control` headers for static files (`max-age=1.
 
 ### Bootstrap (npm + vendored assets)
 
-Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses `@use`; Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss` (Bootstrap 5.3 SCSS still relies on deprecated `@import` internally, so we ship the compiled CSS instead). JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
+Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses `@use`; shared dashboard partials are composed in `_dashboard_core.scss`, and Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
 Deploy hosts do not run `yarn` for Bootstrap vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor assets and rebuild JS locally:
 
