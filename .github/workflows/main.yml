@@ -15,13 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: yarn
 
-      - name: Enable Yarn 4 via Corepack
+      - name: Prepare Yarn 4
         run: |
           corepack enable
           corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
