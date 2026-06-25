@@ -26,9 +26,9 @@
 <div class="mb-3">
   <%= form.label :created_by, "Created By", for: "software_record_created_by" %><span style="color: red; font-size: 20px"> *</span>
   <% if component.eql?("new") && user_signed_in? %>
-    <%= form.text_field :created_by, value: "#{current_user.first_name} #{current_user.last_name}", class: "form-control regex-createdby", id: "software_record_created_by" %>
+    <%= form.text_field :created_by, value: "#{current_user.first_name} #{current_user.last_name}", class: "form-control", id: "software_record_created_by", data: { controller: "input-sanitization", action: "input->input-sanitization#sanitize" } %>
   <% else %>
-    <%= form.text_field :created_by, class: "form-control regex-createdby", id: "software_record_created_by", disabled: true %>
+    <%= form.text_field :created_by, class: "form-control", id: "software_record_created_by", disabled: true, data: { controller: "input-sanitization", action: "input->input-sanitization#sanitize" } %>
   <% end %>
 </div>
 

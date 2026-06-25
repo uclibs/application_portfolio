@@ -10,7 +10,7 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
-  # multivalueinputs.js drives every _form_multi_* partial the same way (data-field-name only).
+  # multi-value-inputs Stimulus controller drives every _form_multi_* partial.
   scenario 'User can add and remove multiple values in a multi-value field' do
     visit edit_software_record_path(software_record)
     expect(page).to have_selector('#software_record_title')
@@ -31,6 +31,16 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
       expect(page).not_to have_field(with: 'Developer 2')
       expect(page).to have_field(with: 'Developer 1')
       expect(page).to have_field(with: 'Developer 3')
+    end
+  end
+
+  scenario 'does not remove the last remaining multi-value row' do
+    visit edit_software_record_path(software_record)
+
+    within('#multiple_developers') do
+      expect(page).to have_selector('.input-group', count: 1)
+      find('button.js-remove-multivalue', text: 'Delete').click
+      expect(page).to have_selector('.input-group', count: 1)
     end
   end
 end

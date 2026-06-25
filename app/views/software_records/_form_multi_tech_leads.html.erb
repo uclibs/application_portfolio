@@ -1,22 +1,22 @@
 <!-- Multiple Tech Leads -->
 <% if current_user.role.to_s != "owner" %>
-  <div class="mb-3" id="multiple_tech_leads">
+  <div class="mb-3" id="multiple_tech_leads" data-controller="multi-value-inputs" data-multi-value-inputs-field-name-value="tech_leads">
     <div class="d-flex align-items-center gap-2">
       <%= form.label :tech_leads, "Tech Leads", for: "software_record_tech_leads_1", class: "form-label mb-0" %>
-      <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="tech_leads">+ add more</button>
+      <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-action="click->multi-value-inputs#add">+ add more</button>
     </div>
 
     <% if component.to_s == "new" || @software_record.tech_leads.blank? %>
       <div class="input-group mt-2" data-multivalue-row>
         <%= text_field_tag "software_record[tech_leads][]", nil, required: true, class: "form-control", id: "software_record_tech_leads_1" %>
-        <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+        <button type="button" class="btn btn-outline-danger js-remove-multivalue" data-action="click->multi-value-inputs#remove">Delete</button>
       </div>
     <% else %>
       <% @software_record.tech_leads.each_with_index do |tech_lead, index| %>
         <% i = index + 1 %>
         <div class="input-group mt-2" data-multivalue-row>
           <%= text_field_tag "software_record[tech_leads][]", tech_lead, required: true, class: "form-control", id: "software_record_tech_leads_#{i}" %>
-          <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+          <button type="button" class="btn btn-outline-danger js-remove-multivalue" data-action="click->multi-value-inputs#remove">Delete</button>
         </div>
       <% end %>
     <% end %>

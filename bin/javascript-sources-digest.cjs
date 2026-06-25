@@ -8,13 +8,20 @@ const root = path.join(__dirname, "..")
 const digest = crypto.createHash("sha256")
 const inputs = [path.join(root, "package.json")]
 
-const javascriptDir = path.join(root, "app/javascript")
-for (const entry of fs.readdirSync(javascriptDir)) {
-  const filePath = path.join(javascriptDir, entry)
-  if (fs.statSync(filePath).isFile() && filePath.endsWith(".js")) {
-    inputs.push(filePath)
+function collectJavaScriptFiles(directory) {
+  for (const entry of fs.readdirSync(directory)) {
+    const filePath = path.join(directory, entry)
+    const stats = fs.statSync(filePath)
+
+    if (stats.isDirectory()) {
+      collectJavaScriptFiles(filePath)
+    } else if (filePath.endsWith(".js")) {
+      inputs.push(filePath)
+    }
   }
 }
+
+collectJavaScriptFiles(path.join(root, "app/javascript"))
 
 inputs.sort((left, right) =>
   path.relative(root, left).localeCompare(path.relative(root, right))

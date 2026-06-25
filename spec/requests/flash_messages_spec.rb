@@ -7,7 +7,7 @@ RSpec.describe 'Flash messages in responses', type: :request do
 
   before { sign_in admin }
 
-  it 'renders Bootstrap toast markup after a redirect with notice' do
+  it 'renders flash toast container with Stimulus controller' do
     status = FactoryBot.create(:status, title: 'Active', status_type: 'Design')
 
     patch status_path(status), params: { status: { title: 'Updated', status_type: 'Design' } }
@@ -15,6 +15,7 @@ RSpec.describe 'Flash messages in responses', type: :request do
     follow_redirect!
 
     expect(response).to have_http_status(:ok)
+    expect(response.body).to include('data-controller="flash-toast"')
     expect(response.body).to include('flash-toast-container')
     expect(response.body).to include('data-bs-delay="3000"')
     expect(response.body).to include('Status was successfully updated')

@@ -5,11 +5,6 @@ import "chartkick/chart.js"
 import * as ActiveStorage from "@rails/activestorage"
 
 import "./bootstrap_setup"
-import "./navigation"
-import "./filtermanagement"
-import "./inputsanitization"
-import "./multivalueinputs"
-import "./show_tab"
-import "./flash_toasts"
+import "./controllers"
 
 ActiveStorage.start()

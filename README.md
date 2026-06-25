@@ -43,7 +43,7 @@ builds/ + images/               →  assets:precompile →  public/assets/ (+ .m
 
 **Propshaft** serves digest-stamped files from `public/assets/`. Layouts still use `stylesheet_link_tag` and `javascript_include_tag`; Propshaft resolves logical names (`application.css`, `application.js`) via the manifest. Source SCSS under `app/assets/stylesheets/` is excluded from Propshaft load paths (only compiled CSS in `builds/` is published).
 
-Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Flash messages use Bootstrap toasts (`flash_toasts.js`), not gritter.
+Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Custom UI behaviors use **Stimulus** controllers under `app/javascript/controllers/` (register new controllers in `controllers/index.js`). Flash toasts use the `flash-toast` Stimulus controller, not gritter.
 
 **Committed vs generated builds:** `app/assets/builds/application.js` (and `.map` / `.sources.sha256`) are committed so CI can verify the bundle matches sources. Compiled CSS (`application.css`, `software_records.css`) is **gitignored** — run `bin/rails dartsass:build` locally (or use `bin/setup` / `bin/dev`).
 

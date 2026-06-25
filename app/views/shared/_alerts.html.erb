@@ -1,5 +1,5 @@
 <% if flash_toasts.any? %>
-  <div class="toast-container flash-toast-container position-fixed end-0 p-3" aria-live="polite" aria-atomic="true">
+  <div class="toast-container flash-toast-container position-fixed end-0 p-3" data-controller="flash-toast" aria-live="polite" aria-atomic="true">
     <% flash_toasts.each do |toast| %>
       <div class="toast flash-toast text-bg-dark border-0 mb-2" role="alert"
            data-bs-autohide="true" data-bs-delay="<%= toast_delay %>"

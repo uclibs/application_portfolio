@@ -38,9 +38,9 @@
           <div class="mb-3">
             <%= form.label "Request By" %><b style="color: red; font-size: 20px"> *</b>
             <% if user_signed_in? %>
-              <%= form.text_field :created_by, :class => "form-control regex-createdby", value: current_user.first_name+" "+current_user.last_name %>
+              <%= form.text_field :created_by, class: "form-control", value: current_user.first_name+" "+current_user.last_name, data: { controller: "input-sanitization", action: "input->input-sanitization#sanitize" } %>
             <% else %>
-              <%= form.text_field :created_by, :class => "form-control regex-createdby", placeholder: "FirstName LastName" %>
+              <%= form.text_field :created_by, class: "form-control", placeholder: "FirstName LastName", data: { controller: "input-sanitization", action: "input->input-sanitization#sanitize" } %>
             <% end %>
           </div>
 
@@ -57,36 +57,36 @@
           </div>
 
           <%# Same multi-value contract as _form_multi_*.html.erb (no role branching on qa). %>
-          <div class="mb-3" id="multiple_departments">
+          <div class="mb-3" id="multiple_departments" data-controller="multi-value-inputs" data-multi-value-inputs-field-name-value="departments">
             <div class="d-flex align-items-center gap-2">
               <%= form.label :departments, "Departments", for: "software_record_departments_1", class: "form-label mb-0" %>
-              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="departments">+ add more</button>
+              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-action="click->multi-value-inputs#add">+ add more</button>
             </div>
             <div class="input-group mt-2" data-multivalue-row>
               <%= text_field_tag "software_record[departments][]", nil, required: true, class: "form-control", id: "software_record_departments_1" %>
-              <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+              <button type="button" class="btn btn-outline-danger js-remove-multivalue" data-action="click->multi-value-inputs#remove">Delete</button>
             </div>
           </div>
 
-          <div class="mb-3" id="multiple_product_owners">
+          <div class="mb-3" id="multiple_product_owners" data-controller="multi-value-inputs" data-multi-value-inputs-field-name-value="product_owners">
             <div class="d-flex align-items-center gap-2">
               <%= form.label :product_owners, "Primary Contact", for: "software_record_product_owners_1", class: "form-label mb-0" %>
-              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="product_owners">+ add more</button>
+              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-action="click->multi-value-inputs#add">+ add more</button>
             </div>
             <div class="input-group mt-2" data-multivalue-row>
               <%= text_field_tag "software_record[product_owners][]", nil, required: true, class: "form-control", id: "software_record_product_owners_1" %>
-              <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+              <button type="button" class="btn btn-outline-danger js-remove-multivalue" data-action="click->multi-value-inputs#remove">Delete</button>
             </div>
           </div>
 
-          <div class="mb-3" id="multiple_admin_users">
+          <div class="mb-3" id="multiple_admin_users" data-controller="multi-value-inputs" data-multi-value-inputs-field-name-value="admin_users">
             <div class="d-flex align-items-center gap-2">
               <%= form.label :admin_users, "Primary Contact", for: "software_record_admin_users_1", class: "form-label mb-0" %>
-              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-field-name="admin_users">+ add more</button>
+              <button type="button" class="btn btn-sm btn-outline-primary js-add-multivalue" data-action="click->multi-value-inputs#add">+ add more</button>
             </div>
             <div class="input-group mt-2" data-multivalue-row>
               <%= text_field_tag "software_record[admin_users][]", nil, required: true, class: "form-control", id: "software_record_admin_users_1" %>
-              <button type="button" class="btn btn-outline-danger js-remove-multivalue">Delete</button>
+              <button type="button" class="btn btn-outline-danger js-remove-multivalue" data-action="click->multi-value-inputs#remove">Delete</button>
             </div>
           </div>
 
