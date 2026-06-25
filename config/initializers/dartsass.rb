@@ -4,11 +4,17 @@
 # Bootstrap SCSS is imported from app/assets/stylesheets/vendor/bootstrap/scss/
 # (vendored from npm; see lib/bootstrap_vendor.rb and README).
 #
-# --quiet-deps and --silence-deprecation=import suppress Dart Sass @import warnings
-# (vendor + app SCSS). Remove when SCSS is migrated to @use/@forward (follow-up ticket).
+# Bootstrap 5.3 SCSS still uses @import and legacy Sass APIs that Dart Sass deprecates.
+# --quiet-deps and --silence-deprecation keep build/test output readable until Bootstrap
+# migrates to @use/@forward and modern color/builtin APIs (or we change CSS strategy).
 Rails.application.config.dartsass.build_options ||= []
-Rails.application.config.dartsass.build_options << '--quiet-deps'
-Rails.application.config.dartsass.build_options << '--silence-deprecation=import'
+Rails.application.config.dartsass.build_options |= %w[
+  --quiet-deps
+  --silence-deprecation=import
+  --silence-deprecation=color-functions
+  --silence-deprecation=if-function
+  --silence-deprecation=global-builtin
+]
 
 Rails.application.config.dartsass.builds = {
   'application.scss' => 'application.css',
