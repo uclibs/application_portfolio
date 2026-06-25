@@ -4,9 +4,7 @@ module CompiledAssetExpectations
   module_function
 
   def fingerprinted_asset?(directory, prefix, extension)
-    unless File.directory?(directory)
-      raise ArgumentError, "missing compiled assets directory: #{directory}"
-    end
+    raise ArgumentError, "missing compiled assets directory: #{directory}" unless File.directory?(directory)
 
     Dir.children(directory).any? do |name|
       name.start_with?("#{prefix}-") && name.end_with?(extension)
