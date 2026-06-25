@@ -71,13 +71,18 @@ RSpec.describe 'assets pipeline' do
     expect_core_bundle_content!(esbuild_bundle.read)
   end
 
-  it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
-    expect(esbuild_bundle).to exist
-    expect(EsbuildBundleExpectations.sources_digest_path).to exist
+  it 'does not use inline onclick handlers in app views' do
+    Dir.glob(Rails.root.join('app/views/**/*.erb')).each do |path|
+      expect(File.read(path)).not_to match(/\bonclick\s*=/), "#{path} uses inline onclick"
+    end
+  end
 
-    stale_message = 'Run yarn install && yarn build and commit app/assets/builds/application.js ' \
-                    'and application.js.sources.sha256'
-    expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
+  it 'does not export app behaviors onto window in JavaScript sources' do
+    Dir.glob(Rails.root.join('app/javascript/**/*.js')).each do |path|
+      content = File.read(path)
+      expect(content).not_to match(/window\.(openNav|closeNav|handleRadio|clearFiltersAndRedirect)\b/),
+                             "#{path} assigns window globals for inline handlers"
+    end
   end
 
   it 'compiles vendored Bootstrap CSS into dartsass builds' do
@@ -131,18 +136,14 @@ RSpec.describe 'assets pipeline' do
       FileUtils.rm_rf(public_assets)
     end
 
-    it 'sets SKIP_JS_BUILD in test so CI uses the committed bundle' do
-      expect(ENV['SKIP_JS_BUILD']).to eq('true')
-    end
-
-    it 'skips javascript:build in test (deploy builds on the server)' do
+    it 'includes javascript:build and dartsass:build in assets:precompile prerequisites' do
       Rails.application.load_tasks
 
       install_prereqs = Rake::Task['javascript:install'].prerequisites
       expect(install_prereqs).to include('javascript:prepare_node_path')
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')
-      expect(Rake::Task['assets:precompile'].prerequisites).not_to include('javascript:build')
+      expect(Rake::Task['assets:precompile'].prerequisites).to include('javascript:build')
     end
 
     it 'fingerprints dartsass and esbuild outputs and writes .manifest.json' do

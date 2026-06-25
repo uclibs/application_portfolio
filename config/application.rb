@@ -11,10 +11,6 @@ Bundler.require(*Rails.groups)
 # Change the load order. dotenv environment gets fired first.
 Dotenv::Rails.load
 
-# jsbundling-rails reads SKIP_JS_BUILD when rake tasks load (before initializers).
-# Test uses the committed JS bundle (CI verifies freshness); production deploy builds via assets:precompile.
-ENV['SKIP_JS_BUILD'] = 'true' if ENV['RAILS_ENV'] == 'test'
-
 module ApplicationPortfolio
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

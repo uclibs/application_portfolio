@@ -55,12 +55,11 @@ jobs:
             - v2-yarn-4-
 
       - run:
-          name: Verify committed JavaScript bundle is current
+          name: Build JavaScript and verify vendored Bootstrap CSS
           command: |
             yarn install --immutable
             yarn build
-            git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
-              app/assets/builds/application.js.sources.sha256
+            test -f app/assets/builds/application.js
             cmp node_modules/bootstrap/dist/css/bootstrap.min.css \
               app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css
 

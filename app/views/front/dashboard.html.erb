@@ -301,7 +301,7 @@ legend: {position: "none"} %><br/>
       </div>
       <div class="card-body">
         <%= line_chart generate_software_records_series, legend: "bottom", colors: ["#c20849"] %> <br/>
-        <button type="button" class="btn btn-lg w-100 btn-outline-primary" onclick = "location.href='software_records'">View</button>
+        <%= link_to 'View', software_records_path, class: 'btn btn-lg w-100 btn-outline-primary' %>
       </div>
     </div>
   </div>

@@ -20,4 +20,13 @@ RSpec.describe 'front/dashboard', type: :view do
     expect(rendered).to have_text('Software Records')
     expect(rendered).to have_text('Vendor Records')
   end
+
+  it 'uses link_to for View buttons instead of inline onclick handlers' do
+    render
+
+    expect(rendered).not_to match(/\bonclick\s*=/)
+    expect(rendered).to include(users_path)
+    expect(rendered).to include(software_records_path)
+    expect(rendered).to include(vendor_records_path)
+  end
 end
