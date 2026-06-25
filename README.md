@@ -47,7 +47,7 @@ bin/dev
 
 **CI:** `yarn install --frozen-lockfile`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec.
 
-**Deploy:** Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) sources `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) in the same shell as `bundle exec rails assets:precompile`, which runs `javascript:build` (yarn) and `dartsass:build` before fingerprinting assets.
+**Deploy:** Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) runs `scripts/assets_precompile.sh`, which sources `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) then `bundle exec rails assets:precompile` (`javascript:build` + `dartsass:build`).
 
 ### Bootstrap (npm + vendored assets)
 

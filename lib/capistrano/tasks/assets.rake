@@ -11,9 +11,9 @@ namespace :deploy do
       on release_roles(fetch(:assets_roles)) do
         within release_path do
           with rails_env: fetch(:rails_env), rails_groups: fetch(:rails_assets_groups) do
-            execute :chmod, 'a+x', 'scripts/check_node.sh'
-            # Single-string execute so SSHKit runs one shell command (multi-arg breaks && and -c).
-            execute 'source scripts/check_node.sh && bundle exec rails assets:precompile'
+            # Array-form execute (no spaces in command) so SSHKit applies cd + RAILS_ENV.
+            # scripts/assets_precompile.sh sources check_node.sh in the same shell.
+            execute :bash, 'scripts/assets_precompile.sh'
           end
         end
       end
