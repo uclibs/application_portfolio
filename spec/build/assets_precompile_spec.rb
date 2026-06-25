@@ -112,5 +112,22 @@ RSpec.describe 'assets pipeline' do
       expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'software_records', '.css')).to be(true)
       expect(Dir.glob(public_assets.join('**/*.scss'))).to be_empty
     end
+
+    it 'maps logical asset names to digest filenames in .manifest.json' do
+      QuietTestBuilds.precompile_assets!
+
+      manifest = JSON.parse(public_assets.join('.manifest.json').read)
+
+      expect(manifest.dig('application.js', 'digested_path')).to match(/\Aapplication-[a-f0-9]+\.js\z/)
+      expect(manifest.dig('application.css', 'digested_path')).to match(/\Aapplication-[a-f0-9]+\.css\z/)
+    end
+
+    it 'configures far-future cache-control for production deploys (QA and production)' do
+      production_rb = Rails.root.join('config/environments/production.rb').read
+
+      expect(production_rb).to include("config.public_file_server.headers = { 'cache-control' => \"public, max-age=\#{1.year.to_i}\" }")
+      expect(Rails.root.join('config/deploy/qa.rb').read).to include('set :rails_env, :production')
+      expect(Rails.root.join('config/deploy/production.rb').read).to include('set :rails_env, :production')
+    end
   end
 end

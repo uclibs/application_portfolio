@@ -3,63 +3,91 @@
 # Application Portfolio
 
 This is a web application developed for the management of UC Libraries application profile.  
-This application tracks, monitors, and secures information on all of UCL's services, software, and support.  
-Provided that you have Ruby on Rails installed you can run this application on your local machine or server.
+This application tracks, monitors, and secures information on all of UCL's services, software, and support.
+
+### Quick start
 
 ```bash
 git clone git@github.com:uclibs/application_portfolio.git
 cd application_portfolio
+nvm install    # Node 24.x per .nvmrc
+nvm use
+bin/setup      # bundle, yarn, JS/CSS builds, db:setup
+bin/dev        # Rails + esbuild watch + dartsass watch (recommended)
+```
+
+Or run the server only after setup: `bin/rails server`.
+
+Use Ruby **3.4.9** (see `.ruby-version`), **Rails 8.1**, and **Node.js 24.x** (see `.nvmrc`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
+
+After pulling changes: `bin/update` (bundle, yarn, rebuild assets, migrate).
+
+## System dependencies
+
+| Requirement | Version / notes |
+|-------------|-----------------|
+| Ruby | 3.4.9 (`.ruby-version`) |
+| Rails | 8.1 |
+| Node.js | 24.x (`.nvmrc`; `nvm install` in project root) |
+| Yarn | 1.22.x via Corepack (`packageManager` in `package.json`) |
+
+## Asset pipeline
+
+Front-end assets use a **compile-then-serve** model (dartsass + esbuild → `app/assets/builds/`, Propshaft → `public/assets/`).
+
+```
+SCSS (app/assets/stylesheets/)  →  dartsass:build  →  app/assets/builds/*.css
+JS   (app/javascript/)          →  javascript:build →  app/assets/builds/application.js
+builds/ + images/               →  assets:precompile →  public/assets/ (+ .manifest.json)
+```
+
+**Propshaft** serves digest-stamped files from `public/assets/`. Layouts still use `stylesheet_link_tag` and `javascript_include_tag`; Propshaft resolves logical names (`application.css`, `application.js`) via the manifest. Source SCSS under `app/assets/stylesheets/` is excluded from Propshaft load paths (only compiled CSS in `builds/` is published).
+
+Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Flash messages use Bootstrap toasts (`flash_toasts.js`), not gritter.
+
+**Committed vs generated builds:** `app/assets/builds/application.js` (and `.map` / `.sources.sha256`) are committed so CI can verify the bundle matches sources. Compiled CSS (`application.css`, `software_records.css`) is **gitignored** — run `bin/rails dartsass:build` locally (or use `bin/setup` / `bin/dev`).
+
+### Local commands
+
+```bash
+nvm use
 bundle install
-bin/rails db:migrate
-bin/rails server
+bin/yarn install
+bin/setup                    # first-time: db:setup + asset builds
+bin/update                   # after pull: migrate + rebuild assets
+bin/dev                      # Foreman: Rails + esbuild watch + dartsass watch
+bin/rails javascript:build   # or: bin/yarn build
+bin/rails dartsass:build
+bin/rails assets:precompile  # JS + CSS builds + Propshaft digest (dev/production)
 ```
 
-Use Ruby **3.4.9** (see `.ruby-version`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
+After changing JS dependencies or source files, commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `bin/yarn install` after pulling dependency changes.
 
-## Ruby version and System dependencies
+The **test** environment sets `SKIP_JS_BUILD` (`config/application.rb`); `assets:precompile` runs `dartsass:build` only and uses the committed JS bundle.
 
-Ruby 3.4.9
+### Deploy expectations
 
-Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
+QA and production both use `RAILS_ENV=production` on deploy hosts. Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) runs `scripts/assets_precompile.sh`:
 
-### JavaScript (esbuild)
+1. Source `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed)
+2. `bundle exec rails assets:precompile` — `javascript:build`, `dartsass:build`, then Propshaft copies digested assets to `public/assets/`
 
-JavaScript is bundled with **esbuild** via `jsbundling-rails` (LIBAPPO1-101, LIBAPPO1-108). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. Layouts load that bundle as a single deferred ES module (Turbo, Bootstrap, Chartkick, Active Storage, and app scripts).
+Production sets far-future `cache-control` headers for static files (`max-age=1.year`) because filenames include content hashes.
 
-`app/assets/builds/application.js` is **committed** so CI can verify the bundle matches sources (`yarn build` + git diff in CircleCI and GitHub Actions). The **test** environment skips esbuild during `assets:precompile` (`SKIP_JS_BUILD` in `config/application.rb`); **production deploy** runs `yarn install`, `yarn build`, and `dartsass:build` before Propshaft digests assets into `public/assets/`.
-
-After changing JS dependencies or source files locally:
-
-```bash
-nvm use
-yarn install
-bin/rails javascript:build
-```
-
-Commit `package.json`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `yarn install` locally after pulling dependency changes.
-
-For local development with live rebuilds, use Foreman (runs Rails, esbuild watch, and Dart Sass watch). Run `nvm use` first so `bin/yarn` resolves Node 24:
-
-```bash
-nvm use
-bin/dev
-```
-
-**CI:** `yarn install --frozen-lockfile`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec.
-
-**Deploy:** Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) runs `scripts/assets_precompile.sh`, which sources `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) then `bundle exec rails assets:precompile` (`javascript:build` + `dartsass:build`).
+**CI:** `bin/yarn install --frozen-lockfile`, `bin/yarn build`, and `bundle exec rails dartsass:build` run before RSpec (CircleCI and GitHub Actions).
 
 ### Bootstrap (npm + vendored assets)
 
 Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vendor` locally). JavaScript is rebuilt on deploy via `assets:precompile`. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS locally:
+Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS locally:
 
 ```bash
 nvm use
-yarn install
+bin/yarn install
 bundle exec rake bootstrap:vendor
 bin/rails javascript:build
+bin/rails dartsass:build
 ```
 
 Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
@@ -69,7 +97,7 @@ Commit `package.json`, `yarn.lock`, `app/assets/builds/application.js`, and the 
 The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
 
 ```bash
-nvm use   # Node 24.x; required for yarn install if node_modules is missing
+nvm use   # Node 24.x; required for bin/yarn if node_modules is missing
 bundle exec rspec
 bundle exec rubocop
 ```
@@ -82,7 +110,9 @@ For Coveralls locally:
 coveralls report
 ```
 
-## Database creation
+## Database
+
+`bin/setup` runs `db:setup` (create, schema load, seed). To migrate only:
 
 ```bash
 bin/rails db:migrate RAILS_ENV=development
@@ -159,4 +189,4 @@ Automatic encryption and decryption on UI. But only encrypted on DB.
 
 * Graphs
 
-We use the chartkick gem to draw our graphs
+Dashboard charts use the **chartkick** gem (Ruby helpers) with **Chart.js** and **chartkick** npm packages bundled via esbuild (`app/javascript/application.js`).
