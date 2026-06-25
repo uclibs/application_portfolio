@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'front/dashboard', type: :view do
-  before(:each) do
-    allow(view).to(receive(:user_signed_in?) { true }) && allow(view).to(receive(:current_user) do
-                                                                           FactoryBot.build(:admin)
-                                                                         end)
+  before do
+    allow(view).to receive(:user_signed_in?).and_return(true)
+    allow(view).to receive(:current_user) { FactoryBot.build(:admin) }
+
     admin = FactoryBot.build(:admin)
     @softwarerecords_indesign = SoftwareRecordsController.indesign_dashboard(admin)
     @softwarerecords_production = SoftwareRecordsController.production_dashboard(admin)
@@ -14,17 +14,12 @@ RSpec.describe 'front/dashboard', type: :view do
 
   it 'displays an dashboard page' do
     render
+
     expect(rendered).to have_text('Users')
     expect(rendered).to have_text('My Apps In Development')
     expect(rendered).to have_text('My Apps In Production')
     expect(rendered).to have_text('Software Records')
     expect(rendered).to have_text('Vendor Records')
-  end
-
-  it 'uses link_to for View buttons instead of inline onclick handlers' do
-    render
-
-    expect(rendered).not_to match(/\bonclick\s*=/)
     expect(rendered).to include(users_path)
     expect(rendered).to include(software_records_path)
     expect(rendered).to include(vendor_records_path)

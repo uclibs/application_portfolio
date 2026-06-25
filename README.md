@@ -112,9 +112,12 @@ The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
 ```bash
 nvm use
 corepack enable   # Yarn 4; required if node_modules is missing
+bin/yarn install --immutable
 bundle exec rspec
 bundle exec rubocop
 ```
+
+RSpec builds JavaScript and CSS in `spec/support/asset_builds.rb` before the suite runs; `node_modules` must be present.
 
 The test environment is configured to **raise on Rails/Rack deprecations** (`config.active_support.deprecation = :raise`), so deprecation warnings fail the suite rather than printing to stderr.
 

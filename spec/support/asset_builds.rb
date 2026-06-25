@@ -9,6 +9,9 @@ RSpec.configure do |config|
     FileUtils.rm_rf(public_assets) if public_assets.directory?
 
     QuietTestBuilds.invoke_dartsass_build!
-    QuietTestBuilds.invoke_javascript_build!
+
+    js_bundle = Rails.root.join('app/assets/builds/application.js')
+    ci_bundle_ready = ENV['CI'] == 'true' && js_bundle.file? && js_bundle.size > 1000
+    QuietTestBuilds.invoke_javascript_build! unless ci_bundle_ready
   end
 end

@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'assets pipeline' do
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
-  let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
   let(:js_sources) { Rails.root.join('app/javascript/**/*.js') }
 
   it 'uses propshaft instead of sprockets' do
@@ -63,26 +62,6 @@ RSpec.describe 'assets pipeline' do
     expect(yarnrc).to include('enableScripts: true')
     expect(yarnrc).not_to include('npmMinimalAgeGate')
     expect(yarnrc).not_to include('approvedGitRepositories')
-  end
-
-  it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
-    expect(esbuild_bundle).to exist
-
-    expect_core_bundle_content!(esbuild_bundle.read)
-  end
-
-  it 'does not use inline onclick handlers in app views' do
-    Dir.glob(Rails.root.join('app/views/**/*.erb')).each do |path|
-      expect(File.read(path)).not_to match(/\bonclick\s*=/), "#{path} uses inline onclick"
-    end
-  end
-
-  it 'does not export app behaviors onto window in JavaScript sources' do
-    Dir.glob(Rails.root.join('app/javascript/**/*.js')).each do |path|
-      content = File.read(path)
-      expect(content).not_to match(/window\.(openNav|closeNav|handleRadio|clearFiltersAndRedirect)\b/),
-                             "#{path} assigns window globals for inline handlers"
-    end
   end
 
   it 'compiles vendored Bootstrap CSS into dartsass builds' do

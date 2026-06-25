@@ -7,6 +7,8 @@ module EsbuildBundleExpectations
     expect(content).to include('multi-value-inputs')
     expect(content).to include('filter-management')
     expect(content).to include('flash-toast')
+    expect(content).to include('navigation')
+    expect(content).to include('show-tab')
     expect(content).to match(%r{@hotwired/stimulus|stimulus\.js})
     expect(content).to match(/Dropdown|data-bs-toggle/i)
     expect(content).to match(/activestorage|ActiveStorage/i)
