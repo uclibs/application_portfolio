@@ -9,8 +9,7 @@ RSpec.describe 'Capistrano asset deploy tasks' do
   it 'overrides capistrano-rails deploy:assets:precompile with check_node sourcing' do
     expect(assets_rake).to include("Rake::Task['deploy:assets:precompile'].clear_actions")
     expect(assets_rake).to include('namespace :deploy do')
-    expect(assets_rake).to include('source scripts/check_node.sh')
-    expect(assets_rake).to include('bundle exec rails assets:precompile')
+    expect(assets_rake).to include("execute 'source scripts/check_node.sh && bundle exec rails assets:precompile'")
     expect(assets_rake).to include('release_roles(fetch(:assets_roles))')
   end
 
