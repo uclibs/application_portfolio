@@ -44,6 +44,8 @@ JS   (app/javascript/)          →  javascript:build →  app/assets/builds/app
 builds/ + images/               →  assets:precompile →  public/assets/ (+ .manifest.json)
 ```
 
+App-owned SCSS uses `@use` (not legacy `@import`). Dart Sass builds run without deprecation-silencing flags.
+
 **Propshaft** serves digest-stamped files from `public/assets/`. Layouts still use `stylesheet_link_tag` and `javascript_include_tag`; Propshaft resolves logical names (`application.css`, `application.js`) via the manifest. Source SCSS under `app/assets/stylesheets/` is excluded from Propshaft load paths (only compiled CSS in `builds/` is published).
 
 Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Custom UI behaviors use **Stimulus** controllers under `app/javascript/controllers/` (register new controllers in `controllers/index.js`). Flash toasts use the `flash-toast` Stimulus controller, not gritter.
@@ -56,14 +58,14 @@ First-time setup (after `corepack enable`):
 
 ```bash
 nvm use
-bin/setup                    # bundle, yarn install, JS/CSS builds, db:setup
+bin/setup                    # bundle, yarn install, bootstrap:vendor, JS/CSS builds, db:setup
 ```
 
 Day-to-day and manual asset commands:
 
 ```bash
 nvm use
-bin/update                   # after pull: bundle, yarn install, rebuild assets, migrate
+bin/update                   # after pull: bundle, yarn install, bootstrap:vendor, rebuild assets, migrate
 bin/dev                      # Foreman: Rails + esbuild watch + dartsass watch
 bin/yarn install             # or: bin/yarn install --immutable (CI-style)
 bin/yarn build               # same as bin/rails javascript:build
@@ -88,20 +90,20 @@ Production sets far-future `cache-control` headers for static files (`max-age=1.
 
 ### Bootstrap (npm + vendored assets)
 
-Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
+Bootstrap **5.x** is installed from npm (`package.json`). App SCSS uses `@use`; shared dashboard partials are composed in `_dashboard_core.scss`, and Bootstrap’s precompiled `bootstrap.min.css` is vendored under `app/assets/stylesheets/vendor/bootstrap/dist/` and inlined via `meta.load-css` in `_bootstrap_setup.scss`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS locally:
+Deploy hosts do not run `yarn` for Bootstrap vendoring (use `bootstrap:vendor` locally). After upgrading Bootstrap in `package.json`, refresh vendor assets and rebuild JS locally:
 
 ```bash
 nvm use
 corepack enable
 bin/yarn install
-bundle exec rake bootstrap:vendor
+bin/rails bootstrap:vendor
 bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and the updated files under `app/assets/stylesheets/vendor/bootstrap/`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bin/rails bootstrap:vendor`.
 
 ## Running the Tests
 

@@ -80,17 +80,48 @@ RSpec.describe 'assets pipeline' do
     expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
   end
 
-  it 'compiles vendored Bootstrap SCSS into dartsass builds' do
+  it 'compiles vendored Bootstrap CSS into dartsass builds' do
     css = Rails.root.join('app/assets/builds/application.css').read
 
     expect(css).to include('--bs-')
     expect(css).to include('.btn')
   end
 
-  it 'vendors Bootstrap SCSS for deploy hosts without node_modules' do
-    scss = Rails.root.join('app/assets/stylesheets/vendor/bootstrap/scss/bootstrap.scss')
+  it 'vendors Bootstrap CSS for deploy hosts without node_modules' do
+    bootstrap_css = BootstrapVendor.vendor_css_path
+    bootstrap_scss = stylesheets_root.join(StylesheetExpectations::VENDOR_BOOTSTRAP_SCSS_DIR)
 
-    expect(scss).to exist
+    expect(bootstrap_css).to exist
+    expect(bootstrap_scss).not_to exist
+  end
+
+  it 'ships vendored Bootstrap CSS that matches node_modules when present' do
+    skip 'run yarn install first' unless BootstrapVendor.npm_css_path.file?
+
+    stale_message = 'Run bin/rails bootstrap:vendor and commit ' \
+                    "#{BootstrapVendor::VENDOR_CSS_RELATIVE}"
+    expect(BootstrapVendor.stale_vendored_css?).to be(false), stale_message
+  end
+
+  it 'uses @use in app-owned SCSS and does not silence Dart Sass deprecations' do
+    app_scss = app_owned_paths
+
+    expect(app_scss).not_to be_empty
+    app_scss.each do |path|
+      expect(File.read(path)).not_to match(/@import\b/), "#{path} still uses @import"
+    end
+
+    (StylesheetExpectations::ENTRY_POINTS + [StylesheetExpectations::DASHBOARD_CORE]).each do |filename|
+      expect(read_relative(filename)).to match(/@use\b/), "#{filename} should use @use"
+    end
+
+    expect(read_relative(StylesheetExpectations::BOOTSTRAP_SETUP)).to include('meta.load-css')
+    expect(read_relative(StylesheetExpectations::BOOTSTRAP_SETUP))
+      .to include(BootstrapVendor::SASS_LOAD_CSS_PATH)
+
+    dartsass_rb = Rails.root.join('config/initializers/dartsass.rb').read
+    expect(dartsass_rb).not_to include('--quiet-deps')
+    expect(dartsass_rb).not_to include('--silence-deprecation')
   end
 
   describe 'assets:precompile task' do

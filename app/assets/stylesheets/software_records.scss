@@ -1,6 +1,5 @@
 // Dartsass entry point for the software_records layout (admin CRUD pages).
-@import "dashboard_core";
-@import "dashboard_contrast";
+@use "dashboard_core";
 
 html,
 body {

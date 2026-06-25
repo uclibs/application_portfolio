@@ -1,38 +1,48 @@
 # frozen_string_literal: true
 
+require 'digest'
+require 'fileutils'
 require 'pathname'
 
-# Copies Bootstrap SCSS from node_modules into a committed vendor path for dartsass.
+# Copies Bootstrap CSS from node_modules into committed vendor paths for dartsass.
 # Deploy hosts do not run yarn until Node is installed on deploy; vendored files must be in git.
 # Bootstrap JS is bundled via esbuild (app/javascript/application.js).
+# Bootstrap CSS is loaded via meta.load-css in _bootstrap_setup.scss (precompiled dist).
 module BootstrapVendor
   module_function
 
+  VENDOR_CSS_RELATIVE = 'app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css'
+  NPM_CSS_RELATIVE = 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+  # Relative to app/assets/stylesheets/ for meta.load-css in _bootstrap_setup.scss.
+  SASS_LOAD_CSS_PATH = 'vendor/bootstrap/dist/bootstrap.min.css'
+
   def vendor!(root = default_root)
-    scss = copy_stylesheets!(root)
-    { scss: scss }
-  end
+    source = npm_css_path(root)
+    destination = vendor_css_path(root)
 
-  def copy_stylesheets!(root = default_root)
-    source = root.join('node_modules/bootstrap/scss')
-    destination = root.join('app/assets/stylesheets/vendor/bootstrap/scss')
+    abort missing_npm_message unless source.file?
 
-    abort missing_npm_message unless source.directory?
-
-    FileUtils.rm_rf(destination.parent)
     FileUtils.mkdir_p(destination.parent)
-    FileUtils.cp_r(source, destination)
+    FileUtils.cp(source, destination)
     destination
   end
 
-  def stylesheets_path(root = default_root)
-    vendored = root.join('app/assets/stylesheets/vendor/bootstrap/scss')
-    npm = root.join('node_modules/bootstrap/scss')
+  def stale_vendored_css?(root = default_root)
+    source = npm_css_path(root)
+    destination = vendor_css_path(root)
 
-    return vendored if vendored.directory?
-    return npm if npm.directory?
+    return false unless source.file?
+    return true unless destination.file?
 
-    abort 'Bootstrap SCSS not found. Run yarn install and rake bootstrap:vendor.'
+    Digest::SHA256.file(source).hexdigest != Digest::SHA256.file(destination).hexdigest
+  end
+
+  def vendor_css_path(root = default_root)
+    root.join(VENDOR_CSS_RELATIVE)
+  end
+
+  def npm_css_path(root = default_root)
+    root.join(NPM_CSS_RELATIVE)
   end
 
   def default_root

@@ -21,6 +21,7 @@ chdir APP_ROOT do
 
   # Install JavaScript dependencies and compile asset builds.
   system!('bin/yarn install --immutable')
+  system!('bin/rails bootstrap:vendor')
   system!('bin/rails javascript:build')
   system!('bin/rails dartsass:build')
 
