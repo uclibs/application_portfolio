@@ -8,9 +8,7 @@ RSpec.configure do |config|
     public_assets = Rails.public_path.join('assets')
     FileUtils.rm_rf(public_assets) if public_assets.directory?
 
-    Rails.application.load_tasks
-    Rake::Task['dartsass:build'].reenable
-    Rake::Task['dartsass:build'].invoke
+    QuietTestBuilds.invoke_dartsass_build!
 
     # Test and production deploy use the committed bundle (SKIP_JS_BUILD in config/application.rb).
     next if ENV['SKIP_JS_BUILD'] == 'true'
@@ -19,9 +17,6 @@ RSpec.configure do |config|
     js_sources = Rails.root.join('app/javascript/**/*.js')
     next unless EsbuildBundleExpectations.stale_sources?(js_bundle, js_sources)
 
-    %w[javascript:prepare_node_path javascript:install javascript:build].each do |name|
-      Rake::Task[name].reenable
-    end
-    Rake::Task['javascript:build'].invoke
+    QuietTestBuilds.invoke_javascript_build!
   end
 end

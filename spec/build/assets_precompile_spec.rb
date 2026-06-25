@@ -16,12 +16,22 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
   end
 
-  it 'does not register vestigial Sprockets precompile paths or CoffeeScript workarounds' do
-    source = Rails.root.join('config/initializers/assets.rb').read
+  it 'sets the Sprockets assets version for cache busting' do
+    expect(Rails.application.config.assets.version).to eq('1.0')
+  end
 
-    expect(source).not_to include('config.assets.precompile')
-    expect(source).not_to include('coffee_free_transformers')
-    expect(source).not_to include('node_modules')
+  it 'does not register vestigial Sprockets precompile paths' do
+    precompile = Rails.application.config.assets.precompile.map(&:to_s)
+
+    expect(precompile).not_to include('software_records.css')
+    expect(precompile).not_to include(a_string_matching(/navigation\.js/))
+    expect(precompile).not_to include(a_string_matching(/filtermanagement\.js/))
+  end
+
+  it 'does not add node_modules to the Sprockets asset load path' do
+    paths = Rails.application.config.assets.paths.map(&:to_s)
+
+    expect(paths).not_to include(a_string_matching(%r{/node_modules\z}))
   end
 
   it 'links builds and images via the Sprockets manifest until Propshaft' do

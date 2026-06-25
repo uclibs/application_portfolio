@@ -6,4 +6,4 @@
 Rails.application.config.assets.version = '1.0'
 
 # Compiled CSS/JS from dartsass-rails and esbuild live in app/assets/builds/.
-# Sprockets discovers them via app/assets/config/manifest.js until Propshaft (#19).
+# Sprockets discovers them via app/assets/config/manifest.js until the Propshaft migration.
