@@ -117,7 +117,7 @@ cap production deploy  # production (libapps)
 | Environment | Host | Ruby manager | Notes |
 |-------------|------|--------------|-------|
 | QA / production | libappstest, libapps | **rbenv** (user `apache`, `/home/apache/.rbenv`) | `scripts/check_ruby.sh` runs on deploy to install the version from `.ruby-version` when missing |
-| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/check_node.sh` is sourced during `deploy:assets:precompile` to install Node from `.nvmrc` when missing |
+| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/assets_precompile.sh` sources `check_node.sh` during `deploy:assets:precompile` |
 | Local cap deploy | localhost | **RVM** (via `scripts/start_local.sh` only) | Optional dev workflow; Capistrano does not use the capistrano-rvm gem |
 
 Puma on QA/production is managed by systemd (`puma-appport.service`), not by Capistrano's Ruby plugin.

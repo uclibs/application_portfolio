@@ -6,8 +6,5 @@ namespace :javascript do
   end
 end
 
-%w[javascript:install javascript:build].each do |name|
-  next unless Rake::Task.task_defined?(name)
-
-  Rake::Task[name].enhance(['javascript:prepare_node_path'])
-end
+# Prepare PATH before yarn install; javascript:build already depends on install.
+Rake::Task['javascript:install'].enhance(['javascript:prepare_node_path']) if Rake::Task.task_defined?('javascript:install')

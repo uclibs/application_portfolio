@@ -87,4 +87,4 @@ end
 
 after 'deploy:publishing', 'db:migrate'
 # deploy:assets:precompile (capistrano-rails, during deploy:updated) is overridden in
-# lib/capistrano/tasks/assets.rake to source scripts/check_node.sh before precompile.
+# lib/capistrano/tasks/assets.rake to run scripts/assets_precompile.sh.
