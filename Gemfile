@@ -35,9 +35,8 @@ gem 'puma', '>= 6.4.3'
 gem 'dartsass-rails'
 # Bundle JavaScript with esbuild (served from app/assets/builds/application.js)
 gem 'jsbundling-rails', '~> 1.3'
-# Asset pipeline dependencies for Rack 3.x compatibility
-gem 'sprockets', '~> 4.2', '>= 4.2.2'
-gem 'sprockets-rails'
+# Digest and serve pre-built assets from app/assets/builds/ and app/assets/images/
+gem 'propshaft'
 # Use Devise for authentication
 gem 'devise'
 # Hotwire Turbo for fast in-app navigation (replaces turbolinks)

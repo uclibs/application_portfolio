@@ -5,8 +5,13 @@ require 'rails_helper'
 RSpec.describe 'assets pipeline' do
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
   let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
-  let(:manifest) { Rails.root.join('app/assets/config/manifest.js').read }
   let(:js_sources) { Rails.root.join('app/javascript/**/*.js') }
+
+  it 'uses propshaft instead of sprockets' do
+    expect(gemfile_lock).to include('propshaft')
+    expect(gemfile_lock).not_to include('sprockets-rails')
+    expect(gemfile_lock).not_to match(/^\s+sprockets\s*\(/m)
+  end
 
   it 'does not list jquery-rails in Gemfile.lock' do
     expect(gemfile_lock).not_to include('jquery-rails')
@@ -16,28 +21,25 @@ RSpec.describe 'assets pipeline' do
     expect(gemfile_lock).not_to match(/^\s+bootstrap\s*\(/m)
   end
 
-  it 'sets the Sprockets assets version for cache busting' do
+  it 'sets the Propshaft assets version for cache busting' do
     expect(Rails.application.config.assets.version).to eq('1.0')
   end
 
-  it 'does not register vestigial Sprockets precompile paths' do
-    precompile = Rails.application.config.assets.precompile.map(&:to_s)
-
-    expect(precompile).not_to include('software_records.css')
-    expect(precompile).not_to include(a_string_matching(/navigation\.js/))
-    expect(precompile).not_to include(a_string_matching(/filtermanagement\.js/))
-  end
-
-  it 'does not add node_modules to the Sprockets asset load path' do
+  it 'excludes source stylesheets and legacy javascripts from Propshaft load paths' do
     paths = Rails.application.config.assets.paths.map(&:to_s)
+    excluded = Rails.application.config.assets.excluded_paths.map(&:to_s)
 
+    expect(excluded).to include(Rails.root.join('app/assets/stylesheets').to_s)
+    expect(excluded).to include(Rails.root.join('app/assets/javascripts').to_s)
+    expect(paths).to include(Rails.root.join('app/assets/builds').to_s)
+    expect(paths).to include(Rails.root.join('app/assets/images').to_s)
+    expect(paths).not_to include(Rails.root.join('app/assets/stylesheets').to_s)
+    expect(paths).not_to include(Rails.root.join('app/assets/javascripts').to_s)
     expect(paths).not_to include(a_string_matching(%r{/node_modules\z}))
   end
 
-  it 'links builds and images via the Sprockets manifest until Propshaft' do
-    expect(manifest).not_to include('link_directory ../javascripts')
-    expect(manifest).to include('link_tree ../builds')
-    expect(manifest).to include('link_tree ../images')
+  it 'does not ship a Sprockets manifest.js' do
+    expect(Rails.root.join('app/assets/config/manifest.js')).not_to exist
   end
 
   it 'does not use Sprockets require directives in app javascript sources' do

@@ -9,10 +9,10 @@ RSpec.describe 'assets:precompile' do
     FileUtils.rm_rf(public_assets)
   end
 
-  it 'fingerprints dartsass and esbuild outputs without explicit precompile entries' do
+  it 'fingerprints dartsass and esbuild outputs via Propshaft' do
     QuietTestBuilds.precompile_assets!
 
-    expect(Dir.children(public_assets).any? { |name| name.start_with?('.sprockets-manifest') }).to be(true)
+    expect(public_assets.join('.manifest.json')).to exist
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'application', '.js')).to be(true)
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'application', '.css')).to be(true)
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'software_records', '.css')).to be(true)

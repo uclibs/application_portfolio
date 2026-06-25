@@ -26,7 +26,7 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 JavaScript is bundled with **esbuild** via `jsbundling-rails` (LIBAPPO1-101, LIBAPPO1-108). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. Layouts load that bundle as a single deferred ES module (Turbo, Bootstrap, Chartkick, Active Storage, and app scripts).
 
-`app/assets/builds/application.js` is **committed** so CI can verify the bundle matches sources (`yarn build` + git diff in CircleCI and GitHub Actions). The **test** environment skips esbuild during `assets:precompile` (`SKIP_JS_BUILD` in `config/application.rb`); **production deploy** runs `yarn install`, `yarn build`, and `dartsass:build` before Sprockets precompile.
+`app/assets/builds/application.js` is **committed** so CI can verify the bundle matches sources (`yarn build` + git diff in CircleCI and GitHub Actions). The **test** environment skips esbuild during `assets:precompile` (`SKIP_JS_BUILD` in `config/application.rb`); **production deploy** runs `yarn install`, `yarn build`, and `dartsass:build` before Propshaft digests assets into `public/assets/`.
 
 After changing JS dependencies or source files locally:
 
