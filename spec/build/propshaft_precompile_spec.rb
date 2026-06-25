@@ -16,5 +16,6 @@ RSpec.describe 'assets:precompile' do
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'application', '.js')).to be(true)
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'application', '.css')).to be(true)
     expect(CompiledAssetExpectations.fingerprinted_asset?(public_assets, 'software_records', '.css')).to be(true)
+    expect(Dir.glob(public_assets.join('**/*.scss'))).to be_empty
   end
 end
