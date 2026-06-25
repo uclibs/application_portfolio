@@ -11,13 +11,13 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.23",
     "@popperjs/core": "^2.11.8",
-    "@rails/activestorage": "^8.0.200",
-    "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.8",
+    "@rails/activestorage": "^8.1.300",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
     "chartkick": "^5.0.1"
   },
   "devDependencies": {
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.28.1"
   },
   "packageManager": "yarn@4.17.0+sha512.c2957de2f9025ab14d63b24d0d8be1f1655810e22c341042c27f7ecd017b180ec12db73d69ac366d71b304ef9f069349ce462de96f04f8f1da317f4f762c95ae"
 }
