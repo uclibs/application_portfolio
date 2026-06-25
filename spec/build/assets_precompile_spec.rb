@@ -83,8 +83,15 @@ RSpec.describe 'assets pipeline' do
   end
 
   describe 'assets:precompile task' do
-    it 'does not auto-run javascript:build in test (deploy uses committed bundle until Node is on deploy hosts)' do
+    it 'sets SKIP_JS_BUILD in test so CI uses the committed bundle' do
+      expect(ENV['SKIP_JS_BUILD']).to eq('true')
+    end
+
+    it 'skips javascript:build in test (deploy builds on the server)' do
       Rails.application.load_tasks
+
+      install_prereqs = Rake::Task['javascript:install'].prerequisites
+      expect(install_prereqs).to include('javascript:prepare_node_path')
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')
       expect(Rake::Task['assets:precompile'].prerequisites).not_to include('javascript:build')

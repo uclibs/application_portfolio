@@ -97,6 +97,10 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       - run:
+          name: Compile Dart Sass builds
+          command: bundle exec rails dartsass:build
+
+      - run:
           name: Rubocop
           command: |
             gem install rubocop

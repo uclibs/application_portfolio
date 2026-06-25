@@ -86,4 +86,5 @@ Capistrano::DSL.stages.each do |stage|
 end
 
 after 'deploy:publishing', 'db:migrate'
-after 'deploy:publishing', 'assets:precompile'
+# deploy:assets:precompile (capistrano-rails, during deploy:updated) is overridden in
+# lib/capistrano/tasks/assets.rake to run scripts/assets_precompile.sh.

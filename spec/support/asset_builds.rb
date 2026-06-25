@@ -10,7 +10,7 @@ RSpec.configure do |config|
 
     QuietTestBuilds.invoke_dartsass_build!
 
-    # Test and production deploy use the committed bundle (SKIP_JS_BUILD in config/application.rb).
+    # Test uses the committed bundle (SKIP_JS_BUILD); production deploy builds via assets:precompile.
     next if ENV['SKIP_JS_BUILD'] == 'true'
 
     js_bundle = Rails.root.join('app/assets/builds/application.js')

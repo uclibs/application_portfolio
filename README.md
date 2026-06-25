@@ -26,7 +26,9 @@ Node.js 24.x (see `.nvmrc`; run `nvm install` in the project root)
 
 JavaScript is bundled with **esbuild** via `jsbundling-rails` (LIBAPPO1-101, LIBAPPO1-108). The entry point is `app/javascript/application.js`; `bin/rails javascript:build` (or `bin/yarn build`) writes `app/assets/builds/application.js` and source maps. Layouts load that bundle as a single deferred ES module (Turbo, Bootstrap, Chartkick, Active Storage, and app scripts).
 
-`app/assets/builds/application.js` is **committed** so QA/production `assets:precompile` works without Node until deploy hosts have Node (`SKIP_JS_BUILD` in `config/application.rb`). After changing JS dependencies or source files:
+`app/assets/builds/application.js` is **committed** so CI can verify the bundle matches sources (`yarn build` + git diff in CircleCI and GitHub Actions). The **test** environment skips esbuild during `assets:precompile` (`SKIP_JS_BUILD` in `config/application.rb`); **production deploy** runs `yarn install`, `yarn build`, and `dartsass:build` before Sprockets precompile.
+
+After changing JS dependencies or source files locally:
 
 ```bash
 nvm use
@@ -43,13 +45,15 @@ nvm use
 bin/dev
 ```
 
-**Deploy:** `assets:precompile` skips the esbuild step on deploy hosts without Node; the committed bundle is fingerprinted like other assets. A follow-up deploy ticket will add Node and remove `SKIP_JS_BUILD`.
+**CI:** `yarn install --frozen-lockfile`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec.
+
+**Deploy:** Capistrano’s `deploy:assets:precompile` (during `deploy:updated`) runs `scripts/assets_precompile.sh`, which sources `scripts/check_node.sh` (nvm + `.nvmrc`, yarn via corepack when needed) then `bundle exec rails assets:precompile` (`javascript:build` + `dartsass:build`).
 
 ### Bootstrap (npm + vendored assets)
 
 Bootstrap **5.x** is installed from npm (`package.json`). Dart Sass compiles the committed vendor SCSS under `app/assets/stylesheets/vendor/bootstrap/scss/`. JavaScript comes from the esbuild bundle (`import` from `node_modules` at build time).
 
-Deploy hosts do not run `yarn` until Node is on deploy, so vendored Bootstrap SCSS and the committed JS bundle must stay in git. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS:
+Deploy hosts do not run `yarn` for Bootstrap SCSS vendoring (use `bootstrap:vendor` locally). JavaScript is rebuilt on deploy via `assets:precompile`. After upgrading Bootstrap in `package.json`, refresh vendor SCSS and rebuild JS locally:
 
 ```bash
 nvm use
@@ -113,6 +117,7 @@ cap production deploy  # production (libapps)
 | Environment | Host | Ruby manager | Notes |
 |-------------|------|--------------|-------|
 | QA / production | libappstest, libapps | **rbenv** (user `apache`, `/home/apache/.rbenv`) | `scripts/check_ruby.sh` runs on deploy to install the version from `.ruby-version` when missing |
+| QA / production | libappstest, libapps | **nvm** (user `apache`) | `scripts/assets_precompile.sh` sources `check_node.sh` during `deploy:assets:precompile` |
 | Local cap deploy | localhost | **RVM** (via `scripts/start_local.sh` only) | Optional dev workflow; Capistrano does not use the capistrano-rvm gem |
 
 Puma on QA/production is managed by systemd (`puma-appport.service`), not by Capistrano's Ruby plugin.
