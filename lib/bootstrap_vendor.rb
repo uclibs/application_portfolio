@@ -9,19 +9,28 @@ require 'pathname'
 module BootstrapVendor
   module_function
 
-  def vendor!(root = default_root)
-    copy_css!(root)
-  end
+  VENDOR_CSS_RELATIVE = 'app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css'
+  NPM_CSS_RELATIVE = 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+  # Relative to app/assets/stylesheets/ for meta.load-css in _bootstrap_setup.scss.
+  SASS_LOAD_CSS_PATH = 'vendor/bootstrap/dist/bootstrap.min.css'
 
-  def copy_css!(root = default_root)
-    source = root.join('node_modules/bootstrap/dist/css/bootstrap.min.css')
-    destination = root.join('app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css')
+  def vendor!(root = default_root)
+    source = npm_css_path(root)
+    destination = vendor_css_path(root)
 
     abort missing_npm_message unless source.file?
 
     FileUtils.mkdir_p(destination.parent)
     FileUtils.cp(source, destination)
     destination
+  end
+
+  def vendor_css_path(root = default_root)
+    root.join(VENDOR_CSS_RELATIVE)
+  end
+
+  def npm_css_path(root = default_root)
+    root.join(NPM_CSS_RELATIVE)
   end
 
   def default_root

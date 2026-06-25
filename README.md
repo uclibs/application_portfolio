@@ -58,14 +58,14 @@ First-time setup (after `corepack enable`):
 
 ```bash
 nvm use
-bin/setup                    # bundle, yarn install, JS/CSS builds, db:setup
+bin/setup                    # bundle, yarn install, bootstrap:vendor, JS/CSS builds, db:setup
 ```
 
 Day-to-day and manual asset commands:
 
 ```bash
 nvm use
-bin/update                   # after pull: bundle, yarn install, rebuild assets, migrate
+bin/update                   # after pull: bundle, yarn install, bootstrap:vendor, rebuild assets, migrate
 bin/dev                      # Foreman: Rails + esbuild watch + dartsass watch
 bin/yarn install             # or: bin/yarn install --immutable (CI-style)
 bin/yarn build               # same as bin/rails javascript:build
@@ -103,7 +103,7 @@ bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bundle exec rake bootstrap:vendor`.
 
 ## Running the Tests
 

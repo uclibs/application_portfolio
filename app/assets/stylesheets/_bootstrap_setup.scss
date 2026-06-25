@@ -1,5 +1,5 @@
-// Bootstrap CSS vendored from npm (see lib/bootstrap_vendor.rb and README).
-// Precompiled CSS avoids Bootstrap 5.3 SCSS legacy import deprecations during dartsass builds.
+// Bootstrap CSS vendored from npm (see BootstrapVendor::SASS_LOAD_CSS_PATH in lib/bootstrap_vendor.rb).
+// Precompiled CSS avoids Bootstrap 5.3 SCSS deprecation noise during dartsass builds.
 @use "sass:meta";
 
 @include meta.load-css("vendor/bootstrap/dist/bootstrap.min.css");

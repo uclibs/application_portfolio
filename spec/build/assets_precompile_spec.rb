@@ -88,7 +88,7 @@ RSpec.describe 'assets pipeline' do
   end
 
   it 'vendors Bootstrap CSS for deploy hosts without node_modules' do
-    bootstrap_css = Rails.root.join('app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css')
+    bootstrap_css = BootstrapVendor.vendor_css_path
     bootstrap_scss = Rails.root.join('app/assets/stylesheets/vendor/bootstrap/scss')
 
     expect(bootstrap_css).to exist
@@ -96,22 +96,20 @@ RSpec.describe 'assets pipeline' do
   end
 
   it 'uses @use in app-owned SCSS and does not silence Dart Sass deprecations' do
-    stylesheets = Rails.root.join('app/assets/stylesheets')
-    app_scss = Dir.glob(stylesheets.join('**/*.{scss,sass}')).reject do |path|
-      path.include?('/vendor/')
-    end
+    app_scss = app_owned_paths
 
     expect(app_scss).not_to be_empty
     app_scss.each do |path|
       expect(File.read(path)).not_to match(/@import\b/), "#{path} still uses @import"
     end
 
-    %w[application.scss software_records.scss _dashboard_core.scss].each do |filename|
-      expect(File.read(stylesheets.join(filename))).to match(/@use\b/), "#{filename} should use @use"
+    (StylesheetExpectations::ENTRY_POINTS + [StylesheetExpectations::DASHBOARD_CORE]).each do |filename|
+      expect(read_relative(filename)).to match(/@use\b/), "#{filename} should use @use"
     end
 
-    bootstrap_setup = Rails.root.join('app/assets/stylesheets/_bootstrap_setup.scss').read
-    expect(bootstrap_setup).to include('meta.load-css')
+    expect(read_relative(StylesheetExpectations::BOOTSTRAP_SETUP)).to include('meta.load-css')
+    expect(read_relative(StylesheetExpectations::BOOTSTRAP_SETUP))
+      .to include(BootstrapVendor::SASS_LOAD_CSS_PATH)
 
     dartsass_rb = Rails.root.join('config/initializers/dartsass.rb').read
     expect(dartsass_rb).not_to include('--quiet-deps')
