@@ -45,6 +45,7 @@ module QuietTestBuilds
     app.load_tasks
     JAVASCRIPT_BUILD_TASKS.each { |name| Rake::Task[name].reenable }
     suppress_output { Rake::Task['javascript:build'].invoke }
+    EsbuildBundleExpectations.record_sources_digest!
   end
 
   def precompile_assets!(app = Rails.application)
