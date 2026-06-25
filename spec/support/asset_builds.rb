@@ -10,13 +10,8 @@ RSpec.configure do |config|
 
     QuietTestBuilds.invoke_dartsass_build!
 
-    # Test uses the committed bundle (SKIP_JS_BUILD); production deploy builds via assets:precompile.
-    next if ENV['SKIP_JS_BUILD'] == 'true'
-
     js_bundle = Rails.root.join('app/assets/builds/application.js')
-    js_sources = Rails.root.join('app/javascript/**/*.js')
-    next unless EsbuildBundleExpectations.stale_sources?(js_bundle, js_sources)
-
-    QuietTestBuilds.invoke_javascript_build!
+    ci_bundle_ready = ENV['CI'] == 'true' && js_bundle.file? && js_bundle.size > 1000
+    QuietTestBuilds.invoke_javascript_build! unless ci_bundle_ready
   end
 end

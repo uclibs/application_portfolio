@@ -33,11 +33,10 @@ jobs:
       - name: Install JavaScript dependencies
         run: yarn install --immutable
 
-      - name: Verify committed JavaScript bundle is current
+      - name: Build JavaScript and verify vendored Bootstrap CSS
         run: |
           yarn build
-          git diff --exit-code app/assets/builds/application.js app/assets/builds/application.js.map \
-            app/assets/builds/application.js.sources.sha256
+          test -f app/assets/builds/application.js
           cmp node_modules/bootstrap/dist/css/bootstrap.min.css \
             app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css
 

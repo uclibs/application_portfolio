@@ -30,6 +30,7 @@ RSpec.feature 'Software record tab navigation', type: :feature, js: true do
     maintenance_log_url = "#{edit_software_record_path(software_record)}#maintenance-log"
 
     visit software_records_path
+    wait_for_turbo
     page.execute_script("Turbo.visit('#{maintenance_log_url}')")
 
     expect(page).to have_css('#maintenance-log-tab.nav-link.active', wait: 10)

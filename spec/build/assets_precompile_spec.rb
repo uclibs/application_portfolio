@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'assets pipeline' do
   let(:gemfile_lock) { Rails.root.join('Gemfile.lock').read }
-  let(:esbuild_bundle) { Rails.root.join('app/assets/builds/application.js') }
   let(:js_sources) { Rails.root.join('app/javascript/**/*.js') }
 
   it 'uses propshaft instead of sprockets' do
@@ -65,21 +64,6 @@ RSpec.describe 'assets pipeline' do
     expect(yarnrc).not_to include('approvedGitRepositories')
   end
 
-  it 'ships the esbuild application bundle with Turbo, Chartkick, and app scripts' do
-    expect(esbuild_bundle).to exist
-
-    expect_core_bundle_content!(esbuild_bundle.read)
-  end
-
-  it 'ships an esbuild bundle that is at least as new as app/javascript sources' do
-    expect(esbuild_bundle).to exist
-    expect(EsbuildBundleExpectations.sources_digest_path).to exist
-
-    stale_message = 'Run yarn install && yarn build and commit app/assets/builds/application.js ' \
-                    'and application.js.sources.sha256'
-    expect(EsbuildBundleExpectations.stale_sources?(esbuild_bundle, js_sources)).to be(false), stale_message
-  end
-
   it 'compiles vendored Bootstrap CSS into dartsass builds' do
     css = Rails.root.join('app/assets/builds/application.css').read
 
@@ -131,18 +115,14 @@ RSpec.describe 'assets pipeline' do
       FileUtils.rm_rf(public_assets)
     end
 
-    it 'sets SKIP_JS_BUILD in test so CI uses the committed bundle' do
-      expect(ENV['SKIP_JS_BUILD']).to eq('true')
-    end
-
-    it 'skips javascript:build in test (deploy builds on the server)' do
+    it 'includes javascript:build and dartsass:build in assets:precompile prerequisites' do
       Rails.application.load_tasks
 
       install_prereqs = Rake::Task['javascript:install'].prerequisites
       expect(install_prereqs).to include('javascript:prepare_node_path')
 
       expect(Rake::Task['assets:precompile'].prerequisites).to include('dartsass:build')
-      expect(Rake::Task['assets:precompile'].prerequisites).not_to include('javascript:build')
+      expect(Rake::Task['assets:precompile'].prerequisites).to include('javascript:build')
     end
 
     it 'fingerprints dartsass and esbuild outputs and writes .manifest.json' do

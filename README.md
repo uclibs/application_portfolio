@@ -50,7 +50,7 @@ App-owned SCSS uses `@use` (not legacy `@import`). Dart Sass builds run without 
 
 Navigation uses **Hotwire Turbo** (`@hotwired/turbo-rails` in the esbuild bundle). Custom UI behaviors use **Stimulus** controllers under `app/javascript/controllers/` (register new controllers in `controllers/index.js`). Flash toasts use the `flash-toast` Stimulus controller, not gritter.
 
-**Committed vs generated builds:** `app/assets/builds/application.js` (and `.map` / `.sources.sha256`) are committed so CI can verify the bundle matches sources. Compiled CSS (`application.css`, `software_records.css`) is **gitignored** — run `bin/rails dartsass:build` locally (or use `bin/setup` / `bin/dev`).
+**Generated builds:** Compiled assets under `app/assets/builds/` (including `application.js`, CSS, and source maps) are **gitignored**. Run `bin/setup`, `bin/update`, or `bin/dev` locally; deploy hosts build JS and CSS during `assets:precompile` (see Deploy expectations).
 
 ### Local commands
 
@@ -73,9 +73,9 @@ bin/rails dartsass:build
 bin/rails assets:precompile  # JS + CSS builds + Propshaft digest (dev/production)
 ```
 
-After changing JS dependencies or source files, commit `package.json`, `.yarnrc.yml`, `yarn.lock`, and `app/assets/builds/application.js` (+ `.map` and `.sources.sha256` when present). Run `bin/yarn install` after pulling dependency changes.
+After changing JS dependencies or source files, commit `package.json`, `.yarnrc.yml`, and `yarn.lock`. Rebuild locally with `bin/yarn build` (or `bin/setup` / `bin/update`).
 
-The **test** environment sets `SKIP_JS_BUILD` (`config/application.rb`); `assets:precompile` runs `dartsass:build` only and uses the committed JS bundle.
+CI and the test suite build JavaScript from `app/javascript/` before RSpec (`spec/support/asset_builds.rb`). Deploy hosts build JS during `assets:precompile` via `scripts/assets_precompile.sh`.
 
 ### Deploy expectations
 
@@ -103,7 +103,7 @@ bin/yarn build
 bin/rails dartsass:build
 ```
 
-Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, `app/assets/builds/application.js`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bin/rails bootstrap:vendor`.
+Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, and `app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css` after `bin/rails bootstrap:vendor`.
 
 ## Running the Tests
 
@@ -112,9 +112,12 @@ The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
 ```bash
 nvm use
 corepack enable   # Yarn 4; required if node_modules is missing
+bin/yarn install --immutable
 bundle exec rspec
 bundle exec rubocop
 ```
+
+RSpec builds JavaScript and CSS in `spec/support/asset_builds.rb` before the suite runs; `node_modules` must be present.
 
 The test environment is configured to **raise on Rails/Rack deprecations** (`config.active_support.deprecation = :raise`), so deprecation warnings fail the suite rather than printing to stderr.
 

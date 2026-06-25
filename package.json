@@ -5,7 +5,7 @@
     "node": ">=24.0.0 <25"
   },
   "scripts": {
-    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets && node bin/javascript-sources-digest.cjs"
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
