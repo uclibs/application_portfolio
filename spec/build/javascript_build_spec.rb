@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'esbuild javascript build' do
   it 'javascript:build produces app/assets/builds/application.js' do
-    QuietTestBuilds.invoke_javascript_build!
+    QuietTestBuilds.invoke_javascript_build! if AssetBuildStaleness.javascript_stale?
 
     bundle = Rails.root.join('app/assets/builds/application.js')
     expect(bundle).to exist

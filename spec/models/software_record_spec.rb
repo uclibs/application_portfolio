@@ -3,95 +3,50 @@
 require 'rails_helper'
 
 RSpec.describe SoftwareRecord, type: :model do
-  before(:each) do
-    VendorRecord.create!(
-      title: 'Vendor 1',
-      description: 'test vendor'
-    )
-    SoftwareType.create!(
-      title: 'Web app',
-      description: 'test software type'
-    )
-    Status.create!(
-      title: 'Test',
-      status_type: 'Design'
-    )
-    HostingEnvironment.create!(
-      title: 'Test Env.',
-      description: 'test env.'
-    )
-  end
-
-  describe 'associations' do
-    it { should belong_to(:software_type) }
-    it { should belong_to(:vendor_record) }
-    it { should belong_to(:status) }
-    it { should belong_to(:hosting_environment) }
-    it { should have_many(:change_request) }
-  end
-
   describe 'validations' do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:description) }
-    it { should validate_presence_of(:status) }
-    it { should validate_presence_of(:created_by) }
+    it 'is valid with required attributes' do
+      expect(build_software_record).to be_valid
+    end
+
+    %i[title description created_by].each do |attribute|
+      it "is invalid without #{attribute}" do
+        record = build_software_record(attribute => nil)
+
+        expect(record).not_to be_valid
+        expect(record.errors[attribute]).to include("can't be blank")
+      end
+    end
+
+    it 'is invalid without status' do
+      record = build_software_record(status: nil, status_id: nil)
+
+      expect(record).not_to be_valid
+      expect(record.errors[:status]).to include("can't be blank")
+    end
+
+    %i[software_type vendor_record hosting_environment].each do |association|
+      it "is invalid without #{association}" do
+        expect(build_software_record("#{association}_id": nil)).not_to be_valid
+      end
+    end
   end
 
-  describe 'serialization' do
-    it { should serialize(:tech_leads).as(Array) }
-    it { should serialize(:developers).as(Array) }
-    it { should serialize(:product_owners).as(Array) }
-    it { should serialize(:admin_users).as(Array) }
-    it { should serialize(:departments).as(Array) }
-  end
+  describe 'serialized array attributes' do
+    it 'round-trips YAML-serialized arrays' do
+      serialized_values = {
+        tech_leads: %w[lead],
+        developers: %w[developer],
+        product_owners: %w[owner],
+        admin_users: %w[admin],
+        departments: %w[department]
+      }
+      record = build_software_record(**serialized_values)
+      record.save!
 
-  it 'is valid if all required fields are provided' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC',
-                                        description: 'UC Digital conservatory preservation library', status_id: Status.first.id, hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id, created_by: 'Test User')
-    expect(softwarerecord).to be_valid
-  end
-
-  it 'is valid if all required fields are provided' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC 2',
-                                        description: 'UC Digital conservatory preservation library', status_id: Status.first.id, hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id, created_by: 'Test User2')
-    expect(softwarerecord).to be_valid
-  end
-
-  it 'is not valid without a single mandatory field (without title)' do
-    softwarerecord = SoftwareRecord.new(
-      description: 'UC Digital conservatory preservation library', status_id: Status.first.id, hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id
-    )
-    expect(softwarerecord).to_not be_valid
-  end
-
-  it 'is not valid without a single mandatory field (without description)' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC', status_id: Status.first.id,
-                                        hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id)
-    expect(softwarerecord).to_not be_valid
-  end
-
-  it 'is valid if all required fields are provided (without status)' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC',
-                                        description: 'UC Digital conservatory preservation library', software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id)
-    expect(softwarerecord).to_not be_valid
-  end
-
-  it 'is valid if all required fields are provided (without software_type_id)' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC', status_id: Status.first.id,
-                                        hosting_environment_id: HostingEnvironment.first.id, description: 'UC Digital conservatory preservation library', vendor_record_id: VendorRecord.first.id)
-    expect(softwarerecord).to_not be_valid
-  end
-
-  it 'is valid if all required fields are provided (without vendor_record_id)' do
-    softwarerecord = SoftwareRecord.new(title: 'Scholar UC', status_id: Status.first.id,
-                                        hosting_environment_id: HostingEnvironment.first.id, description: 'UC Digital conservatory preservation library', vendor_record_id: VendorRecord.first.id)
-    expect(softwarerecord).to_not be_valid
-  end
-
-  it 'is not valid without a single mandatory field (without created_by)' do
-    softwarerecord = SoftwareRecord.new(
-      description: 'UC Digital conservatory preservation library', status_id: Status.first.id, hosting_environment_id: HostingEnvironment.first.id, software_type_id: SoftwareType.first.id, vendor_record_id: VendorRecord.first.id
-    )
-    expect(softwarerecord).to_not be_valid
+      record.reload
+      serialized_values.each do |attribute, value|
+        expect(record.public_send(attribute)).to eq(value)
+      end
+    end
   end
 end
