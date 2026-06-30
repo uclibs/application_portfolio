@@ -58,9 +58,8 @@ gem 'rubocop-rails', require: false
 # Needed with Rails upgrade
 gem 'drb'
 gem 'rubocop-rspec', require: false
-# Use simplecov to generate the coveralls report in .html format
+# Use simplecov for local and CI coverage reports
 gem 'simplecov', require: false
-gem 'simplecov-lcov', require: false
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
 # Use petergate for authorization

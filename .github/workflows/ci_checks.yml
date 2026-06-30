@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        check:
+          - rubocop
+          - brakeman
+          - bundler_audit
+    env:
+      RAILS_ENV: test
+      DISABLE_SPRING: 1
+      BUNDLE_FORCE_RUBY_PLATFORM: "1"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version-file: .ruby-version
+          bundler-cache: true
+
+      - name: Run check
+        run: ./scripts/ci/${{ matrix.check }}.sh
+
+  tests:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    env:
+      RAILS_ENV: test
+      DISABLE_SPRING: 1
+      CI: "true"
+      BUNDLE_FORCE_RUBY_PLATFORM: "1"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Chrome
+        id: setup_chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
+
+      - name: Export Chrome paths for CI
+        run: |
+          echo "CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
+          echo "CHROMEDRIVER_PATH=${{ steps.setup_chrome.outputs.chromedriver-path }}" >> "$GITHUB_ENV"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version-file: .ruby-version
+          bundler-cache: true
+
+      - name: Print runner environment
+        run: ./scripts/ci/print_runner_env.sh
+
+      - name: Install JavaScript dependencies
+        run: ./scripts/ci/setup_javascript_dependencies.sh
+
+      - name: Build assets and prepare database
+        run: |
+          ./scripts/ci/build_assets.sh
+          ./scripts/ci/migrate.sh
+
+      - name: Run tests
+        run: ./scripts/ci/run_tests.sh
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec-results
+          path: tmp/test-results
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+
+  coverage-update:
+    needs: tests
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    env:
+      RAILS_ENV: test
+      DISABLE_SPRING: 1
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: .
+
+      - name: Check and update coverage baseline
+        run: ./scripts/ci/coverage_gate.sh

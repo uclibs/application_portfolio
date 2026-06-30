@@ -51,6 +51,7 @@ RSpec.describe JavascriptBuildEnv do
       original_path = ENV.fetch('PATH', nil)
       ENV['NVM_DIR'] = nvm_dir.to_s
       ENV['PATH'] = '/usr/bin'
+      allow(described_class).to receive(:activate_yarn!)
 
       described_class.apply!(root)
 
@@ -61,87 +62,21 @@ RSpec.describe JavascriptBuildEnv do
       FileUtils.rm_rf(root)
     end
 
-    it 'activates Yarn via Corepack from the nvm Node bin directory' do
+    it 'activates Yarn via scripts/corepack_yarn.sh when present' do
       root = Pathname.new(Dir.mktmpdir)
-      root.join('.nvmrc').write("26.4.0\n")
-      root.join('package.json').write('{"packageManager":"yarn@4.17.0"}')
-      nvm_dir = root.join('.nvm')
-      node_bin = nvm_dir.join('versions/node/v26.4.0/bin')
-      node_bin.mkpath
-      corepack = node_bin.join('corepack')
-      corepack.write("#!/bin/sh\n")
-      corepack.chmod(0o755)
-      install_dir = Pathname.new(Dir.mktmpdir('corepack-bin'))
+      script = root.join(described_class::COREPACK_SCRIPT)
+      script.dirname.mkpath
+      script.write("#!/usr/bin/env bash\nsetup_corepack_yarn(){ :; }\n")
+      script.chmod(0o755)
 
-      original_nvm_dir = ENV.fetch('NVM_DIR', nil)
-      original_path = ENV.fetch('PATH', nil)
-      original_home = ENV.fetch('HOME', nil)
-      ENV['NVM_DIR'] = nvm_dir.to_s
-      ENV['HOME'] = install_dir.dirname.to_s
-      ENV['PATH'] = '/usr/bin'
-      allow(File).to receive(:expand_path).and_call_original
-      allow(File).to receive(:expand_path).with('~/bin').and_return(install_dir.to_s)
-      allow(described_class).to receive(:system).and_call_original
-      allow(described_class).to receive(:system)
-        .with(corepack.to_s, 'enable', '--install-directory', install_dir.to_s, out: File::NULL, err: File::NULL)
-        .and_return(true)
-      allow(described_class).to receive(:system)
-        .with(corepack.to_s, 'prepare', 'yarn@4.17.0', '--activate', out: File::NULL, err: File::NULL)
-        .and_return(true)
+      allow(described_class).to receive(:system).and_return(true)
 
-      described_class.apply!(root)
+      described_class.activate_yarn!(root)
 
       expect(described_class).to have_received(:system)
-        .with(corepack.to_s, 'enable', '--install-directory', install_dir.to_s, out: File::NULL, err: File::NULL)
-      expect(described_class).to have_received(:system)
-        .with(corepack.to_s, 'prepare', 'yarn@4.17.0', '--activate', out: File::NULL, err: File::NULL)
+        .with('bash', '-c', "source #{script} && setup_corepack_yarn", chdir: root, out: File::NULL, err: File::NULL)
     ensure
-      ENV['NVM_DIR'] = original_nvm_dir
-      ENV['PATH'] = original_path
-      ENV['HOME'] = original_home
       FileUtils.rm_rf(root)
-      FileUtils.rm_rf(install_dir)
-    end
-
-    it 'runs Corepack via node when the bin/corepack shim is missing' do
-      root = Pathname.new(Dir.mktmpdir)
-      root.join('.nvmrc').write("26.4.0\n")
-      root.join('package.json').write('{"packageManager":"yarn@4.17.0"}')
-      nvm_dir = root.join('.nvm')
-      node_root = nvm_dir.join('versions/node/v26.4.0')
-      node_bin = node_root.join('bin')
-      node_bin.mkpath
-      corepack_js = node_root.join('lib/node_modules/corepack/dist/corepack.js')
-      corepack_js.dirname.mkpath
-      corepack_js.write('// corepack stub')
-      install_dir = Pathname.new(Dir.mktmpdir('corepack-bin'))
-
-      original_nvm_dir = ENV.fetch('NVM_DIR', nil)
-      original_path = ENV.fetch('PATH', nil)
-      original_home = ENV.fetch('HOME', nil)
-      ENV['NVM_DIR'] = nvm_dir.to_s
-      ENV['HOME'] = install_dir.dirname.to_s
-      ENV['PATH'] = '/usr/bin'
-      allow(File).to receive(:expand_path).and_call_original
-      allow(File).to receive(:expand_path).with('~/bin').and_return(install_dir.to_s)
-      allow(described_class).to receive(:system).and_call_original
-      allow(described_class).to receive(:system)
-        .with('node', corepack_js.to_s, 'enable', '--install-directory', install_dir.to_s, out: File::NULL, err: File::NULL)
-        .and_return(true)
-      allow(described_class).to receive(:system)
-        .with('node', corepack_js.to_s, 'prepare', 'yarn@4.17.0', '--activate', out: File::NULL, err: File::NULL)
-        .and_return(true)
-
-      described_class.apply!(root)
-
-      expect(described_class).to have_received(:system)
-        .with('node', corepack_js.to_s, 'enable', '--install-directory', install_dir.to_s, out: File::NULL, err: File::NULL)
-    ensure
-      ENV['NVM_DIR'] = original_nvm_dir
-      ENV['PATH'] = original_path
-      ENV['HOME'] = original_home
-      FileUtils.rm_rf(root)
-      FileUtils.rm_rf(install_dir)
     end
   end
 end
