@@ -1,0 +1,23 @@
+---
+description: Never git push unless the user explicitly requests it in the current message
+alwaysApply: true
+---
+
+# Git push — explicit request only
+
+**Do not run `git push` (or `gh` commands that push) unless the user's current message explicitly asks to push.**
+
+## Allowed
+
+- `git push` when the user says **push** in that same message (e.g. "commit and push", "push this", "yes to both" referring to commit **and** push).
+- Push as part of `gh pr create` only when the user asked to **create the PR** (that flow may require push first).
+
+## Not allowed
+
+- Pushing after a commit because CI needs it, the fix "should go up", or it seems like the natural next step.
+- Pushing because the user said **commit** but did not say **push**.
+- Pushing to "verify CI" or "re-run checks" without an explicit push request.
+
+## After committing without a push request
+
+Report the commit hash and branch, and note that changes are local until the user asks to push.

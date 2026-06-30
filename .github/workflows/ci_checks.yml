@@ -65,14 +65,15 @@ jobs:
         id: setup_chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          # Let Selenium Manager resolve chromedriver for the pinned Chrome binary.
-          install-chromedriver: false
+          install-chromedriver: true
           install-dependencies: false
 
       - name: Export Chrome paths for CI
         run: |
           echo "CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
           echo "CHROMEDRIVER_PATH=${{ steps.setup_chrome.outputs.chromedriver-path }}" >> "$GITHUB_ENV"
+          echo "CHROME_VERSION=${{ steps.setup_chrome.outputs.chrome-version }}" >> "$GITHUB_ENV"
+          echo "CHROMEDRIVER_VERSION=${{ steps.setup_chrome.outputs.chromedriver-version }}" >> "$GITHUB_ENV"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

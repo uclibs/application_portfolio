@@ -22,7 +22,8 @@ RSpec.describe 'CI scripts' do
     expect(workflow).to include('runs-on: ubuntu-24.04')
     expect(workflow).to include('actions/setup-node@v4')
     expect(workflow).to include('browser-actions/setup-chrome@v1')
-    expect(workflow).to include('install-chromedriver: false')
+    expect(workflow).to include('install-chromedriver: true')
+    expect(workflow).to include('CHROMEDRIVER_PATH')
     expect(workflow).to include('./scripts/ci/build_assets.sh')
     expect(workflow).to include('./scripts/ci/run_tests.sh')
   end
