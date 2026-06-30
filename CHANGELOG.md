@@ -2,6 +2,12 @@
 
 Release versions match git tags (for example, `v3.0.0`).
 
+3.1.0 (unreleased)
+
+* Upgrades Ruby to 4.0.5; adds `cgi` gem (stdlib removed in Ruby 4)
+* Upgrades Node to 26.4.0 (org standard); CI and deploy scripts unchanged in behavior
+* Rails remains on 8.1.3 (latest 8.1.x)
+
 3.0.0 6/25/2026
 
 * Modernizes the frontend and asset pipeline (major operational change for deploys)

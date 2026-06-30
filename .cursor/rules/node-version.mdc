@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Node version (nvm)
 
-This project requires **Node 24.x** (see `.nvmrc` and `package.json` `engines`). The default shell often has an older Node, which breaks `yarn install` and JS builds.
+This project requires **Node 26.x** (see `.nvmrc` and `package.json` `engines`). The default shell often has an older Node, which breaks `yarn install` and JS builds.
 
 ## Before Node or yarn commands
 

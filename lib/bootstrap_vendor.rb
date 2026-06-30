@@ -2,7 +2,6 @@
 
 require 'digest'
 require 'fileutils'
-require 'pathname'
 
 # Copies Bootstrap CSS from node_modules into committed vendor paths for dartsass.
 # Deploy hosts do not run yarn until Node is installed on deploy; vendored files must be in git.

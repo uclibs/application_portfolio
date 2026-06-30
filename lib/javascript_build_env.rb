@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pathname'
-
 # jsbundling-rails and bin/yarn shell out to yarn; prepend the Node version from
 # .nvmrc when nvm is installed so builds work even if an older node or yarn
 # binary appears earlier on PATH.

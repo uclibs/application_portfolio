@@ -13,7 +13,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/ruby:3.4.9-browsers
+      - image: cimg/ruby:4.0.5-browsers
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -40,7 +40,7 @@ jobs:
       - checkout
 
       - node/install:
-          node-version: '24.16.0'
+          node-version: '26.4.0'
 
       - run:
           name: Enable Yarn 4 via Corepack

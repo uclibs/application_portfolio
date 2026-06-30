@@ -33,6 +33,6 @@ Dir.chdir(APP_ROOT) do
   exec 'yarn', *ARGV
 rescue Errno::ENOENT
   warn 'Yarn executable was not detected in the system.'
-  warn 'Enable Corepack (Node 24+): corepack enable'
+  warn 'Enable Corepack: corepack enable'
   exit 1
 end

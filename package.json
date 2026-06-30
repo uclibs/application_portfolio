@@ -2,7 +2,7 @@
   "name": "application_portfolio",
   "private": true,
   "engines": {
-    "node": ">=24.0.0 <25"
+    "node": ">=26.0.0 <27"
   },
   "scripts": {
     "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"

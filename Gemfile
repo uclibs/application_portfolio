@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.9'
+ruby '4.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.0'
@@ -17,7 +17,10 @@ gem 'ed25519' # Ed25519 elliptic curve public-key signature system
 # Deals with serialization deprecation in Rails 7.1
 gem 'globalize', '~> 7.0'
 
-# Required for Ruby 3.x stdlib (extracted from default gems)
+# Required for Ruby 4.x stdlib (CGI removed from default gems)
+gem 'cgi', '>= 0.5'
+
+# Required for Ruby 3.x+ stdlib (extracted from default gems)
 gem 'net-imap', '>= 0.5.7'
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
