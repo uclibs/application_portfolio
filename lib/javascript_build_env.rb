@@ -37,10 +37,12 @@ module JavascriptBuildEnv
   end
 
   def system_node_bin_directory
-    node = File.which('node')
-    return unless node
+    ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).each do |directory|
+      node = File.join(directory, 'node')
+      return File.dirname(node) if File.executable?(node)
+    end
 
-    File.dirname(node)
+    nil
   end
 
   def corepack_shim_directory

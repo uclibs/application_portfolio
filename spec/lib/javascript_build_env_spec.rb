@@ -113,5 +113,22 @@ RSpec.describe JavascriptBuildEnv do
       FileUtils.rm_rf(root)
       FileUtils.rm_rf(node_root)
     end
+
+    it 'finds node on PATH without shelling out' do
+      node_root = Pathname.new(Dir.mktmpdir)
+      node_bin = node_root.join('bin')
+      node_bin.mkpath
+      node = node_bin.join('node')
+      node.write('#!/usr/bin/env sh')
+      node.chmod(0o755)
+
+      original_path = ENV.fetch('PATH', nil)
+      ENV['PATH'] = node_bin.to_s
+
+      expect(described_class.system_node_bin_directory).to eq(node_bin.to_s)
+    ensure
+      ENV['PATH'] = original_path
+      FileUtils.rm_rf(node_root)
+    end
   end
 end
