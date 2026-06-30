@@ -2,6 +2,9 @@ name: CI
 
 # Feature-branch pushes with an open PR fire both push and pull_request if push is
 # unrestricted; limit push to integration branches so PR updates run CI once.
+#
+# Caching: only the tests job writes node_modules; save runs on cache miss only to
+# avoid "Unable to reserve cache" races when a key already exists or jobs overlap.
 on:
   push:
     branches: [qa, main]
@@ -78,6 +81,7 @@ jobs:
           # Do not use setup-node's built-in Yarn cache; it runs global Yarn 1.x before Corepack.
 
       - name: Restore node_modules cache
+        id: node-modules-cache
         uses: actions/cache/restore@v4
         with:
           path: node_modules
@@ -97,13 +101,6 @@ jobs:
       - name: Install JavaScript dependencies
         run: ./scripts/ci/setup_javascript_dependencies.sh
 
-      - name: Save node_modules cache
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn4-node-modules-${{ hashFiles('yarn.lock') }}
-
       - name: Build assets and prepare database
         run: |
           ./scripts/ci/build_assets.sh
@@ -111,6 +108,14 @@ jobs:
 
       - name: Run tests
         run: ./scripts/ci/run_tests.sh
+
+      - name: Save node_modules cache
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn4-node-modules-${{ hashFiles('yarn.lock') }}
 
       - name: Upload test results
         if: always()

@@ -31,6 +31,8 @@ RSpec.describe 'CI scripts' do
     expect(workflow).not_to include('cache: yarn')
     expect(workflow).to include('yarn4-node-modules')
     expect(workflow).to include('./scripts/ci/setup_javascript_dependencies.sh')
+    expect(workflow).to include("steps.node-modules-cache.outputs.cache-hit != 'true'")
+    expect(workflow).to include('continue-on-error: true')
   end
 
   it 'uploads coverage and enforces the baseline on pull requests' do
