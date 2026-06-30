@@ -45,7 +45,8 @@ if (( $(echo "$COVERAGE > $BASELINE" | bc -l) )); then
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git add "$BASELINE_PATH"
-  git commit -m "ci: update coverage baseline to $COVERAGE%" || true
+  # [skip ci] prevents the push from re-triggering the full workflow via pull_request synchronize.
+  git commit -m "ci: update coverage baseline to ${COVERAGE}% [skip ci]" || true
   git push origin "HEAD:${GITHUB_HEAD_REF}" || true
 else
   echo "Coverage unchanged at $COVERAGE%"

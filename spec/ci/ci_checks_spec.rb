@@ -43,6 +43,11 @@ RSpec.describe 'CI scripts' do
     expect(workflow).not_to include('coveralls')
   end
 
+  it 'skips CI when the coverage bot bumps the baseline' do
+    gate = Rails.root.join('scripts/ci/coverage_gate.sh').read
+    expect(gate).to include('[skip ci]')
+  end
+
   it 'keeps a committed coverage baseline for the gate' do
     baseline = Rails.root.join('coverage/coverage_baseline.txt')
     expect(baseline).to exist
