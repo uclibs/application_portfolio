@@ -40,6 +40,8 @@ Extract shared logic only when it reduces real duplication. Match existing proje
 
 New or changed behavior must have **RSpec** coverage (`spec/**/*_spec.rb`). Prefer unit tests (models, services, helpers, controllers, mailers). Mirror existing spec style (FactoryBot, `type: :controller`, etc.).
 
+**New or changed application code:** 100% line and **100% branch** coverage on touched source files in the same change set. See **`.cursor/rules/new-code-coverage.mdc`** for scope, verification, and CI baseline notes.
+
 ### Comments on touched files
 
 Update comments on **every file you touch**:
