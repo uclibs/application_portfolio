@@ -2,7 +2,7 @@
 
 Release versions match git tags (for example, `v3.0.0`).
 
-3.1.0 (unreleased)
+3.1.0 6/30/2026
 
 * Upgrades Ruby to 4.0.5; adds `cgi` gem (stdlib removed in Ruby 4)
 * Upgrades Node to 26.4.0 (org standard); CI and deploy scripts unchanged in behavior
