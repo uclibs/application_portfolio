@@ -45,13 +45,16 @@ jobs:
       - run:
           name: Prepare Yarn 4 via Corepack
           command: |
-            # cimg images include system Node under /usr/local; node/install adds nvm Node.
-            # Do not run `corepack enable` on /usr/local (EACCES); use Corepack from active Node.
+            # cimg includes system Node under /usr/local; node/install adds nvm Node without
+            # a bin/corepack shim. Run Corepack via corepack.js and install shims to ~/bin.
             NODE_BIN="$(node -p 'require("path").dirname(process.execPath)')"
-            export PATH="${NODE_BIN}:${PATH}"
-            echo "export PATH=\"${NODE_BIN}:\${PATH}\"" >> "$BASH_ENV"
-            "${NODE_BIN}/corepack" enable
-            "${NODE_BIN}/corepack" prepare "$(node -p "require('./package.json').packageManager")" --activate
+            COREPACK_JS="$(node -p "require('path').join(require('path').dirname(process.execPath), '..', 'lib', 'node_modules', 'corepack', 'dist', 'corepack.js')")"
+            mkdir -p ~/bin
+            export PATH="${NODE_BIN}:${HOME}/bin:${PATH}"
+            echo "export PATH=\"${NODE_BIN}:\${HOME}/bin:\${PATH}\"" >> "$BASH_ENV"
+            test -f "$COREPACK_JS" || { echo "Corepack not found at ${COREPACK_JS}" >&2; exit 1; }
+            node "$COREPACK_JS" enable --install-directory ~/bin
+            node "$COREPACK_JS" prepare "$(node -p "require('./package.json').packageManager")" --activate
             node -v
             yarn -v
 

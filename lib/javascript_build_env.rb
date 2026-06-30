@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'fileutils'
 
 # jsbundling-rails and bin/yarn shell out to yarn; prepend the Node version from
 # .nvmrc when nvm is installed so builds work even if an older node or yarn
@@ -36,13 +37,27 @@ module JavascriptBuildEnv
     package_manager = package_manager_for(root)
     return unless package_manager
 
-    corepack = File.join(node_bin, 'corepack')
-    return unless File.executable?(corepack)
+    runner, *runner_args = corepack_command(node_bin)
+    return unless runner
 
-    # Invoke Corepack from node_bin so shims land in a user-writable directory,
-    # not /usr/local when a system Node appears earlier on PATH (CircleCI cimg).
-    system(corepack, 'enable', out: File::NULL, err: File::NULL)
-    system(corepack, 'prepare', package_manager, '--activate', out: File::NULL, err: File::NULL)
+    install_dir = File.expand_path('~/bin')
+    FileUtils.mkdir_p(install_dir)
+    ENV['PATH'] = "#{install_dir}:#{ENV['PATH']}" unless path_includes?(install_dir)
+
+    enable_args = runner_args + ['enable', '--install-directory', install_dir]
+    prepare_args = runner_args + ['prepare', package_manager, '--activate']
+    system(runner, *enable_args, out: File::NULL, err: File::NULL)
+    system(runner, *prepare_args, out: File::NULL, err: File::NULL)
+  end
+
+  def corepack_command(node_bin)
+    corepack_bin = File.join(node_bin, 'corepack')
+    return [corepack_bin] if File.executable?(corepack_bin)
+
+    corepack_js = File.expand_path(File.join(node_bin, '..', 'lib', 'node_modules', 'corepack', 'dist', 'corepack.js'))
+    return ['node', corepack_js] if File.file?(corepack_js)
+
+    nil
   end
 
   def package_manager_for(root)
@@ -56,6 +71,10 @@ module JavascriptBuildEnv
 
   def path_prefixed_with?(node_bin)
     ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).first == node_bin
+  end
+
+  def path_includes?(directory)
+    ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).include?(directory)
   end
 
   def default_root
