@@ -19,16 +19,12 @@ Capybara.register_driver :ci_selenium_chrome_headless do |app|
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
 
-  driver_options = {
-    app: app,
-    browser: :chrome,
-    options: options
-  }
+  driver_kwargs = { browser: :chrome, options: options }
 
   chromedriver_path = ENV.fetch('CHROMEDRIVER_PATH', nil)
-  driver_options[:service] = Selenium::WebDriver::Service.chrome(path: chromedriver_path) if chromedriver_path.present? && File.exist?(chromedriver_path)
+  driver_kwargs[:service] = Selenium::WebDriver::Service.chrome(path: chromedriver_path) if chromedriver_path.present? && File.exist?(chromedriver_path)
 
-  Capybara::Selenium::Driver.new(**driver_options)
+  Capybara::Selenium::Driver.new(app, **driver_kwargs)
 end
 
 Capybara.javascript_driver = if ENV['CI']
