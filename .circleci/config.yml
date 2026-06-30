@@ -43,11 +43,16 @@ jobs:
           node-version: '26.4.0'
 
       - run:
-          name: Enable Yarn 4 via Corepack
+          name: Prepare Yarn 4 via Corepack
           command: |
-            corepack enable
+            # cimg images include system Node under /usr/local; node/install adds nvm Node.
+            # Do not run `corepack enable` on /usr/local (EACCES); use Corepack from active Node.
+            NODE_BIN="$(node -p 'require("path").dirname(process.execPath)')"
+            export PATH="${NODE_BIN}:${PATH}"
+            echo "export PATH=\"${NODE_BIN}:\${PATH}\"" >> "$BASH_ENV"
             corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
-            node -v && yarn -v
+            node -v
+            corepack yarn -v
 
       - restore_cache:
           keys:
@@ -57,8 +62,8 @@ jobs:
       - run:
           name: Build JavaScript and verify vendored Bootstrap CSS
           command: |
-            yarn install --immutable
-            yarn build
+            corepack yarn install --immutable
+            corepack yarn build
             test -f app/assets/builds/application.js
             cmp node_modules/bootstrap/dist/css/bootstrap.min.css \
               app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css
