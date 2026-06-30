@@ -11,6 +11,8 @@ No code change is **done** until all steps below pass. Run them in order; do not
 
 Follow **`.cursor/rules/code-quality.mdc`** — review every changed file for antipatterns, smells, naming, duplication, test coverage, and updated comments. Fix findings in the same change set.
 
+For any new or changed application code, also follow **`.cursor/rules/new-code-coverage.mdc`** — 100% line and branch coverage on touched source files.
+
 ## 2. RuboCop (required, no rule evasion)
 
 ```bash
@@ -44,7 +46,7 @@ bundle exec rspec
 Before reporting done to the user:
 
 - [ ] Code quality review per `code-quality.mdc` (including comments on touched files)
-- [ ] New/changed behavior covered by RSpec
+- [ ] New/changed application code at 100% line and branch coverage per `new-code-coverage.mdc`
 - [ ] `bundle exec rubocop` passes with no new disables/ignores
 - [ ] `bundle exec rspec` passes (or documented scope if user-limited)
 

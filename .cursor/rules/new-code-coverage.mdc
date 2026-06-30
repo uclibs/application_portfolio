@@ -1,0 +1,42 @@
+---
+description: Require 100% line and branch coverage on all new or changed application code
+alwaysApply: true
+---
+
+# Application Portfolio — New Code Coverage
+
+Any **new or changed executable code** in the same change set must reach **100% line coverage and 100% branch coverage** before the work is done.
+
+This applies to code you add or modify under `app/`, `lib/`, and other runtime paths SimpleCov tracks (not spec-only or config-only edits).
+
+## What counts as “new code”
+
+- New files, methods, branches, or lines in touched files
+- Refactors that move or rewrite logic (cover the result, not only the old behavior)
+- Does **not** require bringing unrelated legacy files up to 100%
+
+## Required in the same change set
+
+1. Add or update **RSpec** examples for every branch (both sides of `if`/`unless`, ternary arms, `||` / `&&` fallbacks, early returns, etc.).
+2. Run affected specs, then confirm the **touched source file(s)** are at 100% / 100% in the SimpleCov report (`coverage/index.html` or `coverage/.resultset.json`).
+3. Do not merge coverage work into a follow-up PR; do not lower the project baseline to compensate for uncovered new lines.
+
+## How to verify
+
+```bash
+bundle exec rspec spec/path/to/affected_spec.rb
+# Open coverage/index.html and check each changed source file: 100.0% lines, 100.0% branches
+```
+
+For helper methods shadowed by controller `helper_method` definitions, exercise the **module method directly** (see `spec/helpers/software_records_helper_spec.rb` `helper_with_params` pattern).
+
+## CI project gate (separate)
+
+`scripts/ci/coverage_gate.sh` compares **overall** line coverage to `coverage/coverage_baseline.txt`. New code at 100% still helps the total, but a few uncovered lines in new code can fail CI even when another file was improved. Always satisfy **both** this rule and the baseline gate.
+
+## Anti-patterns
+
+- Adding production code “to be tested later”
+- Tests that stub away the code under test without executing it
+- Deleting or weakening tests to make coverage pass
+- `# :nocov:` / SimpleCov skips on new code

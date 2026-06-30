@@ -53,7 +53,7 @@
       "check_name": "FileAccess",
       "message": "Parameter value used in file name",
       "file": "app/controllers/file_uploads_controller.rb",
-      "line": 61,
+      "line": 48,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.delete(File.join(Rails.root, \"public\", \"uploads\", params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")))",
       "render_path": null,
@@ -67,7 +67,30 @@
       "cwe_id": [
         22
       ],
-      "note": ""
+      "note": "Filename is sanitized to alphanumerics, dots, and underscores before use."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "91b2e67aa410f10c6cfc105d600cd3b59fa07fb7bfe4f144f1b124480e1d63cb",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/file_uploads_controller.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(File.join(Rails.root, \"public\", \"uploads\", params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FileUploadsController",
+        "method": "create"
+      },
+      "user_input": "params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Filename is sanitized to alphanumerics, dots, and underscores before use."
     },
     {
       "warning_type": "SQL Injection",
@@ -89,52 +112,6 @@
       "confidence": "Medium",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "91b2e67aa410f10c6cfc105d600cd3b59fa07fb7bfe4f144f1b124480e1d63cb",
-      "check_name": "FileAccess",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/file_uploads_controller.rb",
-      "line": 26,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "File.open(File.join(Rails.root, \"public\", \"uploads\", params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")), \"wb\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "FileUploadsController",
-        "method": "create"
-      },
-      "user_input": "params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "91b2e67aa410f10c6cfc105d600cd3b59fa07fb7bfe4f144f1b124480e1d63cb",
-      "check_name": "FileAccess",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/file_uploads_controller.rb",
-      "line": 57,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "File.open(File.join(Rails.root, \"public\", \"uploads\", params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")), \"wb\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "FileUploadsController",
-        "method": "create"
-      },
-      "user_input": "params[:file_upload][:attachment].original_filename.gsub(/[^a-zA-Z0-9_.]/, \"\")",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
       ],
       "note": ""
     },
@@ -208,6 +185,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-11-05 13:26:29 -0500",
-  "brakeman_version": "6.2.2"
+  "updated": "2026-06-30 13:42:26 -0400",
+  "brakeman_version": "8.0.5"
 }

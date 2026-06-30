@@ -2,7 +2,7 @@
 # https://github.com/rubysec/bundler-audit
 #
 # This file tells `bundle exec bundler-audit check` which advisories to skip.
-# CI runs bundler-audit on every build (see .github/workflows/main.yml).
+# CI runs bundler-audit on every build (see .github/workflows/ci_checks.yml).
 #
 # When to add an entry here
 # -------------------------

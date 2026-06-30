@@ -41,8 +41,10 @@ db/*.sqlite3-shm
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore coverage folder
-/coverage
+# Ignore coverage reports; keep the committed baseline for CI gate
+/coverage/*
+!/coverage/
+!/coverage/coverage_baseline.txt
 
 # Ignore .DS_Store files generated in MAC OS
 .DS_Store

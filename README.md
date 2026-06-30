@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/uclibs/application_portfolio/badge.svg?branch=qa)](https://coveralls.io/github/uclibs/application_portfolio?branch=qa)
-
 # Application Portfolio
 
 This is a web application developed for the management of UC Libraries application profile.  
@@ -10,7 +8,7 @@ This application tracks, monitors, and secures information on all of UCL's servi
 ```bash
 git clone git@github.com:uclibs/application_portfolio.git
 cd application_portfolio
-nvm install    # Node 24.x per .nvmrc
+nvm install    # Node 26.x per .nvmrc
 nvm use
 corepack enable   # once per machine; activates Yarn 4 from package.json
 bin/setup      # bundle, yarn install, JS/CSS builds, db:setup
@@ -19,7 +17,7 @@ bin/dev        # Rails + esbuild watch + dartsass watch (recommended)
 
 Or run the server only after setup: `bin/rails server`.
 
-Use Ruby **3.4.9** (see `.ruby-version`), **Rails 8.1**, **Node.js 24.x** (see `.nvmrc`), and **Yarn 4.x** (see `packageManager` in `package.json`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
+Use Ruby **4.0.5** (see `.ruby-version`), **Rails 8.1**, **Node.js 26.x** (see `.nvmrc`), and **Yarn 4.x** (see `packageManager` in `package.json`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
 
 After pulling changes: `bin/update` (bundle, `yarn install`, rebuild assets, migrate). Run `corepack enable` once if `yarn` is not found.
 
@@ -27,12 +25,12 @@ After pulling changes: `bin/update` (bundle, `yarn install`, rebuild assets, mig
 
 | Requirement | Version / notes |
 |-------------|-----------------|
-| Ruby | 3.4.9 (`.ruby-version`) |
+| Ruby | 4.0.5 (`.ruby-version`) |
 | Rails | 8.1 |
-| Node.js | 24.x (`.nvmrc`; `nvm install` in project root) |
+| Node.js | 26.x (`.nvmrc`; `nvm install` in project root) |
 | Yarn | 4.x via Corepack (`packageManager` in `package.json`; `nodeLinker: node-modules` in `.yarnrc.yml`) |
 
-Do **not** install Yarn Classic globally. Node 24 includes Corepack; run `corepack enable` once, then `bin/yarn` (or `yarn`) uses the version pinned in `package.json`. CI and deploy use `yarn install --immutable` (Yarn 4’s equivalent of `--frozen-lockfile`).
+Do **not** install Yarn Classic globally. Node 26 includes Corepack; run `corepack enable` once, then `bin/yarn` (or `yarn`) uses the version pinned in `package.json`. CI and deploy use `yarn install --immutable` (Yarn 4’s equivalent of `--frozen-lockfile`).
 
 ## Asset pipeline
 
@@ -86,7 +84,7 @@ QA and production both use `RAILS_ENV=production` on deploy hosts. Capistrano’
 
 Production sets far-future `cache-control` headers for static files (`max-age=1.year`) because filenames include content hashes.
 
-**CI:** `corepack enable`, `yarn install --immutable`, `yarn build`, and `bundle exec rails dartsass:build` run before RSpec (CircleCI and GitHub Actions).
+**CI:** GitHub Actions (`.github/workflows/ci_checks.yml`) runs RuboCop, Brakeman, and bundler-audit in parallel, then a tests job that runs `yarn install --immutable`, `yarn build`, `dartsass:build`, and RSpec on `ubuntu-24.04`.
 
 ### Bootstrap (npm + vendored assets)
 
@@ -107,7 +105,7 @@ Commit `package.json`, `.yarnrc.yml`, `yarn.lock`, and `app/assets/stylesheets/v
 
 ## Running the Tests
 
-The test suite uses RSpec, RuboCop, and Coveralls. From the project root:
+The test suite uses RSpec and RuboCop. From the project root:
 
 ```bash
 nvm use
@@ -121,11 +119,7 @@ RSpec builds JavaScript and CSS in `spec/support/asset_builds.rb` before the sui
 
 The test environment is configured to **raise on Rails/Rack deprecations** (`config.active_support.deprecation = :raise`), so deprecation warnings fail the suite rather than printing to stderr.
 
-For Coveralls locally:
-
-```bash
-coveralls report
-```
+**Coverage:** SimpleCov writes HTML to `coverage/index.html`. CI compares line coverage against `coverage/coverage_baseline.txt` and fails pull requests when coverage drops; when coverage increases, CI commits an updated baseline to the PR branch.
 
 ## Database
 

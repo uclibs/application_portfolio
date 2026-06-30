@@ -65,23 +65,18 @@ module SoftwareRecordsHelper
     @software_status_piechart_hash
   end
 
+  # Returns the raw DB value for form radio checked state (compared to "Yes"/"No" in views).
   def yes_no_toggle(attr)
     @software_record.read_attribute(attr)
   end
 
-  def true_false_toggle(_attr)
-    value = true
-    converted_value = if value
-                        'true'
-                      else
-                        'false'
-                      end
-    converted_value = value ? 'Yes' : 'No'
+  # Formats a boolean (or boolean-like) value for read-only display.
+  def yes_no_label(value)
+    ActiveModel::Type::Boolean.new.cast(value) ? 'Yes' : 'No'
   end
 
   def software_records_upgrade_hash(software_pid)
     @software_pid = software_pid
-    @software_upgrade_hash = {}
     @software_upgrade_hash = ChangeRequest.where(software_record_id: @software_pid.to_s, change_completed: true)
   end
 end
