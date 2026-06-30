@@ -5,10 +5,6 @@
 #   run_yarn install
 # Or run directly: bash scripts/corepack_yarn.sh
 
-yarn_version_from_package_json() {
-  node -p "require('./package.json').packageManager.replace(/^yarn@/, '').split('+')[0]"
-}
-
 _corepack_node_bin() {
   node -p 'require("path").dirname(process.execPath)'
 }
@@ -56,15 +52,14 @@ run_corepack_enable() {
 }
 
 setup_corepack_yarn() {
-  local yarn_version active_yarn_version package_manager
+  local active_yarn_version package_manager
 
-  yarn_version="$(yarn_version_from_package_json)"
-  if [[ -z "${yarn_version}" ]]; then
-    echo "Could not read yarn version from package.json packageManager field." >&2
+  package_manager="$(node -p "require('./package.json').packageManager")"
+  if [[ -z "${package_manager}" ]]; then
+    echo "Could not read packageManager from package.json." >&2
     return 1
   fi
 
-  package_manager="$(node -p "require('./package.json').packageManager")"
   run_corepack_enable
   run_corepack prepare "${package_manager}" --activate
 

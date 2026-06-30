@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'shellwords'
 
 RSpec.describe JavascriptBuildEnv do
   describe '.nvm_node_bin' do
@@ -74,7 +75,18 @@ RSpec.describe JavascriptBuildEnv do
       described_class.activate_yarn!(root)
 
       expect(described_class).to have_received(:system)
-        .with('bash', '-c', "source #{script} && setup_corepack_yarn", chdir: root, out: File::NULL, err: File::NULL)
+        .with('bash', '-c', "source #{Shellwords.escape(script.to_s)} && setup_corepack_yarn", chdir: root)
+    ensure
+      FileUtils.rm_rf(root)
+    end
+
+    it 'warns when Yarn activation fails' do
+      root = Pathname.new(Dir.mktmpdir)
+      allow(described_class).to receive(:nvm_node_bin).and_return(nil)
+      allow(described_class).to receive(:system_node_bin_directory).and_return(nil)
+      allow(described_class).to receive(:activate_yarn!).and_return(false)
+
+      expect { described_class.apply!(root) }.to output(%r{JavascriptBuildEnv: Corepack/Yarn activation failed}).to_stderr
     ensure
       FileUtils.rm_rf(root)
     end
@@ -89,7 +101,7 @@ RSpec.describe JavascriptBuildEnv do
       node_bin.join('node').chmod(0o755)
 
       ENV['PATH'] = '/usr/bin'
-      allow(described_class).to receive(:node_bin_directory).and_return(nil)
+      allow(described_class).to receive(:nvm_node_bin).and_return(nil)
       allow(described_class).to receive(:system_node_bin_directory).and_return(node_bin.to_s)
       allow(described_class).to receive(:activate_yarn!)
 

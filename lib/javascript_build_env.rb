@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'shellwords'
+
 # jsbundling-rails and bin/yarn shell out to yarn; prepend Node from .nvmrc when nvm
 # is installed, or from the system Node binary (GitHub Actions setup-node). Activates
 # Yarn via scripts/corepack_yarn.sh so Corepack shims are on PATH during Rake tasks.
@@ -9,14 +11,10 @@ module JavascriptBuildEnv
   module_function
 
   def apply!(root = default_root)
-    node_bin = node_bin_directory(root) || system_node_bin_directory
+    node_bin = nvm_node_bin(root) || system_node_bin_directory
     prepend_path!(node_bin)
     prepend_path!(corepack_shim_directory)
-    activate_yarn!(root)
-  end
-
-  def node_bin_directory(root = default_root)
-    nvm_node_bin(root)
+    warn_yarn_activation_failure unless activate_yarn!(root)
   end
 
   def nvm_node_bin(root = default_root)
@@ -32,14 +30,15 @@ module JavascriptBuildEnv
 
   def activate_yarn!(root)
     script = root.join(COREPACK_SCRIPT)
-    return unless script.file?
+    return false unless script.file?
 
-    system('bash', '-c', "source #{script} && setup_corepack_yarn", chdir: root, out: File::NULL, err: File::NULL)
+    command = "source #{Shellwords.escape(script.to_s)} && setup_corepack_yarn"
+    system('bash', '-c', command, chdir: root)
   end
 
   def system_node_bin_directory
-    node = `command -v node 2>/dev/null`.strip
-    return if node.empty?
+    node = File.which('node')
+    return unless node
 
     File.dirname(node)
   end
@@ -57,6 +56,10 @@ module JavascriptBuildEnv
 
   def path_includes?(directory)
     ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).include?(directory)
+  end
+
+  def warn_yarn_activation_failure
+    warn 'JavascriptBuildEnv: Corepack/Yarn activation failed; yarn may not be on PATH'
   end
 
   def default_root
