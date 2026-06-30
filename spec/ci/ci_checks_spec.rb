@@ -12,6 +12,12 @@ RSpec.describe 'CI scripts' do
     expect(workflow).to include('bundler_audit')
   end
 
+  it 'avoids duplicate runs on feature-branch pushes that update a pull request' do
+    expect(workflow).to include('branches: [qa, main]')
+    expect(workflow).to include('branches: [qa]')
+    expect(workflow).to include('types: [opened, synchronize, reopened, ready_for_review]')
+  end
+
   it 'runs tests on GitHub-hosted ubuntu runners with Node and Chrome' do
     expect(workflow).to include('runs-on: ubuntu-24.04')
     expect(workflow).to include('actions/setup-node@v4')

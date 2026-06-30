@@ -1,8 +1,13 @@
 name: CI
 
+# Feature-branch pushes with an open PR fire both push and pull_request if push is
+# unrestricted; limit push to integration branches so PR updates run CI once.
 on:
   push:
+    branches: [qa, main]
   pull_request:
+    branches: [qa]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
