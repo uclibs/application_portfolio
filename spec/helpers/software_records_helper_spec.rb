@@ -107,19 +107,18 @@ RSpec.describe SoftwareRecordsHelper, type: :helper do
     end
   end
 
-  describe '#true_false_toggle' do
-    it 'returns Yes when the attribute is true' do
-      software_record = FactoryBot.create(:software_record, themes: true)
-      helper.instance_variable_set(:@software_record, software_record)
-
-      expect(helper.true_false_toggle(:themes)).to eq('Yes')
+  describe '#yes_no_label' do
+    it 'returns Yes when the value is truthy' do
+      expect(helper.yes_no_label(true)).to eq('Yes')
     end
 
-    it 'returns No when the attribute is false' do
-      software_record = FactoryBot.create(:software_record, modules: false)
-      helper.instance_variable_set(:@software_record, software_record)
+    it 'returns No when the value is falsey' do
+      expect(helper.yes_no_label(false)).to eq('No')
+    end
 
-      expect(helper.true_false_toggle(:modules)).to eq('No')
+    it 'casts string boolean values' do
+      expect(helper.yes_no_label('true')).to eq('Yes')
+      expect(helper.yes_no_label('0')).to eq('No')
     end
   end
 
