@@ -69,14 +69,9 @@ module SoftwareRecordsHelper
     @software_record.read_attribute(attr)
   end
 
-  def true_false_toggle(_attr)
-    value = true
-    converted_value = if value
-                        'true'
-                      else
-                        'false'
-                      end
-    converted_value = value ? 'Yes' : 'No'
+  def true_false_toggle(attr)
+    value = @software_record.read_attribute(attr)
+    value ? 'Yes' : 'No'
   end
 
   def software_records_upgrade_hash(software_pid)
