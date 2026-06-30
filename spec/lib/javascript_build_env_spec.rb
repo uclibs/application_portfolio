@@ -52,7 +52,7 @@ RSpec.describe JavascriptBuildEnv do
       original_path = ENV.fetch('PATH', nil)
       ENV['NVM_DIR'] = nvm_dir.to_s
       ENV['PATH'] = '/usr/bin'
-      allow(described_class).to receive(:activate_yarn!)
+      allow(described_class).to receive(:activate_yarn!).and_return(true)
 
       described_class.apply!(root)
 
@@ -80,13 +80,26 @@ RSpec.describe JavascriptBuildEnv do
       FileUtils.rm_rf(root)
     end
 
-    it 'warns when Yarn activation fails' do
+    it 'warns when Yarn activation fails and yarn is unavailable' do
       root = Pathname.new(Dir.mktmpdir)
       allow(described_class).to receive(:nvm_node_bin).and_return(nil)
       allow(described_class).to receive(:system_node_bin_directory).and_return(nil)
       allow(described_class).to receive(:activate_yarn!).and_return(false)
+      allow(described_class).to receive(:yarn_executable?).and_return(false)
 
       expect { described_class.apply!(root) }.to output(%r{JavascriptBuildEnv: Corepack/Yarn activation failed}).to_stderr
+    ensure
+      FileUtils.rm_rf(root)
+    end
+
+    it 'does not warn when Yarn activation fails but yarn is already on PATH' do
+      root = Pathname.new(Dir.mktmpdir)
+      allow(described_class).to receive(:nvm_node_bin).and_return(nil)
+      allow(described_class).to receive(:system_node_bin_directory).and_return(nil)
+      allow(described_class).to receive(:activate_yarn!).and_return(false)
+      allow(described_class).to receive(:yarn_executable?).and_return(true)
+
+      expect { described_class.apply!(root) }.not_to output(%r{JavascriptBuildEnv: Corepack/Yarn activation failed}).to_stderr
     ensure
       FileUtils.rm_rf(root)
     end
@@ -103,7 +116,7 @@ RSpec.describe JavascriptBuildEnv do
       ENV['PATH'] = '/usr/bin'
       allow(described_class).to receive(:nvm_node_bin).and_return(nil)
       allow(described_class).to receive(:system_node_bin_directory).and_return(node_bin.to_s)
-      allow(described_class).to receive(:activate_yarn!)
+      allow(described_class).to receive(:activate_yarn!).and_return(true)
 
       described_class.apply!(root)
 

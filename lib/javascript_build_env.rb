@@ -14,7 +14,7 @@ module JavascriptBuildEnv
     node_bin = nvm_node_bin(root) || system_node_bin_directory
     prepend_path!(node_bin)
     prepend_path!(corepack_shim_directory)
-    warn_yarn_activation_failure unless activate_yarn!(root)
+    warn_yarn_activation_failure if !activate_yarn!(root) && !yarn_executable?
   end
 
   def nvm_node_bin(root = default_root)
@@ -58,6 +58,12 @@ module JavascriptBuildEnv
 
   def path_includes?(directory)
     ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).include?(directory)
+  end
+
+  def yarn_executable?
+    ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).any? do |directory|
+      File.executable?(File.join(directory, 'yarn'))
+    end
   end
 
   def warn_yarn_activation_failure
