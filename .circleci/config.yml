@@ -50,9 +50,10 @@ jobs:
             NODE_BIN="$(node -p 'require("path").dirname(process.execPath)')"
             export PATH="${NODE_BIN}:${PATH}"
             echo "export PATH=\"${NODE_BIN}:\${PATH}\"" >> "$BASH_ENV"
-            corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+            "${NODE_BIN}/corepack" enable
+            "${NODE_BIN}/corepack" prepare "$(node -p "require('./package.json').packageManager")" --activate
             node -v
-            corepack yarn -v
+            yarn -v
 
       - restore_cache:
           keys:
@@ -62,8 +63,8 @@ jobs:
       - run:
           name: Build JavaScript and verify vendored Bootstrap CSS
           command: |
-            corepack yarn install --immutable
-            corepack yarn build
+            yarn install --immutable
+            yarn build
             test -f app/assets/builds/application.js
             cmp node_modules/bootstrap/dist/css/bootstrap.min.css \
               app/assets/stylesheets/vendor/bootstrap/dist/bootstrap.min.css

@@ -60,5 +60,38 @@ RSpec.describe JavascriptBuildEnv do
       ENV['PATH'] = original_path
       FileUtils.rm_rf(root)
     end
+
+    it 'activates Yarn via Corepack from the nvm Node bin directory' do
+      root = Pathname.new(Dir.mktmpdir)
+      root.join('.nvmrc').write("26.4.0\n")
+      root.join('package.json').write('{"packageManager":"yarn@4.17.0"}')
+      nvm_dir = root.join('.nvm')
+      node_bin = nvm_dir.join('versions/node/v26.4.0/bin')
+      node_bin.mkpath
+      corepack = node_bin.join('corepack')
+      corepack.write("#!/bin/sh\n")
+      corepack.chmod(0o755)
+
+      original_nvm_dir = ENV.fetch('NVM_DIR', nil)
+      original_path = ENV.fetch('PATH', nil)
+      ENV['NVM_DIR'] = nvm_dir.to_s
+      ENV['PATH'] = '/usr/bin'
+      allow(described_class).to receive(:system).and_call_original
+      allow(described_class).to receive(:system)
+        .with(corepack.to_s, 'enable', out: File::NULL, err: File::NULL).and_return(true)
+      allow(described_class).to receive(:system)
+        .with(corepack.to_s, 'prepare', 'yarn@4.17.0', '--activate', out: File::NULL, err: File::NULL)
+        .and_return(true)
+
+      described_class.apply!(root)
+
+      expect(described_class).to have_received(:system).with(corepack.to_s, 'enable', out: File::NULL, err: File::NULL)
+      expect(described_class).to have_received(:system).with(corepack.to_s, 'prepare', 'yarn@4.17.0', '--activate',
+                                                             out: File::NULL, err: File::NULL)
+    ensure
+      ENV['NVM_DIR'] = original_nvm_dir
+      ENV['PATH'] = original_path
+      FileUtils.rm_rf(root)
+    end
   end
 end
