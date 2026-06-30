@@ -62,7 +62,9 @@ jobs:
         id: setup_chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          install-chromedriver: true
+          # Let Selenium Manager resolve chromedriver for the pinned Chrome binary.
+          install-chromedriver: false
+          install-dependencies: false
 
       - name: Export Chrome paths for CI
         run: |

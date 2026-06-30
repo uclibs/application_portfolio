@@ -55,7 +55,7 @@ RSpec.describe JavascriptBuildEnv do
 
       described_class.apply!(root)
 
-      expect(ENV['PATH']).to start_with("#{node_bin}:")
+      expect(ENV['PATH'].split(File::PATH_SEPARATOR)).to include(node_bin.to_s)
     ensure
       ENV['NVM_DIR'] = original_nvm_dir
       ENV['PATH'] = original_path
@@ -77,6 +77,29 @@ RSpec.describe JavascriptBuildEnv do
         .with('bash', '-c', "source #{script} && setup_corepack_yarn", chdir: root, out: File::NULL, err: File::NULL)
     ensure
       FileUtils.rm_rf(root)
+    end
+
+    it 'prepends the system Node bin directory when nvm is absent' do
+      root = Pathname.new(Dir.mktmpdir)
+      node_root = Pathname.new(Dir.mktmpdir)
+      original_path = ENV.fetch('PATH', nil)
+      node_bin = node_root.join('fake-node', 'bin')
+      node_bin.mkpath
+      node_bin.join('node').write('')
+      node_bin.join('node').chmod(0o755)
+
+      ENV['PATH'] = '/usr/bin'
+      allow(described_class).to receive(:node_bin_directory).and_return(nil)
+      allow(described_class).to receive(:system_node_bin_directory).and_return(node_bin.to_s)
+      allow(described_class).to receive(:activate_yarn!)
+
+      described_class.apply!(root)
+
+      expect(ENV['PATH'].split(File::PATH_SEPARATOR)).to include(node_bin.to_s)
+    ensure
+      ENV['PATH'] = original_path
+      FileUtils.rm_rf(root)
+      FileUtils.rm_rf(node_root)
     end
   end
 end
