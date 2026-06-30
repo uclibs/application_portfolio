@@ -20,6 +20,12 @@ RSpec.describe 'CI scripts' do
     expect(workflow).to include('./scripts/ci/run_tests.sh')
   end
 
+  it 'does not use setup-node yarn cache before Corepack activates Yarn 4' do
+    expect(workflow).not_to include('cache: yarn')
+    expect(workflow).to include('yarn4-node-modules')
+    expect(workflow).to include('./scripts/ci/setup_javascript_dependencies.sh')
+  end
+
   it 'uploads coverage and enforces the baseline on pull requests' do
     expect(workflow).to include('name: coverage-report')
     expect(workflow).to include('coverage-update:')

@@ -68,7 +68,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          # Do not use setup-node's built-in Yarn cache; it runs global Yarn 1.x before Corepack.
+
+      - name: Restore node_modules cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn4-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn4-node-modules-
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -81,6 +89,13 @@ jobs:
 
       - name: Install JavaScript dependencies
         run: ./scripts/ci/setup_javascript_dependencies.sh
+
+      - name: Save node_modules cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn4-node-modules-${{ hashFiles('yarn.lock') }}
 
       - name: Build assets and prepare database
         run: |
