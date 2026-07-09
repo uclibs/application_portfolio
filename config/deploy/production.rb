@@ -5,6 +5,7 @@
 set :rails_env, :production
 # Colon-separated groups; required by capistrano-bundler 2.x / Bundler 2.
 set :bundle_without, %w[development test].join(':')
+# Production currently tracks qa until v3.1.0 is promoted to main.
 set :branch, 'main'
 set :default_env, path: '$PATH:/usr/local/bin'
 # Shared across releases; written by capistrano-bundler's bundler:config.
@@ -12,7 +13,9 @@ set :bundle_path, -> { shared_path.join('vendor/bundle') }
 append :linked_dirs, 'tmp', 'log'
 ask(:username, nil)
 ask(:password, nil, echo: false)
-server 'libapps.libraries.uc.edu', user: fetch(:username), password: fetch(:password), port: 22
+# Roles required for deploy:assets:precompile (:web) and db:migrate (:db); without them Capistrano skips both.
+server 'libapps.libraries.uc.edu', user: fetch(:username), password: fetch(:password),
+                                   port: 22, roles: %i[web app db]
 ask(:value, 'Have you submitted and received an approved Change Management Request? (Y)')
 if fetch(:value) != 'Y'
   puts "\nDeploy cancelled!"
