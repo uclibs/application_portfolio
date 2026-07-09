@@ -13,8 +13,16 @@ RSpec.describe 'Capistrano asset deploy tasks' do
     expect(assets_rake).to include("execute :bash, 'scripts/assets_precompile.sh'")
     expect(assets_rake).to include('release_roles(fetch(:assets_roles))')
     expect(assets_precompile_sh).to include('source scripts/check_node.sh')
+    expect(assets_precompile_sh).to include('source scripts/corepack_yarn.sh')
+    expect(assets_precompile_sh).to include('setup_corepack_yarn')
     expect(assets_precompile_sh).to include('bundle exec rails assets:precompile')
     expect(assets_precompile_sh).to include('[ -f Gemfile ]')
+  end
+
+  it 'assigns Capistrano roles on production so assets and migrations run' do
+    production_rb = Rails.root.join('config/deploy/production.rb').read
+
+    expect(production_rb).to include('roles: %i[web app db]')
   end
 
   it 'requires check_node.sh to be sourced and activates nvm Node for yarn' do
