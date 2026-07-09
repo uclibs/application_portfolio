@@ -6,7 +6,7 @@ set :rails_env, :production
 # Colon-separated groups; required by capistrano-bundler 2.x / Bundler 2.
 set :bundle_without, %w[development test].join(':')
 # Production currently tracks qa until v3.1.0 is promoted to main.
-set :branch, 'qa'
+set :branch, 'main'
 set :default_env, path: '$PATH:/usr/local/bin'
 # Shared across releases; written by capistrano-bundler's bundler:config.
 set :bundle_path, -> { shared_path.join('vendor/bundle') }
