@@ -1,5 +1,5 @@
 ---
-description: Definition of done for Application Portfolio — review, RuboCop, RSpec before finishing any code change
+description: Definition of done for Application Portfolio — code quality, RuboCop, RSpec before finishing any code change
 alwaysApply: true
 ---
 
@@ -7,17 +7,11 @@ alwaysApply: true
 
 No code change is **done** until all steps below pass. Run them in order; do not skip or ask the user to run them instead.
 
-## 1. Code review (before calling work complete)
+## 1. Code quality review
 
-Review every changed file for:
+Follow **`.cursor/rules/code-quality.mdc`** — review every changed file for antipatterns, smells, naming, duplication, test coverage, and updated comments. Fix findings in the same change set.
 
-- **Antipatterns** — fat controllers, business logic in views, callbacks doing too much, N+1 queries, rescuing `StandardError` broadly, magic strings/numbers without justification
-- **Code smells** — long methods, deep nesting, feature envy, shotgun edits, dead code left behind
-- **Naming** — names should reveal intent; rename unclear variables, methods, and specs (`describe`/`context`/`it`)
-- **Duplication** — extract shared logic only when it reduces real duplication; match existing project style (do not over-abstract)
-- **Test coverage** — new or changed behavior must have **RSpec** coverage (`spec/**/*_spec.rb`). Prefer unit tests (models, services, helpers, controllers, mailers). Mirror existing spec style (FactoryBot, `type: :controller`, etc.)
-
-Fix review findings in the same change set; do not defer.
+For any new or changed application code, also follow **`.cursor/rules/new-code-coverage.mdc`** — 100% line and branch coverage on touched source files.
 
 ## 2. RuboCop (required, no rule evasion)
 
@@ -51,8 +45,8 @@ bundle exec rspec
 
 Before reporting done to the user:
 
-- [ ] Reviewed for antipatterns, smells, naming, duplication
-- [ ] New/changed behavior covered by RSpec
+- [ ] Code quality review per `code-quality.mdc` (including comments on touched files)
+- [ ] New/changed application code at 100% line and branch coverage per `new-code-coverage.mdc`
 - [ ] `bundle exec rubocop` passes with no new disables/ignores
 - [ ] `bundle exec rspec` passes (or documented scope if user-limited)
 

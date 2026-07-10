@@ -26,6 +26,7 @@ RSpec.describe 'front/profile', type: :view do
     expect(rendered).to include('Profile')
     expect(rendered).to include(' Email')
     expect(rendered).to include('admin@ucmail.uc.edu')
+    expect(rendered).not_to match(/tab-pane[^>]*color:\s*white/i)
   end
 
   it 'displays an user management tab' do

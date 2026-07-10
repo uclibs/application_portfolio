@@ -4,13 +4,7 @@
     <h1 class= "<%= component %> text-center" style="color: white;"><% if component.eql?("new") %>New Vendor Record<% else %>Edit Vendor Record<% end %></h1>
     <div class = "card-body">
         <%= form_with(model: vendor_record, local: true) do |form| %>
-          <% if vendor_record.errors.any? %>
-            <div id="error_explanation">
-              <% vendor_record.errors.full_messages.each do |message| %>
-                <%= alert_generator message, "error" %>
-              <% end %>
-            </div>
-          <% end %>
+            <%= render 'shared/form_errors', object: vendor_record %>
         <div class="mb-3">
           <%= form.label :title, 'Name', class: 'text-white' %>
           <%= form.text_field :title, :class => "form-control" %>

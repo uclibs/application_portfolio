@@ -12,7 +12,7 @@ RSpec.describe 'change_requests/new.html.erb', type: :view do
     assert_select 'form[action=?][method=?]', change_requests_path, 'post' do
       assert_select 'input[name=?]', 'change_request[change_title]'
       assert_select 'textarea[name=?]', 'change_request[change_description]'
-      assert_select 'input[name=?]', 'change_request[change_submitted_date]'
+      assert_select 'input[name=?][type=?]', 'change_request[change_submitted_date]', 'date'
       assert_select 'input[type=?]', 'checkbox', count: 3
       assert_select 'input[name=?]', 'change_request[application_pages]'
       assert_select 'input[name=?]', 'change_request[number_roles]'

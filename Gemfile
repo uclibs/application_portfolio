@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.9'
+ruby '4.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.0'
@@ -17,7 +17,10 @@ gem 'ed25519' # Ed25519 elliptic curve public-key signature system
 # Deals with serialization deprecation in Rails 7.1
 gem 'globalize', '~> 7.0'
 
-# Required for Ruby 3.x stdlib (extracted from default gems)
+# Required for Ruby 4.x stdlib (CGI removed from default gems)
+gem 'cgi', '>= 0.5'
+
+# Required for Ruby 3.x+ stdlib (extracted from default gems)
 gem 'net-imap', '>= 0.5.7'
 gem 'net-pop', '~> 0.1.2'
 gem 'net-protocol', '>= 0'
@@ -31,20 +34,16 @@ gem 'rack', '~> 3.0'
 
 # Use Puma as the app server
 gem 'puma', '>= 6.4.3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 6.0'
-# Asset pipeline dependencies for Rack 3.x compatibility
-gem 'sprockets', '~> 4.2', '>= 4.2.2'
+# Compile SCSS with Dart Sass (replaces deprecated sassc-rails / LibSass)
+gem 'dartsass-rails'
+# Bundle JavaScript with esbuild (served from app/assets/builds/application.js)
+gem 'jsbundling-rails', '~> 1.3'
+# Digest and serve pre-built assets from app/assets/builds/ and app/assets/images/
+gem 'propshaft'
 # Use Devise for authentication
 gem 'devise'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.2', '>= 4.2.1'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# Hotwire Turbo for fast in-app navigation (replaces turbolinks)
+gem 'turbo-rails', '~> 2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use rails-controller-testing for testing a controller
@@ -59,23 +58,14 @@ gem 'rubocop-rails', require: false
 # Needed with Rails upgrade
 gem 'drb'
 gem 'rubocop-rspec', require: false
-# Use simplecov to generate the coveralls report in .html format
+# Use simplecov for local and CI coverage reports
 gem 'simplecov', require: false
-gem 'simplecov-lcov', require: false
-# Use bootstrap css, jquery-rails gem for styling the components
-gem 'bootstrap', '~> 5.3.3'
-gem 'jquery-rails'
-gem 'sassc-rails', '~> 2.1' # SASSC adapter for Rails, needed for Bootstrap 5
 # Use dotenv gem to store the environment variables
 gem 'dotenv-rails'
 # Use petergate for authorization
 gem 'petergate'
-# Use gritter for flash message
-gem 'gritter'
-# Use bootstrap-datepicker-rails for datepicker
-gem 'bootstrap-datepicker-rails'
 # Use chartkick for data-visualization techniques
-gem 'chartkick', '~> 4.0', '>= 4.0.4'
+gem 'chartkick', '~> 5.2'
 # Use groupdate to group by dates
 gem 'csv'
 gem 'groupdate'
@@ -103,15 +93,15 @@ group :development, :test do
   # Use factory_bot_rails to generate random test data
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
-  gem 'rspec-rails', '~> 6.0'
-  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rspec-rails', '~> 8.0'
 end
 
 group :development do
   gem 'capistrano', '~> 3.20'
-  gem 'capistrano-bundler', '~> 1.6', require: false
+  # 2.x uses `bundler:config` (bundle config --local) before install; see config/deploy.rb.
+  gem 'capistrano-bundler', '~> 2.2', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rvm', require: false
+  gem 'foreman'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '~> 3.5'
   gem 'web-console', '>= 3.3.0'

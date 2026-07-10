@@ -3,29 +3,8 @@
 require 'cgi'
 
 module ApplicationHelper
-  def alerts
-    if flash[:alert]
-      alert_generator flash[:alert], 'alert'
-    elsif flash[:notice]
-      alert_generator flash[:notice], 'notice'
-    elsif flash[:error]
-      alert_generator flash[:error], 'error'
-    else
-      alert_generator flash, 'warning'
-    end
-  end
-
-  def alert_generator(msg, type)
-    case type
-    when 'alert'
-      js add_gritter(msg, title: 'UCL Application Portfolio', image: :notice, time: 3000, class_name: 'gritter')
-    when 'notice'
-      js add_gritter(msg, title: 'UCL Application Portfolio', image: :progress, time: 3000, class_name: 'gritter')
-    when 'error'
-      js add_gritter(msg, title: 'UCL Application Portfolio', image: :error, time: 3000, class_name: 'gritter')
-    else
-      js add_gritter(flash[:warning], title: 'UCL Application Portfolio', image: :warning, time: 3000, class_name: 'gritter')
-    end
+  def user_display_name(user = current_user)
+    [user&.first_name, user&.last_name].compact_blank.join(' ')
   end
 
   def nav_helper(style)

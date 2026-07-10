@@ -1,0 +1,8 @@
+// Shared dashboard styles for dartsass entry points (application + software_records).
+// Load order: Bootstrap base, layout shell, tables, then contrast overrides last.
+@use "bootstrap_setup";
+@use "dashboard_base";
+@use "theme_grey";
+@use "dashboard_shell";
+@use "dashboard_tables";
+@use "dashboard_contrast";

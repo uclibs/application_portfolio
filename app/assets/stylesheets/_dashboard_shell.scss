@@ -1,0 +1,175 @@
+// Shared sidenav, main content area, and pill menu used by both dashboard layouts.
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1040;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #E6E0E0;
+  transition: 0.3s;
+  display: block;
+  text-align: left;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 36px;
+  margin-left: 20px;
+  background: transparent;
+  border: none;
+  color: #818181;
+  cursor: pointer;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  margin-left: 0;
+
+  > hr,
+  section hr {
+    background-color: black;
+    width: min(54%, 48rem);
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+  }
+}
+
+.dashboard-page.container {
+  max-width: min(1400px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+
+  > .row {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    --bs-gutter-x: 0;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+#pillSideNav #dashboard-open {
+  position: fixed;
+  left: -117px;
+  top: 100px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 150px;
+  font-size: 19px;
+  color: black;
+  text-align: right;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  background-color: #FFFAFA;
+}
+
+#pillSideNav #dashboard-open:hover {
+  left: 0;
+  text-align: center;
+}
+
+.nav-masthead .nav-link {
+  padding: .25rem 0;
+  font-size: 14px;
+  color: white;
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 20px;
+}
+
+.nav-masthead .nav-link.active {
+  color: #fff;
+  background-color: transparent;
+  border-bottom-color: #fff;
+}
+
+.nav-masthead .dropdown-toggle {
+  color: rgba(255, 255, 255, 0.5);
+
+  &.show,
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.nav-masthead .dropdown-menu {
+  min-width: 10rem;
+}
+
+.nav-masthead .header-search-form {
+  flex: 0 0 auto;
+  margin: 0 0.75rem;
+}
+
+.nav-masthead .header-search-group {
+  width: 12rem;
+  flex-wrap: nowrap;
+
+  .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.nav-masthead .header-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.auth-role {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #f1f1f1;
+  display: block;
+  border: none;
+  background-color: #E00122;
+  width: 100%;
+  text-align: left;
+  outline: none;
+}

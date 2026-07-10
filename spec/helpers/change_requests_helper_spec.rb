@@ -2,53 +2,7 @@
 
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ChangeRequestsHelper. For example:
-#
-# describe ChangeRequestsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ChangeRequestsHelper, type: :helper do
-  describe '#sort_column' do
-    it 'returns the sort column' do
-      allow(helper).to receive(:params).and_return({ sort: 'title' })
-
-      column = sort_column
-
-      expect(column).to eq('title')
-    end
-
-    it 'returns the default sort column when sort param is not present' do
-      allow(helper).to receive(:params).and_return({})
-
-      column = sort_column
-
-      expect(column).to eq('title')
-    end
-  end
-
-  describe '#sort_direction' do
-    it 'returns the sort direction' do
-      allow(helper).to receive(:params).and_return({ direction: 'asc' })
-
-      direction = sort_direction
-
-      expect(direction).to eq('asc')
-    end
-
-    it 'returns the default sort direction when direction param is not present' do
-      allow(helper).to receive(:params).and_return({})
-
-      direction = sort_direction
-
-      expect(direction).to eq('asc')
-    end
-  end
-
   describe '#find_software_name' do
     it 'returns the software name for the given id' do
       software_record = FactoryBot.create(:software_record, title: 'My Software')
@@ -90,6 +44,17 @@ RSpec.describe ChangeRequestsHelper, type: :helper do
       tech_leads = find_tech_leads(software_record.id)
 
       expect(tech_leads).to eq(%w[John Jane])
+    end
+  end
+
+  describe '#software_records_where_hash' do
+    it 'returns change requests for the given software record id' do
+      software_record = FactoryBot.create(:software_record)
+      change_request = FactoryBot.create(:change_request, software_record: software_record)
+
+      results = software_records_where_hash(software_record.id)
+
+      expect(results).to include(change_request)
     end
   end
 end

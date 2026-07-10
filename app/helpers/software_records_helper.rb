@@ -2,22 +2,23 @@
 
 # SoftwareRecords Helper method
 module SoftwareRecordsHelper
+  STATUS_BADGE_CLASSES = [
+    %w[design text-bg-dark],
+    %w[development text-bg-info],
+    %w[upgrade text-bg-warning],
+    %w[production text-bg-primary],
+    %w[available text-bg-success],
+    %w[decomission text-bg-danger]
+  ].freeze
+
+  DEFAULT_STATUS_BADGE_CLASS = 'text-bg-light'
+
   def pills(status)
-    if status.to_s.downcase.include?('design')
-      tag.span(status, class: 'badge badge-pill badge-dark')
-    elsif status.to_s.downcase.include?('development')
-      tag.span(status, class: 'badge badge-pill badge-info')
-    elsif status.to_s.downcase.include?('upgrade')
-      tag.span(status, class: 'badge badge-pill badge-warning')
-    elsif status.to_s.downcase.include?('production')
-      tag.span(status, class: 'badge badge-pill badge-primary')
-    elsif status.to_s.downcase.include?('available')
-      tag.span(status, class: 'badge badge-pill badge-success')
-    elsif status.to_s.downcase.include?('decomission')
-      tag.span(status, class: 'badge badge-pill badge-danger')
-    else
-      tag.span(status, class: 'badge badge-pill badge-light')
-    end
+    normalized_status = status.to_s.downcase
+    badge_class = STATUS_BADGE_CLASSES.find { |matcher, _| normalized_status.include?(matcher) }&.last ||
+                  DEFAULT_STATUS_BADGE_CLASS
+
+    tag.span(status, class: "badge rounded-pill #{badge_class}")
   end
 
   def sort_column
@@ -64,23 +65,18 @@ module SoftwareRecordsHelper
     @software_status_piechart_hash
   end
 
+  # Returns the raw DB value for form radio checked state (compared to "Yes"/"No" in views).
   def yes_no_toggle(attr)
     @software_record.read_attribute(attr)
   end
 
-  def true_false_toggle(_attr)
-    value = true
-    converted_value = if value
-                        'true'
-                      else
-                        'false'
-                      end
-    converted_value = value ? 'Yes' : 'No'
+  # Formats a boolean (or boolean-like) value for read-only display.
+  def yes_no_label(value)
+    ActiveModel::Type::Boolean.new.cast(value) ? 'Yes' : 'No'
   end
 
   def software_records_upgrade_hash(software_pid)
     @software_pid = software_pid
-    @software_upgrade_hash = {}
     @software_upgrade_hash = ChangeRequest.where(software_record_id: @software_pid.to_s, change_completed: true)
   end
 end

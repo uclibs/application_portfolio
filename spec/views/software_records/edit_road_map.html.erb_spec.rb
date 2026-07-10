@@ -61,4 +61,13 @@ RSpec.describe 'software_records/edit_road_map', type: :view do
     expect(rendered).to have_button('Update')
     expect(rendered).to have_link('Back', href: software_records_path)
   end
+
+  it 'displays validation errors with Bootstrap alerts' do
+    @software_record.title = ''
+    @software_record.validate
+
+    render
+
+    expect(rendered).to have_css('#error_explanation .alert.alert-danger', text: /Title can't be blank/)
+  end
 end

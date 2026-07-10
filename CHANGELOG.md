@@ -1,3 +1,39 @@
+# Changelog
+
+Release versions match git tags (for example, `v3.0.0`).
+
+3.1.0 6/30/2026
+
+* Upgrades Ruby to 4.0.5; adds `cgi` gem (stdlib removed in Ruby 4)
+* Upgrades Node to 26.4.0 (org standard); CI and deploy scripts unchanged in behavior
+* Rails remains on 8.1.3 (latest 8.1.x)
+* Replaces CircleCI with parallel GitHub Actions jobs (lint/security checks + tests)
+* Replaces Coveralls with a SimpleCov coverage baseline gate on pull requests
+
+3.0.0 6/25/2026
+
+* Modernizes the frontend and asset pipeline (major operational change for deploys)
+  * Replaces Sprockets with Propshaft
+  * Replaces sassc-rails with dartsass-rails; migrates app SCSS from `@import` to `@use`
+  * Adds esbuild and jsbundling-rails; builds JavaScript during `assets:precompile` (bundle no longer committed to git)
+  * Migrates Turbolinks to Turbo and replaces Rails UJS with Turbo
+  * Introduces Stimulus controllers for navigation, filters, tabs, flash toasts, multi-value inputs, and input sanitization
+  * Removes jquery-rails and legacy CoffeeScript / Sprockets JavaScript
+  * Replaces gritter flash plugin with Stimulus-driven flash toasts
+  * Vendors Bootstrap 5 from npm (removes bootstrap gem); consolidates dashboard SCSS into shared partials
+  * Replaces bootstrap-datepicker with native HTML date inputs
+  * Upgrades Yarn 1.22 to Yarn 4 (Corepack)
+  * Wires Node 24 and asset builds into CI and Capistrano deploy (`check_node.sh`, full `assets:precompile`)
+  * Removes vestigial Sprockets configuration and unused asset dependencies
+* Deployment and platform updates
+  * Capistrano uses rbenv on servers; upgrades capistrano-bundler to 2.x; drops capistrano-rvm
+  * Audits and resolves Rails 8 / Rack 3 deprecations (`:unprocessable_content`)
+  * Refreshes Ruby and JavaScript dependencies; documents bundler-audit suppressions
+  * Optimizes RSpec suite asset builds (skip rebuild when sources unchanged)
+  * Removes shoulda-matchers in favor of behavioral model specs
+* Bug Fixes
+  * Fixes dashboard button sizing
+
 2.0.0 5/29/2026
 
 * Implements Single Sign-On (SSO) via Shibboleth
@@ -20,8 +56,11 @@
 1.7.1 2/13/2026
 
 * Updates Ruby to 3.4.7
+* CI: moves to ubuntu-22.04 and ruby/setup-ruby@v1 for Ruby 3.4.7
+* Fixes .gitignore so `db/*.sqlite3*` files are ignored
+* Removes obsolete Brakeman ignore (Rails 6.1.7.10 EOL)
 
-1.7.0 10/1/2025
+1.7.0 10/20/2025
 
 * Change Requestor Exporter
 * Adds Roadmap Field to export
@@ -154,3 +193,10 @@
 * Modelling for Software Types
 * Modelling for Software Vendors
 * Secure Fields
+
+0.1.0 1/16/2020
+
+* Initial Rails application scaffold
+* Configures Devise authentication
+* Sets up RSpec, RuboCop, and Coveralls
+* Early user-management work (pre-1.0 development milestone)

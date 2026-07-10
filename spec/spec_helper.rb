@@ -18,27 +18,8 @@
 require 'simplecov'
 
 SimpleCov.start 'rails' do
-  # Distinguish coverage from each CI shard so reports can be merged correctly.
-  if ENV['CI']
-    ci_node =
-      ENV['CIRCLE_NODE_INDEX'] ||
-      ENV['TEST_ENV_NUMBER'] ||
-      ENV['GITHUB_RUN_ATTEMPT'] ||
-      '0'
-    command_name "ci-node-#{ci_node}"
-    merge_timeout 3600
-  end
-
-  if ENV['CI']
-    require 'simplecov-lcov'
-
-    SimpleCov::Formatter::LcovFormatter.config do |c|
-      c.report_with_single_file = true
-      c.single_report_path = 'coverage/lcov.info'
-    end
-
-    formatter SimpleCov::Formatter::LcovFormatter
-  end
+  enable_coverage :branch
+  formatter SimpleCov::Formatter::HTMLFormatter
 
   add_filter %w[version.rb initializer.rb]
 end

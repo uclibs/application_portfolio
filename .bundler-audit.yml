@@ -1,4 +1,41 @@
-ignore:
-  - GHSA-qmpg-8xg6-ph5q # action_text-trix 2.1.16 — update to >= 2.1.17
-  - GHSA-57hq-95w6-v4fc # devise 5.0.2 — update to >= 5.0.3
-  
+# bundler-audit configuration
+# https://github.com/rubysec/bundler-audit
+#
+# This file tells `bundle exec bundler-audit check` which advisories to skip.
+# CI runs bundler-audit on every build (see .github/workflows/ci_checks.yml).
+#
+# When to add an entry here
+# -------------------------
+# Only suppress an advisory when ALL of these are true:
+#   1. bundler-audit check fails with a real finding for this app
+#   2. You cannot upgrade the gem immediately (blocked release, breaking change, etc.)
+#   3. You have a ticket or plan to remove the ignore once the gem is updated
+#
+# Do NOT add ignores "just in case" or to silence audit noise without understanding
+# the finding. Prefer upgrading the gem and committing an updated Gemfile.lock.
+#
+# How to add a suppression
+# ------------------------
+# 1. Run locally:
+#      bundle exec bundler-audit update
+#      bundle exec bundler-audit check
+# 2. Note the advisory ID from the output (GHSA-… or CVE-…).
+# 3. Add it under `ignore:` below, with a short comment: affected gem, installed
+#    version, and the fixed version you are waiting for.
+#
+# Example — add entries to the `ignore:` list below (one ID per line):
+#
+#   - GHSA-xxxx-xxxx-xxxx # gem-name 1.2.3 — upgrade to >= 1.2.4 (LIBAPPO1-123)
+#
+# 4. Re-run `bundle exec bundler-audit check` and confirm it passes.
+# 5. Open a PR that includes BOTH the ignore and a link to the follow-up work.
+#
+# Finding advisory details
+# ------------------------
+# Search the ID at https://github.com/advisories or in the bundler-audit output.
+# The ruby-advisory-db repo also lists YAML files per gem:
+#   https://github.com/rubysec/ruby-advisory-db/tree/master/gems
+#
+# Last reviewed: 2026-06-11 — no active suppressions (devise 5.0.4, action_text-trix 2.1.19)
+
+ignore: []

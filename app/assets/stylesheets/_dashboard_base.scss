@@ -1,0 +1,29 @@
+// Base typography and form defaults shared by dashboard layouts.
+html,
+body {
+  height: 100%;
+}
+
+.navbar {
+  background-color: black;
+  margin-bottom: 0;
+}
+
+.form-control {
+  color: black;
+}
+
+// Native date picker on dark dashboard forms: use a light calendar UI.
+input[type="date"].form-control {
+  color-scheme: light;
+}
+
+option {
+  padding: 0 24px;
+}
+
+.flash-toast-container {
+  top: 70px;
+  right: 10px;
+  z-index: 1100;
+}

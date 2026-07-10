@@ -8,12 +8,13 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
 
   before do
     login_as(user, scope: :user)
-    visit edit_software_record_path(software_record)
-    expect(page).to have_current_path(edit_software_record_path(software_record))
-    expect(page).to have_selector('#software_record_title')
   end
 
-  scenario 'User can add and remove multiple developers' do
+  # multi-value-inputs Stimulus controller drives every _form_multi_* partial.
+  scenario 'User can add and remove multiple values in a multi-value field' do
+    visit edit_software_record_path(software_record)
+    expect(page).to have_selector('#software_record_title')
+
     within('#multiple_developers') do
       expect(page).to have_selector('.input-group', count: 1)
       find('button.js-add-multivalue', text: '+ add more').click
@@ -33,83 +34,13 @@ RSpec.feature 'MultiValueFields', type: :feature, js: true do
     end
   end
 
-  scenario 'User can add and remove multiple tech leads' do
-    within('#multiple_tech_leads') do
+  scenario 'does not remove the last remaining multi-value row' do
+    visit edit_software_record_path(software_record)
+
+    within('#multiple_developers') do
       expect(page).to have_selector('.input-group', count: 1)
-      find('button.js-add-multivalue', text: '+ add more').click
-      find('button.js-add-multivalue', text: '+ add more').click
-
-      all('.input-group input').each_with_index do |input, index|
-        input.set("Tech Lead #{index + 1}")
-      end
-
-      expect(page).to have_selector('.input-group', count: 3)
-
-      all('.input-group')[1].find('button.js-remove-multivalue', text: 'Delete').click
-      expect(page).to have_selector('.input-group', count: 2)
-      expect(page).not_to have_field(with: 'Tech Lead 2')
-      expect(page).to have_field(with: 'Tech Lead 1')
-      expect(page).to have_field(with: 'Tech Lead 3')
-    end
-  end
-
-  scenario 'User can add and remove multiple departments' do
-    within('#multiple_departments') do
+      find('button.js-remove-multivalue', text: 'Delete').click
       expect(page).to have_selector('.input-group', count: 1)
-      find('button.js-add-multivalue', text: '+ add more').click
-      find('button.js-add-multivalue', text: '+ add more').click
-
-      all('.input-group input').each_with_index do |input, index|
-        input.set("Department #{index + 1}")
-      end
-
-      expect(page).to have_selector('.input-group', count: 3)
-
-      all('.input-group')[1].find('button.js-remove-multivalue', text: 'Delete').click
-      expect(page).to have_selector('.input-group', count: 2)
-      expect(page).not_to have_field(with: 'Department 2')
-      expect(page).to have_field(with: 'Department 1')
-      expect(page).to have_field(with: 'Department 3')
-    end
-  end
-
-  scenario 'User can add and remove multiple product owners' do
-    within('#multiple_product_owners') do
-      expect(page).to have_selector('.input-group', count: 1)
-      find('button.js-add-multivalue', text: '+ add more').click
-      find('button.js-add-multivalue', text: '+ add more').click
-
-      all('.input-group input').each_with_index do |input, index|
-        input.set("Product Owner #{index + 1}")
-      end
-
-      expect(page).to have_selector('.input-group', count: 3)
-
-      all('.input-group')[1].find('button.js-remove-multivalue', text: 'Delete').click
-      expect(page).to have_selector('.input-group', count: 2)
-      expect(page).not_to have_field(with: 'Product Owner 2')
-      expect(page).to have_field(with: 'Product Owner 1')
-      expect(page).to have_field(with: 'Product Owner 3')
-    end
-  end
-
-  scenario 'User can add and remove multiple admin users' do
-    within('#multiple_admin_users') do
-      expect(page).to have_selector('.input-group', count: 1)
-      find('button.js-add-multivalue', text: '+ add more').click
-      find('button.js-add-multivalue', text: '+ add more').click
-
-      all('.input-group input').each_with_index do |input, index|
-        input.set("Admin User #{index + 1}")
-      end
-
-      expect(page).to have_selector('.input-group', count: 3)
-
-      all('.input-group')[1].find('button.js-remove-multivalue', text: 'Delete').click
-      expect(page).to have_selector('.input-group', count: 2)
-      expect(page).not_to have_field(with: 'Admin User 2')
-      expect(page).to have_field(with: 'Admin User 1')
-      expect(page).to have_field(with: 'Admin User 3')
     end
   end
 end

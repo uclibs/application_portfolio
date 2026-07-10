@@ -36,9 +36,9 @@
             <dt class="inline-block">Monitor errors: <span style="color: white; font-weight: normal"><%= @software_record.monitor_errors %></span></dt>
           <% end %>
           <% unless @software_record.themes.blank? %>
-            <dt class="inline-block">Contains Themes:<span style="color: white; font-weight: normal"><%= true_false_toggle(@software_record.themes) %></span></dt>
+            <dt class="inline-block">Contains Themes:<span style="color: white; font-weight: normal"><%= yes_no_label(@software_record.themes) %></span></dt>
           <% end %>
           <% unless @software_record.modules.blank? %>
-            <dt class="inline-block">Contains Modules: <span style="color: white; font-weight: normal"><%= true_false_toggle(@software_record.modules)%></span></dt>
+            <dt class="inline-block">Contains Modules: <span style="color: white; font-weight: normal"><%= yes_no_label(@software_record.modules) %></span></dt>
           <% end %>
         </dl>

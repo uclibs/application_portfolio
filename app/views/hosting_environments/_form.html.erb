@@ -4,13 +4,7 @@
     <hr style="background-color: white">
     <div class = "card-body">
       <%= form_with(model: hosting_environment, local: true) do |form| %>
-        <% if hosting_environment.errors.any? %>
-          <div id="error_explanation">
-            <% hosting_environment.errors.full_messages.each do |message| %>
-              <%= alert_generator message, "error" %>
-            <% end %>
-          </div>
-        <% end %>
+          <%= render 'shared/form_errors', object: hosting_environment %>
 
         <div class="field">
           <%= form.label :title, class: 'text-white' %>

@@ -2,10 +2,14 @@
 # frozen_string_literal: true
 
 APP_ROOT = File.expand_path('..', __dir__)
+
 Dir.chdir(APP_ROOT) do
-  exec 'yarnpkg', *ARGV
+  require File.expand_path('../lib/javascript_build_env', __dir__)
+  JavascriptBuildEnv.apply!
+
+  exec 'yarn', *ARGV
 rescue Errno::ENOENT
   warn 'Yarn executable was not detected in the system.'
-  warn 'Download Yarn at https://yarnpkg.com/en/docs/install'
+  warn 'Enable Corepack: corepack enable'
   exit 1
 end

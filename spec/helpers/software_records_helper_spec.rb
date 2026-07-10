@@ -2,38 +2,133 @@
 
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the SoftwareRecordsHelper. For example:
-#
-# describe SoftwareRecordsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe SoftwareRecordsHelper, type: :helper do
-  describe 'pills' do
-    it 'returns correct value' do
-      expect(helper.pills('In Design')).to eq('<span class="badge badge-pill badge-dark">In Design</span>')
-      expect(helper.pills('In Development')).to eq('<span class="badge badge-pill badge-info">In Development</span>')
-      expect(helper.pills('Production')).to eq('<span class="badge badge-pill badge-primary">Production</span>')
-      expect(helper.pills('Available')).to eq('<span class="badge badge-pill badge-success">Available</span>')
-      expect(helper.pills('To be decomissioned')).to eq('<span class="badge badge-pill badge-danger">To be decomissioned</span>')
-      expect(helper.pills('Something')).to eq('<span class="badge badge-pill badge-light">Something</span>')
+  def helper_with_params(params)
+    Object.new.tap do |object|
+      object.extend(SoftwareRecordsHelper)
+      object.define_singleton_method(:params) { params }
     end
   end
 
-  describe 'encrypt' do
+  describe '#pills' do
+    {
+      'In Design' => 'text-bg-dark',
+      'In Development' => 'text-bg-info',
+      'In Upgrade' => 'text-bg-warning',
+      'Production' => 'text-bg-primary',
+      'Available' => 'text-bg-success',
+      'To be decomissioned' => 'text-bg-danger',
+      'Something' => 'text-bg-light'
+    }.each do |status, badge_class|
+      it "renders #{badge_class} for #{status}" do
+        expect(helper.pills(status)).to eq(%(<span class="badge rounded-pill #{badge_class}">#{status}</span>))
+      end
+    end
+  end
+
+  describe '#sort_column' do
+    it 'returns the requested column when it exists on SoftwareRecord' do
+      params = ActionController::Parameters.new(sort: 'title')
+
+      expect(helper_with_params(params).sort_column).to eq('title')
+    end
+
+    it 'defaults to title when sort is not a SoftwareRecord column' do
+      params = ActionController::Parameters.new(sort: 'not_a_column')
+
+      expect(helper_with_params(params).sort_column).to eq('title')
+    end
+  end
+
+  describe '#sort_direction' do
+    it 'returns asc when direction is asc' do
+      params = ActionController::Parameters.new(direction: 'asc')
+
+      expect(helper_with_params(params).sort_direction).to eq('asc')
+    end
+
+    it 'returns desc when direction is desc' do
+      params = ActionController::Parameters.new(direction: 'desc')
+
+      expect(helper_with_params(params).sort_direction).to eq('desc')
+    end
+
+    it 'defaults to asc when direction is invalid' do
+      params = ActionController::Parameters.new(direction: 'sideways')
+
+      expect(helper_with_params(params).sort_direction).to eq('asc')
+    end
+  end
+
+  describe '#encrypt' do
     it 'returns encrypted value' do
       expect(helper.encrypt('lets encrypt')).not_to eq('lets encrypt')
     end
+
+    it 'coerces non-string values before encrypting' do
+      encrypted = helper.encrypt(123)
+
+      expect(helper.decrypt(encrypted)).to eq('123')
+    end
   end
 
-  describe 'decrypt' do
+  describe '#decrypt' do
     it 'returns expected decrypt value' do
       encrypted = helper.encrypt('lets encrypt v2')
       expect(helper.decrypt(encrypted)).to eq('lets encrypt v2')
+    end
+  end
+
+  describe '#vendor_piechart' do
+    it 'returns vendor titles mapped to software record counts' do
+      vendor = FactoryBot.create(:vendor_record, title: 'Acme Vendor')
+      FactoryBot.create(:software_record, vendor_record: vendor)
+      FactoryBot.create(:software_record, vendor_record: vendor)
+
+      expect(helper.vendor_piechart).to eq('Acme Vendor' => 2)
+    end
+  end
+
+  describe '#software_records_status_hash' do
+    it 'returns status titles mapped to software record counts' do
+      status = FactoryBot.create(:status, title: 'Production')
+      FactoryBot.create(:software_record, status: status)
+
+      expect(helper.software_records_status_hash).to eq('Production' => 1)
+    end
+  end
+
+  describe '#yes_no_toggle' do
+    it 'returns the raw attribute value from the software record' do
+      software_record = FactoryBot.create(:software_record, track_uptime: true)
+      helper.instance_variable_set(:@software_record, software_record)
+
+      expect(helper.yes_no_toggle(:track_uptime)).to eq(software_record.read_attribute(:track_uptime))
+    end
+  end
+
+  describe '#yes_no_label' do
+    it 'returns Yes when the value is truthy' do
+      expect(helper.yes_no_label(true)).to eq('Yes')
+    end
+
+    it 'returns No when the value is falsey' do
+      expect(helper.yes_no_label(false)).to eq('No')
+    end
+
+    it 'casts string boolean values' do
+      expect(helper.yes_no_label('true')).to eq('Yes')
+      expect(helper.yes_no_label('0')).to eq('No')
+    end
+  end
+
+  describe '#software_records_upgrade_hash' do
+    it 'returns completed change requests for the software record' do
+      software_record = FactoryBot.create(:software_record)
+      completed = FactoryBot.create(:change_request, software_record: software_record, change_completed: true)
+      FactoryBot.create(:change_request, software_record: software_record, change_completed: false)
+
+      expect(helper.software_records_upgrade_hash(software_record.id)).to contain_exactly(completed)
     end
   end
 end

@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 describe 'front/index' do
+  it 'renders the welcome card without a Bootstrap card border' do
+    render
+
+    expect(rendered).to have_css('.card.border-0.bg-transparent')
+  end
+
   context 'when user is not logged in' do
     context 'when Shibboleth is disabled' do
       before do
@@ -47,6 +53,7 @@ describe 'front/index' do
     it 'displays a logout link' do
       render
       expect(rendered).to have_link('Logout', href: destroy_user_session_path)
+      assert_select 'a[data-turbo-method=delete]', text: 'Logout'
     end
   end
 end

@@ -4,13 +4,7 @@
     <hr style="background-color: white">
     <div class = "card-body">
       <%= form_with(model: change_request, local: true) do |form| %>
-        <% if change_request.errors.any? %>
-          <div id="error_explanation">
-            <% change_request.errors.full_messages.each do |message| %>
-              <%= alert_generator message, "error" %>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render 'shared/form_errors', object: change_request %>
 
         <div class="field">
           <%= form.label :change_title %>
@@ -44,7 +38,7 @@
 
         <div class="field">
           <%= form.label :change_submitted_date %>
-          <%= form.date_field :change_submitted_date, :class => "form-control" %>
+          <%= form.date_field :change_submitted_date, class: "form-control" %>
         </div><br/>
 
         <div class="field">

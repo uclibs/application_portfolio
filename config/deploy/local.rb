@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+# Local Capistrano deploy to localhost (development SQLite, no init_qp).
+# App server start uses RVM in scripts/start_local.sh; Capistrano does not load capistrano-rvm.
+
 set :rails_env, :development
-set :bundle_without, %w[production test].join(' ')
+# Colon-separated groups; required by capistrano-bundler 2.x / Bundler 2.
+set :bundle_without, %w[production test].join(':')
 set :branch, 'qa'
 set :default_env, path: '$PATH:/usr/local/bin'
 append :linked_files, 'db/development.sqlite3'

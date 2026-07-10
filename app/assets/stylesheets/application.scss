@@ -1,55 +1,35 @@
-$enable-responsive-font-sizes: false;
+// Dartsass entry point for the application layout (front/dashboard, Devise, users).
+@use "dashboard_core";
 
-@import "bootstrap";
-@import "gritter";
-@import "**/*";
-
-html,
-body {
-  height: 100%;
-  background-color: #D3D3D3;
-}
-
-body {
-  color: #fff;
-  text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
-}
-
-/* Links */
-a,
-a:focus,
-a:hover {
-  color: #fff;
-}
-.text-primary{
-  color:#57A8FF !important;
-}
 .navbar {
-  background-color: black;
-  margin-bottom: 0;
   position: sticky;
 }
 
-.action-btn{
-	width: auto;
-	color: #FFFFF;
-		&:hover{
-	 		cursor: pointer;
-	 		background: #fff;
-      color: black;
-	 	}
+.text-primary {
+  color: #57A8FF !important;
 }
 
-.input-group .email-input{
-	border-top-right-radius: 5px;
+.action-btn {
+  width: auto;
+  color: #fff;
+
+  &:hover {
+    cursor: pointer;
+    background: #fff;
+    color: black;
+  }
+}
+
+.input-group .email-input {
+  border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-	border: 0;
+  border: 0;
 }
 
 .navigation-links {
-	font-size: 15px;
-	padding-left: 35px;
-	padding-top: 10px;
+  font-size: 15px;
+  padding-left: 35px;
+  padding-top: 10px;
 }
 
 .readonly-field {
@@ -59,83 +39,6 @@ a:hover {
   cursor: not-allowed;
   opacity: 1;
   box-shadow: inset 0 0 0 1px #adb5bd;
-}
-
-.gritter {
-  right: -10px;
-  top: 70px;
-}
-
-.sidenav {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 16px;
-  color:#E6E0E0;
-  transition: 0.3s;
-  display: block;
-  text-align: left;
-}
-
-.sidenav a:hover {
-  color: #fff;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  font-size: 36px;
-  margin-left: 20px;
-}
-
-#main {
-  display: flex; /* Flexbox for layout management */
-  flex-direction: column; /* Stack children vertically */
-  min-height: 100vh; /* Ensure it covers the full viewport height */
-  position: relative; /* For context for absolutely positioned children like the footer */
-  transition: margin-left .5s;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-#pillSideNav span {
-  position: absolute;
-  left: -117px;
-  top: 100px;
-  transition: 0.3s;
-  padding: 15px;
-  width: 150px;
-  text-decoration: none;
-  font-size: 19px;
-  color: black;
-  text-align: right;
-  border-radius: 0 5px 5px 0;
-}
-
-#pillSideNav span:hover {
-  left: 0;
-  cursor: pointer;
-  text-align: center;
-}
-
-#pillSideNav #dashboard-open {
-  background-color: #FFFAFA;
 }
 
 .chip {
@@ -156,10 +59,6 @@ a:hover {
   border-radius: 50%;
 }
 
-.software-records-table {
-  font-size: 13px;
-}
-
 .srecords-table {
   width: 80%;
   margin: auto;
@@ -169,16 +68,13 @@ a:hover {
   .btn-icons {
     font-size: 23px;
   }
+
   .software-records-table {
-    font-size: 16px;
-    width: 100%;
     table-layout: auto;
     box-sizing: initial;
     white-space: nowrap;
   }
-  .table th {
-    font-size: 16px;
-  }
+
   a.btn-icons {
     font-size: 16px;
   }
@@ -188,22 +84,9 @@ a:hover {
   font-size: 12px;
 }
 
+.table td,
 .table th {
-  font-size: 14px;
-}
-
-.table {
-  margin: auto;
-  color: white;
-  width: 100% !important;
-  background-color: transparent;
-  border-radius: 5px;
-  border-color: black;
-}
-
-.table td, .table th {
   vertical-align: middle !important;
-  border-top: none;
 }
 
 .software-record-table tr {
@@ -212,59 +95,7 @@ a:hover {
   }
 }
 
-.th-link {
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color:#E6E0E0;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-.dropdown-btn:hover {
-  color: #f1f1f1;
-}
-
-.dropdown-container a{
-  font-size: 15px;
-  text-align: right;
-}
-
-.dropdown-container{
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-.fa-caret-down {
-  float: right;
-  padding-right: 8px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-.active {
-  background-color: #E00122;
-  color: white;
-}
-
- .nav-tabs .nav-link:hover {
+.nav-tabs .nav-link:hover {
   background-color: #E00122;
   color: white;
 }
@@ -273,10 +104,11 @@ a:hover {
   color: black;
 }
 
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-    color: white;
-    background-color: #E00122;
-    border: 0;
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: white;
+  background-color: #E00122;
+  border: 0;
 }
 
 .tab-content {
@@ -289,35 +121,9 @@ a:hover {
 }
 
 .dashboard-actions {
-  padding: 12px
-}
-
-.th-link {
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
+  padding: 12px;
 }
 
 input[type=text]::placeholder {
   opacity: 0.6;
-}
-
-.align-left {
-  text-align: left;
-}
-
-.auth-role {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #f1f1f1;
-  display: block;
-  border: none;
-  background-color: #E00122;
-  width: 100%;
-  text-align: left;
-  outline: none;
 }

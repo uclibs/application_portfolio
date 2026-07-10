@@ -28,6 +28,7 @@ RSpec.feature 'File uploads (seed import)', type: :feature do
     click_button 'Import Data'
 
     expect(page).to have_current_path(file_uploads_new_path)
+    expect(page.body).to include('flash-toast')
     expect(page.body).to include('has been loaded successfully')
     expect(Dir[upload_dir.join('*').to_s]).to be_empty
   end
@@ -42,6 +43,7 @@ RSpec.feature 'File uploads (seed import)', type: :feature do
     click_button 'Import Data'
 
     expect(page).to have_current_path(file_uploads_new_path)
+    expect(page.body).to include('flash-toast')
     expect(page.body).to include('has been loaded successfully')
     expect(File.exist?(upload_dir.join('unsaferecords.csv'))).to be(false)
   ensure

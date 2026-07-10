@@ -47,8 +47,8 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: 'example.com' }
 
-  # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  # Fail the suite on deprecations (audit LIBAPPO1-98; :unprocessable_entity fixed in LIBAPPO1-97).
+  config.active_support.deprecation = :raise
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

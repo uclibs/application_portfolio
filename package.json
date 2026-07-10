@@ -2,8 +2,22 @@
   "name": "application_portfolio",
   "private": true,
   "engines": {
-    "node": ">=24.0.0 <25"
+    "node": ">=26.0.0 <27"
   },
-  "dependencies": {},
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.23",
+    "@popperjs/core": "^2.11.8",
+    "@rails/activestorage": "^8.1.300",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
+    "chartkick": "^5.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  },
+  "packageManager": "yarn@4.17.0+sha512.c2957de2f9025ab14d63b24d0d8be1f1655810e22c341042c27f7ecd017b180ec12db73d69ac366d71b304ef9f069349ce462de96f04f8f1da317f4f762c95ae"
 }
