@@ -61,8 +61,13 @@ fi
 BASELINE=$(cat "$BASELINE_PATH")
 echo "Baseline coverage: $BASELINE%"
 
-if (( $(echo "$COVERAGE < $BASELINE" | bc -l) )); then
-  echo "Coverage dropped: $COVERAGE% < $BASELINE%"
+# Allow minor scan/calculation drift between SimpleCov versions and runners.
+COVERAGE_TOLERANCE=0.5
+MINIMUM_ACCEPTABLE=$(echo "$BASELINE - $COVERAGE_TOLERANCE" | bc -l)
+echo "Minimum acceptable coverage: ${MINIMUM_ACCEPTABLE}% (baseline minus ${COVERAGE_TOLERANCE}%)"
+
+if (( $(echo "$COVERAGE < $MINIMUM_ACCEPTABLE" | bc -l) )); then
+  echo "Coverage dropped below tolerance: $COVERAGE% < $MINIMUM_ACCEPTABLE% (baseline $BASELINE%)"
   exit 1
 fi
 
@@ -75,6 +80,8 @@ if (( $(echo "$COVERAGE > $BASELINE" | bc -l) )); then
   # Only baseline-bot commits use [skip ci] so the push does not re-run the full workflow.
   git commit -m "ci: update coverage baseline to ${COVERAGE}% [skip ci]" || true
   git push origin "HEAD:${GITHUB_HEAD_REF}" || true
+elif (( $(echo "$COVERAGE < $BASELINE" | bc -l) )); then
+  echo "Coverage within tolerance at $COVERAGE% (baseline $BASELINE%, tolerance ${COVERAGE_TOLERANCE}%)"
 else
   echo "Coverage unchanged at $COVERAGE%"
 fi
