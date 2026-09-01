@@ -10,8 +10,8 @@ class CreateChangeRequests < ActiveRecord::Migration[6.1]
       t.date   :change_submitted_date
       t.boolean :change_completed, default: false
 
-      t.date   :change_scheduled_date
-      t.date   :change_completed_date
+      t.date :change_scheduled_date
+      t.date :change_completed_date
 
       t.string :manager_last_name
       t.string :manager_first_name

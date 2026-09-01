@@ -21,7 +21,7 @@ SimpleCov.start 'rails' do
   enable_coverage :branch
   formatter SimpleCov::Formatter::HTMLFormatter
 
-  add_filter %w[version.rb initializer.rb]
+  skip %w[version.rb initializer.rb]
 end
 
 require 'devise'
