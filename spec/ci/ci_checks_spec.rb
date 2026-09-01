@@ -53,4 +53,65 @@ RSpec.describe 'CI scripts' do
     expect(baseline).to exist
     expect(baseline.read.strip).to match(/\A\d+\.\d+\z/)
   end
+
+  it 'reads line coverage from SimpleCov coverage.json for the gate' do
+    gate = Rails.root.join('scripts/ci/coverage_gate.sh').read
+    expect(gate).to include('coverage.json')
+    expect(gate).to include('total')
+    expect(gate).to include('lines')
+    expect(gate).to include('percent')
+    expect(gate).to include('COVERAGE_TOLERANCE=0.5')
+
+    Dir.mktmpdir do |tmpdir|
+      coverage_dir = File.join(tmpdir, 'coverage')
+      FileUtils.mkdir_p(coverage_dir)
+      File.write(
+        File.join(coverage_dir, 'coverage.json'),
+        { total: { lines: { percent: 77.319 } } }.to_json
+      )
+      File.write(File.join(coverage_dir, 'coverage_baseline.txt'), '77.31')
+
+      script = Shellwords.escape(Rails.root.join('scripts/ci/coverage_gate.sh').to_s)
+      output = `cd #{Shellwords.escape(tmpdir)} && #{script} 2>&1`
+      expect($CHILD_STATUS.success?).to be(true), output
+      expect(output).to include('Read line coverage from coverage/coverage.json')
+      expect(output).to include('Current coverage: 77.31%')
+      expect(output).to include('Coverage unchanged at 77.31%')
+    end
+  end
+
+  it 'allows coverage within half a percent of the baseline' do
+    Dir.mktmpdir do |tmpdir|
+      coverage_dir = File.join(tmpdir, 'coverage')
+      FileUtils.mkdir_p(coverage_dir)
+      File.write(
+        File.join(coverage_dir, 'coverage.json'),
+        { total: { lines: { percent: 77.309 } } }.to_json
+      )
+      File.write(File.join(coverage_dir, 'coverage_baseline.txt'), '77.31')
+
+      script = Shellwords.escape(Rails.root.join('scripts/ci/coverage_gate.sh').to_s)
+      output = `cd #{Shellwords.escape(tmpdir)} && #{script} 2>&1`
+      expect($CHILD_STATUS.success?).to be(true), output
+      expect(output).to include('Current coverage: 77.30%')
+      expect(output).to include('Coverage within tolerance at 77.30%')
+    end
+  end
+
+  it 'fails when coverage drops more than half a percent below the baseline' do
+    Dir.mktmpdir do |tmpdir|
+      coverage_dir = File.join(tmpdir, 'coverage')
+      FileUtils.mkdir_p(coverage_dir)
+      File.write(
+        File.join(coverage_dir, 'coverage.json'),
+        { total: { lines: { percent: 76.809 } } }.to_json
+      )
+      File.write(File.join(coverage_dir, 'coverage_baseline.txt'), '77.31')
+
+      script = Shellwords.escape(Rails.root.join('scripts/ci/coverage_gate.sh').to_s)
+      output = `cd #{Shellwords.escape(tmpdir)} && #{script} 2>&1`
+      expect($CHILD_STATUS.success?).to be(false), output
+      expect(output).to include('Coverage dropped below tolerance: 76.80% < 76.81%')
+    end
+  end
 end
