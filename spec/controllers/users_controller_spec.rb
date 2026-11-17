@@ -61,6 +61,12 @@ RSpec.describe UsersController, type: :controller do
       get :index, params: {}, session: valid_session
       expect(response.body).to match('\b(Admin)\b')
     end
+
+    it 'sorts by a real column and direction' do
+      User.create! valid_attributes
+      get :index, params: { sort: 'email', direction: 'desc' }, session: valid_session
+      expect(response).to be_successful
+    end
   end
 
   describe 'POST #update' do
@@ -102,6 +108,22 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(myprofile_path)
       expect(flash[:notice]).to eq('No changes were made.')
     end
+
+    it 'renders the edit form when the update is invalid' do
+      user = User.create! valid_attributes
+      post :update, params: { id: user.id, first_name: '', last_name: user.last_name, email: user.email }, session: valid_session
+      expect(response).to render_template(:edit)
+    end
+
+    it 'redirects when a non-admin edits another user' do
+      other = User.create! valid_attributes
+      viewer = FactoryBot.create(:viewer)
+      sign_in viewer
+
+      get :edit, params: { id: other.to_param }, session: valid_session
+
+      expect(response).to redirect_to(dashboard_path)
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -110,6 +132,16 @@ RSpec.describe UsersController, type: :controller do
       expect do
         delete :destroy, params: { id: user.to_param }, session: valid_session
       end.to change(User, :count).by(-1)
+    end
+
+    it 'renders the index when the user cannot be deleted' do
+      user = User.create! valid_attributes
+      allow_any_instance_of(User).to receive(:destroy).and_return(false)
+
+      delete :destroy, params: { id: user.to_param }, session: valid_session
+
+      expect(response).to render_template(:index)
+      expect(response.body).to include('Manage Users | UCL Application Portfolio')
     end
   end
 
@@ -123,9 +155,10 @@ RSpec.describe UsersController, type: :controller do
 
     it 'redirects to the user profile when activated' do
       user = User.create! valid_attributes
-      user.active = false
+      user.update!(active: false)
       get :user_status, params: { id: user.to_param }, session: valid_session
       expect(response).to redirect_to(users_show_path(user.id))
+      expect(flash[:notice]).to eq('User was successfully activated.')
     end
   end
 end

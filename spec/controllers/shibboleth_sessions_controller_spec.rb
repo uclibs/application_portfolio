@@ -42,6 +42,16 @@ RSpec.describe ShibbolethSessionsController, type: :controller do
         expect(session[:require_profile_completion]).to be_nil
       end
 
+      it 'redirects home when the campus identity conflicts with an existing account' do
+        FactoryBot.create(:admin, eppn: 'other-person@uc.edu')
+
+        expect { get :create }.not_to change(User, :count)
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('Unable to sign in: account identity conflict. Please contact support.')
+        expect(controller.current_user).to be_nil
+      end
+
       it 'creates a new viewer user for a first-time login' do
         expect do
           get :create

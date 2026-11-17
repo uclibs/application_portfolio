@@ -2,6 +2,14 @@
 
 Release versions match git tags (for example, `v3.0.0`).
 
+Unreleased
+
+* Upgrades Ruby to 4.0.9
+* Upgrades Rails to 8.1.4.1
+* Upgrades Node to 26.13.1
+* Refreshes gems and JavaScript packages within existing version ranges
+* Moves Petergate denial messages to the 4.x positional argument
+
 3.1.0 6/30/2026
 
 * Upgrades Ruby to 4.0.5; adds `cgi` gem (stdlib removed in Ruby 4)

@@ -17,9 +17,8 @@ module Users
                   alert: 'Please sign in using University SSO.'
     end
 
+    # Local email sign-in. Campus sign-in is handled by redirect_to_shibboleth.
     def sign_in_with_email
-      return if Rails.configuration.x.auth.shibboleth_enabled
-
       unless Rails.configuration.x.auth.allow_email_sign_in
         redirect_to new_user_session_path, alert: 'Local email sign-in is disabled in this environment.'
         return

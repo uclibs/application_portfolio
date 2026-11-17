@@ -17,7 +17,7 @@ bin/dev        # Rails + esbuild watch + dartsass watch (recommended)
 
 Or run the server only after setup: `bin/rails server`.
 
-Use Ruby **4.0.5** (see `.ruby-version`), **Rails 8.1**, **Node.js 26.x** (see `.nvmrc`), and **Yarn 4.x** (see `packageManager` in `package.json`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
+Use Ruby **4.0.9** (see `.ruby-version`), **Rails 8.1** (`~> 8.1.0` in the Gemfile), **Node.js 26.13.1** (see `.nvmrc`), and **Yarn 4.x** (see `packageManager` in `package.json`). Local developers may use **RVM or rbenv**; deploy hosts use rbenv (see Deployment below).
 
 After pulling changes: `bin/update` (bundle, `yarn install`, rebuild assets, migrate). Run `corepack enable` once if `yarn` is not found.
 
@@ -25,9 +25,9 @@ After pulling changes: `bin/update` (bundle, `yarn install`, rebuild assets, mig
 
 | Requirement | Version / notes |
 |-------------|-----------------|
-| Ruby | 4.0.5 (`.ruby-version`) |
-| Rails | 8.1 |
-| Node.js | 26.x (`.nvmrc`; `nvm install` in project root) |
+| Ruby | 4.0.9 (`.ruby-version`) |
+| Rails | 8.1 (`~> 8.1.0` in the Gemfile) |
+| Node.js | 26.13.1 (`.nvmrc`; `nvm install` in project root) |
 | Yarn | 4.x via Corepack (`packageManager` in `package.json`; `nodeLinker: node-modules` in `.yarnrc.yml`) |
 
 Do **not** install Yarn Classic globally. Node 26 includes Corepack; run `corepack enable` once, then `bin/yarn` (or `yarn`) uses the version pinned in `package.json`. CI and deploy use `yarn install --immutable` (Yarn 4’s equivalent of `--frozen-lockfile`).
