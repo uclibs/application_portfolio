@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :navigation, except: %i[edit update]
   before_action :ensure_self_or_admin, only: %i[edit update]
-  access root_admin: :all,
-         manager: %i[edit update], owner: %i[edit update], viewer: %i[edit update], user: %i[edit update],
-         message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access 'Permission Denied ! <br/> Please contact the administrator for more info.',
+         root_admin: :all,
+         manager: %i[edit update], owner: %i[edit update], viewer: %i[edit update], user: %i[edit update]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -73,6 +73,9 @@ class UsersController < ApplicationController
     if @user.destroy
       redirect_to session[:previous], notice: 'User was successfully deleted.'
     else
+      @users = User.order("#{sort_column} #{sort_direction}")
+      @active = 'users'
+      $page_title = 'Manage Users | UCL Application Portfolio'
       render :index
     end
   end

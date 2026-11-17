@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 RSpec.describe FrontController, type: :controller do
   include Devise::Test::ControllerHelpers
   render_views

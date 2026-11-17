@@ -356,7 +356,7 @@ class LoadRecords < ApplicationRecord
     duplicate_hostings = duplicate_hostings.uniq
     valid_hostings = valid_hostings.uniq
 
-    puts 'Duplicate Statuses exists and suppressing them...' if hostings_exists
+    puts 'Duplicate Hosting Environments exists and suppressing them...' if hostings_exists
     valid_hostings.each do |eachenv|
       count += 1
       puts "Creating Hosting Environment '#{eachenv}'"

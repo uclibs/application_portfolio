@@ -20,6 +20,9 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   enable_coverage :branch
   formatter SimpleCov::Formatter::HTMLFormatter
+  # Rake and importer coverage is recorded in subprocesses. The default 10 minutes
+  # drops those results when the suite runs longer than that.
+  merge_timeout 3600
 
   skip %w[version.rb initializer.rb]
 end

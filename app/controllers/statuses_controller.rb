@@ -10,8 +10,9 @@ class StatusesController < ApplicationController
   before_action :set_status, only: %i[show edit update destroy]
   before_action :navigation, except: %i[edit update]
 
-  access all: %i[create show], viewer: %i[index show], owner: %i[index show edit update new create destroy],
-         manager: %i[index show edit update new create destroy], root_admin: :all, message: 'Permission Denied ! <br/> Please contact the administrator for more info.'
+  access 'Permission Denied ! <br/> Please contact the administrator for more info.',
+         all: %i[create show], viewer: %i[index show], owner: %i[index show edit update new create destroy],
+         manager: %i[index show edit update new create destroy], root_admin: :all
 
   # GET /statuses
   def index

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'open3'
 
 RSpec.describe BootstrapVendor do
   describe '.vendor!' do
@@ -76,19 +77,75 @@ RSpec.describe BootstrapVendor do
     ensure
       FileUtils.rm_rf(missing_root)
     end
+
+    it 'returns true when the vendored file is missing' do
+      root = Rails.root.join('tmp/bootstrap_vendor_stale_destination')
+      source = root.join(described_class::NPM_CSS_RELATIVE)
+      FileUtils.mkdir_p(source.dirname)
+      File.write(source, 'bootstrap')
+
+      expect(described_class.stale_vendored_css?(root)).to be(true)
+    ensure
+      FileUtils.rm_rf(root)
+    end
+
+    it 'returns true when the vendored css differs from node_modules' do
+      root = Rails.root.join('tmp/bootstrap_vendor_stale_mismatch')
+      source = root.join(described_class::NPM_CSS_RELATIVE)
+      destination = root.join(described_class::VENDOR_CSS_RELATIVE)
+      FileUtils.mkdir_p(source.dirname)
+      FileUtils.mkdir_p(destination.dirname)
+      File.write(source, 'new bootstrap')
+      File.write(destination, 'old bootstrap')
+
+      expect(described_class.stale_vendored_css?(root)).to be(true)
+    ensure
+      FileUtils.rm_rf(root)
+    end
   end
 
   describe 'bootstrap:vendor rake task' do
-    it 'prints the updated vendor css path' do
-      Rails.application.load_tasks
-      task = Rake::Task['bootstrap:vendor']
-      task.reenable
+    # load_tasks reloads this rake file and SimpleCov resets the task body.
+    # A later example then stores that reset under the shared RSpec command
+    # name, so the copy and the path message have to be recorded in their own process.
+    it 'copies the stylesheet and prints the updated vendor css path' do
+      with_vendored_bootstrap_css_backup do
+        stdout, stderr, status = invoke_bootstrap_vendor_task
 
-      expect { task.invoke }.to output(
-        a_string_including("Updated #{described_class::VENDOR_CSS_RELATIVE}")
-      ).to_stdout
-    ensure
-      task.reenable
+        expect(status).to be_success, stderr
+        expect(stdout).to include("Updated #{described_class::VENDOR_CSS_RELATIVE}")
+      end
+    end
+
+    def invoke_bootstrap_vendor_task
+      script = <<~RUBY
+        require 'bundler/setup'
+        require 'simplecov'
+        module SilentFormatter
+          def self.format(*)
+          end
+        end
+        SimpleCov.formatter = SilentFormatter
+        SimpleCov.command_name ENV.fetch('SIMPLECOV_COMMAND_NAME')
+        SimpleCov.root File.expand_path('.')
+        SimpleCov.start('rails') do
+          enable_coverage :branch
+          merge_timeout 3600
+        end
+        require './config/environment'
+        Rails.application.load_tasks
+        Rake::Task['bootstrap:vendor'].invoke
+      RUBY
+      Open3.capture3(
+        {
+          'SIMPLECOV_COMMAND_NAME' => 'bootstrap-vendor-task',
+          'BUNDLE_PATH' => nil
+        },
+        RbConfig.ruby,
+        '-e',
+        script,
+        chdir: Rails.root.to_s
+      )
     end
   end
 end

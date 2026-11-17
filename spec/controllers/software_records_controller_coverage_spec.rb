@@ -40,6 +40,14 @@ RSpec.describe SoftwareRecordsController, type: :controller do
 
       expect(response).to be_successful
     end
+
+    it 'uses a real priority column and direction' do
+      SoftwareRecord.create!(valid_attributes)
+
+      get :list_upgrades, params: { sort: 'priority', direction: 'asc' }
+
+      expect(response).to be_successful
+    end
   end
 
   describe 'GET #list_decommissioned' do
@@ -67,6 +75,14 @@ RSpec.describe SoftwareRecordsController, type: :controller do
       SoftwareRecord.create!(valid_attributes)
 
       get :index, params: { sort: 'not_a_column', direction: 'sideways' }
+
+      expect(response).to be_successful
+    end
+
+    it 'sorts by a real column and direction' do
+      SoftwareRecord.create!(valid_attributes)
+
+      get :index, params: { sort: 'title', direction: 'desc' }
 
       expect(response).to be_successful
     end

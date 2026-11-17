@@ -64,22 +64,23 @@ class FrontController < ApplicationController
 
   def search
     if params[:search].blank?
-      redirect_to(root_path, alert: 'Cannot search on empty field!') && return
-    else
-      @parameter = params[:search].downcase
-      search_term = "%#{@parameter}%"
-
-      software_records_columns = SoftwareRecord.columns.map { |column| "lower(software_records.#{column.name}) LIKE :search" }
-      @softwarerecords_results = SoftwareRecord.joins(:status)
-                                               .where.not(statuses: { status_type: 'Decommissioned' })
-                                               .where(software_records_columns.join(' OR '), search: search_term)
-
-      vendor_records_columns = VendorRecord.columns.map { |column| "lower(#{column.name}) LIKE :search" }
-      @vendorrecords_results = VendorRecord.where(vendor_records_columns.join(' OR '), search: search_term)
-
-      software_types_columns = SoftwareType.columns.map { |column| "lower(#{column.name}) LIKE :search" }
-      @softwaretypes_results = SoftwareType.where(software_types_columns.join(' OR '), search: search_term)
+      redirect_to root_path, alert: 'Cannot search on empty field!'
+      return
     end
+
+    @parameter = params[:search].downcase
+    search_term = "%#{@parameter}%"
+
+    software_records_columns = SoftwareRecord.columns.map { |column| "lower(software_records.#{column.name}) LIKE :search" }
+    @softwarerecords_results = SoftwareRecord.joins(:status)
+                                             .where.not(statuses: { status_type: 'Decommissioned' })
+                                             .where(software_records_columns.join(' OR '), search: search_term)
+
+    vendor_records_columns = VendorRecord.columns.map { |column| "lower(#{column.name}) LIKE :search" }
+    @vendorrecords_results = VendorRecord.where(vendor_records_columns.join(' OR '), search: search_term)
+
+    software_types_columns = SoftwareType.columns.map { |column| "lower(#{column.name}) LIKE :search" }
+    @softwaretypes_results = SoftwareType.where(software_types_columns.join(' OR '), search: search_term)
   end
 
   def create
